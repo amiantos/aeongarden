@@ -4,6 +4,8 @@ Aeon Garden is an on-going project to create a cool little artificial life "fish
 
 The creatures generated are meant to swim around, hunt for food, and mate. Their attributes can be passed on to offspring, so families will develop who have similar colors, shapes, and abilities.
 
+There is no scientific basis for anything about this app. It's meant to be view into a tank full of digital creatures that you leave on your desk and watch when bored... like a real fish tank!
+
 As of March 7th, 2018, this is only the very rough beginnings of this project. Pre-alpha? That said, it's fun to load up and watch them swim around and evolve already. Load it up and tap on a creature. If you leave a tank running for more than several hours it will become really homogeneous, which I don't like.
 
 # To Install
