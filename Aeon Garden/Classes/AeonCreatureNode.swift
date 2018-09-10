@@ -1001,6 +1001,17 @@ class AeonCreatureNode: SKNode {
         }
     }
     
+    func ageWithoutDeath(lastUpdate: TimeInterval) {
+        if (lastUpdate < 10 && self.currentHealth > 0) {
+            if self.currentHealth - Float(lastUpdate) < 10 {
+                self.currentHealth = 10
+            } else {
+                self.currentHealth = self.currentHealth - Float(lastUpdate)
+            }
+            self.lifeTime = self.lifeTime + Float(lastUpdate)
+        }
+    }
+    
     func getRandomShape() -> String {
         
         let randomNumber = GKRandomSource.sharedRandom().nextInt(upperBound: 2)

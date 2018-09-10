@@ -363,7 +363,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         for case let child as AeonCreatureNode in self.children {
             child.think(nodes: self.children, delta: dt, time: currentTime)
-            child.age(lastUpdate: dt)
+            if child != self.selectedCreature {
+                child.age(lastUpdate: dt)
+            } else {
+                child.ageWithoutDeath(lastUpdate: dt)
+            }
         }
         
         for case let child as AeonFoodNode in self.children {
