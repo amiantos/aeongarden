@@ -20,9 +20,12 @@
 		B48DDAD01F81A1DE00DEA908 /* AeonFoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDACF1F81A1DE00DEA908 /* AeonFoodNode.swift */; };
 		B48DDADC1F83241400DEA908 /* AeonSmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADB1F83241400DEA908 /* AeonSmokeParticle.sks */; };
 		B48DDADE1F8328E400DEA908 /* AeonOceanSparkle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */; };
+		BC6A4BE9A2976EB80F3200F1 /* Pods_Aeon_Garden.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55106F82B8367E59A3F6FC58 /* Pods_Aeon_Garden.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		55106F82B8367E59A3F6FC58 /* Pods_Aeon_Garden.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DEDF779719125253E8C1592 /* Pods-Aeon Garden.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden/Pods-Aeon Garden.release.xcconfig"; sourceTree = "<group>"; };
 		B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonNameGenerator.swift; sourceTree = "<group>"; };
 		B4364F801F8C81C10002B2BB /* Surnames */ = {isa = PBXFileReference; lastKnownFileType = text; path = Surnames; sourceTree = "<group>"; };
 		B4364F821F8C86020002B2BB /* FirstNames */ = {isa = PBXFileReference; lastKnownFileType = text; path = FirstNames; sourceTree = "<group>"; };
@@ -38,6 +41,7 @@
 		B48DDACF1F81A1DE00DEA908 /* AeonFoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonFoodNode.swift; sourceTree = "<group>"; };
 		B48DDADB1F83241400DEA908 /* AeonSmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonSmokeParticle.sks; sourceTree = "<group>"; };
 		B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonOceanSparkle.sks; sourceTree = "<group>"; };
+		C92F255750A6748D9021CCC3 /* Pods-Aeon Garden.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden.debug.xcconfig"; path = "Target Support Files/Pods-Aeon Garden/Pods-Aeon Garden.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,12 +49,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC6A4BE9A2976EB80F3200F1 /* Pods_Aeon_Garden.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04FCECD635035E84A37BC818 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				55106F82B8367E59A3F6FC58 /* Pods_Aeon_Garden.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B4364F791F8C78070002B2BB /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +90,8 @@
 			children = (
 				B48DDAB31F80943500DEA908 /* Aeon Garden */,
 				B48DDAB21F80943500DEA908 /* Products */,
+				C3FE8F8E96A673E848F74E7E /* Pods */,
+				04FCECD635035E84A37BC818 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,6 +119,15 @@
 			path = "Aeon Garden";
 			sourceTree = "<group>";
 		};
+		C3FE8F8E96A673E848F74E7E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C92F255750A6748D9021CCC3 /* Pods-Aeon Garden.debug.xcconfig */,
+				8DEDF779719125253E8C1592 /* Pods-Aeon Garden.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -111,9 +135,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B48DDAC91F80943500DEA908 /* Build configuration list for PBXNativeTarget "Aeon Garden" */;
 			buildPhases = (
+				41E5EB57845D8B78540DEB3F /* [CP] Check Pods Manifest.lock */,
 				B48DDAAD1F80943500DEA908 /* Sources */,
 				B48DDAAE1F80943500DEA908 /* Frameworks */,
 				B48DDAAF1F80943500DEA908 /* Resources */,
+				4415998421A631ED00D740DD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -175,6 +201,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		41E5EB57845D8B78540DEB3F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Aeon Garden-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4415998421A631ED00D740DD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B48DDAAD1F80943500DEA908 /* Sources */ = {
@@ -325,6 +393,7 @@
 		};
 		B48DDACA1F80943500DEA908 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C92F255750A6748D9021CCC3 /* Pods-Aeon Garden.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -340,6 +409,7 @@
 		};
 		B48DDACB1F80943500DEA908 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8DEDF779719125253E8C1592 /* Pods-Aeon Garden.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

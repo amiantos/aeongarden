@@ -11,45 +11,44 @@ import SpriteKit
 import GameplayKit
 
 class AeonCreatureNode: SKNode {
-    
+
     private var limbOne: SKSpriteNode = SKSpriteNode()
     private var limbTwo: SKSpriteNode = SKSpriteNode()
     private var limbThree: SKSpriteNode = SKSpriteNode()
     private var limbFour: SKSpriteNode = SKSpriteNode()
-    
+
     // Define colors
-    
+
     // Decide if dark or light
-    
+
     public var lightOrDark: Bool
-    
+
     public var limbOneShape: String = ""
     public var limbTwoShape: String = ""
     public var limbThreeShape: String = ""
     public var limbFourShape: String = ""
-    
+
     public var limbOneColorHue: CGFloat
     public var limbTwoColorHue: CGFloat
     public var limbThreeColorHue: CGFloat
     public var limbFourColorHue: CGFloat
     public var limbsPrimaryColorHue: CGFloat
-    
+
     public var limbOneColorBlend: CGFloat = 0
     public var limbTwoColorBlend: CGFloat = 0
     public var limbThreeColorBlend: CGFloat = 0
     public var limbFourColorBlend: CGFloat = 0
-    
+
     public var limbOneColorBrightness: CGFloat = 0
     public var limbTwoColorBrightness: CGFloat = 0
     public var limbThreeColorBrightness: CGFloat = 0
     public var limbFourColorBrightness: CGFloat = 0
-    
+
     public var limbOneColorSaturation: CGFloat = 0
     public var limbTwoColorSaturation: CGFloat = 0
     public var limbThreeColorSaturation: CGFloat = 0
     public var limbFourColorSaturation: CGFloat = 0
-    
-    
+
     public var currentState: stateType = stateType.nothing
     public var currentHealth: Float = Float(GKRandomDistribution(lowestValue: 100, highestValue: 250).nextInt()) {
         didSet {
@@ -67,14 +66,13 @@ class AeonCreatureNode: SKNode {
     public var lifeTime: Float = 0
     private var movementSpeed: CGFloat = 1
     public var sizeModififer: CGFloat = 1
-    
+
     private var lastThinkTime: TimeInterval = 0
-    
+
     public var parentNames: [String] = []
-    
+
     public let firstName: String
     public let lastName: String
-    
 
     public enum stateType: String {
         case nothing = "Thinking"
@@ -85,28 +83,28 @@ class AeonCreatureNode: SKNode {
         case movingToLove = "Chasing Love"
         case dead = "Dying"
     }
-    
+
     public enum bodyPartType: String {
         case triangle = "aeonTriangle"
         case circle = "aeonCircle"
         case square = "aeonSquare"
     }
-    
+
     init(withColorHue: CGFloat?) {
-        
+
         // Set primary hue for initial creatures...
-        
+
         if let setColorHue = withColorHue {
             self.limbsPrimaryColorHue = setColorHue
         } else {
             self.limbsPrimaryColorHue = CGFloat(GKRandomDistribution(lowestValue: 1, highestValue: 365).nextInt())
         }
-        
+
         self.limbOneColorHue = self.limbsPrimaryColorHue + CGFloat(GKRandomDistribution(lowestValue: -20, highestValue: 20).nextInt())
         self.limbTwoColorHue = self.limbsPrimaryColorHue + CGFloat(GKRandomDistribution(lowestValue: -20, highestValue: 20).nextInt())
         self.limbThreeColorHue = self.limbsPrimaryColorHue + CGFloat(GKRandomDistribution(lowestValue: -20, highestValue: 20).nextInt())
         self.limbFourColorHue = self.limbsPrimaryColorHue + CGFloat(GKRandomDistribution(lowestValue: -20, highestValue: 20).nextInt())
-        
+
         self.lightOrDark = {
             let randomBool = GKRandomSource.sharedRandom().nextBool()
             if (randomBool) {
@@ -115,13 +113,13 @@ class AeonCreatureNode: SKNode {
                 return false
             }
         }()
-        
+
         let nameGenerator = AeonNameGenerator()
         self.firstName = nameGenerator.returnFirstName()
         self.lastName =  nameGenerator.returnLastName()
-        
+
         super.init()
-        
+
         self.limbOneColorBrightness = {
             if (self.lightOrDark) {
                 return CGFloat(GKRandomDistribution(lowestValue: 70, highestValue: 100).nextInt())
@@ -150,7 +148,7 @@ class AeonCreatureNode: SKNode {
                 return CGFloat(GKRandomDistribution(lowestValue: 20, highestValue: 50).nextInt())
             }
         }()
-        
+
         self.limbOneColorSaturation = {
             if (self.lightOrDark) {
                 return CGFloat(GKRandomDistribution(lowestValue: 70, highestValue: 100).nextInt())
@@ -179,7 +177,7 @@ class AeonCreatureNode: SKNode {
                 return CGFloat(GKRandomDistribution(lowestValue: 20, highestValue: 50).nextInt())
             }
         }()
-        
+
         self.limbOneShape = {
             let randomNumber = GKRandomSource.sharedRandom().nextInt(upperBound: 3)
             switch (randomNumber) {
@@ -193,7 +191,7 @@ class AeonCreatureNode: SKNode {
                 return "aeonTriangle"
             }
         }()
-        
+
         self.limbTwoShape = {
             let randomNumber = GKRandomSource.sharedRandom().nextInt(upperBound: 3)
             switch (randomNumber) {
@@ -233,9 +231,7 @@ class AeonCreatureNode: SKNode {
                 return "aeonTriangle"
             }
         }()
-        
-       
-        
+
         self.limbOneColorBlend = {
             if (self.lightOrDark) {
                 return randomFloat(min: 0.3, max: 0.5)
@@ -264,12 +260,10 @@ class AeonCreatureNode: SKNode {
                 return randomFloat(min: 0.8, max: 1)
             }
         }()
-        
-        
-        
+
         self.movementSpeed = randomFloat(min: 5, max: 10)
         self.sizeModififer = randomFloat(min: 0.7, max: 1.5)
-        
+
         self.physicsBody = SKPhysicsBody(circleOfRadius: 13)
         self.physicsBody?.isDynamic = true
         self.physicsBody?.allowsRotation = true
@@ -281,7 +275,7 @@ class AeonCreatureNode: SKNode {
         self.physicsBody?.mass = 1
         self.physicsBody?.linearDamping = 0.5
         self.physicsBody?.angularDamping = 0
-        
+
         /* let sensorPhysicsNode = SKNode()
         sensorPhysicsNode.physicsBody = SKPhysicsBody(circleOfRadius:60)
         sensorPhysicsNode.physicsBody?.categoryBitMask = CollisionTypes.sensor.rawValue
@@ -291,9 +285,7 @@ class AeonCreatureNode: SKNode {
         sensorPhysicsNode.physicsBody?.isDynamic = true
         sensorPhysicsNode.physicsBody?.pinned = true
         self.addChild(sensorPhysicsNode) */
-       
-        
-       
+
         // Generate limbs
         limbOne = SKSpriteNode(imageNamed: limbOneShape)
         self.addChild(limbOne)
@@ -307,7 +299,7 @@ class AeonCreatureNode: SKNode {
         )
         limbOne.colorBlendFactor = limbOneColorBlend
         limbOne.position = CGPoint(x: 0, y: GKRandomDistribution(lowestValue: 7, highestValue: 10).nextInt())
-        
+
         limbTwo = SKSpriteNode(imageNamed: limbTwoShape)
         self.addChild(limbTwo)
         limbTwo.zRotation = CGFloat(GKRandomSource.sharedRandom().nextInt(upperBound: 10))
@@ -320,7 +312,7 @@ class AeonCreatureNode: SKNode {
         )
         limbTwo.colorBlendFactor = limbTwoColorBlend
         limbTwo.position = CGPoint(x: GKRandomDistribution(lowestValue: 7, highestValue: 10).nextInt(), y: 0)
-        
+
         limbThree = SKSpriteNode(imageNamed: limbThreeShape)
         self.addChild(limbThree)
         limbThree.zRotation = CGFloat(GKRandomDistribution(lowestValue: 7, highestValue: 10).nextInt())
@@ -333,7 +325,7 @@ class AeonCreatureNode: SKNode {
         )
         limbThree.colorBlendFactor = limbThreeColorBlend
         limbThree.position = CGPoint(x: 0, y: -GKRandomDistribution(lowestValue: 7, highestValue: 10).nextInt())
-        
+
         limbFour = SKSpriteNode(imageNamed: limbFourShape)
         self.addChild(limbFour)
         limbFour.zRotation = CGFloat(GKRandomSource.sharedRandom().nextInt(upperBound: 10))
@@ -346,21 +338,21 @@ class AeonCreatureNode: SKNode {
         )
         limbFour.colorBlendFactor = limbFourColorBlend
         limbFour.position = CGPoint(x: -GKRandomDistribution(lowestValue: 5, highestValue: 8).nextInt(), y: 0)
-        
+
         let underShadow = SKSpriteNode(imageNamed: "aeonBodyShadow")
         underShadow.setScale(1.2)
         underShadow.alpha = 0.2
         self.addChild(underShadow)
-    
+
         self.name = "aeonCreature"
-        
+
         self.birth()
         self.beginWiggling()
-        
+
     }
-    
-    init(parent:AeonCreatureNode,parent2:AeonCreatureNode) {
-        
+
+    init(parent: AeonCreatureNode, parent2: AeonCreatureNode) {
+
         self.lightOrDark = {
             let randomBool = GKRandomSource.sharedRandom().nextBool()
             if (randomBool) {
@@ -369,7 +361,7 @@ class AeonCreatureNode: SKNode {
                 return parent2.lightOrDark
             }
         }()
-        
+
         self.limbOneColorHue = {
             let randomBool = GKRandomSource.sharedRandom().nextBool()
             if (randomBool) {
@@ -402,7 +394,7 @@ class AeonCreatureNode: SKNode {
                 return parent2.limbFourColorHue //+ CGFloat(GKRandomDistribution(lowestValue: -50, highestValue: 50).nextInt())
             }
         }()
-        
+
         self.limbOneColorBlend = {
             let randomBool = GKRandomSource.sharedRandom().nextBool()
             if (randomBool) {
@@ -435,12 +427,12 @@ class AeonCreatureNode: SKNode {
                 return parent2.limbFourColorBlend
             }
         }()
-        
+
          self.limbsPrimaryColorHue = (self.limbOneColorHue + self.limbTwoColorHue + self.limbThreeColorHue + self.limbFourColorHue)/4
-        
+
         let nameGenerator = AeonNameGenerator()
         self.firstName = nameGenerator.returnFirstName()
-        self.lastName =  {
+        self.lastName = {
             let randomBool = GKRandomSource.sharedRandom().nextBool()
             if (randomBool) {
                 return parent.lastName
@@ -448,12 +440,9 @@ class AeonCreatureNode: SKNode {
                 return parent2.lastName
             }
         }()
-        
-        
-        
+
         super.init()
-        
-       
+
             /*for lastName in parent.parentNames {
                 self.parentNames.append(lastName)
             }
@@ -464,14 +453,12 @@ class AeonCreatureNode: SKNode {
                 self.parentNames.append(lastName)
             }*/
 
-        
         self.parentNames.append(parent.lastName)
         self.parentNames.append(parent2.lastName)
-        
-        
+
         self.movementSpeed = {
             let randomNumber = GKRandomSource.sharedRandom().nextInt(upperBound: 7)
-            
+
             switch (randomNumber) {
             case 0:
                 return parent.movementSpeed
@@ -493,7 +480,7 @@ class AeonCreatureNode: SKNode {
         }()
         self.sizeModififer = {
             let randomNumber = GKRandomSource.sharedRandom().nextInt(upperBound: 7)
-            
+
             switch (randomNumber) {
             case 0:
                 return parent.sizeModififer
@@ -513,7 +500,7 @@ class AeonCreatureNode: SKNode {
                 return (parent.sizeModififer+parent2.sizeModififer)/2
             }
         }()
-        
+
         self.physicsBody = SKPhysicsBody(circleOfRadius: 13)
         self.physicsBody?.isDynamic = true
         self.physicsBody?.allowsRotation = true
@@ -525,7 +512,7 @@ class AeonCreatureNode: SKNode {
         self.physicsBody?.mass = 1
         self.physicsBody?.linearDamping = 0.5
         self.physicsBody?.angularDamping = 0
-        
+
         /*
          let sensorPhysicsNode = SKNode()
         sensorPhysicsNode.physicsBody = SKPhysicsBody(circleOfRadius:40)
@@ -537,9 +524,9 @@ class AeonCreatureNode: SKNode {
         sensorPhysicsNode.physicsBody?.pinned = true
         self.addChild(sensorPhysicsNode)
  */
-        
+
         // Define colors
-        
+
         limbOneShape = {
             let randomBool = GKRandomSource.sharedRandom().nextBool()
             if (randomBool) {
@@ -572,9 +559,7 @@ class AeonCreatureNode: SKNode {
                 return parent2.limbFourShape
             }
         }()
-        
-        
-        
+
         limbOneColorBrightness = {
             let randomBool = GKRandomSource.sharedRandom().nextBool()
             if (randomBool) {
@@ -607,7 +592,7 @@ class AeonCreatureNode: SKNode {
                 return parent2.limbFourColorBrightness
             }
         }()
-        
+
         limbOneColorSaturation = {
             let randomBool = GKRandomSource.sharedRandom().nextBool()
             if (randomBool) {
@@ -640,7 +625,7 @@ class AeonCreatureNode: SKNode {
                 return parent2.limbFourColorSaturation
             }
         }()
-        
+
         // Generate limbs
         limbOne = SKSpriteNode(imageNamed: limbOneShape)
         self.addChild(limbOne)
@@ -654,7 +639,7 @@ class AeonCreatureNode: SKNode {
         )
         limbOne.colorBlendFactor = 0.75
         limbOne.position = CGPoint(x: 0, y: GKRandomDistribution(lowestValue: 7, highestValue: 10).nextInt())
-        
+
         limbTwo = SKSpriteNode(imageNamed: limbTwoShape)
         self.addChild(limbTwo)
         limbTwo.zRotation = CGFloat(GKRandomSource.sharedRandom().nextInt(upperBound: 10))
@@ -667,7 +652,7 @@ class AeonCreatureNode: SKNode {
         )
         limbTwo.colorBlendFactor = 0.5
         limbTwo.position = CGPoint(x: GKRandomDistribution(lowestValue: 7, highestValue: 10).nextInt(), y: 0)
-        
+
         limbThree = SKSpriteNode(imageNamed: limbThreeShape)
         self.addChild(limbThree)
         limbThree.zRotation = CGFloat(GKRandomDistribution(lowestValue: 7, highestValue: 10).nextInt())
@@ -680,7 +665,7 @@ class AeonCreatureNode: SKNode {
         )
         limbThree.colorBlendFactor = 0.5
         limbThree.position = CGPoint(x: 0, y: -GKRandomDistribution(lowestValue: 7, highestValue: 10).nextInt())
-        
+
         limbFour = SKSpriteNode(imageNamed: limbFourShape)
         self.addChild(limbFour)
         limbFour.zRotation = CGFloat(GKRandomSource.sharedRandom().nextInt(upperBound: 10))
@@ -693,29 +678,29 @@ class AeonCreatureNode: SKNode {
         )
         limbFour.colorBlendFactor = 0.5
         limbFour.position = CGPoint(x: -GKRandomDistribution(lowestValue: 5, highestValue: 8).nextInt(), y: 0)
-        
+
         let underShadow = SKSpriteNode(imageNamed: "aeonBodyShadow")
         underShadow.setScale(1.2)
         underShadow.alpha = 0.2
         self.addChild(underShadow)
-        
+
         self.name = "aeonCreature"
-        
+
         self.birth()
         self.beginWiggling()
-        
+
     }
-    
+
     func think(nodes: [SKNode], delta: TimeInterval, time: TimeInterval) {
-        
+
         // Decide what to do...
-        
+
         if (self.lifeState) {
-            
+
             if (self.lastThinkTime == 0) {
                 self.lastThinkTime = time
             }
-            
+
             if (self.currentHealth <= 100) {
                 if (self.currentState != .movingToFood || self.currentFoodTarget == nil || (time - self.lastThinkTime) > 3) {
                     self.currentState = .locatingFood
@@ -728,25 +713,23 @@ class AeonCreatureNode: SKNode {
             } else if (self.currentState != .randomMovement) {
                 self.beginRandomMovement()
             }
-            
-            
-        
+
             if (self.currentState == .locatingFood) {
                 // Decide to eat ...
                 // Remove love target...
                 self.currentLoveTarget = nil
                 // Find closest food node...
-                var foodDistanceArray = [(distance: CGFloat,interesed: Int, node:AeonFoodNode)]()
+                var foodDistanceArray = [(distance: CGFloat, interesed: Int, node:AeonFoodNode)]()
                 for case let child as AeonFoodNode in nodes {
                     //if (child.creaturesInterested < 3) {
                         let distanceComputed = distance(point: child.position)
-                        foodDistanceArray.append((distanceComputed,child.creaturesInterested,child))
+                        foodDistanceArray.append((distanceComputed, child.creaturesInterested, child))
                     //}
                 }
                 foodDistanceArray.sort(by: {$0.distance < $1.distance})
-                
+
                 // Pick first entry...
-               
+
                 if foodDistanceArray.count > 0 {
                     if let foodTarget = self.currentFoodTarget {
                         foodTarget.creaturesInterested = foodTarget.creaturesInterested - 1
@@ -756,8 +739,7 @@ class AeonCreatureNode: SKNode {
                     self.currentState = .movingToFood
                 }
             }
-            
-            
+
             if (self.currentState == .locatingLove) {
                 // Decide to eat ...
                 // Find furthest creature node...
@@ -765,10 +747,10 @@ class AeonCreatureNode: SKNode {
                 for case let child as AeonCreatureNode in nodes {
                     let distanceComputed = self.distance(point: child.position)
                     if (child != self && self.parentNames.contains(child.lastName) == false && child.parentNames.contains(self.lastName) == false) {
-                         creatureDifferenceArray.append((child.movementSpeed,distanceComputed,child))
+                         creatureDifferenceArray.append((child.movementSpeed, distanceComputed, child))
                     }
                 }
-                
+
                 creatureDifferenceArray.sort(by: {$0.distance < $1.distance})
 
                 if creatureDifferenceArray.count > 0 {
@@ -776,7 +758,7 @@ class AeonCreatureNode: SKNode {
                     self.currentState = .movingToLove
                 }
             }
-            
+
             if (self.currentState == .randomMovement) {
                 var nodeFound = 0
                 // Check if self is not already at point...
@@ -794,13 +776,12 @@ class AeonCreatureNode: SKNode {
                         self.beginRandomMovement()
                     }
                 }
-                
-                
+
             }
-            
+
             if (self.currentState == .movingToFood) {
                 var nodeFound = 0
-                
+
                 // Check if node still exists at point...
                 if let foodTarget = self.currentFoodTarget {
                     let nodes = scene!.nodes(at: foodTarget.position)
@@ -816,12 +797,9 @@ class AeonCreatureNode: SKNode {
                         self.currentState = .nothing
                     }
                 }
-                
-                
-                
+
             }
-            
-            
+
             if (self.currentState == .movingToLove) {
                 //self.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 0))
                 var nodeFound = 0
@@ -841,46 +819,44 @@ class AeonCreatureNode: SKNode {
                         self.currentState = .nothing
                     }
                 }
-                
-                
+
             }
-            
-            
+
         }
-        
+
     }
-    
+
     func move(to: CGPoint) {
         if (self.action(forKey: "Rotating") == nil) {
             let angleMovement = angleBetweenPointOne(PointOne: self.position, andPointTwo: to)
             var rotationDuration: CGFloat = 0
-            
+
             if (self.zRotation > angleMovement) {
                 rotationDuration = abs(self.zRotation - angleMovement)*2.5
             } else if (self.zRotation < angleMovement) {
                 rotationDuration = abs(angleMovement - self.zRotation)*2.5
             }
-            
+
             if (rotationDuration > 6) { rotationDuration = 6 }
-            
-            let rotationAction = SKAction.rotate(toAngle: angleMovement, duration:TimeInterval(rotationDuration), shortestUnitArc:true)
-            
+
+            let rotationAction = SKAction.rotate(toAngle: angleMovement, duration: TimeInterval(rotationDuration), shortestUnitArc: true)
+
             rotationAction.timingMode = .easeInEaseOut
-            
+
             self.run(rotationAction, withKey: "Rotating")
         }
 
-        let radianFactor: CGFloat = 0.0174532925;
-        let rotationInDegrees = self.zRotation / radianFactor;
-        let newRotationDegrees = rotationInDegrees + 90;
-        let newRotationRadians = newRotationDegrees * radianFactor;
-        
+        let radianFactor: CGFloat = 0.0174532925
+        let rotationInDegrees = self.zRotation / radianFactor
+        let newRotationDegrees = rotationInDegrees + 90
+        let newRotationRadians = newRotationDegrees * radianFactor
+
         let thrustVector: CGVector = CGVector(dx: cos(newRotationRadians) * self.movementSpeed, dy: sin(newRotationRadians) * self.movementSpeed)
-        
+
         self.physicsBody?.applyForce(thrustVector)
-        
+
     }
-    
+
     func beginRandomMovement() {
         let positionX = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: Int(scene!.size.width)).nextInt())
         let positionY = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: Int(scene!.size.height)).nextInt())
@@ -888,54 +864,52 @@ class AeonCreatureNode: SKNode {
         self.currentMoveTarget = moveToPoint
         self.currentState = .randomMovement
     }
-    
+
     func randomFloat(min: CGFloat, max: CGFloat) -> CGFloat {
         return (CGFloat(arc4random()) / 0xFFFFFFFF) * (max - min) + min
     }
-    
+
     func angleBetweenPointOne(PointOne: CGPoint, andPointTwo PointTwo: CGPoint) -> CGFloat {
         let xdiff = (PointTwo.x - PointOne.x)
         let ydiff = (PointTwo.y - PointOne.y)
         let rad = atan2(ydiff, xdiff)
         return rad - 1.5707963268       // convert from atan's right-pointing zero to CG's up-pointing zero
     }
-    
+
     func distance(point: CGPoint) -> CGFloat {
         return CGFloat(hypotf(Float(point.x - self.position.x), Float(point.y - self.position.y)))
     }
-    
+
     func birth() {
-        
+
         self.setScale(0.1)
         //self.setScale(self.sizeModififer)
         let birthAction = SKAction.scale(to: self.sizeModififer, duration: 30)
         self.run(birthAction)
-        
+
         //print(self.parentNames)
     }
-    
+
     func die() {
         // Creature dies...
-        
+
         self.removeAllActions()
         //self.physicsBody = nil
         self.physicsBody!.contactTestBitMask = 0
         self.lifeState = false
         self.endWiggling()
-        
-        
-    
+
         // Remove interested creature from food target
         if let foodTarget = self.currentFoodTarget {
             foodTarget.creaturesInterested = foodTarget.creaturesInterested - 1
         }
-        
+
         //self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         self.zPosition = 0
         self.currentState = .dead
         let fadeOut = SKAction.fadeAlpha(to: 0, duration: 20)
         let shrinkOut = SKAction.scale(to: 0, duration: 20)
-        self.run(SKAction.group([fadeOut,shrinkOut]), completion: {
+        self.run(SKAction.group([fadeOut, shrinkOut]), completion: {
             // Decrement creature count in scene
             // And remove selectedCreature from scene if it is self
             if let mainScene = self.scene as? GameScene {
@@ -946,9 +920,9 @@ class AeonCreatureNode: SKNode {
             }
             self.removeFromParent()
         })
-        
+
     }
-    
+
     func ate() {
         if (self.currentState == .movingToFood) {
             self.currentHealth = self.currentHealth + 300
@@ -956,43 +930,41 @@ class AeonCreatureNode: SKNode {
             self.currentState = .nothing
         }
     }
-    
+
     func beginWiggling() {
-        
+
         for case let child as SKSpriteNode in self.children {
-            
+
             var wiggleFactor = GKRandomSource.sharedRandom().nextUniform()
             while (wiggleFactor > 0.2) {
                 wiggleFactor = GKRandomSource.sharedRandom().nextUniform()
             }
             let wiggleAction = SKAction.rotate(byAngle: CGFloat(wiggleFactor), duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform()))
             let wiggleActionBack = SKAction.rotate(byAngle: CGFloat(-wiggleFactor), duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform()))
-            
-            
+
             let wiggleMoveFactor = GKRandomSource.sharedRandom().nextUniform()
             let wiggleMoveFactor2 = GKRandomSource.sharedRandom().nextUniform()
-           
+
             let wiggleMovement = SKAction.moveBy(x: CGFloat(wiggleMoveFactor), y: CGFloat(wiggleMoveFactor2), duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform()))
             let wiggleMovementBack = SKAction.moveBy(x: CGFloat(-wiggleMoveFactor), y: CGFloat(-wiggleMoveFactor2), duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform()))
-            
-            let wiggleAround = SKAction.group([wiggleAction,wiggleMovement])
-            let wiggleAroundBack = SKAction.group([wiggleActionBack,wiggleMovementBack])
-            
-            child.run(SKAction.repeatForever(SKAction.sequence([wiggleAround,wiggleAroundBack])),withKey:"Wiggling")
+
+            let wiggleAround = SKAction.group([wiggleAction, wiggleMovement])
+            let wiggleAroundBack = SKAction.group([wiggleActionBack, wiggleMovementBack])
+
+            child.run(SKAction.repeatForever(SKAction.sequence([wiggleAround, wiggleAroundBack])), withKey: "Wiggling")
         }
-        
-        
+
     }
-    
+
     func endWiggling() {
-        
+
         for case let child as SKSpriteNode in self.children {
             child.removeAction(forKey: "Wiggling")
         }
         self.removeAction(forKey: "Wiggling")
-        
+
     }
-    
+
     func age(lastUpdate: TimeInterval) {
         if (lastUpdate < 10 && self.currentHealth > 0) {
             // if state is not sleeping, lose health...
@@ -1000,7 +972,7 @@ class AeonCreatureNode: SKNode {
             self.lifeTime = self.lifeTime + Float(lastUpdate)
         }
     }
-    
+
     func ageWithoutDeath(lastUpdate: TimeInterval) {
         if (lastUpdate < 10 && self.currentHealth > 0) {
             if self.currentHealth - Float(lastUpdate) < 10 {
@@ -1011,11 +983,11 @@ class AeonCreatureNode: SKNode {
             self.lifeTime = self.lifeTime + Float(lastUpdate)
         }
     }
-    
+
     func getRandomShape() -> String {
-        
+
         let randomNumber = GKRandomSource.sharedRandom().nextInt(upperBound: 2)
-        
+
         switch (randomNumber) {
         case 0:
             return "aeonTriangle"
@@ -1026,26 +998,24 @@ class AeonCreatureNode: SKNode {
         default:
             return "aeonTriangle"
         }
-        
+
     }
-    
+
     func lifeTimeFormattedAsString() -> String {
-        
+
         let aeonDays: Double = round(Double(lifeTime/60) * 10) / 10
         let aeonYears: Double = round(aeonDays/60 * 10) / 10
-        
+
         if (aeonDays < 60) {
             return "\(aeonDays) Minutes Old"
         } else {
             return "\(aeonYears) Hours Old"
         }
-        
+
     }
-    
-    
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
 }

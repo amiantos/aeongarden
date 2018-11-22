@@ -12,14 +12,13 @@ import GameKit
 class AeonNameGenerator {
 
     func returnLastName() -> String {
-        let t:[String] = "Surnames".contentsOrBlank().characters.split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
-        return(t[GKRandomDistribution.init(lowestValue: 0, highestValue: t.count-1).nextInt()])
+        let lastNames: [String] = "Surnames".contentsOrBlank().characters.split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
+        return(lastNames[GKRandomDistribution.init(lowestValue: 0, highestValue: lastNames.count-1).nextInt()])
     }
-    
+
     func returnFirstName() -> String {
-        let t:[String] = "FirstNames".contentsOrBlank().characters.split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
-        return(t[GKRandomDistribution.init(lowestValue: 0, highestValue: t.count-1).nextInt()])
+        let firstNames: [String] = "FirstNames".contentsOrBlank().characters.split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
+        return(firstNames[GKRandomDistribution.init(lowestValue: 0, highestValue: firstNames.count-1).nextInt()])
     }
-    
-    
+
 }

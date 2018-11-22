@@ -16,14 +16,14 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         UIApplication.shared.isIdleTimerDisabled = true
         let scene = GameScene(size: view.bounds.size)
-        let skView = view as! SKView
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.ignoresSiblingOrder = true
+        let skView = view as? SKView
+        skView!.showsFPS = true
+        skView!.showsNodeCount = true
+        skView!.ignoresSiblingOrder = true
         //skView.showsPhysics = true
         scene.scaleMode = .aspectFit
         scene.backgroundColor = UIColor(red: 0.102, green: 0.2824, blue: 0.3569, alpha: 1.0) /* #1a485b */
-        skView.presentScene(scene)
+        skView!.presentScene(scene)
     }
 
     override var shouldAutorotate: Bool {

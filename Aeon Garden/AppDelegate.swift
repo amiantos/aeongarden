@@ -13,7 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
@@ -41,14 +40,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
 }
 
 public extension String {
-    func contentsOrBlank()->String {
-        if let path = Bundle.main.path(forResource:self , ofType: nil) {
+    func contentsOrBlank() -> String {
+        if let path = Bundle.main.path(forResource: self, ofType: nil) {
             do {
-                let text = try String(contentsOfFile:path, encoding: String.Encoding.utf8)
+                let text = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
                 return text
             } catch { print("Failed to read text from bundle file \(self)") }
         } else { print("Failed to load file from bundle \(self)") }
