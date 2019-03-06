@@ -42,11 +42,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     var selectedCreature: AeonCreatureNode? {
         didSet {
-            if (oldValue != selectedCreature) {
+            if oldValue != selectedCreature {
                 self.creatureStatsNode.removeAllActions()
                 self.creatureStatsNode.alpha = 0
             }
-            if (selectedCreature == nil) {
+            if selectedCreature == nil {
                 self.creatureStatsNode.removeAllActions()
                 self.creatureStatsNode.alpha = 0
                 let zoomInAction = SKAction.scale(to: 1, duration: 1)
@@ -93,16 +93,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var initialCreatureHue: CGFloat = 0
         let colorHueIncrement: CGFloat = CGFloat(360/creatureMax)
 
-        while (totalCreatures < creatureMax) {
+        while totalCreatures < creatureMax {
             addNewCreatureToScene()
-            totalCreatures = totalCreatures + 1
-            initialCreatureHue = initialCreatureHue + colorHueIncrement
+            totalCreatures += 1
+            initialCreatureHue += colorHueIncrement
         }
 
         self.creatureCountShape.fillColor = .white
         self.creatureCountShape.alpha = 0.9
         cameraNode.addChild(self.creatureCountShape)
-        self.creatureCountShape.path = UIBezierPath(roundedRect: CGRect(x: -100, y: -30, width: 200, height: 60), cornerRadius: 10).cgPath
+        self.creatureCountShape.path = UIBezierPath(
+            roundedRect: CGRect(x: -100, y: -30, width: 200, height: 60),
+            cornerRadius: 10).cgPath
         self.creatureCountShape.zPosition = 20
         self.creatureCountShape.position = CGPoint(x: -(frame.size.width/2)+160, y: (frame.size.height/2)-80)
         self.creatureCountLabel.zPosition = 20
@@ -113,8 +115,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         cameraNode.addChild(creatureStatsNode)
         self.creatureStatsNode.alpha = 0
-        self.creatureStatsNode.size.width = self.creatureStatsNode.size.width / 1.2
-        self.creatureStatsNode.position.x = (self.creatureStatsNode.size.width / 2.2)
+        self.creatureStatsNode.size.width /= 1.2
+        self.creatureStatsNode.position.x = self.creatureStatsNode.size.width / 2.2
 
         self.creatureStatsNode.addChild(nameLabel)
         self.nameLabel.position.x = 0
@@ -153,10 +155,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         if let creatureA = contact.bodyA.node as? AeonCreatureNode,
                 let creatureB = contact.bodyB.node as? AeonCreatureNode {
-            if (creatureA.currentLoveTarget == creatureB && creatureB.currentLoveTarget == creatureA) {
+            if creatureA.currentLoveTarget == creatureB && creatureB.currentLoveTarget == creatureA {
                 // Fuck
-                creatureA.currentHealth = creatureA.currentHealth / 2
-                creatureB.currentHealth = creatureB.currentHealth / 2
+                creatureA.currentHealth /= 2
+                creatureB.currentHealth /= 2
                 creatureA.currentLoveTarget = nil
                 creatureB.currentLoveTarget = nil
                 creatureA.currentState = .nothing
@@ -164,62 +166,62 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let newCreature = AeonCreatureNode(parent: creatureA, parent2: creatureB)
                 newCreature.position = creatureA.position
                 self.addChild(newCreature)
-                self.creatureCount = self.creatureCount + 1
+                self.creatureCount += 1
             } else {
                 // Determine pursuing creature and give up
-                if (creatureA.currentLoveTarget == creatureB) {
+                if creatureA.currentLoveTarget == creatureB {
                     let aggressor = creatureA
                     // Remove love target...
-                    aggressor.currentHealth = aggressor.currentHealth / 2
+                    aggressor.currentHealth /= 2
                     aggressor.currentLoveTarget = nil
                     aggressor.currentState = .nothing
-                } else if (creatureB.currentLoveTarget == creatureA) {
+                } else if creatureB.currentLoveTarget == creatureA {
                     let aggressor = creatureB
                     // Remove love target...
-                    aggressor.currentHealth = aggressor.currentHealth / 2
+                    aggressor.currentHealth /= 2
                     aggressor.currentLoveTarget = nil
                     aggressor.currentState = .nothing
                 } else {
-                    if (creatureA.currentState == .randomMovement) {
+                    if creatureA.currentState == .randomMovement {
                         creatureA.currentState = .nothing
                     }
 
-                    if (creatureB.currentState == .randomMovement) {
+                    if creatureB.currentState == .randomMovement {
                         creatureB.currentState = .nothing
                     }
                 }
             }
         }
 
-        if (contact.bodyA.categoryBitMask == CollisionTypes.sensor.rawValue && contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue) {
+        if contact.bodyA.categoryBitMask == CollisionTypes.sensor.rawValue && contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyA.node?.parent as? AeonCreatureNode {
-                if (creature.currentState == .randomMovement) {
+                if creature.currentState == .randomMovement {
                     creature.currentState = .nothing
                 }
             }
 
-        } else if (contact.bodyB.categoryBitMask == CollisionTypes.sensor.rawValue && contact.bodyA.categoryBitMask == CollisionTypes.creature.rawValue) {
+        } else if contact.bodyB.categoryBitMask == CollisionTypes.sensor.rawValue && contact.bodyA.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyB.node?.parent as? AeonCreatureNode {
-                if (creature.currentState == .randomMovement) {
+                if creature.currentState == .randomMovement {
                     creature.currentState = .nothing
                 }
             }
         }
 
-        if (contact.bodyA.categoryBitMask == CollisionTypes.food.rawValue && contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue) {
+        if contact.bodyA.categoryBitMask == CollisionTypes.food.rawValue && contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyB.node as? AeonCreatureNode, let food = contact.bodyA.node as? AeonFoodNode {
-                if (creature.currentState == .movingToFood) {
+                if creature.currentState == .movingToFood {
                     creature.ate()
                     food.bitten()
-                    self.foodPelletCount = self.foodPelletCount-1
+                    self.foodPelletCount -= 1
                 }
             }
-        } else if (contact.bodyB.categoryBitMask == CollisionTypes.food.rawValue && contact.bodyA.categoryBitMask == CollisionTypes.creature.rawValue) {
+        } else if contact.bodyB.categoryBitMask == CollisionTypes.food.rawValue && contact.bodyA.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyA.node as? AeonCreatureNode, let food = contact.bodyB.node as? AeonFoodNode {
-                if (creature.currentState == .movingToFood) {
+                if creature.currentState == .movingToFood {
                     creature.ate()
                     food.bitten()
-                    self.foodPelletCount = self.foodPelletCount-1
+                    self.foodPelletCount -= 1
                 }
             }
         }
@@ -239,43 +241,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        for touch in touches { self.touchDown(atPoint: touch.location(in: self)) }
 
         let touch = touches.first!
         let touchPoint = touch.location(in: self)
         let nodes = self.nodes(at: touchPoint)
-        for node in nodes {
-            if (node.name == "aeonCreature") {
-                print("Creature Tapped")
-                if (node == selectedCreature) {
-                    self.selectedCreature = nil
-                    camera?.removeAllActions()
-                    let zoomInAction = SKAction.scale(to: 1, duration: 1)
-                    let cameraAction = SKAction.move(to: CGPoint(x: self.size.width / 2, y: self.size.height / 2), duration: 1)
-                    camera?.run(SKAction.group([zoomInAction, cameraAction]))
-                } else {
-                    self.selectedCreature = node as? AeonCreatureNode
-                    let zoomInAction = SKAction.scale(to: 0.4, duration: 1)
-                    camera?.run(zoomInAction, completion: {
-                        let fadeInAction = SKAction.fadeAlpha(to: 1, duration: 1)
-                        self.creatureStatsNode.run(fadeInAction)
-                    })
-                }
+        for node in nodes where node.name == "aeonCreature" {
+            print("Creature Tapped")
+            if node == selectedCreature {
+                self.selectedCreature = nil
+                camera?.removeAllActions()
+                let zoomInAction = SKAction.scale(to: 1, duration: 1)
+                let cameraAction = SKAction.move(to: CGPoint(x: self.size.width / 2, y: self.size.height / 2), duration: 1)
+                camera?.run(SKAction.group([zoomInAction, cameraAction]))
+            } else {
+                self.selectedCreature = node as? AeonCreatureNode
+                let zoomInAction = SKAction.scale(to: 0.4, duration: 1)
+                camera?.run(zoomInAction, completion: {
+                    let fadeInAction = SKAction.fadeAlpha(to: 1, duration: 1)
+                    self.creatureStatsNode.run(fadeInAction)
+                })
             }
         }
 
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
+        for touch in touches { self.touchMoved(toPoint: touch.location(in: self)) }
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        for touch in touches { self.touchUp(atPoint: touch.location(in: self)) }
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        for touch in touches { self.touchUp(atPoint: touch.location(in: self)) }
     }
 
     fileprivate func addNewCreatureToScene() {
@@ -286,7 +286,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         aeonCreature.zRotation = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: 10).nextInt())
         aeonCreature.zPosition = 12
         addChild(aeonCreature)
-        self.creatureCount = self.creatureCount + 1
+        self.creatureCount += 1
     }
 
     override func update(_ currentTime: TimeInterval) {
@@ -303,18 +303,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
 
         // Initialize _lastUpdateTime if it has not already been
-        if (self.lastUpdateTime == 0) {
+        if self.lastUpdateTime == 0 {
             self.lastUpdateTime = currentTime
             self.lastFoodTime = currentTime
             self.lastThinkTime = currentTime
             self.lastCreatureTime = currentTime
         }
 
-        let dt = currentTime - lastUpdateTime
+        let deltaTime = currentTime - lastUpdateTime
 
-       if ((currentTime - self.lastFoodTime) > 2) {
+       if (currentTime - self.lastFoodTime) > 2 {
 
-            if (self.foodPelletCount < self.foodPelletMax) {
+            if self.foodPelletCount < self.foodPelletMax {
                 let aeonFood = AeonFoodNode()
 
                 if let selectedCreaturePosition = self.selectedCreature?.position, GKRandomDistribution.d20().nextInt() > 10 {
@@ -329,13 +329,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
                 aeonFood.zRotation = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: 10).nextInt())
                 addChild(aeonFood)
-                self.foodPelletCount = self.foodPelletCount + 1
+                self.foodPelletCount += 1
             }
 
             self.lastFoodTime = currentTime
         }
 
-        if ((currentTime - self.lastCreatureTime) > 600) {
+        if (currentTime - self.lastCreatureTime) > 600 {
 
             addNewCreatureToScene()
 
@@ -345,16 +345,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.creatureCountLabel.text = "Alive: \(self.creatureCount)"
 
         for case let child as AeonCreatureNode in self.children {
-            child.think(nodes: self.children, delta: dt, time: currentTime)
+            child.think(nodes: self.children, delta: deltaTime, time: currentTime)
             if child != self.selectedCreature {
-                child.age(lastUpdate: dt)
+                child.age(lastUpdate: deltaTime)
             } else {
-                child.ageWithoutDeath(lastUpdate: dt)
+                child.ageWithoutDeath(lastUpdate: deltaTime)
             }
         }
 
         for case let child as AeonFoodNode in self.children {
-            child.age(lastUpdate: dt)
+            child.age(lastUpdate: deltaTime)
         }
 
         self.lastUpdateTime = currentTime

@@ -17,7 +17,7 @@ class AeonFoodNode: SKNode {
     private var maxLifeTime: Float = 30
     public var lifeTime: Float = 0 {
         didSet {
-            if (lifeTime >= maxLifeTime) {
+            if lifeTime >= maxLifeTime {
                 self.die()
             }
         }
@@ -80,7 +80,7 @@ class AeonFoodNode: SKNode {
         let scaleOutAction = SKAction.scale(to: 0, duration: 5)
         self.run(SKAction.group([fadeOut, scaleOutAction]), completion: {
             if let mainScene = self.scene as? GameScene {
-                mainScene.foodPelletCount = mainScene.foodPelletCount - 1
+                mainScene.foodPelletCount += 1
             }
             self.removeFromParent()
 
@@ -92,9 +92,9 @@ class AeonFoodNode: SKNode {
     }
 
     func age(lastUpdate: TimeInterval) {
-        if (lastUpdate < 10 && lifeTime < maxLifeTime) {
+        if lastUpdate < 10 && lifeTime < maxLifeTime {
             // if state is not sleeping, lose health...
-            self.lifeTime = self.lifeTime + Float(lastUpdate)
+            self.lifeTime += Float(lastUpdate)
         }
     }
 
