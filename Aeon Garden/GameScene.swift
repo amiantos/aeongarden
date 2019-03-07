@@ -88,8 +88,6 @@ class GameScene: SKScene {
             self.lastCreatureTime = currentTime
         }
 
-        let deltaTime = currentTime - lastUpdateTime
-
         if (currentTime - self.lastFoodTime) > 2 {
             if self.foodPelletCount < self.foodPelletMax {
                 addFoodPelletToScene()
@@ -104,6 +102,7 @@ class GameScene: SKScene {
 
         self.creatureCountLabel.text = "Alive: \(self.creatureCount)"
 
+        let deltaTime = currentTime - lastUpdateTime
         perFrameNodeActivity(deltaTime, currentTime)
 
         self.lastUpdateTime = currentTime
@@ -124,7 +123,7 @@ class GameScene: SKScene {
     }
 
     fileprivate func addNewCreatureToScene() {
-        let aeonCreature = AeonCreatureNode(withColorHue: nil)
+        let aeonCreature = AeonCreatureNode()
         let foodPositionX = CGFloat(
             GKRandomDistribution(
                 lowestValue: Int(self.size.width*0.10),
@@ -255,13 +254,13 @@ class GameScene: SKScene {
     }
 
     fileprivate func setupBackgroundAnimation() {
-        if let backgroundSmoke = SKEmitterNode(fileNamed: "AeonSmokeParticle.sks") {
-            backgroundSmoke.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
-            backgroundSmoke.zPosition = -2
-            backgroundSmoke.particlePositionRange = CGVector(dx: self.size.width, dy: self.size.height)
-            backgroundSmoke.advanceSimulationTime(5)
-            self.addChild(backgroundSmoke)
-        }
+//        if let backgroundSmoke = SKEmitterNode(fileNamed: "AeonSmokeParticle.sks") {
+//            backgroundSmoke.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+//            backgroundSmoke.zPosition = -2
+//            backgroundSmoke.particlePositionRange = CGVector(dx: self.size.width, dy: self.size.height)
+//            backgroundSmoke.advanceSimulationTime(5)
+//            self.addChild(backgroundSmoke)
+//        }
         if let backgroundSmoke2 = SKEmitterNode(fileNamed: "AeonOceanSparkle.sks") {
             backgroundSmoke2.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
             backgroundSmoke2.zPosition = -1
@@ -279,7 +278,7 @@ class GameScene: SKScene {
             roundedRect: CGRect(x: -100, y: -30, width: 200, height: 60),
             cornerRadius: 10).cgPath
         self.creatureCountShape.zPosition = 20
-        self.creatureCountShape.position = CGPoint(x: -(frame.size.width/2)+160, y: (frame.size.height/2)-140)
+        self.creatureCountShape.position = CGPoint(x: (frame.size.width/2)-120, y: -(frame.size.height/2)+80)
         self.creatureCountLabel.zPosition = 20
         self.creatureCountLabel.fontColor = .black
         self.creatureCountShape.addChild(creatureCountLabel)

@@ -17,10 +17,6 @@ class AeonCreatureNode: SKNode {
     private var limbThree: SKSpriteNode = SKSpriteNode()
     private var limbFour: SKSpriteNode = SKSpriteNode()
 
-    // Define colors
-
-    // Decide if dark or light
-
     public var lightOrDark: Bool
 
     public var limbOneShape: String = ""
@@ -90,15 +86,13 @@ class AeonCreatureNode: SKNode {
         case square = "aeonSquare"
     }
 
-    init(withColorHue: CGFloat?) {
+//    fileprivate func initLimbHue(withPrimaryHue: ) {
+//
+//    }
 
+    override init() {
         // Set primary hue for initial creatures...
-
-        if let setColorHue = withColorHue {
-            self.limbsPrimaryColorHue = setColorHue
-        } else {
-            self.limbsPrimaryColorHue = CGFloat(GKRandomDistribution(lowestValue: 1, highestValue: 365).nextInt())
-        }
+        self.limbsPrimaryColorHue = CGFloat(GKRandomDistribution(lowestValue: 1, highestValue: 365).nextInt())
 
         self.limbOneColorHue = self.limbsPrimaryColorHue + CGFloat(GKRandomDistribution(lowestValue: -20, highestValue: 20).nextInt())
         self.limbTwoColorHue = self.limbsPrimaryColorHue + CGFloat(GKRandomDistribution(lowestValue: -20, highestValue: 20).nextInt())
@@ -851,18 +845,16 @@ class AeonCreatureNode: SKNode {
     func birth() {
 
         self.setScale(0.1)
-        //self.setScale(self.sizeModififer)
         let birthAction = SKAction.scale(to: self.sizeModififer, duration: 30)
         self.run(birthAction)
 
-        //print(self.parentNames)
+        print(self.parentNames)
     }
 
     func die() {
         // Creature dies...
 
         self.removeAllActions()
-        //self.physicsBody = nil
         self.physicsBody!.contactTestBitMask = 0
         self.lifeState = false
         self.endWiggling()
@@ -872,7 +864,6 @@ class AeonCreatureNode: SKNode {
             foodTarget.creaturesInterested -= 1
         }
 
-        //self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         self.zPosition = 0
         self.currentState = .dead
         let fadeOut = SKAction.fadeAlpha(to: 0, duration: 20)
@@ -935,7 +926,6 @@ class AeonCreatureNode: SKNode {
 
     func age(lastUpdate: TimeInterval) {
         if lastUpdate < 10 && self.currentHealth > 0 {
-            // if state is not sleeping, lose health...
             self.currentHealth -= Float(lastUpdate)
             self.lifeTime += Float(lastUpdate)
         }
