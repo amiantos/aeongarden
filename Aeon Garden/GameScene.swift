@@ -338,7 +338,8 @@ extension GameScene: SKPhysicsContactDelegate {
                 creatureB.currentLoveTarget = nil
                 creatureA.currentState = .nothing
                 creatureB.currentState = .nothing
-                let newCreature = AeonCreatureNode(parent: creatureA, parent2: creatureB)
+//                let newCreature = AeonCreatureNode(parent: creatureA, parent2: creatureB)
+                let newCreature = AeonCreatureNode()
                 newCreature.position = creatureA.position
                 self.addChild(newCreature)
                 self.creatureCount += 1
