@@ -64,16 +64,50 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B4364F791F8C78070002B2BB /* Classes */ = {
+		44868F5F2230B6BA009F0460 /* AeonCreature */ = {
+			isa = PBXGroup;
+			children = (
+				B48DDACD1F80B2B000DEA908 /* AeonCreatureNode.swift */,
+			);
+			path = AeonCreature;
+			sourceTree = "<group>";
+		};
+		44868F602230B6D8009F0460 /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				44868F612230B6E3009F0460 /* AeonFood */,
+				44868F5F2230B6BA009F0460 /* AeonCreature */,
+			);
+			path = Nodes;
+			sourceTree = "<group>";
+		};
+		44868F612230B6E3009F0460 /* AeonFood */ = {
+			isa = PBXGroup;
+			children = (
+				B48DDACF1F81A1DE00DEA908 /* AeonFoodNode.swift */,
+			);
+			path = AeonFood;
+			sourceTree = "<group>";
+		};
+		44868F622230B706009F0460 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				B4364F7A1F8C78190002B2BB /* Particles */,
+				B48DDABE1F80943500DEA908 /* Main.storyboard */,
+				B48DDAC11F80943500DEA908 /* Assets.xcassets */,
+				B48DDAC31F80943500DEA908 /* LaunchScreen.storyboard */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		B4364F791F8C78070002B2BB /* AeonNameGenerator */ = {
 			isa = PBXGroup;
 			children = (
 				B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */,
-				B48DDACF1F81A1DE00DEA908 /* AeonFoodNode.swift */,
-				B48DDACD1F80B2B000DEA908 /* AeonCreatureNode.swift */,
 				B4364F801F8C81C10002B2BB /* Surnames */,
 				B4364F821F8C86020002B2BB /* FirstNames */,
 			);
-			path = Classes;
+			path = AeonNameGenerator;
 			sourceTree = "<group>";
 		};
 		B4364F7A1F8C78190002B2BB /* Particles */ = {
@@ -106,14 +140,12 @@
 		B48DDAB31F80943500DEA908 /* Aeon Garden */ = {
 			isa = PBXGroup;
 			children = (
-				B4364F791F8C78070002B2BB /* Classes */,
-				B4364F7A1F8C78190002B2BB /* Particles */,
+				44868F602230B6D8009F0460 /* Nodes */,
+				B4364F791F8C78070002B2BB /* AeonNameGenerator */,
+				44868F622230B706009F0460 /* Assets */,
 				B48DDABA1F80943500DEA908 /* GameScene.swift */,
 				B48DDAB41F80943500DEA908 /* AppDelegate.swift */,
 				B48DDABC1F80943500DEA908 /* GameViewController.swift */,
-				B48DDABE1F80943500DEA908 /* Main.storyboard */,
-				B48DDAC11F80943500DEA908 /* Assets.xcassets */,
-				B48DDAC31F80943500DEA908 /* LaunchScreen.storyboard */,
 				B48DDAC61F80943500DEA908 /* Info.plist */,
 			);
 			path = "Aeon Garden";
