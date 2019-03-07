@@ -16,7 +16,7 @@ enum CollisionTypes: UInt32 {
     case sensor = 8
 }
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene {
 
     var entities = [GKEntity]()
     var graphs = [String: GKGraph]()
@@ -64,9 +64,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
 
-    override func didMove(to view: SKView) {
-        physicsWorld.contactDelegate = self
-    }
+    // MARK: - Scene Setup
 
     override func sceneDidLoad() {
         setupFrame()
@@ -77,97 +75,126 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         createInitialCreatures()
     }
 
-    func didBegin(_ contact: SKPhysicsContact) {
+    override func didMove(to view: SKView) {
+        physicsWorld.contactDelegate = self
+    }
 
-        if let creatureA = contact.bodyA.node as? AeonCreatureNode,
-                let creatureB = contact.bodyB.node as? AeonCreatureNode {
-            if creatureA.currentLoveTarget == creatureB && creatureB.currentLoveTarget == creatureA {
-                // Fuck
-                creatureA.currentHealth /= 2
-                creatureB.currentHealth /= 2
-                creatureA.currentLoveTarget = nil
-                creatureB.currentLoveTarget = nil
-                creatureA.currentState = .nothing
-                creatureB.currentState = .nothing
-                let newCreature = AeonCreatureNode(parent: creatureA, parent2: creatureB)
-                newCreature.position = creatureA.position
-                self.addChild(newCreature)
-                self.creatureCount += 1
-            } else {
-                // Determine pursuing creature and give up
-                if creatureA.currentLoveTarget == creatureB {
-                    let aggressor = creatureA
-                    // Remove love target...
-                    aggressor.currentHealth /= 2
-                    aggressor.currentLoveTarget = nil
-                    aggressor.currentState = .nothing
-                } else if creatureB.currentLoveTarget == creatureA {
-                    let aggressor = creatureB
-                    // Remove love target...
-                    aggressor.currentHealth /= 2
-                    aggressor.currentLoveTarget = nil
-                    aggressor.currentState = .nothing
+    override func update(_ currentTime: TimeInterval) {
+        followSelectedCreatureWithCamera()
+
+        if self.lastUpdateTime == 0 {
+            self.lastUpdateTime = currentTime
+            self.lastFoodTime = currentTime
+            self.lastThinkTime = currentTime
+            self.lastCreatureTime = currentTime
+        }
+
+        let deltaTime = currentTime - lastUpdateTime
+
+        if (currentTime - self.lastFoodTime) > 2 {
+            if self.foodPelletCount < self.foodPelletMax {
+                addFoodPelletToScene()
+            }
+            self.lastFoodTime = currentTime
+        }
+
+        if (currentTime - self.lastCreatureTime) > 600 {
+            addNewCreatureToScene()
+            self.lastCreatureTime = currentTime
+        }
+
+        self.creatureCountLabel.text = "Alive: \(self.creatureCount)"
+
+        perFrameNodeActivity(deltaTime, currentTime)
+
+        self.lastUpdateTime = currentTime
+    }
+
+    // MARK: - Node Creation
+
+    fileprivate func createInitialCreatures() {
+        var totalCreatures: Int = 0
+        var initialCreatureHue: CGFloat = 0
+        let colorHueIncrement: CGFloat = CGFloat(360/creatureMax)
+
+        while totalCreatures < creatureMax {
+            addNewCreatureToScene()
+            totalCreatures += 1
+            initialCreatureHue += colorHueIncrement
+        }
+    }
+
+    fileprivate func addNewCreatureToScene() {
+        let aeonCreature = AeonCreatureNode(withColorHue: nil)
+        let foodPositionX = CGFloat(
+            GKRandomDistribution(
+                lowestValue: Int(self.size.width*0.10),
+                highestValue: Int(self.size.width*0.90)
+                ).nextInt())
+        let foodPositionY = CGFloat(
+            GKRandomDistribution(
+                lowestValue: Int(self.size.height*0.10),
+                highestValue: Int(self.size.height*0.90)
+                ).nextInt())
+        aeonCreature.position = CGPoint(x: foodPositionX, y: foodPositionY)
+        aeonCreature.zRotation = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: 10).nextInt())
+        aeonCreature.zPosition = 12
+        addChild(aeonCreature)
+        self.creatureCount += 1
+    }
+
+    fileprivate func addFoodPelletToScene() {
+        let aeonFood = AeonFoodNode()
+        let foodPositionX = CGFloat(
+            GKRandomDistribution(
+                lowestValue: Int(self.size.width*0.01),
+                highestValue: Int(self.size.width*0.99)
+                ).nextInt()
+        )
+        let foodPositionY = CGFloat(
+            GKRandomDistribution(
+                lowestValue: Int(self.size.height*0.01),
+                highestValue: Int(self.size.height*0.99)
+                ).nextInt()
+        )
+        aeonFood.position = CGPoint(x: foodPositionX, y: foodPositionY)
+        aeonFood.zRotation = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: 10).nextInt())
+        addChild(aeonFood)
+        self.foodPelletCount += 1
+    }
+
+    // MARK: - Per Frame Processes
+
+    fileprivate func perFrameNodeActivity(_ deltaTime: Double, _ currentTime: TimeInterval) {
+        for child in self.children {
+            if let child = child as? AeonCreatureNode {
+                child.think(nodes: self.children, delta: deltaTime, time: currentTime)
+                if child != self.selectedCreature {
+                    child.age(lastUpdate: deltaTime)
                 } else {
-                    if creatureA.currentState == .randomMovement {
-                        creatureA.currentState = .nothing
-                    }
-
-                    if creatureB.currentState == .randomMovement {
-                        creatureB.currentState = .nothing
-                    }
+                    child.ageWithoutDeath(lastUpdate: deltaTime)
                 }
+            } else if let child = child as? AeonFoodNode {
+                child.age(lastUpdate: deltaTime)
             }
         }
+    }
 
-        if contact.bodyA.categoryBitMask == CollisionTypes.sensor.rawValue
-            && contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
-            if let creature = contact.bodyA.node?.parent as? AeonCreatureNode,
-                creature.currentState == .randomMovement {
-                creature.currentState = .nothing
-            }
-            if let creature = contact.bodyB.node?.parent as? AeonCreatureNode,
-                creature.currentState == .randomMovement {
-                creature.currentState = .nothing
-            }
+    fileprivate func followSelectedCreatureWithCamera() {
+        if let followCreature = self.selectedCreature {
+            let cameraAction = SKAction.move(to: followCreature.position, duration: 0.25)
+            camera?.run(cameraAction)
+            self.nameLabel.text = followCreature.firstName + " " + followCreature.lastName
+            self.lifeTimeLabel.text = followCreature.lifeTimeFormattedAsString()
+            self.currentStatusLabel.text = followCreature.currentState.rawValue
+            self.healthLabel.text = "Health: \(Int(followCreature.currentHealth))"
         }
-
-        if contact.bodyA.categoryBitMask == CollisionTypes.food.rawValue
-            && contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
-            if let creature = contact.bodyB.node as? AeonCreatureNode, let food = contact.bodyA.node as? AeonFoodNode {
-                if creature.currentState == .movingToFood {
-                    creature.ate()
-                    food.bitten()
-                    self.foodPelletCount -= 1
-                }
-            }
-        } else if contact.bodyB.categoryBitMask == CollisionTypes.food.rawValue
-            && contact.bodyA.categoryBitMask == CollisionTypes.creature.rawValue {
-            if let creature = contact.bodyA.node as? AeonCreatureNode, let food = contact.bodyB.node as? AeonFoodNode {
-                if creature.currentState == .movingToFood {
-                    creature.ate()
-                    food.bitten()
-                    self.foodPelletCount -= 1
-                }
-            }
-        }
-
     }
 
-    func touchDown(atPoint pos: CGPoint) {
-
-    }
-
-    func touchMoved(toPoint pos: CGPoint) {
-
-    }
-
-    func touchUp(atPoint pos: CGPoint) {
-
-    }
+    // MARK: - Touch Events
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches { self.touchDown(atPoint: touch.location(in: self)) }
-
         let touch = touches.first!
         let touchPoint = touch.location(in: self)
         let nodes = self.nodes(at: touchPoint)
@@ -193,6 +220,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     }
 
+    func touchDown(atPoint pos: CGPoint) { }
+
+    func touchMoved(toPoint pos: CGPoint) { }
+
+    func touchUp(atPoint pos: CGPoint) { }
+
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches { self.touchMoved(toPoint: touch.location(in: self)) }
     }
@@ -205,100 +238,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for touch in touches { self.touchUp(atPoint: touch.location(in: self)) }
     }
 
-    fileprivate func addNewCreatureToScene() {
-        let aeonCreature = AeonCreatureNode(withColorHue: nil)
-        let foodPositionX = CGFloat(
-            GKRandomDistribution(
-                lowestValue: Int(self.size.width*0.10),
-                highestValue: Int(self.size.width*0.90)
-            ).nextInt())
-        let foodPositionY = CGFloat(
-            GKRandomDistribution(
-                lowestValue: Int(self.size.height*0.10),
-                highestValue: Int(self.size.height*0.90)
-            ).nextInt())
-        aeonCreature.position = CGPoint(x: foodPositionX, y: foodPositionY)
-        aeonCreature.zRotation = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: 10).nextInt())
-        aeonCreature.zPosition = 12
-        addChild(aeonCreature)
-        self.creatureCount += 1
-    }
-
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
-
-        // Update camera to follow selected creature...
-        if let followCreature = self.selectedCreature {
-            let cameraAction = SKAction.move(to: followCreature.position, duration: 0.25)
-            camera?.run(cameraAction)
-            self.nameLabel.text = followCreature.firstName + " " + followCreature.lastName
-            self.lifeTimeLabel.text = followCreature.lifeTimeFormattedAsString()
-            self.currentStatusLabel.text = followCreature.currentState.rawValue
-            self.healthLabel.text = "Health: \(Int(followCreature.currentHealth))"
-        }
-
-        // Initialize _lastUpdateTime if it has not already been
-        if self.lastUpdateTime == 0 {
-            self.lastUpdateTime = currentTime
-            self.lastFoodTime = currentTime
-            self.lastThinkTime = currentTime
-            self.lastCreatureTime = currentTime
-        }
-
-        let deltaTime = currentTime - lastUpdateTime
-
-       if (currentTime - self.lastFoodTime) > 2 {
-
-            if self.foodPelletCount < self.foodPelletMax {
-                let aeonFood = AeonFoodNode()
-
-                if let selectedCreaturePosition = self.selectedCreature?.position, GKRandomDistribution.d20().nextInt() > 10 {
-                    let foodPositionX = selectedCreaturePosition.x + CGFloat(GKRandomDistribution(lowestValue: -300, highestValue: 300).nextInt())
-                    let foodPositionY = selectedCreaturePosition.y + CGFloat(GKRandomDistribution(lowestValue: -300, highestValue: 300).nextInt())
-                    aeonFood.position = CGPoint(x: foodPositionX, y: foodPositionY)
-                } else {
-                    let foodPositionX = CGFloat(GKRandomDistribution(lowestValue: Int(self.size.width*0.01), highestValue: Int(self.size.width*0.99)).nextInt())
-                    let foodPositionY = CGFloat(GKRandomDistribution(lowestValue: Int(self.size.height*0.01), highestValue: Int(self.size.height*0.99)).nextInt())
-                    aeonFood.position = CGPoint(x: foodPositionX, y: foodPositionY)
-                }
-
-                aeonFood.zRotation = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: 10).nextInt())
-                addChild(aeonFood)
-                self.foodPelletCount += 1
-            }
-
-            self.lastFoodTime = currentTime
-        }
-
-        if (currentTime - self.lastCreatureTime) > 600 {
-
-            addNewCreatureToScene()
-
-            self.lastCreatureTime = currentTime
-        }
-
-        self.creatureCountLabel.text = "Alive: \(self.creatureCount)"
-
-        for case let child as AeonCreatureNode in self.children {
-            child.think(nodes: self.children, delta: deltaTime, time: currentTime)
-            if child != self.selectedCreature {
-                child.age(lastUpdate: deltaTime)
-            } else {
-                child.ageWithoutDeath(lastUpdate: deltaTime)
-            }
-        }
-
-        for case let child as AeonFoodNode in self.children {
-            child.age(lastUpdate: deltaTime)
-        }
-
-        self.lastUpdateTime = currentTime
-    }
-}
-
-// MARK: - Initial Scene Setup
-
-extension GameScene {
+    // MARK: - Scene UI Setup
 
     fileprivate func setupFrame() {
         self.size.width = frame.size.width * 2
@@ -329,18 +269,6 @@ extension GameScene {
             backgroundSmoke2.particlePositionRange = CGVector(dx: self.size.width, dy: self.size.height)
             backgroundSmoke2.advanceSimulationTime(5)
             self.addChild(backgroundSmoke2)
-        }
-    }
-
-    fileprivate func createInitialCreatures() {
-        var totalCreatures: Int = 0
-        var initialCreatureHue: CGFloat = 0
-        let colorHueIncrement: CGFloat = CGFloat(360/creatureMax)
-
-        while totalCreatures < creatureMax {
-            addNewCreatureToScene()
-            totalCreatures += 1
-            initialCreatureHue += colorHueIncrement
         }
     }
 
@@ -397,5 +325,81 @@ extension GameScene {
         self.healthLabel.horizontalAlignmentMode = .center
         self.healthLabel.verticalAlignmentMode = .top
     }
+}
 
+// MARK: - Physics Interactions
+
+extension GameScene: SKPhysicsContactDelegate {
+    func didBegin(_ contact: SKPhysicsContact) {
+        if let creatureA = contact.bodyA.node as? AeonCreatureNode,
+            let creatureB = contact.bodyB.node as? AeonCreatureNode {
+            if creatureA.currentLoveTarget == creatureB && creatureB.currentLoveTarget == creatureA {
+                // Mutual reproduction
+                creatureA.currentHealth /= 2
+                creatureB.currentHealth /= 2
+                creatureA.currentLoveTarget = nil
+                creatureB.currentLoveTarget = nil
+                creatureA.currentState = .nothing
+                creatureB.currentState = .nothing
+                let newCreature = AeonCreatureNode(parent: creatureA, parent2: creatureB)
+                newCreature.position = creatureA.position
+                self.addChild(newCreature)
+                self.creatureCount += 1
+            } else {
+                // Determine pursuing creature and give up
+                if creatureA.currentLoveTarget == creatureB {
+                    let aggressor = creatureA
+                    // Remove love target and lose health
+                    aggressor.currentHealth /= 2
+                    aggressor.currentLoveTarget = nil
+                    aggressor.currentState = .nothing
+                } else if creatureB.currentLoveTarget == creatureA {
+                    let aggressor = creatureB
+                    // Remove love target and lose health
+                    aggressor.currentHealth /= 2
+                    aggressor.currentLoveTarget = nil
+                    aggressor.currentState = .nothing
+                } else {
+                    if creatureA.currentState == .randomMovement {
+                        creatureA.currentState = .nothing
+                    }
+                    if creatureB.currentState == .randomMovement {
+                        creatureB.currentState = .nothing
+                    }
+                }
+            }
+        }
+
+        if contact.bodyA.categoryBitMask == CollisionTypes.sensor.rawValue
+            && contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
+            if let creature = contact.bodyA.node?.parent as? AeonCreatureNode,
+                creature.currentState == .randomMovement {
+                creature.currentState = .nothing
+            }
+            if let creature = contact.bodyB.node?.parent as? AeonCreatureNode,
+                creature.currentState == .randomMovement {
+                creature.currentState = .nothing
+            }
+        }
+
+        if contact.bodyA.categoryBitMask == CollisionTypes.food.rawValue
+            && contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
+            if let creature = contact.bodyB.node as? AeonCreatureNode,
+                let food = contact.bodyA.node as? AeonFoodNode,
+                creature.currentState == .movingToFood {
+                creature.fed()
+                food.eaten()
+                self.foodPelletCount -= 1
+            }
+        } else if contact.bodyB.categoryBitMask == CollisionTypes.food.rawValue
+            && contact.bodyA.categoryBitMask == CollisionTypes.creature.rawValue {
+            if let creature = contact.bodyA.node as? AeonCreatureNode,
+                let food = contact.bodyB.node as? AeonFoodNode,
+                creature.currentState == .movingToFood {
+                creature.fed()
+                food.eaten()
+                self.foodPelletCount -= 1
+            }
+        }
+    }
 }

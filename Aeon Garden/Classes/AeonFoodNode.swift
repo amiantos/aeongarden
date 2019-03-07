@@ -66,7 +66,7 @@ class AeonFoodNode: SKNode {
 
     }
 
-    func bitten() {
+    func eaten() {
         self.foodAmount -= 100
         if self.foodAmount <= 0 {
             self.physicsBody = nil

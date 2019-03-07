@@ -913,7 +913,7 @@ class AeonCreatureNode: SKNode {
 
     }
 
-    func ate() {
+    func fed() {
         if self.currentState == .movingToFood {
             self.currentHealth += 300
             self.currentFoodTarget = nil
