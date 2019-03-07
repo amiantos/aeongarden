@@ -712,7 +712,10 @@ class AeonCreatureNode: SKNode {
                 // Decide to eat ...
                 // Find furthest creature node...
                 var creatureDifferenceArray = [(speed: CGFloat, distance: CGFloat, node:AeonCreatureNode)]()
-                for case let child as AeonCreatureNode in nodes where (child != self && self.parentNames.contains(child.lastName) == false && child.parentNames.contains(self.lastName) == false) {
+                for case let child as AeonCreatureNode in nodes where (
+                    child != self
+                        && self.parentNames.contains(child.lastName) == false
+                        && child.parentNames.contains(self.lastName) == false) {
                     let distanceComputed = self.distance(point: child.position)
                     creatureDifferenceArray.append((child.movementSpeed, distanceComputed, child))
                 }

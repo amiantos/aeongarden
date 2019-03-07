@@ -23,7 +23,7 @@ class GameScene: SKScene {
     public var foodPelletCount: Int = 0
     public var creatureCount: Int = 0
 
-    private var foodPelletMax: Int = 20
+    private var foodPelletMax: Int = 100
     private var creatureMax: Int = 20
     private var totalCreatures: Int = 0
     private var initialCreatureHue: CGFloat = 0
