@@ -13,7 +13,6 @@ enum CollisionTypes: UInt32 {
     case creature = 1
     case food = 2
     case edge = 4
-    case sensor = 8
 }
 
 class GameScene: SKScene {
@@ -367,18 +366,6 @@ extension GameScene: SKPhysicsContactDelegate {
                         creatureB.currentState = .nothing
                     }
                 }
-            }
-        }
-
-        if contact.bodyA.categoryBitMask == CollisionTypes.sensor.rawValue
-            && contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
-            if let creature = contact.bodyA.node?.parent as? AeonCreatureNode,
-                creature.currentState == .randomMovement {
-                creature.currentState = .nothing
-            }
-            if let creature = contact.bodyB.node?.parent as? AeonCreatureNode,
-                creature.currentState == .randomMovement {
-                creature.currentState = .nothing
             }
         }
 
