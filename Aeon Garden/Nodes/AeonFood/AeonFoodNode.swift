@@ -80,7 +80,7 @@ class AeonFoodNode: SKNode {
         let scaleOutAction = SKAction.scale(to: 0, duration: 5)
         self.run(SKAction.group([fadeOut, scaleOutAction]), completion: {
             if let mainScene = self.scene as? GameScene {
-                mainScene.foodPelletCount += 1
+                mainScene.foodPelletCount -= 1
             }
             self.removeFromParent()
 
