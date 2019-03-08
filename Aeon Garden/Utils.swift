@@ -26,5 +26,5 @@ func randomInteger(min: Int, max: Int) -> Int {
 }
 
 func randomCGFloat(min: CGFloat, max: CGFloat) -> CGFloat {
-    return (CGFloat(arc4random()) / 0xFFFFFFFF) * (max - min) + min
+    return (CGFloat(arc4random()) / 0xFFFF_FFFF) * (max - min) + min
 }

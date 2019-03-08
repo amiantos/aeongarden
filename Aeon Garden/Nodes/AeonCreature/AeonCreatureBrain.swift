@@ -6,15 +6,15 @@
 ////  Copyright © 2019 Brad Root. All rights reserved.
 ////
 //
-//import Foundation
-//import SpriteKit
-//import GameplayKit
+// import Foundation
+// import SpriteKit
+// import GameplayKit
 //
-//protocol AeonCreatureBrainDelegate: class {
+// protocol AeonCreatureBrainDelegate: class {
 //
-//}
+// }
 //
-//class AeonCreatureBrain {
+// class AeonCreatureBrain {
 //
 //
 //    public var creature: AeonCreatureNode
@@ -23,7 +23,7 @@
 //    private var lastThinkTime: TimeInterval = 0
 //
 //    public var currentState: State = State.nothing
-//    
+//
 //    public enum State: String {
 //        case nothing = "Thinking"
 //        case randomMovement = "Wandering"
@@ -170,4 +170,4 @@
 //
 //    }
 //
-//}
+// }

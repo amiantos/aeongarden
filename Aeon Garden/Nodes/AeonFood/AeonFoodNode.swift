@@ -6,12 +6,11 @@
 //  Copyright © 2017 Brad Root. All rights reserved.
 //
 
-import UIKit
-import SpriteKit
 import GameplayKit
+import SpriteKit
+import UIKit
 
 class AeonFoodNode: SKNode {
-
     private var foodAmount: Int = 100
     public var creaturesInterested: Int = 0
     private var maxLifeTime: Float = 30
@@ -26,33 +25,33 @@ class AeonFoodNode: SKNode {
     override init() {
         super.init()
 
-        self.physicsBody = SKPhysicsBody(circleOfRadius: 5)
-        self.physicsBody?.categoryBitMask = CollisionTypes.food.rawValue
-        self.physicsBody?.collisionBitMask = CollisionTypes.edge.rawValue | CollisionTypes.creature.rawValue
-        //self.physicsBody?.contactTestBitMask = CollisionTypes.creature.rawValue
-        self.physicsBody?.affectedByGravity = false
-        self.physicsBody?.restitution = 1
-        self.physicsBody?.linearDamping = 0.5
-        self.physicsBody?.allowsRotation = true
-        self.physicsBody?.isDynamic = true
-        self.name = "aeonFood"
+        physicsBody = SKPhysicsBody(circleOfRadius: 5)
+        physicsBody?.categoryBitMask = CollisionTypes.food.rawValue
+        physicsBody?.collisionBitMask = CollisionTypes.edge.rawValue | CollisionTypes.creature.rawValue
+        // self.physicsBody?.contactTestBitMask = CollisionTypes.creature.rawValue
+        physicsBody?.affectedByGravity = false
+        physicsBody?.restitution = 1
+        physicsBody?.linearDamping = 0.5
+        physicsBody?.allowsRotation = true
+        physicsBody?.isDynamic = true
+        name = "aeonFood"
 
         let foodBody = SKSpriteNode(imageNamed: "aeonFoodPellet")
-        //foodBody.color = .green
-        //foodBody.colorBlendFactor = 1
+        // foodBody.color = .green
+        // foodBody.colorBlendFactor = 1
         foodBody.zPosition = 1
         foodBody.name = "AeonFoodSprite"
-        self.addChild(foodBody)
+        addChild(foodBody)
 
-        self.alpha = 0
+        alpha = 0
         let fadeInAction = SKAction.fadeIn(withDuration: 5)
-        self.setScale(0.2)
+        setScale(0.2)
         let scaleMax = randomFloat(min: 0.4, max: 0.7)
         let scaleInAction = SKAction.scale(to: scaleMax, duration: 5)
-        let rotateAction = SKAction.rotate(byAngle: 5, duration: TimeInterval(self.randomFloat(min: 3, max: 10)))
-        self.run(SKAction.repeatForever(rotateAction))
-        self.run(SKAction.group([fadeInAction, scaleInAction]), completion: {
-            let floatOutAction = SKAction.scale(to: (scaleMax/1.5), duration: 3)
+        let rotateAction = SKAction.rotate(byAngle: 5, duration: TimeInterval(randomFloat(min: 3, max: 10)))
+        run(SKAction.repeatForever(rotateAction))
+        run(SKAction.group([fadeInAction, scaleInAction]), completion: {
+            let floatOutAction = SKAction.scale(to: scaleMax / 1.5, duration: 3)
             let floatOutFadeAction = SKAction.fadeAlpha(to: 0.7, duration: 3)
             let floatOutActionGroup = SKAction.group([floatOutAction, floatOutFadeAction])
             floatOutActionGroup.timingMode = .easeInEaseOut
@@ -63,22 +62,21 @@ class AeonFoodNode: SKNode {
             let floatActionGroup = SKAction.sequence([floatOutActionGroup, floatInActionGroup])
             self.run(SKAction.repeatForever(floatActionGroup))
         })
-
     }
 
     func eaten() {
-        self.foodAmount -= 100
-        if self.foodAmount <= 0 {
-            self.physicsBody = nil
+        foodAmount -= 100
+        if foodAmount <= 0 {
+            physicsBody = nil
             let fadeOut = SKAction.fadeAlpha(to: 0, duration: 0.5)
-            self.run(fadeOut, completion: {self.removeFromParent()})
+            run(fadeOut, completion: { self.removeFromParent() })
         }
     }
 
     func die() {
         let fadeOut = SKAction.fadeAlpha(to: 0, duration: 5)
         let scaleOutAction = SKAction.scale(to: 0, duration: 5)
-        self.run(SKAction.group([fadeOut, scaleOutAction]), completion: {
+        run(SKAction.group([fadeOut, scaleOutAction]), completion: {
             if let mainScene = self.scene as? GameScene {
                 mainScene.foodPelletCount -= 1
             }
@@ -88,18 +86,17 @@ class AeonFoodNode: SKNode {
     }
 
     func randomFloat(min: CGFloat, max: CGFloat) -> CGFloat {
-        return (CGFloat(arc4random()) / 0xFFFFFFFF) * (max - min) + min
+        return (CGFloat(arc4random()) / 0xFFFF_FFFF) * (max - min) + min
     }
 
     func age(lastUpdate: TimeInterval) {
-        if lastUpdate < 10 && lifeTime < maxLifeTime {
+        if lastUpdate < 10, lifeTime < maxLifeTime {
             // if state is not sleeping, lose health...
-            self.lifeTime += Float(lastUpdate)
+            lifeTime += Float(lastUpdate)
         }
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }

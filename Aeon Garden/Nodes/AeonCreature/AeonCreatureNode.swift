@@ -7,21 +7,23 @@
 //
 
 import Foundation
-import UIKit
-import SpriteKit
 import GameplayKit
+import SpriteKit
+import UIKit
 
 class AeonCreatureNode: SKNode {
-
     // MARK: - Creature Names
+
     public let firstName: String
     public let lastName: String
     public var fullName: String {
-        return "\(self.firstName) \(self.lastName)"
+        return "\(firstName) \(lastName)"
     }
+
     public var parentNames: [String] = []
 
     // MARK: - Inheritable Traits
+
     private var limbOne: AeonCreatureLimb
     private var limbTwo: AeonCreatureLimb
     private var limbThree: AeonCreatureLimb
@@ -34,12 +36,13 @@ class AeonCreatureNode: SKNode {
     public var currentHealth: Float = Float(GKRandomDistribution(lowestValue: 100, highestValue: 250).nextInt()) {
         didSet {
             if currentHealth <= 0 {
-                self.die()
+                die()
             } else if currentHealth > 300 {
-                self.currentHealth = 300
+                currentHealth = 300
             }
         }
     }
+
     public var currentFoodTarget: AeonFoodNode?
     public var currentLoveTarget: AeonCreatureNode?
     public var currentMoveTarget: CGPoint?
@@ -63,8 +66,8 @@ class AeonCreatureNode: SKNode {
         // Set primary hue for initial creatures...
         let primaryHue = CGFloat(GKRandomDistribution(lowestValue: 1, highestValue: 365).nextInt())
 
-        self.firstName = AeonNameGenerator.shared.returnFirstName()
-        self.lastName = AeonNameGenerator.shared.returnLastName()
+        firstName = AeonNameGenerator.shared.returnFirstName()
+        lastName = AeonNameGenerator.shared.returnLastName()
 
         // Create limbs
         limbOne = AeonCreatureLimb(withPrimaryHue: primaryHue)
@@ -74,8 +77,8 @@ class AeonCreatureNode: SKNode {
 
         super.init()
 
-        self.movementSpeed = randomFloat(min: 5, max: 10)
-        self.sizeModififer = randomFloat(min: 0.7, max: 1.5)
+        movementSpeed = randomFloat(min: 5, max: 10)
+        sizeModififer = randomFloat(min: 0.7, max: 1.5)
 
         setupLimbs()
 
@@ -83,7 +86,6 @@ class AeonCreatureNode: SKNode {
     }
 
     init(withParents parents: [AeonCreatureNode]) {
-
         if parents.count < 2 {
             fatalError("Virgin births are not allowed.")
         }
@@ -110,10 +112,10 @@ class AeonCreatureNode: SKNode {
 
     fileprivate func setupLimbs() {
         // Place limbs on body
-        self.addChild(limbOne)
-        self.addChild(limbTwo)
-        self.addChild(limbThree)
-        self.addChild(limbFour)
+        addChild(limbOne)
+        addChild(limbTwo)
+        addChild(limbThree)
+        addChild(limbFour)
         // Position limbs on body
         limbOne.position = CGPoint(x: 0, y: randomInteger(min: 7, max: 10))
         limbTwo.position = CGPoint(x: randomInteger(min: 7, max: 10), y: 0)
@@ -122,67 +124,63 @@ class AeonCreatureNode: SKNode {
     }
 
     private func setupBodyPhysics() {
-
-        self.physicsBody = SKPhysicsBody(circleOfRadius: 13)
-        self.physicsBody?.isDynamic = true
-        self.physicsBody?.allowsRotation = true
-        self.physicsBody?.categoryBitMask = CollisionTypes.creature.rawValue
-        self.physicsBody?.collisionBitMask = CollisionTypes.creature.rawValue | CollisionTypes.food.rawValue
-        self.physicsBody?.contactTestBitMask = CollisionTypes.creature.rawValue | CollisionTypes.food.rawValue
-        self.physicsBody?.affectedByGravity = false
-        self.physicsBody?.restitution = 1
-        self.physicsBody?.mass = 1
-        self.physicsBody?.linearDamping = 0.5
-        self.physicsBody?.angularDamping = 0
+        physicsBody = SKPhysicsBody(circleOfRadius: 13)
+        physicsBody?.isDynamic = true
+        physicsBody?.allowsRotation = true
+        physicsBody?.categoryBitMask = CollisionTypes.creature.rawValue
+        physicsBody?.collisionBitMask = CollisionTypes.creature.rawValue | CollisionTypes.food.rawValue
+        physicsBody?.contactTestBitMask = CollisionTypes.creature.rawValue | CollisionTypes.food.rawValue
+        physicsBody?.affectedByGravity = false
+        physicsBody?.restitution = 1
+        physicsBody?.mass = 1
+        physicsBody?.linearDamping = 0.5
+        physicsBody?.angularDamping = 0
 
         let underShadow = SKSpriteNode(imageNamed: "aeonBodyShadow")
         underShadow.setScale(1.2)
         underShadow.alpha = 0.2
-        self.addChild(underShadow)
+        addChild(underShadow)
 
-        self.name = "aeonCreature"
+        name = "aeonCreature"
 
-        self.birth()
-        self.beginWiggling()
-
+        birth()
+        beginWiggling()
     }
 
-    func think(nodes: [SKNode], delta: TimeInterval, time: TimeInterval) {
-
+    func think(nodes: [SKNode], delta _: TimeInterval, time: TimeInterval) {
         // Decide what to do...
 
-        if self.lifeState {
-
-            if self.lastThinkTime == 0 {
-                self.lastThinkTime = time
+        if lifeState {
+            if lastThinkTime == 0 {
+                lastThinkTime = time
             }
 
-            if self.currentHealth <= 100 {
-                if self.currentState != .movingToFood || self.currentFoodTarget == nil || (time - self.lastThinkTime) > 3 {
-                    self.currentState = .locatingFood
-                    self.lastThinkTime = time
+            if currentHealth <= 100 {
+                if currentState != .movingToFood || currentFoodTarget == nil || (time - lastThinkTime) > 3 {
+                    currentState = .locatingFood
+                    lastThinkTime = time
                 }
-            } else if self.currentHealth > 250 && self.lifeTime >= 30 {
-                if self.currentState != .movingToLove {
-                    self.currentState = .locatingLove
+            } else if currentHealth > 250, lifeTime >= 30 {
+                if currentState != .movingToLove {
+                    currentState = .locatingLove
                 }
-            } else if self.currentState != .randomMovement {
-                self.beginRandomMovement()
+            } else if currentState != .randomMovement {
+                beginRandomMovement()
             }
 
-            if self.currentState == .locatingFood {
+            if currentState == .locatingFood {
                 // Decide to eat ...
                 // Remove love target...
-                self.currentLoveTarget = nil
+                currentLoveTarget = nil
                 // Find closest food node...
-                var foodDistanceArray = [(distance: CGFloat, interesed: Int, node:AeonFoodNode)]()
+                var foodDistanceArray = [(distance: CGFloat, interesed: Int, node: AeonFoodNode)]()
                 for case let child as AeonFoodNode in nodes {
-                    //if (child.creaturesInterested < 3) {
-                        let distanceComputed = distance(point: child.position)
-                        foodDistanceArray.append((distanceComputed, child.creaturesInterested, child))
-                    //}
+                    // if (child.creaturesInterested < 3) {
+                    let distanceComputed = distance(point: child.position)
+                    foodDistanceArray.append((distanceComputed, child.creaturesInterested, child))
+                    // }
                 }
-                foodDistanceArray.sort(by: {$0.distance < $1.distance})
+                foodDistanceArray.sort(by: { $0.distance < $1.distance })
 
                 // Pick first entry...
 
@@ -190,29 +188,29 @@ class AeonCreatureNode: SKNode {
                     if let foodTarget = self.currentFoodTarget {
                         foodTarget.creaturesInterested -= 1
                     }
-                    self.currentFoodTarget = foodDistanceArray[0].node
+                    currentFoodTarget = foodDistanceArray[0].node
                     foodDistanceArray[0].node.creaturesInterested = foodDistanceArray[0].node.creaturesInterested + 1
-                    self.currentState = .movingToFood
+                    currentState = .movingToFood
                 }
             }
 
-            if self.currentState == .locatingLove {
+            if currentState == .locatingLove {
                 // Decide to eat ...
                 // Find furthest creature node...
-                var creatureDifferenceArray = [(speed: CGFloat, distance: CGFloat, node:AeonCreatureNode)]()
-                for case let child as AeonCreatureNode in nodes where (
+                var creatureDifferenceArray = [(speed: CGFloat, distance: CGFloat, node: AeonCreatureNode)]()
+                for case let child as AeonCreatureNode in nodes where
                     child != self
-                        && self.parentNames.contains(child.lastName) == false
-                        && child.parentNames.contains(self.lastName) == false) {
-                    let distanceComputed = self.distance(point: child.position)
+                    && parentNames.contains(child.lastName) == false
+                    && child.parentNames.contains(lastName) == false {
+                    let distanceComputed = distance(point: child.position)
                     creatureDifferenceArray.append((child.movementSpeed, distanceComputed, child))
                 }
 
-                creatureDifferenceArray.sort(by: {$0.distance < $1.distance})
+                creatureDifferenceArray.sort(by: { $0.distance < $1.distance })
 
                 if creatureDifferenceArray.count > 0 {
-                    self.currentLoveTarget = creatureDifferenceArray[0].node
-                    self.currentState = .movingToLove
+                    currentLoveTarget = creatureDifferenceArray[0].node
+                    currentState = .movingToLove
                 }
             }
 
@@ -226,12 +224,11 @@ class AeonCreatureNode: SKNode {
                     }
                     if nodeFound == 0 {
                         let moveToPoint = moveTarget
-                        self.move(toCGPoint: moveToPoint)
+                        move(toCGPoint: moveToPoint)
                     } else {
-                        self.beginRandomMovement()
+                        beginRandomMovement()
                     }
                 }
-
             }
 
             if self.currentState == .movingToFood {
@@ -244,39 +241,35 @@ class AeonCreatureNode: SKNode {
                         nodeFound = 1
                     }
                     if nodeFound == 1 {
-                        self.move(toCGPoint: foodTarget.position)
+                        move(toCGPoint: foodTarget.position)
                     } else {
-                        self.currentFoodTarget = nil
-                        self.currentState = .nothing
+                        currentFoodTarget = nil
+                        currentState = .nothing
                     }
                 }
-
             }
 
             if self.currentState == .movingToLove {
-                //self.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 0))
+                // self.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 0))
                 var nodeFound = 0
                 // Check if node still exists at point...
                 if let loveTarget = self.currentLoveTarget {
                     let nodes = scene!.nodes(at: loveTarget.position)
                     for node in nodes {
-                        if node.name == "aeonCreature" && node != self {
+                        if node.name == "aeonCreature", node != self {
                             nodeFound = 1
                         }
                     }
                     if nodeFound == 1 {
                         let moveToPoint = loveTarget.position
-                        self.move(toCGPoint: moveToPoint)
+                        move(toCGPoint: moveToPoint)
                     } else {
-                        self.currentLoveTarget = nil
-                        self.currentState = .nothing
+                        currentLoveTarget = nil
+                        currentState = .nothing
                     }
                 }
-
             }
-
         }
-
     }
 
     func move(toCGPoint: CGPoint) {
@@ -285,9 +278,9 @@ class AeonCreatureNode: SKNode {
             var rotationDuration: CGFloat = 0
 
             if self.zRotation > angleMovement {
-                rotationDuration = abs(self.zRotation - angleMovement)*2.5
+                rotationDuration = abs(self.zRotation - angleMovement) * 2.5
             } else if self.zRotation < angleMovement {
-                rotationDuration = abs(angleMovement - self.zRotation)*2.5
+                rotationDuration = abs(angleMovement - self.zRotation) * 2.5
             }
 
             if rotationDuration > 6 { rotationDuration = 6 }
@@ -295,7 +288,8 @@ class AeonCreatureNode: SKNode {
             let rotationAction = SKAction.rotate(
                 toAngle: angleMovement,
                 duration: TimeInterval(rotationDuration),
-                shortestUnitArc: true)
+                shortestUnitArc: true
+            )
 
             rotationAction.timingMode = .easeInEaseOut
 
@@ -309,29 +303,29 @@ class AeonCreatureNode: SKNode {
 
         let thrustVector: CGVector = CGVector(
             dx: cos(newRotationRadians) * self.movementSpeed,
-            dy: sin(newRotationRadians) * self.movementSpeed)
+            dy: sin(newRotationRadians) * self.movementSpeed
+        )
 
         self.physicsBody?.applyForce(thrustVector)
-
     }
 
     func beginRandomMovement() {
         let positionX = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: Int(scene!.size.width)).nextInt())
         let positionY = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: Int(scene!.size.height)).nextInt())
-        let moveToPoint = CGPoint.init(x: positionX, y: positionY)
+        let moveToPoint = CGPoint(x: positionX, y: positionY)
         self.currentMoveTarget = moveToPoint
         self.currentState = .randomMovement
     }
 
     func randomFloat(min: CGFloat, max: CGFloat) -> CGFloat {
-        return (CGFloat(arc4random()) / 0xFFFFFFFF) * (max - min) + min
+        return (CGFloat(arc4random()) / 0xFFFF_FFFF) * (max - min) + min
     }
 
     func angleBetweenPointOne(pointOne: CGPoint, andPointTwo pointTwo: CGPoint) -> CGFloat {
         let xdiff = (pointTwo.x - pointOne.x)
         let ydiff = (pointTwo.y - pointOne.y)
         let rad = atan2(ydiff, xdiff)
-        return rad - 1.5707963268       // convert from atan's right-pointing zero to CG's up-pointing zero
+        return rad - 1.5707963268 // convert from atan's right-pointing zero to CG's up-pointing zero
     }
 
     func distance(point: CGPoint) -> CGFloat {
@@ -374,7 +368,6 @@ class AeonCreatureNode: SKNode {
             }
             self.removeFromParent()
         })
-
     }
 
     func fed() {
@@ -386,19 +379,19 @@ class AeonCreatureNode: SKNode {
     }
 
     func beginWiggling() {
-
         for case let child as SKSpriteNode in self.children {
-
             var wiggleFactor = GKRandomSource.sharedRandom().nextUniform()
             while wiggleFactor > 0.2 {
                 wiggleFactor = GKRandomSource.sharedRandom().nextUniform()
             }
             let wiggleAction = SKAction.rotate(
                 byAngle: CGFloat(wiggleFactor),
-                duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform()))
+                duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform())
+            )
             let wiggleActionBack = SKAction.rotate(
                 byAngle: CGFloat(-wiggleFactor),
-                duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform()))
+                duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform())
+            )
 
             let wiggleMoveFactor = GKRandomSource.sharedRandom().nextUniform()
             let wiggleMoveFactor2 = GKRandomSource.sharedRandom().nextUniform()
@@ -406,38 +399,37 @@ class AeonCreatureNode: SKNode {
             let wiggleMovement = SKAction.moveBy(
                 x: CGFloat(wiggleMoveFactor),
                 y: CGFloat(wiggleMoveFactor2),
-                duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform()))
+                duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform())
+            )
             let wiggleMovementBack = SKAction.moveBy(
                 x: CGFloat(-wiggleMoveFactor),
                 y: CGFloat(-wiggleMoveFactor2),
-                duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform()))
+                duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform())
+            )
 
             let wiggleAround = SKAction.group([wiggleAction, wiggleMovement])
             let wiggleAroundBack = SKAction.group([wiggleActionBack, wiggleMovementBack])
 
             child.run(SKAction.repeatForever(SKAction.sequence([wiggleAround, wiggleAroundBack])), withKey: "Wiggling")
         }
-
     }
 
     func endWiggling() {
-
         for case let child as SKSpriteNode in self.children {
             child.removeAction(forKey: "Wiggling")
         }
         self.removeAction(forKey: "Wiggling")
-
     }
 
     func age(lastUpdate: TimeInterval) {
-        if lastUpdate < 10 && self.currentHealth > 0 {
+        if lastUpdate < 10, self.currentHealth > 0 {
             self.currentHealth -= Float(lastUpdate)
             self.lifeTime += Float(lastUpdate)
         }
     }
 
     func ageWithoutDeath(lastUpdate: TimeInterval) {
-        if lastUpdate < 10 && self.currentHealth > 0 {
+        if lastUpdate < 10, self.currentHealth > 0 {
             if self.currentHealth - Float(lastUpdate) < 10 {
                 self.currentHealth = 10
             } else {
@@ -448,7 +440,6 @@ class AeonCreatureNode: SKNode {
     }
 
     func getRandomShape() -> String {
-
         let randomNumber = GKRandomSource.sharedRandom().nextInt(upperBound: 2)
 
         switch randomNumber {
@@ -461,24 +452,20 @@ class AeonCreatureNode: SKNode {
         default:
             return "aeonTriangle"
         }
-
     }
 
     func lifeTimeFormattedAsString() -> String {
-
-        let aeonDays: Double = round(Double(lifeTime/60) * 10) / 10
-        let aeonYears: Double = round(aeonDays/60 * 10) / 10
+        let aeonDays: Double = round(Double(lifeTime / 60) * 10) / 10
+        let aeonYears: Double = round(aeonDays / 60 * 10) / 10
 
         if aeonDays < 60 {
             return "\(aeonDays) Minutes Old"
         } else {
             return "\(aeonYears) Hours Old"
         }
-
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }

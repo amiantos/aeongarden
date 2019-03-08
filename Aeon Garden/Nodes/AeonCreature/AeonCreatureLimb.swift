@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import SpriteKit
 import GameKit
+import SpriteKit
 
 class AeonCreatureLimb: SKSpriteNode {
     public var shape: BodyPart
@@ -23,7 +23,7 @@ class AeonCreatureLimb: SKSpriteNode {
         case square = "aeonSquare"
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -38,7 +38,6 @@ class AeonCreatureLimb: SKSpriteNode {
         colorBlendFactor = blend
         zRotation = limb.zRotation
         zPosition = limb.zPosition
-
     }
 
     init(withPrimaryHue primaryHue: CGFloat) {
@@ -60,14 +59,14 @@ class AeonCreatureLimb: SKSpriteNode {
 
         let texture = SKTexture(imageNamed: shape.rawValue)
         let color = UIColor(
-            hue: self.hue/360,
-            saturation: self.saturation/100,
-            brightness: self.brightness/100,
-            alpha: 1.0)
+            hue: hue / 360,
+            saturation: saturation / 100,
+            brightness: brightness / 100,
+            alpha: 1.0
+        )
         super.init(texture: texture, color: color, size: texture.size())
         colorBlendFactor = blend
         zRotation = CGFloat(randomInteger(min: 0, max: 10))
         zPosition = 2
     }
-
 }

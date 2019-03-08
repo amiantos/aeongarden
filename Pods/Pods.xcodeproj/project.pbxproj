@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		68F5CA6942BFF536359EA12E4A247847 /* SwiftLint */ = {
+		1AD2F6C5BC5FD2EB0B144CCAEDB55230 /* SwiftLint */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = E991DB979BBE845DFBAE734D7280AC52 /* Build configuration list for PBXAggregateTarget "SwiftLint" */;
+			buildConfigurationList = D2D33C9BD39B238B6A7F2658152B7150 /* Build configuration list for PBXAggregateTarget "SwiftLint" */;
 			buildPhases = (
 			);
 			dependencies = (
@@ -17,20 +17,37 @@
 			name = SwiftLint;
 			productName = SwiftLint;
 		};
+		860742A20FA806160F71B3F098A9822B /* SwiftFormat */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 27F862550142BE0F1C86D84A15C8477F /* Build configuration list for PBXAggregateTarget "SwiftFormat" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = SwiftFormat;
+			productName = SwiftFormat;
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		75780599F17031942397CCF9DD4611F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
-		A24D62D1DB8E7115D4463B69C6182B27 /* Pods-Aeon Garden-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA2C1A7C929C2121E349601371C26E4 /* Pods-Aeon Garden-dummy.m */; };
-		C15D24E7373E13A122082CEC6AD2140D /* Pods-Aeon Garden-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A2D6C6EF0988A5E94F593674A585360 /* Pods-Aeon Garden-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2A369A052A01BC5B51837299B331438B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
+		BF8CDDFA4048BF6EF1FBCD06E60A4C16 /* Pods-Aeon Garden-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA2C1A7C929C2121E349601371C26E4 /* Pods-Aeon Garden-dummy.m */; };
+		DA86CF4A2D5F29C20FB4627BAC09B515 /* Pods-Aeon Garden-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A2D6C6EF0988A5E94F593674A585360 /* Pods-Aeon Garden-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7B9127351EE1C2AA4DDF43E659EDB2B7 /* PBXContainerItemProxy */ = {
+		97243E931972E418EAA8D7E04A70FE6E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 68F5CA6942BFF536359EA12E4A247847;
+			remoteGlobalIDString = 860742A20FA806160F71B3F098A9822B;
+			remoteInfo = SwiftFormat;
+		};
+		B9F5D1925E006B8D76E51555352226A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1AD2F6C5BC5FD2EB0B144CCAEDB55230;
 			remoteInfo = SwiftLint;
 		};
 /* End PBXContainerItemProxy section */
@@ -44,39 +61,31 @@
 		723F02B78FB2A23060ECADF43ECE25E3 /* Pods-Aeon Garden.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Aeon Garden.release.xcconfig"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B1BD1DBC271465C97DE29A9477404BAF /* Pods-Aeon Garden.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Aeon Garden.modulemap"; sourceTree = "<group>"; };
+		B460236412724AE3AF3F8003CB40E294 /* SwiftFormat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftFormat.xcconfig; sourceTree = "<group>"; };
 		B73E72248562F07B3326E4AA3BA3DCB9 /* Pods-Aeon Garden-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Aeon Garden-acknowledgements.markdown"; sourceTree = "<group>"; };
-		E051927E9A0E02DDB945A71F7FBC6909 /* SwiftLint.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftLint.xcconfig; sourceTree = "<group>"; };
 		EC0CA7A121BDA67C458119227A5AA5C9 /* Pods-Aeon Garden.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Aeon Garden.debug.xcconfig"; sourceTree = "<group>"; };
 		F8348EC9A4C9E591CD597FBD0793DA4E /* Pods_Aeon_Garden.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB7D9BB7DF4F762F8CB2AD27612C3CB0 /* SwiftLint.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftLint.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		68A569273A9B441736DC0750F2A2767D /* Frameworks */ = {
+		B0C73A254BF030FDE6A0F5916AB3A07B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75780599F17031942397CCF9DD4611F5 /* Foundation.framework in Frameworks */,
+				2A369A052A01BC5B51837299B331438B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		028144E0579A2389F6D122FCAB5F7816 /* SwiftLint */ = {
+		09B4C06171647B860E270BFE8F38623B /* SwiftLint */ = {
 			isa = PBXGroup;
 			children = (
-				0ED587AA2331BF39E26F486487B4147B /* Support Files */,
+				F57A86A65EB849645ECEE5AE19C9A14C /* Support Files */,
 			);
 			path = SwiftLint;
-			sourceTree = "<group>";
-		};
-		0ED587AA2331BF39E26F486487B4147B /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				E051927E9A0E02DDB945A71F7FBC6909 /* SwiftLint.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/SwiftLint";
 			sourceTree = "<group>";
 		};
 		3ACC95BF7FF8E624AD5C93E442F451E7 /* Pods-Aeon Garden */ = {
@@ -95,6 +104,15 @@
 			path = "Target Support Files/Pods-Aeon Garden";
 			sourceTree = "<group>";
 		};
+		45EF0F2258BFDBDE642F3C5A6F72FC0F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				B460236412724AE3AF3F8003CB40E294 /* SwiftFormat.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftFormat";
+			sourceTree = "<group>";
+		};
 		5E0D919E635D23B70123790B8308F8EF /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,16 +126,17 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				9EC5AE59D5794DA0579E467CDC0204CC /* Pods */,
+				7FEE246640D47AFFF3F24AD1E7A21B49 /* Pods */,
 				C8B78B7BDE24738063C85C13DBCDE9A3 /* Products */,
 				B14F7806785707AD3763278E6B85614E /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		9EC5AE59D5794DA0579E467CDC0204CC /* Pods */ = {
+		7FEE246640D47AFFF3F24AD1E7A21B49 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				028144E0579A2389F6D122FCAB5F7816 /* SwiftLint */,
+				BCB2E1B340D9AB0514F035D576A899A3 /* SwiftFormat */,
+				09B4C06171647B860E270BFE8F38623B /* SwiftLint */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -138,6 +157,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BCB2E1B340D9AB0514F035D576A899A3 /* SwiftFormat */ = {
+			isa = PBXGroup;
+			children = (
+				45EF0F2258BFDBDE642F3C5A6F72FC0F /* Support Files */,
+			);
+			path = SwiftFormat;
+			sourceTree = "<group>";
+		};
 		C8B78B7BDE24738063C85C13DBCDE9A3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,33 +173,43 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F57A86A65EB849645ECEE5AE19C9A14C /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				FB7D9BB7DF4F762F8CB2AD27612C3CB0 /* SwiftLint.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftLint";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		8A20A79AB39DB29E9AC572899F0EDE94 /* Headers */ = {
+		991624A51ECD80096B147AC79C66C2C7 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C15D24E7373E13A122082CEC6AD2140D /* Pods-Aeon Garden-umbrella.h in Headers */,
+				DA86CF4A2D5F29C20FB4627BAC09B515 /* Pods-Aeon Garden-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		C555C95F38014C492D8ADE239A5F636E /* Pods-Aeon Garden */ = {
+		94C2A766B89DC4D5544297FD38FACEB4 /* Pods-Aeon Garden */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B8E19D9660835DEBD227DB2E88B6897D /* Build configuration list for PBXNativeTarget "Pods-Aeon Garden" */;
+			buildConfigurationList = 2A58C39FF9F6445CADB6575B3715E24F /* Build configuration list for PBXNativeTarget "Pods-Aeon Garden" */;
 			buildPhases = (
-				8A20A79AB39DB29E9AC572899F0EDE94 /* Headers */,
-				8681A864CEDF6693B69A2A1504980356 /* Sources */,
-				68A569273A9B441736DC0750F2A2767D /* Frameworks */,
-				A582AE8812C05C910E8E19D97B82E4F3 /* Resources */,
+				991624A51ECD80096B147AC79C66C2C7 /* Headers */,
+				8A6F1CF2D11F2199F9C9BA45C10AB91A /* Sources */,
+				B0C73A254BF030FDE6A0F5916AB3A07B /* Frameworks */,
+				003E8B5342864A3EFC62F51811B07C0E /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				1B1A58E9A9499A3C7FD81A97154CB6D8 /* PBXTargetDependency */,
+				7117EFD159C28AADBC8D8766544AAD96 /* PBXTargetDependency */,
+				6AAC8929EA1D2AC5F741CC83DDE3B535 /* PBXTargetDependency */,
 			);
 			name = "Pods-Aeon Garden";
 			productName = "Pods-Aeon Garden";
@@ -200,14 +237,15 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C555C95F38014C492D8ADE239A5F636E /* Pods-Aeon Garden */,
-				68F5CA6942BFF536359EA12E4A247847 /* SwiftLint */,
+				94C2A766B89DC4D5544297FD38FACEB4 /* Pods-Aeon Garden */,
+				860742A20FA806160F71B3F098A9822B /* SwiftFormat */,
+				1AD2F6C5BC5FD2EB0B144CCAEDB55230 /* SwiftLint */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A582AE8812C05C910E8E19D97B82E4F3 /* Resources */ = {
+		003E8B5342864A3EFC62F51811B07C0E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -217,29 +255,35 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8681A864CEDF6693B69A2A1504980356 /* Sources */ = {
+		8A6F1CF2D11F2199F9C9BA45C10AB91A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A24D62D1DB8E7115D4463B69C6182B27 /* Pods-Aeon Garden-dummy.m in Sources */,
+				BF8CDDFA4048BF6EF1FBCD06E60A4C16 /* Pods-Aeon Garden-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		1B1A58E9A9499A3C7FD81A97154CB6D8 /* PBXTargetDependency */ = {
+		6AAC8929EA1D2AC5F741CC83DDE3B535 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SwiftLint;
-			target = 68F5CA6942BFF536359EA12E4A247847 /* SwiftLint */;
-			targetProxy = 7B9127351EE1C2AA4DDF43E659EDB2B7 /* PBXContainerItemProxy */;
+			target = 1AD2F6C5BC5FD2EB0B144CCAEDB55230 /* SwiftLint */;
+			targetProxy = B9F5D1925E006B8D76E51555352226A6 /* PBXContainerItemProxy */;
+		};
+		7117EFD159C28AADBC8D8766544AAD96 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftFormat;
+			target = 860742A20FA806160F71B3F098A9822B /* SwiftFormat */;
+			targetProxy = 97243E931972E418EAA8D7E04A70FE6E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		38D5908159AE51647DED3C5E0C14C5AB /* Release */ = {
+		087058F5E923AA2F8130A890D8FE43DA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E051927E9A0E02DDB945A71F7FBC6909 /* SwiftLint.xcconfig */;
+			baseConfigurationReference = B460236412724AE3AF3F8003CB40E294 /* SwiftFormat.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -251,7 +295,54 @@
 			};
 			name = Release;
 		};
-		4D262D83BBDA939D5F29DBF4AD0D3A88 /* Release */ = {
+		1BF6B9CB5A75192173BBFEB904801817 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC0CA7A121BDA67C458119227A5AA5C9 /* Pods-Aeon Garden.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Aeon Garden/Pods-Aeon Garden-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Aeon Garden/Pods-Aeon Garden.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		22ACEE4E1A36E2F9681D47CC6C2DD14E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B460236412724AE3AF3F8003CB40E294 /* SwiftFormat.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		83ECEEBF763E933DF9699DB6BE0ECE6C /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 723F02B78FB2A23060ECADF43ECE25E3 /* Pods-Aeon Garden.release.xcconfig */;
 			buildSettings = {
@@ -409,43 +500,23 @@
 			};
 			name = Release;
 		};
-		BA78D1ADCB63D5C2C960408BF07DC45C /* Debug */ = {
+		D87AF43499677F38D19D8A8276531B03 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC0CA7A121BDA67C458119227A5AA5C9 /* Pods-Aeon Garden.debug.xcconfig */;
+			baseConfigurationReference = FB7D9BB7DF4F762F8CB2AD27612C3CB0 /* SwiftLint.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Aeon Garden/Pods-Aeon Garden-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Aeon Garden/Pods-Aeon Garden.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
+				VALIDATE_PRODUCT = YES;
 			};
-			name = Debug;
+			name = Release;
 		};
-		BCBF20F7B8A8692F611AA4C289F77801 /* Debug */ = {
+		E8EB020E4D2A8AD57EF6E835580F5AD3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E051927E9A0E02DDB945A71F7FBC6909 /* SwiftLint.xcconfig */;
+			baseConfigurationReference = FB7D9BB7DF4F762F8CB2AD27612C3CB0 /* SwiftLint.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -459,6 +530,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		27F862550142BE0F1C86D84A15C8477F /* Build configuration list for PBXAggregateTarget "SwiftFormat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22ACEE4E1A36E2F9681D47CC6C2DD14E /* Debug */,
+				087058F5E923AA2F8130A890D8FE43DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2A58C39FF9F6445CADB6575B3715E24F /* Build configuration list for PBXNativeTarget "Pods-Aeon Garden" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1BF6B9CB5A75192173BBFEB904801817 /* Debug */,
+				83ECEEBF763E933DF9699DB6BE0ECE6C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -468,20 +557,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B8E19D9660835DEBD227DB2E88B6897D /* Build configuration list for PBXNativeTarget "Pods-Aeon Garden" */ = {
+		D2D33C9BD39B238B6A7F2658152B7150 /* Build configuration list for PBXAggregateTarget "SwiftLint" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BA78D1ADCB63D5C2C960408BF07DC45C /* Debug */,
-				4D262D83BBDA939D5F29DBF4AD0D3A88 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E991DB979BBE845DFBAE734D7280AC52 /* Build configuration list for PBXAggregateTarget "SwiftLint" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BCBF20F7B8A8692F611AA4C289F77801 /* Debug */,
-				38D5908159AE51647DED3C5E0C14C5AB /* Release */,
+				E8EB020E4D2A8AD57EF6E835580F5AD3 /* Debug */,
+				D87AF43499677F38D19D8A8276531B03 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
