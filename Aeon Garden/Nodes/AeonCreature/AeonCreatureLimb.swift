@@ -29,12 +29,18 @@ class AeonCreatureLimb: SKSpriteNode {
 
     init(withLimb limb: AeonCreatureLimb) {
         shape = limb.shape
-        hue = limb.hue
-        brightness = limb.brightness
-        saturation = limb.saturation
-        blend = limb.blend
+        hue = limb.hue * randomCGFloat(min: 0.8, max: 1.2)
+        brightness = limb.brightness * randomCGFloat(min: 0.8, max: 1.2)
+        saturation = limb.saturation * randomCGFloat(min: 0.8, max: 1.2)
+        blend = limb.blend * randomCGFloat(min: 0.8, max: 1.2)
+        let color = UIColor(
+            hue: hue,
+            saturation: saturation,
+            brightness: brightness,
+            alpha: 1.0
+        )
 
-        super.init(texture: limb.texture, color: limb.color, size: limb.size)
+        super.init(texture: limb.texture, color: color, size: limb.size)
         colorBlendFactor = blend
         zRotation = limb.zRotation
         zPosition = limb.zPosition
