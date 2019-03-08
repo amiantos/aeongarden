@@ -11,14 +11,14 @@ import SpriteKit
 import GameplayKit
 
 class AeonCreatureNode: SKNode {
+    public let firstName: String
+    public let lastName: String
+    public var parentNames: [String] = []
 
-    public var limbsPrimaryColorHue: CGFloat
     private var limbOne: AeonCreatureLimb
     private var limbTwo: AeonCreatureLimb
     private var limbThree: AeonCreatureLimb
     private var limbFour: AeonCreatureLimb
-
-    public var lightOrDark: Bool
 
     public var currentState: State = State.nothing
     public var currentHealth: Float = Float(GKRandomDistribution(lowestValue: 100, highestValue: 250).nextInt()) {
@@ -33,17 +33,13 @@ class AeonCreatureNode: SKNode {
     public var currentFoodTarget: AeonFoodNode?
     public var currentLoveTarget: AeonCreatureNode?
     public var currentMoveTarget: CGPoint?
+
     private var lifeState: Bool = true
     public var lifeTime: Float = 0
     private var movementSpeed: CGFloat = 1
     public var sizeModififer: CGFloat = 1
 
     private var lastThinkTime: TimeInterval = 0
-
-    public var parentNames: [String] = []
-
-    public let firstName: String
-    public let lastName: String
 
     public enum State: String {
         case nothing = "Thinking"
@@ -55,38 +51,69 @@ class AeonCreatureNode: SKNode {
         case dead = "Dying"
     }
 
-    public enum BodyPart: String {
-        case triangle = "aeonTriangle"
-        case circle = "aeonCircle"
-        case square = "aeonSquare"
-    }
-
-//    fileprivate func initLimbHue(withPrimaryHue: ) {
-//
-//    }
-
     override init() {
         // Set primary hue for initial creatures...
-        self.limbsPrimaryColorHue = CGFloat(GKRandomDistribution(lowestValue: 1, highestValue: 365).nextInt())
+        let primaryHue = CGFloat(GKRandomDistribution(lowestValue: 1, highestValue: 365).nextInt())
 
-        self.lightOrDark = {
-            let randomBool = GKRandomSource.sharedRandom().nextBool()
-            return randomBool
-        }()
+        self.firstName = AeonNameGenerator.shared.returnFirstName()
+        self.lastName = AeonNameGenerator.shared.returnLastName()
 
-        let nameGenerator = AeonNameGenerator()
-        self.firstName = nameGenerator.returnFirstName()
-        self.lastName =  nameGenerator.returnLastName()
-
-        limbOne = AeonCreatureLimb(withPrimaryHue: self.limbsPrimaryColorHue)
-        limbTwo = AeonCreatureLimb(withPrimaryHue: self.limbsPrimaryColorHue)
-        limbThree = AeonCreatureLimb(withPrimaryHue: self.limbsPrimaryColorHue)
-        limbFour = AeonCreatureLimb(withPrimaryHue: self.limbsPrimaryColorHue)
+        // Create limbs
+        limbOne = AeonCreatureLimb(withPrimaryHue: primaryHue)
+        limbTwo = AeonCreatureLimb(withPrimaryHue: primaryHue)
+        limbThree = AeonCreatureLimb(withPrimaryHue: primaryHue)
+        limbFour = AeonCreatureLimb(withPrimaryHue: primaryHue)
 
         super.init()
 
         self.movementSpeed = randomFloat(min: 5, max: 10)
         self.sizeModififer = randomFloat(min: 0.7, max: 1.5)
+
+        setupLimbs()
+
+        setupBodyPhysics()
+    }
+
+    init(withParents parents: [AeonCreatureNode]) {
+
+        if parents.count < 2 {
+            fatalError("Virgin births are not allowed.")
+        }
+
+        firstName = AeonNameGenerator.shared.returnFirstName()
+        lastName = parents.randomElement()!.lastName
+
+        parentNames.append(parents[0].lastName)
+        parentNames.append(parents[1].lastName)
+
+        limbOne = parents.randomElement()!.limbOne
+        limbTwo = parents.randomElement()!.limbTwo
+        limbThree = parents.randomElement()!.limbThree
+        limbFour = parents.randomElement()!.limbFour
+
+        movementSpeed = parents.randomElement()!.movementSpeed
+        sizeModififer = parents.randomElement()!.sizeModififer
+
+        super.init()
+
+        setupLimbs()
+        setupBodyPhysics()
+    }
+
+    fileprivate func setupLimbs() {
+        // Place limbs on body
+        self.addChild(limbOne)
+        self.addChild(limbTwo)
+        self.addChild(limbThree)
+        self.addChild(limbFour)
+        // Position limbs on body
+        limbOne.position = CGPoint(x: 0, y: randomInteger(min: 7, max: 10))
+        limbTwo.position = CGPoint(x: randomInteger(min: 7, max: 10), y: 0)
+        limbThree.position = CGPoint(x: 0, y: -randomInteger(min: 7, max: 10))
+        limbFour.position = CGPoint(x: -randomInteger(min: 7, max: 10), y: 0)
+    }
+
+    private func setupBodyPhysics() {
 
         self.physicsBody = SKPhysicsBody(circleOfRadius: 13)
         self.physicsBody?.isDynamic = true
@@ -100,19 +127,6 @@ class AeonCreatureNode: SKNode {
         self.physicsBody?.linearDamping = 0.5
         self.physicsBody?.angularDamping = 0
 
-        // Place limbs on body
-        self.addChild(limbOne)
-        limbOne.position = CGPoint(x: 0, y: GKRandomDistribution(lowestValue: 7, highestValue: 10).nextInt())
-
-        self.addChild(limbTwo)
-        limbTwo.position = CGPoint(x: GKRandomDistribution(lowestValue: 7, highestValue: 10).nextInt(), y: 0)
-
-        self.addChild(limbThree)
-        limbThree.position = CGPoint(x: 0, y: -GKRandomDistribution(lowestValue: 7, highestValue: 10).nextInt())
-
-        self.addChild(limbFour)
-        limbFour.position = CGPoint(x: -GKRandomDistribution(lowestValue: 5, highestValue: 8).nextInt(), y: 0)
-
         let underShadow = SKSpriteNode(imageNamed: "aeonBodyShadow")
         underShadow.setScale(1.2)
         underShadow.alpha = 0.2
@@ -124,334 +138,6 @@ class AeonCreatureNode: SKNode {
         self.beginWiggling()
 
     }
-
-//    init(parent: AeonCreatureNode, parent2: AeonCreatureNode) {
-//
-//        self.lightOrDark = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.lightOrDark
-//            } else {
-//                return parent2.lightOrDark
-//            }
-//        }()
-//
-//        self.limbOneColorHue = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbOneColorHue //+ CGFloat(GKRandomDistribution(lowestValue: -50, highestValue: 50).nextInt())
-//            } else {
-//                return parent2.limbOneColorHue //+ CGFloat(GKRandomDistribution(lowestValue: -50, highestValue: 50).nextInt())
-//            }
-//        }()
-//        self.limbTwoColorHue = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbTwoColorHue //+ CGFloat(GKRandomDistribution(lowestValue: -50, highestValue: 50).nextInt())
-//            } else {
-//                return parent2.limbTwoColorHue //+ CGFloat(GKRandomDistribution(lowestValue: -50, highestValue: 50).nextInt())
-//            }
-//        }()
-//        self.limbThreeColorHue = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbThreeColorHue //+ CGFloat(GKRandomDistribution(lowestValue: -50, highestValue: 50).nextInt())
-//            } else {
-//                return parent2.limbThreeColorHue //+ CGFloat(GKRandomDistribution(lowestValue: -50, highestValue: 50).nextInt())
-//            }
-//        }()
-//        self.limbFourColorHue = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbFourColorHue //+ CGFloat(GKRandomDistribution(lowestValue: -50, highestValue: 50).nextInt())
-//            } else {
-//                return parent2.limbFourColorHue //+ CGFloat(GKRandomDistribution(lowestValue: -50, highestValue: 50).nextInt())
-//            }
-//        }()
-//
-//        self.limbOneColorBlend = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbOneColorBlend
-//            } else {
-//                return parent2.limbOneColorBlend
-//            }
-//        }()
-//        self.limbTwoColorBlend = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbTwoColorBlend
-//            } else {
-//                return parent2.limbTwoColorBlend
-//            }
-//        }()
-//        self.limbThreeColorBlend = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbThreeColorBlend
-//            } else {
-//                return parent2.limbThreeColorBlend
-//            }
-//        }()
-//        self.limbFourColorBlend = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbFourColorBlend
-//            } else {
-//                return parent2.limbFourColorBlend
-//            }
-//        }()
-//
-//         self.limbsPrimaryColorHue = (self.limbOneColorHue + self.limbTwoColorHue + self.limbThreeColorHue + self.limbFourColorHue)/4
-//
-//        let nameGenerator = AeonNameGenerator()
-//        self.firstName = nameGenerator.returnFirstName()
-//        self.lastName = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.lastName
-//            } else {
-//                return parent2.lastName
-//            }
-//        }()
-//
-//        super.init()
-//
-//            /*for lastName in parent.parentNames {
-//                self.parentNames.append(lastName)
-//            }
-//
-//
-//
-//            for lastName in parent2.parentNames {
-//                self.parentNames.append(lastName)
-//            }*/
-//
-//        self.parentNames.append(parent.lastName)
-//        self.parentNames.append(parent2.lastName)
-//
-//        self.movementSpeed = {
-//            let randomNumber = GKRandomSource.sharedRandom().nextInt(upperBound: 7)
-//
-//            switch randomNumber {
-//            case 0:
-//                return parent.movementSpeed
-//            case 1:
-//                return parent2.movementSpeed
-//            case 2:
-//                return (parent.movementSpeed+parent2.movementSpeed)/2
-//            case 3:
-//                return parent.movementSpeed*1.01
-//            case 4:
-//                return parent2.movementSpeed*1.01
-//            case 5:
-//                return parent.movementSpeed*0.99
-//            case 6:
-//                return parent2.movementSpeed*0.99
-//            default:
-//                return (parent.movementSpeed+parent2.movementSpeed)/2
-//            }
-//        }()
-//        self.sizeModififer = {
-//            let randomNumber = GKRandomSource.sharedRandom().nextInt(upperBound: 7)
-//
-//            switch randomNumber {
-//            case 0:
-//                return parent.sizeModififer
-//            case 1:
-//                return parent2.sizeModififer
-//            case 2:
-//                return (parent.sizeModififer+parent2.sizeModififer)/2
-//            case 3:
-//                return parent.sizeModififer*1.01
-//            case 4:
-//                return parent2.sizeModififer*1.01
-//            case 5:
-//                return parent.sizeModififer*0.99
-//            case 6:
-//                return parent2.sizeModififer*0.99
-//            default:
-//                return (parent.sizeModififer+parent2.sizeModififer)/2
-//            }
-//        }()
-//
-//        self.physicsBody = SKPhysicsBody(circleOfRadius: 13)
-//        self.physicsBody?.isDynamic = true
-//        self.physicsBody?.allowsRotation = true
-//        self.physicsBody?.categoryBitMask = CollisionTypes.creature.rawValue
-//        self.physicsBody?.collisionBitMask = CollisionTypes.creature.rawValue | CollisionTypes.food.rawValue
-//        self.physicsBody?.contactTestBitMask = CollisionTypes.creature.rawValue | CollisionTypes.food.rawValue
-//        self.physicsBody?.affectedByGravity = false
-//        self.physicsBody?.restitution = 1
-//        self.physicsBody?.mass = 1
-//        self.physicsBody?.linearDamping = 0.5
-//        self.physicsBody?.angularDamping = 0
-//
-//        // Define colors
-//
-//        limbOneShape = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbOneShape
-//            } else {
-//                return parent2.limbOneShape
-//            }
-//            }()
-//        limbTwoShape = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbTwoShape
-//            } else {
-//                return parent2.limbTwoShape
-//            }
-//        }()
-//        limbThreeShape = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbThreeShape
-//            } else {
-//                return parent2.limbThreeShape
-//            }
-//        }()
-//        limbFourShape = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbFourShape
-//            } else {
-//                return parent2.limbFourShape
-//            }
-//        }()
-//
-//        limbOneColorBrightness = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbOneColorBrightness
-//            } else {
-//                return parent2.limbOneColorBrightness
-//            }
-//        }()
-//        limbTwoColorBrightness = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbTwoColorBrightness
-//            } else {
-//                return parent2.limbTwoColorBrightness
-//            }
-//        }()
-//        limbThreeColorBrightness = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbThreeColorBrightness
-//            } else {
-//                return parent2.limbThreeColorBrightness
-//            }
-//        }()
-//        limbFourColorBrightness = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbFourColorBrightness
-//            } else {
-//                return parent2.limbFourColorBrightness
-//            }
-//        }()
-//
-//        limbOneColorSaturation = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbOneColorSaturation
-//            } else {
-//                return parent2.limbOneColorSaturation
-//            }
-//        }()
-//        limbTwoColorSaturation = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbTwoColorSaturation
-//            } else {
-//                return parent2.limbTwoColorSaturation
-//            }
-//        }()
-//        limbThreeColorSaturation = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbThreeColorSaturation
-//            } else {
-//                return parent2.limbThreeColorSaturation
-//            }
-//        }()
-//        limbFourColorSaturation = {
-//            let randomBool = GKRandomSource.sharedRandom().nextBool()
-//            if randomBool {
-//                return parent.limbFourColorSaturation
-//            } else {
-//                return parent2.limbFourColorSaturation
-//            }
-//        }()
-//
-//        // Generate limbs
-//        limbOne = SKSpriteNode(imageNamed: limbOneShape)
-//        self.addChild(limbOne)
-//        limbOne.zRotation = CGFloat(GKRandomSource.sharedRandom().nextInt(upperBound: 10))
-//        limbOne.zPosition = 2
-//        limbOne.color = UIColor(
-//            hue: limbOneColorHue/360,
-//            saturation: limbOneColorSaturation/100,
-//            brightness: limbOneColorBrightness/100,
-//            alpha: 1.0
-//        )
-//        limbOne.colorBlendFactor = 0.75
-//        limbOne.position = CGPoint(x: 0, y: GKRandomDistribution(lowestValue: 7, highestValue: 10).nextInt())
-//
-//        limbTwo = SKSpriteNode(imageNamed: limbTwoShape)
-//        self.addChild(limbTwo)
-//        limbTwo.zRotation = CGFloat(GKRandomSource.sharedRandom().nextInt(upperBound: 10))
-//        limbTwo.zPosition = 2
-//        limbTwo.color = UIColor(
-//            hue: limbTwoColorHue/360,
-//            saturation: limbTwoColorSaturation/100,
-//            brightness: limbTwoColorBrightness/100,
-//            alpha: 1.0
-//        )
-//        limbTwo.colorBlendFactor = 0.5
-//        limbTwo.position = CGPoint(x: GKRandomDistribution(lowestValue: 7, highestValue: 10).nextInt(), y: 0)
-//
-//        limbThree = SKSpriteNode(imageNamed: limbThreeShape)
-//        self.addChild(limbThree)
-//        limbThree.zRotation = CGFloat(GKRandomDistribution(lowestValue: 7, highestValue: 10).nextInt())
-//        limbThree.zPosition = 2
-//        limbThree.color = UIColor(
-//            hue: limbThreeColorHue/360,
-//            saturation: limbThreeColorSaturation/100,
-//            brightness: limbThreeColorBrightness/100,
-//            alpha: 1.0
-//        )
-//        limbThree.colorBlendFactor = 0.5
-//        limbThree.position = CGPoint(x: 0, y: -GKRandomDistribution(lowestValue: 7, highestValue: 10).nextInt())
-//
-//        limbFour = SKSpriteNode(imageNamed: limbFourShape)
-//        self.addChild(limbFour)
-//        limbFour.zRotation = CGFloat(GKRandomSource.sharedRandom().nextInt(upperBound: 10))
-//        limbFour.zPosition = 2
-//        limbFour.color = UIColor(
-//            hue: limbFourColorHue/360,
-//            saturation: limbFourColorSaturation/100,
-//            brightness: limbFourColorBrightness/100,
-//            alpha: 1.0
-//        )
-//        limbFour.colorBlendFactor = 0.5
-//        limbFour.position = CGPoint(x: -GKRandomDistribution(lowestValue: 5, highestValue: 8).nextInt(), y: 0)
-//
-//        let underShadow = SKSpriteNode(imageNamed: "aeonBodyShadow")
-//        underShadow.setScale(1.2)
-//        underShadow.alpha = 0.2
-//        self.addChild(underShadow)
-//
-//        self.name = "aeonCreature"
-//
-//        self.birth()
-//        self.beginWiggling()
-//
-//    }
 
     func think(nodes: [SKNode], delta: TimeInterval, time: TimeInterval) {
 

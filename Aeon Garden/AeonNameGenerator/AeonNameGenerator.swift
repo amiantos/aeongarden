@@ -11,6 +11,8 @@ import GameKit
 
 class AeonNameGenerator {
 
+    static let shared = AeonNameGenerator()
+
     func returnLastName() -> String {
         let lastNames: [String] = "Surnames".contentsOrBlank().split(
             separator: "\n", omittingEmptySubsequences: true

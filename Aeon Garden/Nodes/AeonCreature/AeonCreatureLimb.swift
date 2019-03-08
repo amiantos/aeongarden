@@ -10,21 +10,18 @@ import Foundation
 import SpriteKit
 import GameKit
 
-func randomInteger(min: Int, max: Int) -> Int {
-    return GKRandomDistribution(lowestValue: min, highestValue: max).nextInt()
-}
-
-func randomFloat(min: CGFloat, max: CGFloat) -> CGFloat {
-    return (CGFloat(arc4random()) / 0xFFFFFFFF) * (max - min) + min
-}
-
-
 class AeonCreatureLimb: SKSpriteNode {
-    public var shape: String
+    public var shape: BodyPart
     public var hue: CGFloat
     public var blend: CGFloat
     public var brightness: CGFloat
     public var saturation: CGFloat
+
+    public enum BodyPart: String {
+        case triangle = "aeonTriangle"
+        case circle = "aeonCircle"
+        case square = "aeonSquare"
+    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -35,19 +32,19 @@ class AeonCreatureLimb: SKSpriteNode {
         shape = {
             switch randomInt {
             case 0:
-                return "aeonCircle"
+                return .circle
             case 1:
-                return "aeonSquare"
+                return .square
             default:
-                return "aeonTriangle"
+                return .triangle
             }
         }()
         hue = primaryHue + CGFloat(randomInteger(min: -20, max: 20))
         brightness = CGFloat(randomInteger(min: 20, max: 100))
         saturation = CGFloat(randomInteger(min: 20, max: 100))
-        blend = CGFloat(randomFloat(min: 0.3, max: 1))
+        blend = CGFloat(randomCGFloat(min: 0.3, max: 1))
 
-        let texture = SKTexture(imageNamed: shape)
+        let texture = SKTexture(imageNamed: shape.rawValue)
         let color = UIColor(
             hue: self.hue/360,
             saturation: self.saturation/100,
