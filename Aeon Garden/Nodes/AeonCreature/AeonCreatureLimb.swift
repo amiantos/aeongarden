@@ -53,8 +53,8 @@ class AeonCreatureLimb: SKSpriteNode {
             }
         }()
         hue = primaryHue + CGFloat(randomInteger(min: -20, max: 20))
-        brightness = CGFloat(randomInteger(min: 20, max: 100))
-        saturation = CGFloat(randomInteger(min: 20, max: 100))
+        brightness = CGFloat(randomInteger(min: 50, max: 100))
+        saturation = CGFloat(randomInteger(min: 50, max: 100))
         blend = CGFloat(randomCGFloat(min: 0.3, max: 1))
 
         let texture = SKTexture(imageNamed: shape.rawValue)

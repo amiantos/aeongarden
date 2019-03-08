@@ -21,12 +21,8 @@ class GameScene: SKScene {
 
     public var foodPelletCount: Int = 0
     public var creatureCount: Int = 0
-
     private var foodPelletMax: Int = 100
     private var creatureMax: Int = 20
-    private var totalCreatures: Int = 0
-    private var initialCreatureHue: CGFloat = 0
-    private let colorHueIncrement: CGFloat = CGFloat(360 / 20)
 
     private var lastUpdateTime: TimeInterval = 0
     private var lastFoodTime: TimeInterval = 0
@@ -63,7 +59,7 @@ class GameScene: SKScene {
         }
     }
 
-    // MARK: - Scene Setup
+    // MARK: - Scene
 
     override func sceneDidLoad() {
         setupFrame()
@@ -95,7 +91,7 @@ class GameScene: SKScene {
         }
 
         if (currentTime - lastCreatureTime) > 600 {
-            addNewCreatureToScene()
+            addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 1, max: 365))
             lastCreatureTime = currentTime
         }
 
@@ -105,51 +101,6 @@ class GameScene: SKScene {
         perFrameNodeActivity(deltaTime, currentTime)
 
         lastUpdateTime = currentTime
-    }
-
-    // MARK: - Node Creation
-
-    fileprivate func createInitialCreatures() {
-        var totalCreatures: Int = 0
-        var initialCreatureHue: CGFloat = 0
-        let colorHueIncrement: CGFloat = CGFloat(360 / creatureMax)
-
-        while totalCreatures < creatureMax {
-            addNewCreatureToScene()
-            totalCreatures += 1
-            initialCreatureHue += colorHueIncrement
-        }
-    }
-
-    fileprivate func addNewCreatureToScene() {
-        let aeonCreature = AeonCreatureNode()
-        let foodPositionX = randomCGFloat(min: size.width * 0.10, max: size.width * 0.90)
-        let foodPositionY = randomCGFloat(min: size.height * 0.10, max: size.height * 0.90)
-        aeonCreature.position = CGPoint(x: foodPositionX, y: foodPositionY)
-        aeonCreature.zRotation = randomCGFloat(min: 0, max: 10)
-        aeonCreature.zPosition = 12
-        addChild(aeonCreature)
-        creatureCount += 1
-    }
-
-    fileprivate func addFoodPelletToScene() {
-        let aeonFood = AeonFoodNode()
-        let foodPositionX = CGFloat(
-            GKRandomDistribution(
-                lowestValue: Int(size.width * 0.01),
-                highestValue: Int(size.width * 0.99)
-            ).nextInt()
-        )
-        let foodPositionY = CGFloat(
-            GKRandomDistribution(
-                lowestValue: Int(size.height * 0.01),
-                highestValue: Int(size.height * 0.99)
-            ).nextInt()
-        )
-        aeonFood.position = CGPoint(x: foodPositionX, y: foodPositionY)
-        aeonFood.zRotation = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: 10).nextInt())
-        addChild(aeonFood)
-        foodPelletCount += 1
     }
 
     // MARK: - Per Frame Processes
@@ -225,94 +176,52 @@ class GameScene: SKScene {
     override func touchesCancelled(_ touches: Set<UITouch>, with _: UIEvent?) {
         for touch in touches { touchUp(atPoint: touch.location(in: self)) }
     }
+}
 
-    // MARK: - Scene UI Setup
+// MARK: - Node Creation
 
-    fileprivate func setupFrame() {
-        size.width = frame.size.width * 2
-        size.height = frame.size.height * 2
+extension GameScene {
+    fileprivate func createInitialCreatures() {
+        var totalCreatures: Int = 0
+        var initialCreatureHue: CGFloat = 0
+        let colorHueIncrement: CGFloat = CGFloat(360 / creatureMax)
 
-        physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
-        physicsBody?.categoryBitMask = CollisionTypes.edge.rawValue
-        physicsBody?.friction = 0
-    }
-
-    fileprivate func setupCamera() {
-        cameraNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
-        addChild(cameraNode)
-        camera = cameraNode
-    }
-
-    fileprivate func setupBackgroundAnimation() {
-//        if let backgroundSmoke = SKEmitterNode(fileNamed: "AeonSmokeParticle.sks") {
-//            backgroundSmoke.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
-//            backgroundSmoke.zPosition = -2
-//            backgroundSmoke.particlePositionRange = CGVector(dx: self.size.width, dy: self.size.height)
-//            backgroundSmoke.advanceSimulationTime(5)
-//            self.addChild(backgroundSmoke)
-//        }
-        if let backgroundSmoke2 = SKEmitterNode(fileNamed: "AeonOceanSparkle.sks") {
-            backgroundSmoke2.position = CGPoint(x: size.width / 2, y: size.height / 2)
-            backgroundSmoke2.zPosition = -1
-            backgroundSmoke2.particlePositionRange = CGVector(dx: size.width, dy: size.height)
-            backgroundSmoke2.advanceSimulationTime(5)
-            addChild(backgroundSmoke2)
+        while totalCreatures < creatureMax {
+            addNewCreatureToScene(withPrimaryHue: initialCreatureHue)
+            totalCreatures += 1
+            initialCreatureHue += colorHueIncrement
         }
     }
 
-    fileprivate func setupCreatureCountUI() {
-        creatureCountShape.fillColor = .white
-        creatureCountShape.alpha = 0.9
-        cameraNode.addChild(creatureCountShape)
-        creatureCountShape.path = UIBezierPath(
-            roundedRect: CGRect(x: -100, y: -30, width: 200, height: 60),
-            cornerRadius: 10
-        ).cgPath
-        creatureCountShape.zPosition = 20
-        creatureCountShape.position = CGPoint(x: (frame.size.width / 2) - 120, y: -(frame.size.height / 2) + 80)
-        creatureCountLabel.zPosition = 20
-        creatureCountLabel.fontColor = .black
-        creatureCountShape.addChild(creatureCountLabel)
-        creatureCountLabel.position = CGPoint(x: 0, y: -11)
-        creatureCountLabel.text = "Alive: 0"
+    fileprivate func addNewCreatureToScene(withPrimaryHue primaryHue: CGFloat) {
+        let aeonCreature = AeonCreatureNode(withPrimaryHue: primaryHue)
+        let foodPositionX = randomCGFloat(min: size.width * 0.10, max: size.width * 0.90)
+        let foodPositionY = randomCGFloat(min: size.height * 0.10, max: size.height * 0.90)
+        aeonCreature.position = CGPoint(x: foodPositionX, y: foodPositionY)
+        aeonCreature.zRotation = randomCGFloat(min: 0, max: 10)
+        aeonCreature.zPosition = 12
+        addChild(aeonCreature)
+        creatureCount += 1
     }
 
-    fileprivate func setupCreatureStatsUI() {
-        cameraNode.addChild(creatureStatsNode)
-        creatureStatsNode.alpha = 0
-        creatureStatsNode.size.width /= 1.2
-        creatureStatsNode.position.x = creatureStatsNode.size.width / 2.2
-
-        creatureStatsNode.addChild(nameLabel)
-        nameLabel.position.x = 0
-        nameLabel.position.y = 15
-        nameLabel.alpha = 0.5
-        nameLabel.horizontalAlignmentMode = .center
-        nameLabel.verticalAlignmentMode = .bottom
-
-        creatureStatsNode.addChild(lifeTimeLabel)
-        lifeTimeLabel.position.x = 0
-        lifeTimeLabel.position.y = -16
-        lifeTimeLabel.fontSize = 25
-        lifeTimeLabel.alpha = 0.3
-        lifeTimeLabel.horizontalAlignmentMode = .center
-        lifeTimeLabel.verticalAlignmentMode = .top
-
-        creatureStatsNode.addChild(currentStatusLabel)
-        currentStatusLabel.position.x = 0
-        currentStatusLabel.position.y = -50
-        currentStatusLabel.fontSize = 25
-        currentStatusLabel.alpha = 0.3
-        currentStatusLabel.horizontalAlignmentMode = .center
-        currentStatusLabel.verticalAlignmentMode = .top
-
-        creatureStatsNode.addChild(healthLabel)
-        healthLabel.position.x = 0
-        healthLabel.position.y = -86
-        healthLabel.fontSize = 25
-        healthLabel.alpha = 0.3
-        healthLabel.horizontalAlignmentMode = .center
-        healthLabel.verticalAlignmentMode = .top
+    fileprivate func addFoodPelletToScene() {
+        let aeonFood = AeonFoodNode()
+        let foodPositionX = CGFloat(
+            GKRandomDistribution(
+                lowestValue: Int(size.width * 0.01),
+                highestValue: Int(size.width * 0.99)
+            ).nextInt()
+        )
+        let foodPositionY = CGFloat(
+            GKRandomDistribution(
+                lowestValue: Int(size.height * 0.01),
+                highestValue: Int(size.height * 0.99)
+            ).nextInt()
+        )
+        aeonFood.position = CGPoint(x: foodPositionX, y: foodPositionY)
+        aeonFood.zRotation = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: 10).nextInt())
+        addChild(aeonFood)
+        foodPelletCount += 1
     }
 }
 
@@ -378,5 +287,98 @@ extension GameScene: SKPhysicsContactDelegate {
                 foodPelletCount -= 1
             }
         }
+    }
+}
+
+// MARK: - Scene UI Setup
+
+extension GameScene {
+    fileprivate func setupFrame() {
+        size.width = frame.size.width * 2
+        size.height = frame.size.height * 2
+
+        physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
+        physicsBody?.categoryBitMask = CollisionTypes.edge.rawValue
+        physicsBody?.friction = 0
+    }
+
+    fileprivate func setupCamera() {
+        cameraNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        addChild(cameraNode)
+        camera = cameraNode
+    }
+
+    fileprivate func setupBackgroundAnimation() {
+        //        if let backgroundSmoke = SKEmitterNode(fileNamed: "AeonSmokeParticle.sks") {
+        //            backgroundSmoke.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+        //            backgroundSmoke.zPosition = -2
+        //            backgroundSmoke.particlePositionRange = CGVector(dx: self.size.width, dy: self.size.height)
+        //            backgroundSmoke.advanceSimulationTime(5)
+        //            self.addChild(backgroundSmoke)
+        //        }
+        if let backgroundSmoke2 = SKEmitterNode(fileNamed: "AeonOceanSparkle.sks") {
+            backgroundSmoke2.position = CGPoint(x: size.width / 2, y: size.height / 2)
+            backgroundSmoke2.zPosition = -1
+            backgroundSmoke2.particlePositionRange = CGVector(dx: size.width, dy: size.height)
+            backgroundSmoke2.advanceSimulationTime(5)
+            backgroundSmoke2.name = "backgroundSparkle"
+            addChild(backgroundSmoke2)
+        }
+    }
+
+    fileprivate func setupCreatureCountUI() {
+        creatureCountShape.fillColor = .white
+        creatureCountShape.alpha = 0.9
+        creatureCountShape.name = "creatureCount"
+        cameraNode.addChild(creatureCountShape)
+        creatureCountShape.path = UIBezierPath(
+            roundedRect: CGRect(x: -100, y: -30, width: 200, height: 60),
+            cornerRadius: 10
+        ).cgPath
+        creatureCountShape.zPosition = 20
+        creatureCountShape.position = CGPoint(x: (frame.size.width / 2) - 120, y: -(frame.size.height / 2) + 80)
+        creatureCountLabel.zPosition = 20
+        creatureCountLabel.fontColor = .black
+        creatureCountShape.addChild(creatureCountLabel)
+        creatureCountLabel.position = CGPoint(x: 0, y: -11)
+        creatureCountLabel.text = "Alive: 0"
+    }
+
+    fileprivate func setupCreatureStatsUI() {
+        cameraNode.addChild(creatureStatsNode)
+        creatureStatsNode.alpha = 0
+        creatureStatsNode.size.width /= 1.2
+        creatureStatsNode.position.x = creatureStatsNode.size.width / 2.2
+
+        creatureStatsNode.addChild(nameLabel)
+        nameLabel.position.x = 0
+        nameLabel.position.y = 15
+        nameLabel.alpha = 0.5
+        nameLabel.horizontalAlignmentMode = .center
+        nameLabel.verticalAlignmentMode = .bottom
+
+        creatureStatsNode.addChild(lifeTimeLabel)
+        lifeTimeLabel.position.x = 0
+        lifeTimeLabel.position.y = -16
+        lifeTimeLabel.fontSize = 25
+        lifeTimeLabel.alpha = 0.3
+        lifeTimeLabel.horizontalAlignmentMode = .center
+        lifeTimeLabel.verticalAlignmentMode = .top
+
+        creatureStatsNode.addChild(currentStatusLabel)
+        currentStatusLabel.position.x = 0
+        currentStatusLabel.position.y = -50
+        currentStatusLabel.fontSize = 25
+        currentStatusLabel.alpha = 0.3
+        currentStatusLabel.horizontalAlignmentMode = .center
+        currentStatusLabel.verticalAlignmentMode = .top
+
+        creatureStatsNode.addChild(healthLabel)
+        healthLabel.position.x = 0
+        healthLabel.position.y = -86
+        healthLabel.fontSize = 25
+        healthLabel.alpha = 0.3
+        healthLabel.horizontalAlignmentMode = .center
+        healthLabel.verticalAlignmentMode = .top
     }
 }

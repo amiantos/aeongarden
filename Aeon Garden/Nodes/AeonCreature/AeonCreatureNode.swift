@@ -48,10 +48,8 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
     var brain: AeonCreatureBrain
 
-    override init() {
+    init(withPrimaryHue primaryHue: CGFloat) {
         brain = AeonCreatureBrain()
-
-        let primaryHue = CGFloat(GKRandomDistribution(lowestValue: 1, highestValue: 365).nextInt())
 
         firstName = AeonNameGenerator.shared.returnFirstName()
         lastName = AeonNameGenerator.shared.returnLastName()
