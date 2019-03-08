@@ -292,7 +292,10 @@ class AeonCreatureNode: SKNode {
 
             if rotationDuration > 6 { rotationDuration = 6 }
 
-            let rotationAction = SKAction.rotate(toAngle: angleMovement, duration: TimeInterval(rotationDuration), shortestUnitArc: true)
+            let rotationAction = SKAction.rotate(
+                toAngle: angleMovement,
+                duration: TimeInterval(rotationDuration),
+                shortestUnitArc: true)
 
             rotationAction.timingMode = .easeInEaseOut
 
@@ -304,7 +307,9 @@ class AeonCreatureNode: SKNode {
         let newRotationDegrees = rotationInDegrees + 90
         let newRotationRadians = newRotationDegrees * radianFactor
 
-        let thrustVector: CGVector = CGVector(dx: cos(newRotationRadians) * self.movementSpeed, dy: sin(newRotationRadians) * self.movementSpeed)
+        let thrustVector: CGVector = CGVector(
+            dx: cos(newRotationRadians) * self.movementSpeed,
+            dy: sin(newRotationRadians) * self.movementSpeed)
 
         self.physicsBody?.applyForce(thrustVector)
 
@@ -388,14 +393,24 @@ class AeonCreatureNode: SKNode {
             while wiggleFactor > 0.2 {
                 wiggleFactor = GKRandomSource.sharedRandom().nextUniform()
             }
-            let wiggleAction = SKAction.rotate(byAngle: CGFloat(wiggleFactor), duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform()))
-            let wiggleActionBack = SKAction.rotate(byAngle: CGFloat(-wiggleFactor), duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform()))
+            let wiggleAction = SKAction.rotate(
+                byAngle: CGFloat(wiggleFactor),
+                duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform()))
+            let wiggleActionBack = SKAction.rotate(
+                byAngle: CGFloat(-wiggleFactor),
+                duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform()))
 
             let wiggleMoveFactor = GKRandomSource.sharedRandom().nextUniform()
             let wiggleMoveFactor2 = GKRandomSource.sharedRandom().nextUniform()
 
-            let wiggleMovement = SKAction.moveBy(x: CGFloat(wiggleMoveFactor), y: CGFloat(wiggleMoveFactor2), duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform()))
-            let wiggleMovementBack = SKAction.moveBy(x: CGFloat(-wiggleMoveFactor), y: CGFloat(-wiggleMoveFactor2), duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform()))
+            let wiggleMovement = SKAction.moveBy(
+                x: CGFloat(wiggleMoveFactor),
+                y: CGFloat(wiggleMoveFactor2),
+                duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform()))
+            let wiggleMovementBack = SKAction.moveBy(
+                x: CGFloat(-wiggleMoveFactor),
+                y: CGFloat(-wiggleMoveFactor2),
+                duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform()))
 
             let wiggleAround = SKAction.group([wiggleAction, wiggleMovement])
             let wiggleAroundBack = SKAction.group([wiggleActionBack, wiggleMovementBack])

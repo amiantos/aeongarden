@@ -123,18 +123,10 @@ class GameScene: SKScene {
 
     fileprivate func addNewCreatureToScene() {
         let aeonCreature = AeonCreatureNode()
-        let foodPositionX = CGFloat(
-            GKRandomDistribution(
-                lowestValue: Int(self.size.width*0.10),
-                highestValue: Int(self.size.width*0.90)
-                ).nextInt())
-        let foodPositionY = CGFloat(
-            GKRandomDistribution(
-                lowestValue: Int(self.size.height*0.10),
-                highestValue: Int(self.size.height*0.90)
-                ).nextInt())
+        let foodPositionX = randomCGFloat(min: self.size.width*0.10, max: self.size.width*0.90)
+        let foodPositionY = randomCGFloat(min: self.size.height*0.10, max: self.size.height*0.90)
         aeonCreature.position = CGPoint(x: foodPositionX, y: foodPositionY)
-        aeonCreature.zRotation = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: 10).nextInt())
+        aeonCreature.zRotation = randomCGFloat(min: 0, max: 10)
         aeonCreature.zPosition = 12
         addChild(aeonCreature)
         self.creatureCount += 1
@@ -196,7 +188,6 @@ class GameScene: SKScene {
         let touchPoint = touch.location(in: self)
         let nodes = self.nodes(at: touchPoint)
         for node in nodes where node.name == "aeonCreature" {
-            print("Creature Tapped")
             if node == selectedCreature {
                 self.selectedCreature = nil
                 camera?.removeAllActions()
