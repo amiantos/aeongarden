@@ -49,8 +49,6 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     var brain: AeonCreatureBrain
 
     init(withPrimaryHue primaryHue: CGFloat) {
-        brain = AeonCreatureBrain()
-
         firstName = AeonNameGenerator.shared.returnFirstName()
         lastName = AeonNameGenerator.shared.returnLastName()
 
@@ -59,10 +57,11 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         limbTwo = AeonCreatureLimb(withPrimaryHue: primaryHue)
         limbThree = AeonCreatureLimb(withPrimaryHue: primaryHue)
         limbFour = AeonCreatureLimb(withPrimaryHue: primaryHue)
+        brain = AeonCreatureBrain()
 
         super.init()
-        brain.delegate = self
 
+        brain.delegate = self
         movementSpeed = randomFloat(min: 5, max: 10)
         sizeModififer = randomFloat(min: 0.7, max: 1.5)
 
@@ -86,11 +85,10 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         limbTwo = AeonCreatureLimb(withLimb: parents.randomElement()!.limbTwo)
         limbThree = AeonCreatureLimb(withLimb: parents.randomElement()!.limbThree)
         limbFour = AeonCreatureLimb(withLimb: parents.randomElement()!.limbFour)
-
-        movementSpeed = parents.randomElement()!.movementSpeed
-        sizeModififer = parents.randomElement()!.sizeModififer
-
         brain = AeonCreatureBrain()
+
+        movementSpeed = parents.randomElement()!.movementSpeed * randomCGFloat(min: 0.8, max: 1.2)
+        sizeModififer = parents.randomElement()!.sizeModififer * randomCGFloat(min: 0.8, max: 1.2)
 
         super.init()
 
@@ -137,8 +135,12 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         beginWiggling()
     }
 
-    func think(nodes: [SKNode], currentTime: TimeInterval) {
-        brain.think(nodes: nodes, currentTime: currentTime)
+    func think(currentTime: TimeInterval) {
+        brain.think(currentTime: currentTime)
+    }
+
+    func getNodes() -> [SKNode] {
+        return scene!.children
     }
 
     func getNodes(atPosition position: CGPoint) -> [SKNode] {
@@ -220,11 +222,6 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         physicsBody!.contactTestBitMask = 0
         brain.lifeState = false
         endWiggling()
-
-        // Remove interested creature from food target
-        if let foodTarget = brain.currentFoodTarget {
-            foodTarget.creaturesInterested -= 1
-        }
 
         zPosition = 0
         brain.currentState = .dead

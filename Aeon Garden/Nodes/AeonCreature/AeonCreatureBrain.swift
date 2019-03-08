@@ -20,6 +20,7 @@ protocol AeonCreatureBrainDelegate: class {
     func distance(point: CGPoint) -> CGFloat
 
     func getNodes(atPosition position: CGPoint) -> [SKNode]
+    func getNodes() -> [SKNode]
 
     func move(toCGPoint: CGPoint)
 }
@@ -46,17 +47,14 @@ class AeonCreatureBrain {
 
     // MARK: - Thought Process
 
-    fileprivate func locateLove(
-        _ creature: AeonCreatureNode,
-        _ delegate: AeonCreatureBrainDelegate,
-        _ nodes: [SKNode]
-    ) {
+    fileprivate func locateLove() {
         var creatureDifferenceArray = [(speed: CGFloat, distance: CGFloat, node: AeonCreatureNode)]()
+        let nodes = delegate!.getNodes()
         for case let child as AeonCreatureNode in nodes where
-            child != creature
-            && delegate.parentNames.contains(child.lastName) == false
-            && child.parentNames.contains(delegate.lastName) == false {
-            let distanceComputed = delegate.distance(point: child.position)
+            child != delegate as? AeonCreatureNode
+            && delegate!.parentNames.contains(child.lastName) == false
+            && child.parentNames.contains(delegate!.lastName) == false {
+            let distanceComputed = delegate!.distance(point: child.position)
             creatureDifferenceArray.append((child.movementSpeed, distanceComputed, child))
         }
 
@@ -68,17 +66,17 @@ class AeonCreatureBrain {
         }
     }
 
-    fileprivate func moveToLove(_ delegate: AeonCreatureBrainDelegate, _ creature: AeonCreatureNode) {
+    fileprivate func moveToLove() {
         var nodeFound = 0
         // Check if node still exists at point...
         if let loveTarget = currentLoveTarget {
-            let nodes = delegate.getNodes(atPosition: loveTarget.position)
-            for node in nodes where node.name == "aeonCreature" && node != creature {
+            let nodes = delegate!.getNodes(atPosition: loveTarget.position)
+            for node in nodes where node.name == "aeonCreature" && node != delegate as? AeonCreatureNode {
                 nodeFound = 1
             }
             if nodeFound == 1 {
                 let moveToPoint = loveTarget.position
-                delegate.move(toCGPoint: moveToPoint)
+                delegate!.move(toCGPoint: moveToPoint)
             } else {
                 currentLoveTarget = nil
                 currentState = .nothing
@@ -86,11 +84,12 @@ class AeonCreatureBrain {
         }
     }
 
-    fileprivate func locateFood(_ nodes: [SKNode], _ delegate: AeonCreatureBrainDelegate) {
+    fileprivate func locateFood() {
         currentLoveTarget = nil
         var foodDistanceArray = [(distance: CGFloat, interesed: Int, node: AeonFoodNode)]()
+        let nodes = delegate!.getNodes()
         for case let child as AeonFoodNode in nodes {
-            let distanceComputed = delegate.distance(point: child.position)
+            let distanceComputed = delegate!.distance(point: child.position)
             foodDistanceArray.append((distanceComputed, child.creaturesInterested, child))
         }
         foodDistanceArray.sort(by: { $0.distance < $1.distance })
@@ -105,15 +104,15 @@ class AeonCreatureBrain {
         }
     }
 
-    fileprivate func moveToFood(_ delegate: AeonCreatureBrainDelegate) {
+    fileprivate func moveToFood() {
         var nodeFound = 0
         if let foodTarget = self.currentFoodTarget {
-            let nodes = delegate.getNodes(atPosition: foodTarget.position)
+            let nodes = delegate!.getNodes(atPosition: foodTarget.position)
             for node in nodes where node.name == "aeonFood" {
                 nodeFound = 1
             }
             if nodeFound == 1 {
-                delegate.move(toCGPoint: foodTarget.position)
+                delegate!.move(toCGPoint: foodTarget.position)
             } else {
                 currentFoodTarget = nil
                 currentState = .nothing
@@ -121,62 +120,60 @@ class AeonCreatureBrain {
         }
     }
 
-    fileprivate func moveRandomly(_ delegate: AeonCreatureBrainDelegate, _ creature: AeonCreatureNode) {
+    fileprivate func moveRandomly() {
         var nodeFound = 0
         // Check if self is not already at point...
         if let moveTarget = self.currentMoveTarget {
-            let nodes = delegate.getNodes(atPosition: moveTarget)
-            for node in nodes where node == creature {
+            let nodes = delegate!.getNodes(atPosition: moveTarget)
+            for node in nodes where node == delegate as? AeonCreatureNode {
                 nodeFound = 1
             }
             if nodeFound == 0 {
                 let moveToPoint = moveTarget
-                delegate.move(toCGPoint: moveToPoint)
+                delegate!.move(toCGPoint: moveToPoint)
             } else {
-                delegate.beginRandomMovement()
+                delegate!.beginRandomMovement()
             }
         }
     }
 
-    func think(nodes: [SKNode], currentTime: TimeInterval) {
+    func think(currentTime: TimeInterval) {
         if lifeState {
-            guard let delegate = delegate else {
-                fatalError("No delegate found...")
-            }
-            guard let creature = delegate as? AeonCreatureNode else {
-                fatalError("Brain delegate isn't a creature. Mysterious.")
-            }
-
-            if lastThinkTime == 0 {
-                lastThinkTime = currentTime
-            }
-
             // MARK: Decision Making
-
-            if delegate.currentHealth <= 100 {
+            if delegate!.currentHealth <= 100 {
                 if currentState != .movingToFood || currentFoodTarget == nil {
                     currentState = .locatingFood
-                    lastThinkTime = currentTime
                 }
-            } else if delegate.currentHealth > 250, delegate.lifeTime >= 30 {
+            } else if delegate!.currentHealth > 250, delegate!.lifeTime >= 30 {
                 if currentState != .movingToLove {
                     currentState = .locatingLove
                 }
             } else if currentState != .randomMovement {
-                delegate.beginRandomMovement()
+                delegate!.beginRandomMovement()
+            }
+
+            switch delegate!.currentHealth {
+            case 0...100:
+                if currentFoodTarget == nil {
+                    currentState = .locatingFood
+                }
+            case 250...:
+                currentState = .locatingLove
+            default:
+                delegate!.beginRandomMovement()
             }
 
             switch currentState {
             case .randomMovement:
-                moveRandomly(delegate, creature)
+                moveRandomly()
             case .locatingFood:
-                locateFood(nodes, delegate)
+                locateFood()
             case .movingToFood:
-                moveToFood(delegate)
+                moveToFood()
             case .locatingLove:
-                locateLove(creature, delegate, nodes)
+                locateLove()
             case .movingToLove:
-                moveToLove(delegate, creature)
+                moveToLove()
             case .dead:
                 break
             case .nothing:
