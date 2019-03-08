@@ -1,18 +1,16 @@
 # Aeon Garden
 
-Aeon Garden is an on-going project to create a cool little artificial life "fish tank" app for iOS.
+Aeon Garden is an attempt create a cool little artificial life "fish tank" app for iOS using SpriteKit.
 
 The creatures generated are meant to swim around, hunt for food, and mate. Their attributes can be passed on to offspring, so families will develop who have similar colors, shapes, and abilities.
 
-There is no scientific basis for anything about this app. It's meant to be view into a tank full of digital creatures that you leave on your desk and watch when bored... like a real fish tank!
-
-As of March 7th, 2018, this is only the very rough beginnings of this project. Pre-alpha? That said, it's fun to load up and watch them swim around and evolve already. Load it up and tap on a creature. If you leave a tank running for more than several hours it will become really homogeneous, which I don't like.
+There is no scientific basis for anything about this app. It's meant to be a simple virtual tank full of little creatures, not a rigorous exploration of natural selection or evolution.
 
 # To Install
 
 1. `git clone https://github.com/amiantos/aeongarden.git`
-2. Open `Aeon Garden.xcodeproj` in Xcode 9.2 or higher.
-3. Compile :)
+2. Open `Aeon Garden.xcworkspace`
+3. Compile
 
 ## Screenshots
 
