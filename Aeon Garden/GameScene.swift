@@ -22,7 +22,7 @@ class GameScene: SKScene {
     public var foodPelletCount: Int = 0
     public var creatureCount: Int = 0
     private var foodPelletMax: Int = 100
-    private var creatureMax: Int = 20
+    private var creatureMax: Int = 4
 
     private var lastUpdateTime: TimeInterval = 0
     private var lastFoodTime: TimeInterval = 0
@@ -237,8 +237,6 @@ extension GameScene: SKPhysicsContactDelegate {
                 creatureB.currentHealth /= 2
                 creatureA.brain.currentLoveTarget = nil
                 creatureB.brain.currentLoveTarget = nil
-                creatureA.brain.currentState = .nothing
-                creatureB.brain.currentState = .nothing
                 let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
                 newCreature.position = creatureA.position
                 addChild(newCreature)
@@ -250,20 +248,11 @@ extension GameScene: SKPhysicsContactDelegate {
                     // Remove love target and lose health
                     aggressor.currentHealth /= 2
                     aggressor.brain.currentLoveTarget = nil
-                    aggressor.brain.currentState = .nothing
                 } else if creatureB.brain.currentLoveTarget == creatureA {
                     let aggressor = creatureB
                     // Remove love target and lose health
                     aggressor.currentHealth /= 2
                     aggressor.brain.currentLoveTarget = nil
-                    aggressor.brain.currentState = .nothing
-                } else {
-                    if creatureA.brain.currentState == .randomMovement {
-                        creatureA.brain.currentState = .nothing
-                    }
-                    if creatureB.brain.currentState == .randomMovement {
-                        creatureB.brain.currentState = .nothing
-                    }
                 }
             }
         }

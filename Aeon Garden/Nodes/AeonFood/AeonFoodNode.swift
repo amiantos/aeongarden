@@ -12,7 +12,6 @@ import UIKit
 
 class AeonFoodNode: SKNode {
     private var foodAmount: Int = 100
-    public var creaturesInterested: Int = 0
     private var maxLifeTime: Float = 30
     public var lifeTime: Float = 0 {
         didSet {

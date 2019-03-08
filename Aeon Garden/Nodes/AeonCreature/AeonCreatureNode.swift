@@ -12,13 +12,12 @@ import SpriteKit
 import UIKit
 
 class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
+
     // MARK: - Creature Names
 
     public let firstName: String
     public var lastName: String
-    public var fullName: String {
-        return "\(firstName) \(lastName)"
-    }
+    public var fullName: String
 
     public var parentNames: [String] = []
 
@@ -34,7 +33,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
     // MARK: - Health
 
-    public var currentHealth: Float = Float(randomInteger(min: 100, max: 250)) {
+    public var currentHealth: Float = Float(randomInteger(min: 100, max: 110)) {
         didSet {
             if currentHealth <= 0 {
                 die()
@@ -51,6 +50,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     init(withPrimaryHue primaryHue: CGFloat) {
         firstName = AeonNameGenerator.shared.returnFirstName()
         lastName = AeonNameGenerator.shared.returnLastName()
+        fullName = "\(firstName) \(lastName)"
 
         // Create limbs
         limbOne = AeonCreatureLimb(withPrimaryHue: primaryHue)
@@ -66,8 +66,8 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         sizeModififer = randomFloat(min: 0.7, max: 1.5)
 
         setupLimbs()
-
         setupBodyPhysics()
+        brain.startThinking()
     }
 
     init(withParents parents: [AeonCreatureNode]) {
@@ -77,6 +77,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
         firstName = AeonNameGenerator.shared.returnFirstName()
         lastName = parents.randomElement()!.lastName
+        fullName = "\(firstName) \(lastName)"
 
         parentNames.append(parents[0].lastName)
         parentNames.append(parents[1].lastName)
@@ -96,6 +97,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
         setupLimbs()
         setupBodyPhysics()
+        brain.startThinking()
     }
 
     fileprivate func setupLimbs() {
@@ -208,7 +210,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     }
 
     func birth() {
-        NSLog("👼 Birth: \(fullName)")
+        NSLog("👼 \(fullName): Lo! Consciousness...")
 
         setScale(0.1)
         let birthAction = SKAction.scale(to: sizeModififer, duration: 30)
@@ -216,7 +218,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     }
 
     func die() {
-        NSLog("☠️ Death: \(fullName)")
+        NSLog("☠️ \(fullName): Oh no! I died.")
 
         removeAllActions()
         physicsBody!.contactTestBitMask = 0
@@ -241,11 +243,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     }
 
     func fed() {
-        if brain.currentState == .movingToFood {
-            currentHealth += 300
-            brain.currentFoodTarget = nil
-            brain.currentState = .nothing
-        }
+        currentHealth += 300
     }
 
     func beginWiggling() {
