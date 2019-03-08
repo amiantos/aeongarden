@@ -138,9 +138,11 @@ class AeonCreatureBrain {
         }
     }
 
-    func think(nodes: [SKNode], deltaTime _: TimeInterval, currentTime: TimeInterval) {
+    func think(nodes: [SKNode], currentTime: TimeInterval) {
         if lifeState {
-            guard let delegate = delegate else { fatalError("No delegate found...") }
+            guard let delegate = delegate else {
+                fatalError("No delegate found...")
+            }
             guard let creature = delegate as? AeonCreatureNode else {
                 fatalError("Brain delegate isn't a creature. Mysterious.")
             }

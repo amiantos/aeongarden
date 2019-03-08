@@ -139,8 +139,8 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         beginWiggling()
     }
 
-    func think(nodes: [SKNode], delta: TimeInterval, time: TimeInterval) {
-        brain.think(nodes: nodes, deltaTime: delta, currentTime: time)
+    func think(nodes: [SKNode], currentTime: TimeInterval) {
+        brain.think(nodes: nodes, currentTime: currentTime)
     }
 
     func getNodes(atPosition position: CGPoint) -> [SKNode] {

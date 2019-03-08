@@ -157,7 +157,7 @@ class GameScene: SKScene {
     fileprivate func perFrameNodeActivity(_ deltaTime: Double, _ currentTime: TimeInterval) {
         for child in children {
             if let child = child as? AeonCreatureNode {
-                child.think(nodes: children, delta: deltaTime, time: currentTime)
+                child.think(nodes: children, currentTime: currentTime)
                 if child != selectedCreature {
                     child.age(lastUpdate: deltaTime)
                 } else {
