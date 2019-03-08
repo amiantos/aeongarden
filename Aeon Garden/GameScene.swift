@@ -84,7 +84,7 @@ class GameScene: SKScene {
             lastCreatureTime = currentTime
         }
 
-        if (currentTime - lastFoodTime) > 2,
+        if (currentTime - lastFoodTime) > 1,
             foodPelletCount < foodPelletMax {
             addFoodPelletToScene()
             lastFoodTime = currentTime
