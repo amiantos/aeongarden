@@ -27,6 +27,20 @@ class AeonCreatureLimb: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
 
+    init(withLimb limb: AeonCreatureLimb) {
+        shape = limb.shape
+        hue = limb.hue
+        brightness = limb.brightness
+        saturation = limb.saturation
+        blend = limb.blend
+
+        super.init(texture: limb.texture, color: limb.color, size: limb.size)
+        colorBlendFactor = blend
+        zRotation = limb.zRotation
+        zPosition = limb.zPosition
+
+    }
+
     init(withPrimaryHue primaryHue: CGFloat) {
         let randomInt: Int = randomInteger(min: 0, max: 2)
         shape = {
@@ -51,9 +65,9 @@ class AeonCreatureLimb: SKSpriteNode {
             brightness: self.brightness/100,
             alpha: 1.0)
         super.init(texture: texture, color: color, size: texture.size())
-        self.colorBlendFactor = self.blend
-        self.zRotation = CGFloat(randomInteger(min: 0, max: 10))
-        self.zPosition = 2
+        colorBlendFactor = blend
+        zRotation = CGFloat(randomInteger(min: 0, max: 10))
+        zPosition = 2
     }
 
 }

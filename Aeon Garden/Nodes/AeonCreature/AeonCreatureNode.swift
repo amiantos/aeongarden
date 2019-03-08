@@ -6,19 +6,29 @@
 //  Copyright © 2017 Brad Root. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import SpriteKit
 import GameplayKit
 
 class AeonCreatureNode: SKNode {
+
+    // MARK: - Creature Names
     public let firstName: String
     public let lastName: String
+    public var fullName: String {
+        return "\(self.firstName) \(self.lastName)"
+    }
     public var parentNames: [String] = []
 
+    // MARK: - Inheritable Traits
     private var limbOne: AeonCreatureLimb
     private var limbTwo: AeonCreatureLimb
     private var limbThree: AeonCreatureLimb
     private var limbFour: AeonCreatureLimb
+
+    public var movementSpeed: CGFloat = 1
+    public var sizeModififer: CGFloat = 1
 
     public var currentState: State = State.nothing
     public var currentHealth: Float = Float(GKRandomDistribution(lowestValue: 100, highestValue: 250).nextInt()) {
@@ -36,8 +46,6 @@ class AeonCreatureNode: SKNode {
 
     private var lifeState: Bool = true
     public var lifeTime: Float = 0
-    private var movementSpeed: CGFloat = 1
-    public var sizeModififer: CGFloat = 1
 
     private var lastThinkTime: TimeInterval = 0
 
@@ -86,10 +94,10 @@ class AeonCreatureNode: SKNode {
         parentNames.append(parents[0].lastName)
         parentNames.append(parents[1].lastName)
 
-        limbOne = parents.randomElement()!.limbOne
-        limbTwo = parents.randomElement()!.limbTwo
-        limbThree = parents.randomElement()!.limbThree
-        limbFour = parents.randomElement()!.limbFour
+        limbOne = AeonCreatureLimb(withLimb: parents.randomElement()!.limbOne)
+        limbTwo = AeonCreatureLimb(withLimb: parents.randomElement()!.limbTwo)
+        limbThree = AeonCreatureLimb(withLimb: parents.randomElement()!.limbThree)
+        limbFour = AeonCreatureLimb(withLimb: parents.randomElement()!.limbFour)
 
         movementSpeed = parents.randomElement()!.movementSpeed
         sizeModififer = parents.randomElement()!.sizeModififer
@@ -326,16 +334,15 @@ class AeonCreatureNode: SKNode {
     }
 
     func birth() {
+        NSLog("👼 Birth: \(self.fullName)")
 
         self.setScale(0.1)
         let birthAction = SKAction.scale(to: self.sizeModififer, duration: 30)
         self.run(birthAction)
-
-        print(self.parentNames)
     }
 
     func die() {
-        // Creature dies...
+        NSLog("☠️ Death: \(self.fullName)")
 
         self.removeAllActions()
         self.physicsBody!.contactTestBitMask = 0

@@ -9,7 +9,6 @@
 import Foundation
 import GameKit
 
-
 public extension String {
     func contentsOrBlank() -> String {
         if let path = Bundle.main.path(forResource: self, ofType: nil) {

@@ -181,7 +181,7 @@ class GameScene: SKScene {
         if let followCreature = self.selectedCreature {
             let cameraAction = SKAction.move(to: followCreature.position, duration: 0.25)
             camera?.run(cameraAction)
-            self.nameLabel.text = followCreature.firstName + " " + followCreature.lastName
+            self.nameLabel.text = followCreature.fullName
             self.lifeTimeLabel.text = followCreature.lifeTimeFormattedAsString()
             self.currentStatusLabel.text = followCreature.currentState.rawValue
             self.healthLabel.text = "Health: \(Int(followCreature.currentHealth))"
