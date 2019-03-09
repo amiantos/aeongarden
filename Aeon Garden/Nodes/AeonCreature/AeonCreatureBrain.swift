@@ -87,7 +87,7 @@ class AeonCreatureBrain {
             creatureDifferenceArray.append((child.movementSpeed, distanceComputed, child))
         }
 
-        creatureDifferenceArray.sort(by: { $0.distance < $1.distance })
+        creatureDifferenceArray.sort(by: { $0.distance > $1.distance })
 
         if creatureDifferenceArray.count > 0 {
             currentLoveTarget = creatureDifferenceArray[0].node

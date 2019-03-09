@@ -90,10 +90,10 @@ class GameScene: SKScene {
             lastFoodTime = currentTime
         }
 
-        if (currentTime - lastCreatureTime) > 600 {
-            addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 1, max: 365))
-            lastCreatureTime = currentTime
-        }
+//        if (currentTime - lastCreatureTime) > 600 {
+//            addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 1, max: 365))
+//            lastCreatureTime = currentTime
+//        }
 
         creatureCountLabel.text = "Alive: \(creatureCount)"
 
