@@ -11,8 +11,7 @@ import SpriteKit
 import UIKit
 
 class AeonFoodNode: SKNode {
-    private var foodAmount: Int = 100
-    private var maxLifeTime: Float = 30
+    private var maxLifeTime: Float = 120
     public var lifeTime: Float = 0 {
         didSet {
             if lifeTime >= maxLifeTime {
@@ -27,7 +26,6 @@ class AeonFoodNode: SKNode {
         physicsBody = SKPhysicsBody(circleOfRadius: 5)
         physicsBody?.categoryBitMask = CollisionTypes.food.rawValue
         physicsBody?.collisionBitMask = CollisionTypes.edge.rawValue | CollisionTypes.creature.rawValue
-        // self.physicsBody?.contactTestBitMask = CollisionTypes.creature.rawValue
         physicsBody?.affectedByGravity = false
         physicsBody?.restitution = 1
         physicsBody?.linearDamping = 0.5
@@ -36,8 +34,6 @@ class AeonFoodNode: SKNode {
         name = "aeonFood"
 
         let foodBody = SKSpriteNode(imageNamed: "aeonFoodPellet")
-        // foodBody.color = .green
-        // foodBody.colorBlendFactor = 1
         foodBody.zPosition = 1
         foodBody.name = "AeonFoodSprite"
         addChild(foodBody)
@@ -45,9 +41,9 @@ class AeonFoodNode: SKNode {
         alpha = 0
         let fadeInAction = SKAction.fadeIn(withDuration: 5)
         setScale(0.2)
-        let scaleMax = randomFloat(min: 0.4, max: 0.7)
+        let scaleMax = randomCGFloat(min: 0.4, max: 0.7)
         let scaleInAction = SKAction.scale(to: scaleMax, duration: 5)
-        let rotateAction = SKAction.rotate(byAngle: 5, duration: TimeInterval(randomFloat(min: 3, max: 10)))
+        let rotateAction = SKAction.rotate(byAngle: 5, duration: TimeInterval(randomCGFloat(min: 3, max: 10)))
         run(SKAction.repeatForever(rotateAction))
         run(SKAction.group([fadeInAction, scaleInAction]), completion: {
             let floatOutAction = SKAction.scale(to: scaleMax / 1.5, duration: 3)
@@ -64,12 +60,9 @@ class AeonFoodNode: SKNode {
     }
 
     func eaten() {
-        foodAmount -= 100
-        if foodAmount <= 0 {
-            physicsBody = nil
-            let fadeOut = SKAction.fadeAlpha(to: 0, duration: 0.5)
-            run(fadeOut, completion: { self.removeFromParent() })
-        }
+        physicsBody = nil
+        let fadeOut = SKAction.fadeAlpha(to: 0, duration: 0.5)
+        run(fadeOut, completion: { self.removeFromParent() })
     }
 
     func die() {
@@ -83,14 +76,8 @@ class AeonFoodNode: SKNode {
 
         })
     }
-
-    func randomFloat(min: CGFloat, max: CGFloat) -> CGFloat {
-        return (CGFloat(arc4random()) / 0xFFFF_FFFF) * (max - min) + min
-    }
-
     func age(lastUpdate: TimeInterval) {
         if lastUpdate < 10, lifeTime < maxLifeTime {
-            // if state is not sleeping, lose health...
             lifeTime += Float(lastUpdate)
         }
     }
