@@ -16,10 +16,6 @@ class WanderingState: GKState {
         self.brain = brain
     }
 
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return true
-    }
-
     override func didEnter(from previousState: GKState?) {
         brain?.printThought("I guess I'll wander around.")
         brain?.currentState = .randomMovement
@@ -31,11 +27,6 @@ class WanderingState: GKState {
             stateMachine?.enter(SeekingFoodState.self)
         }
     }
-
-    override func willExit(to nextState: GKState) {
-        // TODO: Implement
-    }
-
 }
 
 // MARK: - Hunger
@@ -65,21 +56,13 @@ class SeekingFoodState: GKState {
             brain?.locateFood()
         }
     }
-
-    override func willExit(to nextState: GKState) {
-        // TODO: Implement
-    }
-
 }
+
 class ApproachingFoodState: GKState {
     weak var brain: AeonCreatureBrain?
 
     init(forBrain brain: AeonCreatureBrain) {
         self.brain = brain
-    }
-
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return true
     }
 
     override func didEnter(from previousState: GKState?) {
@@ -93,7 +76,6 @@ class ApproachingFoodState: GKState {
         } else if brain?.currentFoodTarget == nil {
             stateMachine?.enter(SeekingFoodState.self)
         } else {
-            brain?.locateFood()
             brain?.moveToFood()
         }
     }
@@ -101,7 +83,6 @@ class ApproachingFoodState: GKState {
     override func willExit(to nextState: GKState) {
         brain?.currentFoodTarget = nil
     }
-
 }
 
 // MARK: - Romance
@@ -111,10 +92,6 @@ class SeekingLoveState: GKState {
 
     init(forBrain brain: AeonCreatureBrain) {
         self.brain = brain
-    }
-
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return true
     }
 
     override func didEnter(from previousState: GKState?) {
@@ -131,11 +108,6 @@ class SeekingLoveState: GKState {
             brain?.locateLove()
         }
     }
-
-    override func willExit(to nextState: GKState) {
-        // TODO: Implement
-    }
-
 }
 
 class ApproachingLoveState: GKState {
@@ -143,10 +115,6 @@ class ApproachingLoveState: GKState {
 
     init(forBrain brain: AeonCreatureBrain) {
         self.brain = brain
-    }
-
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return true
     }
 
     override func didEnter(from previousState: GKState?) {
@@ -179,22 +147,9 @@ class DyingState: GKState {
         self.brain = brain
     }
 
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        return true
-    }
-
     override func didEnter(from previousState: GKState?) {
-        // TODO: Implement
         brain?.printThought("Entered dying state...")
         brain?.currentState = .dead
-    }
-
-    override func update(deltaTime seconds: TimeInterval) {
-        // TODO: Implement
-    }
-
-    override func willExit(to nextState: GKState) {
-        // TODO: Implement
     }
 
 }

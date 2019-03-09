@@ -22,6 +22,7 @@ protocol AeonCreatureBrainDelegate: class {
 
     func getNodes(atPosition position: CGPoint) -> [SKNode]
     func getNodes() -> [SKNode]
+    func getNode(byName name: String) -> SKNode?
 
     func move(toCGPoint: CGPoint)
 }
@@ -89,19 +90,11 @@ class AeonCreatureBrain {
     }
 
     public func moveToLove() {
-        var nodeFound = 0
-        // Check if node still exists at point...
         if let loveTarget = currentLoveTarget {
-            let nodes = delegate!.getNodes(atPosition: loveTarget.position)
-            for node in nodes where node.name == "aeonCreature" && node != delegate as? AeonCreatureNode {
-                nodeFound = 1
-            }
-            if nodeFound == 1 {
-                let moveToPoint = loveTarget.position
-                delegate!.move(toCGPoint: moveToPoint)
+            if let node = delegate!.getNode(byName: loveTarget.fullName) {
+                delegate!.move(toCGPoint: node.position)
             } else {
                 currentLoveTarget = nil
-                currentState = .nothing
             }
         }
     }
@@ -157,9 +150,8 @@ class AeonCreatureBrain {
     }
 
     func think(currentTime: TimeInterval) {
-        if lastThinkTime == 0 {
-            lastThinkTime = currentTime
-        }
-        stateMachine?.update(deltaTime: (currentTime - lastThinkTime))
+        let deltaTime = currentTime - lastThinkTime
+        stateMachine?.update(deltaTime: deltaTime)
+        lastThinkTime = currentTime
     }
 }

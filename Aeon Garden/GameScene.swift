@@ -21,8 +21,8 @@ class GameScene: SKScene {
 
     public var foodPelletCount: Int = 0
     public var creatureCount: Int = 0
-    private var foodPelletMax: Int = 100
-    private var creatureMax: Int = 4
+    private var foodPelletMax: Int = 50
+    private var creatureMax: Int = 20
 
     private var lastUpdateTime: TimeInterval = 0
     private var lastFoodTime: TimeInterval = 0
@@ -138,7 +138,7 @@ class GameScene: SKScene {
         let touch = touches.first!
         let touchPoint = touch.location(in: self)
         let nodes = self.nodes(at: touchPoint)
-        for node in nodes where node.name == "aeonCreature" {
+        for node in nodes where node is AeonCreatureNode {
             if node == selectedCreature {
                 self.selectedCreature = nil
                 camera?.removeAllActions()

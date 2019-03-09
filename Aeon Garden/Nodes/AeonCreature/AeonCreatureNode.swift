@@ -33,7 +33,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
     // MARK: - Health
 
-    public var currentHealth: Float = Float(randomInteger(min: 100, max: 110)) {
+    public var currentHealth: Float = Float(randomInteger(min: 100, max: 240)) {
         didSet {
             if currentHealth <= 0 {
                 die()
@@ -63,7 +63,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
         brain.delegate = self
         movementSpeed = randomFloat(min: 5, max: 10)
-        sizeModififer = randomFloat(min: 0.7, max: 1.5)
+        sizeModififer = randomFloat(min: 0.7, max: 2)
 
         setupLimbs()
         setupBodyPhysics()
@@ -131,7 +131,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         underShadow.alpha = 0.2
         addChild(underShadow)
 
-        name = "aeonCreature"
+        name = fullName
 
         birth()
         beginWiggling()
@@ -147,6 +147,10 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
     func getNodes(atPosition position: CGPoint) -> [SKNode] {
         return scene!.nodes(at: position)
+    }
+
+    func getNode(byName name: String) -> SKNode? {
+        return scene?.childNode(withName: name)
     }
 
     func move(toCGPoint: CGPoint) {
