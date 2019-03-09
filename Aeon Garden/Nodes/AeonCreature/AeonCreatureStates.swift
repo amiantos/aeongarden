@@ -43,9 +43,7 @@ class SeekingFoodState: GKState {
     }
 
     override func didEnter(from previousState: GKState?) {
-        if (previousState as? ApproachingFoodState) == nil {
-            brain?.printThought("I'm hungry, going to look for food.", emoji: "🔎")
-        }
+        brain?.printThought("Looking for food.", emoji: "🔎")
         brain?.currentState = .locatingFood
     }
 
@@ -66,7 +64,7 @@ class ApproachingFoodState: GKState {
     }
 
     override func didEnter(from previousState: GKState?) {
-        brain?.printThought("Approaching food...", emoji: "😋")
+        brain?.printThought("Approaching food.", emoji: "😋")
         brain?.currentState = .movingToFood
     }
 
@@ -120,7 +118,7 @@ class ApproachingLoveState: GKState {
     }
 
     override func didEnter(from previousState: GKState?) {
-        brain?.printThought("Oh, \(brain!.currentLoveTarget!.fullName) caught my eye. Pursuing...", emoji: "😍")
+        brain?.printThought("Oh, \(brain!.currentLoveTarget!.fullName) caught my eye.", emoji: "😍")
         brain?.currentState = .movingToLove
     }
 
