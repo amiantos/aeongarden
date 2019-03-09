@@ -33,7 +33,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
     // MARK: - Health
 
-    public var currentHealth: Float = Float(randomInteger(min: 125, max: 200)) {
+    public var currentHealth: Float = Float(randomInteger(min: 125, max: 300)) {
         didSet {
             if currentHealth <= 0 {
                 die()
@@ -62,8 +62,8 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         super.init()
 
         brain?.delegate = self
-        movementSpeed = randomFloat(min: 5, max: 10)
-        sizeModififer = randomFloat(min: 0.7, max: 1.4)
+        movementSpeed = randomCGFloat(min: 5, max: 10)
+        sizeModififer = randomCGFloat(min: 0.7, max: 1.4)
 
         setupLimbs()
         setupBodyPhysics()
@@ -198,10 +198,6 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         brain?.currentState = .randomMovement
     }
 
-    func randomFloat(min: CGFloat, max: CGFloat) -> CGFloat {
-        return (CGFloat(arc4random()) / 0xFFFF_FFFF) * (max - min) + min
-    }
-
     func angleBetweenPointOne(pointOne: CGPoint, andPointTwo pointTwo: CGPoint) -> CGFloat {
         let xdiff = (pointTwo.x - pointOne.x)
         let ydiff = (pointTwo.y - pointOne.y)
@@ -247,7 +243,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     }
 
     func fed() {
-        currentHealth += 300
+        currentHealth += Float(randomCGFloat(min: 100, max: 300))
     }
 
     func beginWiggling() {
