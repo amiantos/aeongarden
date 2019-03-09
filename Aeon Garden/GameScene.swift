@@ -21,7 +21,7 @@ class GameScene: SKScene {
 
     public var foodPelletCount: Int = 0
     public var creatureCount: Int = 0
-    private var foodPelletMax: Int = 100
+    private var foodPelletMax: Int = 20
     private var creatureMax: Int = 20
 
     private var lastUpdateTime: TimeInterval = 0
@@ -84,16 +84,16 @@ class GameScene: SKScene {
             lastCreatureTime = currentTime
         }
 
-        if (currentTime - lastFoodTime) > 1,
+        if (currentTime - lastFoodTime) > 2,
             foodPelletCount < foodPelletMax {
             addFoodPelletToScene()
             lastFoodTime = currentTime
         }
 
-        if (currentTime - lastCreatureTime) > 600 {
-            addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 1, max: 365))
-            lastCreatureTime = currentTime
-        }
+//        if (currentTime - lastCreatureTime) > 600 {
+//            addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 1, max: 365))
+//            lastCreatureTime = currentTime
+//        }
 
         creatureCountLabel.text = "Alive: \(creatureCount)"
 
@@ -108,12 +108,8 @@ class GameScene: SKScene {
     fileprivate func perFrameNodeActivity(_ deltaTime: Double, _ currentTime: TimeInterval) {
         for child in children {
             if let child = child as? AeonCreatureNode {
-                child.think(currentTime: currentTime)
-                if child != selectedCreature {
-                    child.age(lastUpdate: deltaTime)
-                } else {
-                    child.ageWithoutDeath(lastUpdate: deltaTime)
-                }
+                child.think(deltaTime: deltaTime)
+                child.age(lastUpdate: deltaTime)
             } else if let child = child as? AeonFoodNode {
                 child.age(lastUpdate: deltaTime)
             }
@@ -126,7 +122,7 @@ class GameScene: SKScene {
             camera?.run(cameraAction)
             nameLabel.text = followCreature.fullName
             lifeTimeLabel.text = followCreature.lifeTimeFormattedAsString()
-            currentStatusLabel.text = followCreature.brain.currentState.rawValue
+            currentStatusLabel.text = followCreature.brain?.currentState.rawValue ?? "Dying"
             healthLabel.text = "Health: \(Int(followCreature.currentHealth))"
         }
     }
@@ -138,7 +134,7 @@ class GameScene: SKScene {
         let touch = touches.first!
         let touchPoint = touch.location(in: self)
         let nodes = self.nodes(at: touchPoint)
-        for node in nodes where node.name == "aeonCreature" {
+        for node in nodes where node is AeonCreatureNode {
             if node == selectedCreature {
                 self.selectedCreature = nil
                 camera?.removeAllActions()
@@ -184,7 +180,7 @@ extension GameScene {
     fileprivate func createInitialCreatures() {
         var totalCreatures: Int = 0
         var initialCreatureHue: CGFloat = 0
-        let colorHueIncrement: CGFloat = CGFloat(360 / creatureMax)
+        let colorHueIncrement: CGFloat = CGFloat(350 / creatureMax)
 
         while totalCreatures < creatureMax {
             addNewCreatureToScene(withPrimaryHue: initialCreatureHue)
@@ -231,39 +227,28 @@ extension GameScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         if let creatureA = contact.bodyA.node as? AeonCreatureNode,
             let creatureB = contact.bodyB.node as? AeonCreatureNode {
-            if creatureA.brain.currentLoveTarget == creatureB, creatureB.brain.currentLoveTarget == creatureA {
+            if creatureA.brain?.currentLoveTarget == creatureB, creatureB.brain?.currentLoveTarget == creatureA {
                 // Mutual reproduction
                 creatureA.currentHealth /= 2
                 creatureB.currentHealth /= 2
-                creatureA.brain.currentLoveTarget = nil
-                creatureB.brain.currentLoveTarget = nil
-                creatureA.brain.currentState = .nothing
-                creatureB.brain.currentState = .nothing
+                creatureA.brain?.currentLoveTarget = nil
+                creatureB.brain?.currentLoveTarget = nil
                 let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
                 newCreature.position = creatureA.position
                 addChild(newCreature)
                 creatureCount += 1
             } else {
                 // Determine pursuing creature and give up
-                if creatureA.brain.currentLoveTarget == creatureB {
+                if creatureA.brain?.currentLoveTarget == creatureB {
                     let aggressor = creatureA
                     // Remove love target and lose health
                     aggressor.currentHealth /= 2
-                    aggressor.brain.currentLoveTarget = nil
-                    aggressor.brain.currentState = .nothing
-                } else if creatureB.brain.currentLoveTarget == creatureA {
+                    aggressor.brain?.currentLoveTarget = nil
+                } else if creatureB.brain?.currentLoveTarget == creatureA {
                     let aggressor = creatureB
                     // Remove love target and lose health
                     aggressor.currentHealth /= 2
-                    aggressor.brain.currentLoveTarget = nil
-                    aggressor.brain.currentState = .nothing
-                } else {
-                    if creatureA.brain.currentState == .randomMovement {
-                        creatureA.brain.currentState = .nothing
-                    }
-                    if creatureB.brain.currentState == .randomMovement {
-                        creatureB.brain.currentState = .nothing
-                    }
+                    aggressor.brain?.currentLoveTarget = nil
                 }
             }
         }
@@ -272,7 +257,7 @@ extension GameScene: SKPhysicsContactDelegate {
             contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyB.node as? AeonCreatureNode,
                 let food = contact.bodyA.node as? AeonFoodNode,
-                creature.brain.currentState == .movingToFood {
+                creature.brain?.currentState == .movingToFood {
                 creature.fed()
                 food.eaten()
                 foodPelletCount -= 1
@@ -281,7 +266,7 @@ extension GameScene: SKPhysicsContactDelegate {
             contact.bodyA.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyA.node as? AeonCreatureNode,
                 let food = contact.bodyB.node as? AeonFoodNode,
-                creature.brain.currentState == .movingToFood {
+                creature.brain?.currentState == .movingToFood {
                 creature.fed()
                 food.eaten()
                 foodPelletCount -= 1

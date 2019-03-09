@@ -12,13 +12,12 @@ import SpriteKit
 import UIKit
 
 class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
+
     // MARK: - Creature Names
 
     public let firstName: String
     public var lastName: String
-    public var fullName: String {
-        return "\(firstName) \(lastName)"
-    }
+    public var fullName: String
 
     public var parentNames: [String] = []
 
@@ -34,7 +33,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
     // MARK: - Health
 
-    public var currentHealth: Float = Float(randomInteger(min: 100, max: 250)) {
+    public var currentHealth: Float = Float(randomInteger(min: 125, max: 200)) {
         didSet {
             if currentHealth <= 0 {
                 die()
@@ -46,14 +45,15 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
     public var lifeTime: Float = 0
 
-    var brain: AeonCreatureBrain
+    var brain: AeonCreatureBrain?
 
     init(withPrimaryHue primaryHue: CGFloat) {
         firstName = AeonNameGenerator.shared.returnFirstName()
         lastName = AeonNameGenerator.shared.returnLastName()
+        fullName = "\(firstName) \(lastName)"
 
         // Create limbs
-        limbOne = AeonCreatureLimb(withPrimaryHue: primaryHue)
+        limbOne = AeonCreatureLimb(withPrimaryHue: primaryHue)  // the "head"
         limbTwo = AeonCreatureLimb(withPrimaryHue: primaryHue)
         limbThree = AeonCreatureLimb(withPrimaryHue: primaryHue)
         limbFour = AeonCreatureLimb(withPrimaryHue: primaryHue)
@@ -61,13 +61,13 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
         super.init()
 
-        brain.delegate = self
+        brain?.delegate = self
         movementSpeed = randomFloat(min: 5, max: 10)
-        sizeModififer = randomFloat(min: 0.7, max: 1.5)
+        sizeModififer = randomFloat(min: 0.7, max: 1.4)
 
         setupLimbs()
-
         setupBodyPhysics()
+        brain?.startThinking()
     }
 
     init(withParents parents: [AeonCreatureNode]) {
@@ -77,6 +77,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
         firstName = AeonNameGenerator.shared.returnFirstName()
         lastName = parents.randomElement()!.lastName
+        fullName = "\(firstName) \(lastName)"
 
         parentNames.append(parents[0].lastName)
         parentNames.append(parents[1].lastName)
@@ -87,15 +88,16 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         limbFour = AeonCreatureLimb(withLimb: parents.randomElement()!.limbFour)
         brain = AeonCreatureBrain()
 
-        movementSpeed = parents.randomElement()!.movementSpeed * randomCGFloat(min: 0.8, max: 1.2)
-        sizeModififer = parents.randomElement()!.sizeModififer * randomCGFloat(min: 0.8, max: 1.2)
+        movementSpeed = parents.randomElement()!.movementSpeed * randomCGFloat(min: 0.95, max: 1.05)
+        sizeModififer = parents.randomElement()!.sizeModififer * randomCGFloat(min: 0.95, max: 1.05)
 
         super.init()
 
-        brain.delegate = self
+        brain?.delegate = self
 
         setupLimbs()
         setupBodyPhysics()
+        brain?.startThinking()
     }
 
     fileprivate func setupLimbs() {
@@ -129,14 +131,14 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         underShadow.alpha = 0.2
         addChild(underShadow)
 
-        name = "aeonCreature"
+        name = fullName
 
         birth()
         beginWiggling()
     }
 
-    func think(currentTime: TimeInterval) {
-        brain.think(currentTime: currentTime)
+    func think(deltaTime: TimeInterval) {
+        brain?.think(deltaTime: deltaTime)
     }
 
     func getNodes() -> [SKNode] {
@@ -145,6 +147,10 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
     func getNodes(atPosition position: CGPoint) -> [SKNode] {
         return scene!.nodes(at: position)
+    }
+
+    func getNode(byName name: String) -> SKNode? {
+        return scene?.childNode(withName: name)
     }
 
     func move(toCGPoint: CGPoint) {
@@ -188,8 +194,8 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         let positionX = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: Int(scene!.size.width)).nextInt())
         let positionY = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: Int(scene!.size.height)).nextInt())
         let moveToPoint = CGPoint(x: positionX, y: positionY)
-        brain.currentMoveTarget = moveToPoint
-        brain.currentState = .randomMovement
+        brain?.currentMoveTarget = moveToPoint
+        brain?.currentState = .randomMovement
     }
 
     func randomFloat(min: CGFloat, max: CGFloat) -> CGFloat {
@@ -208,7 +214,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     }
 
     func birth() {
-        NSLog("👼 Birth: \(fullName)")
+        brain?.printThought("Lo! Consciousness", emoji: "👼")
 
         setScale(0.1)
         let birthAction = SKAction.scale(to: sizeModififer, duration: 30)
@@ -216,15 +222,15 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     }
 
     func die() {
-        NSLog("☠️ Death: \(fullName)")
+        brain?.printThought("Oh no! I'm dying.", emoji: "☠️")
 
         removeAllActions()
         physicsBody!.contactTestBitMask = 0
-        brain.lifeState = false
+        brain?.lifeState = false
+        brain = nil
         endWiggling()
 
         zPosition = 0
-        brain.currentState = .dead
         let fadeOut = SKAction.fadeAlpha(to: 0, duration: 20)
         let shrinkOut = SKAction.scale(to: 0, duration: 20)
         run(SKAction.group([fadeOut, shrinkOut]), completion: {
@@ -241,11 +247,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     }
 
     func fed() {
-        if brain.currentState == .movingToFood {
-            currentHealth += 300
-            brain.currentFoodTarget = nil
-            brain.currentState = .nothing
-        }
+        currentHealth += 300
     }
 
     func beginWiggling() {
