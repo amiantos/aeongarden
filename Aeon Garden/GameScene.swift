@@ -21,8 +21,8 @@ class GameScene: SKScene {
 
     public var foodPelletCount: Int = 0
     public var creatureCount: Int = 0
-    private var foodPelletMax: Int = 20
-    private var creatureMax: Int = 20
+    private var foodPelletMax: Int = 10
+    private var creatureMax: Int = 10
 
     private var lastUpdateTime: TimeInterval = 0
     private var lastFoodTime: TimeInterval = 0
@@ -229,10 +229,8 @@ extension GameScene: SKPhysicsContactDelegate {
             let creatureB = contact.bodyB.node as? AeonCreatureNode {
             if creatureA.brain?.currentLoveTarget == creatureB, creatureB.brain?.currentLoveTarget == creatureA {
                 // Mutual reproduction
-                creatureA.currentHealth /= 2
-                creatureB.currentHealth /= 2
-                creatureA.brain?.currentLoveTarget = nil
-                creatureB.brain?.currentLoveTarget = nil
+                creatureA.mated()
+                creatureB.mated()
                 let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
                 newCreature.position = creatureA.position
                 addChild(newCreature)

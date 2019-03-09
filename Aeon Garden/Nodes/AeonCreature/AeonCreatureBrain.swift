@@ -66,7 +66,7 @@ class AeonCreatureBrain {
             seekingFood,
             approachingFood,
             wandering,
-            dying,
+            dying
         ])
     }
 
@@ -77,9 +77,16 @@ class AeonCreatureBrain {
     // MARK: - Thought Process
 
     public func locateLove() {
-        var creatureDifferenceArray = [(speed: CGFloat, distance: CGFloat, hueDistance: CGFloat, node: AeonCreatureNode)]()
+        var creatureDifferenceArray = [(
+            speed: CGFloat,
+            distance: CGFloat,
+            hueDistance: CGFloat,
+            node: AeonCreatureNode
+        )]()
         let nodes = delegate!.getNodes()
-        guard let creature = delegate as? AeonCreatureNode else { fatalError("Delegate should always be a creature node.") }
+        guard let creature = delegate as? AeonCreatureNode else {
+            fatalError("Delegate should always be a creature node.")
+        }
         for case let child as AeonCreatureNode in nodes where
             child != delegate as? AeonCreatureNode
             && delegate!.parentNames.contains(child.lastName) == false

@@ -17,7 +17,7 @@ class WanderingState: GKState {
     }
 
     override func didEnter(from _: GKState?) {
-        brain?.printThought("I guess I'll wander around.", emoji: "🙃")
+        brain?.printThought("I guess I'll wander around.", emoji: nil)
         brain?.currentState = .randomMovement
     }
 
@@ -43,7 +43,7 @@ class SeekingFoodState: GKState {
     }
 
     override func didEnter(from _: GKState?) {
-        brain?.printThought("Looking for food.", emoji: "🔎")
+        brain?.printThought("Looking for food.", emoji: "👀")
         brain?.currentState = .locatingFood
     }
 
@@ -93,7 +93,7 @@ class SeekingLoveState: GKState {
     }
 
     override func didEnter(from _: GKState?) {
-        brain?.printThought("Feeling good, gonna look for love!", emoji: "🥰")
+        brain?.printThought("Feeling good, gonna look for love!", emoji: "👀")
         brain?.currentState = .locatingLove
     }
 

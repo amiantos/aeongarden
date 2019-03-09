@@ -244,7 +244,14 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         })
     }
 
+    func mated() {
+        currentHealth /= 2
+        brain?.currentLoveTarget = nil
+        brain?.printThought("That was nice!", emoji: "🥰")
+    }
+
     func fed() {
+        brain?.printThought("Yum!", emoji: "🍽")
         currentHealth += Float(randomCGFloat(min: 100, max: 300))
     }
 
