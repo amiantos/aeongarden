@@ -35,8 +35,13 @@ class AeonCreatureBrain {
     public var currentFoodTarget: AeonFoodNode?
     public var currentLoveTarget: AeonCreatureNode?
     public var currentMoveTarget: CGPoint?
-    public var lastThinkTime: TimeInterval = 0
-    public var lifeState: Bool = true
+    public var lifeState: Bool = true {
+        didSet {
+            if !self.lifeState {
+                stateMachine?.enter(DyingState.self)
+            }
+        }
+    }
 
     public enum State: String {
         case nothing = "Thinking"
@@ -149,9 +154,7 @@ class AeonCreatureBrain {
         stateMachine?.enter(WanderingState.self)
     }
 
-    func think(currentTime: TimeInterval) {
-        let deltaTime = currentTime - lastThinkTime
+    func think(deltaTime: TimeInterval) {
         stateMachine?.update(deltaTime: deltaTime)
-        lastThinkTime = currentTime
     }
 }

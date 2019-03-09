@@ -102,6 +102,8 @@ class SeekingLoveState: GKState {
     override func update(deltaTime seconds: TimeInterval) {
         if (brain?.delegate?.currentHealth)! <= Float(100) {
             stateMachine?.enter(SeekingFoodState.self)
+        } else if (brain?.delegate?.currentHealth)! <= Float(250) {
+            stateMachine?.enter(WanderingState.self)
         } else if brain?.currentLoveTarget != nil {
             stateMachine?.enter(ApproachingLoveState.self)
         } else {
@@ -148,7 +150,6 @@ class DyingState: GKState {
     }
 
     override func didEnter(from previousState: GKState?) {
-        brain?.printThought("Entered dying state...")
         brain?.currentState = .dead
     }
 
