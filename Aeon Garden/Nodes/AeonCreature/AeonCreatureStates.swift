@@ -16,12 +16,12 @@ class WanderingState: GKState {
         self.brain = brain
     }
 
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from _: GKState?) {
         brain?.printThought("I guess I'll wander around.", emoji: "🙃")
         brain?.currentState = .randomMovement
     }
 
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime _: TimeInterval) {
         brain?.moveRandomly()
         if (brain?.delegate?.currentHealth)! <= Float(100) {
             stateMachine?.enter(SeekingFoodState.self)
@@ -38,16 +38,16 @@ class SeekingFoodState: GKState {
         self.brain = brain
     }
 
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_: AnyClass) -> Bool {
         return true
     }
 
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from _: GKState?) {
         brain?.printThought("Looking for food.", emoji: "🔎")
         brain?.currentState = .locatingFood
     }
 
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime _: TimeInterval) {
         if brain?.currentFoodTarget != nil {
             stateMachine?.enter(ApproachingFoodState.self)
         } else {
@@ -63,12 +63,12 @@ class ApproachingFoodState: GKState {
         self.brain = brain
     }
 
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from _: GKState?) {
         brain?.printThought("Approaching food.", emoji: "😋")
         brain?.currentState = .movingToFood
     }
 
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime _: TimeInterval) {
         if (brain?.delegate?.currentHealth)! >= Float(250) {
             stateMachine?.enter(SeekingLoveState.self)
         } else if brain?.currentFoodTarget == nil {
@@ -78,7 +78,7 @@ class ApproachingFoodState: GKState {
         }
     }
 
-    override func willExit(to nextState: GKState) {
+    override func willExit(to _: GKState) {
         brain?.currentFoodTarget = nil
     }
 }
@@ -92,12 +92,12 @@ class SeekingLoveState: GKState {
         self.brain = brain
     }
 
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from _: GKState?) {
         brain?.printThought("Feeling good, gonna look for love!", emoji: "🥰")
         brain?.currentState = .locatingLove
     }
 
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime _: TimeInterval) {
         if (brain?.delegate?.currentHealth)! <= Float(100) {
             stateMachine?.enter(SeekingFoodState.self)
         } else if (brain?.delegate?.currentHealth)! <= Float(250) {
@@ -117,12 +117,12 @@ class ApproachingLoveState: GKState {
         self.brain = brain
     }
 
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from _: GKState?) {
         brain?.printThought("Oh, \(brain!.currentLoveTarget!.fullName) caught my eye.", emoji: "😍")
         brain?.currentState = .movingToLove
     }
 
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime _: TimeInterval) {
         if (brain?.delegate?.currentHealth)! <= Float(100) {
             stateMachine?.enter(SeekingFoodState.self)
         } else if (brain?.delegate?.currentHealth)! <= Float(200) {
@@ -134,10 +134,9 @@ class ApproachingLoveState: GKState {
         }
     }
 
-    override func willExit(to nextState: GKState) {
+    override func willExit(to _: GKState) {
         brain?.currentLoveTarget = nil
     }
-
 }
 
 class DyingState: GKState {
@@ -147,8 +146,7 @@ class DyingState: GKState {
         self.brain = brain
     }
 
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from _: GKState?) {
         brain?.currentState = .dead
     }
-
 }

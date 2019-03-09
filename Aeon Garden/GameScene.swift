@@ -105,7 +105,7 @@ class GameScene: SKScene {
 
     // MARK: - Per Frame Processes
 
-    fileprivate func perFrameNodeActivity(_ deltaTime: Double, _ currentTime: TimeInterval) {
+    fileprivate func perFrameNodeActivity(_ deltaTime: Double, _: TimeInterval) {
         for child in children {
             if let child = child as? AeonCreatureNode {
                 child.think(deltaTime: deltaTime)

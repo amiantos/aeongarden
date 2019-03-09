@@ -37,7 +37,7 @@ class AeonCreatureBrain {
     public var currentMoveTarget: CGPoint?
     public var lifeState: Bool = true {
         didSet {
-            if !self.lifeState {
+            if !lifeState {
                 stateMachine?.enter(DyingState.self)
             }
         }
@@ -60,13 +60,13 @@ class AeonCreatureBrain {
         let approachingFood = ApproachingFoodState(forBrain: self)
         let wandering = WanderingState(forBrain: self)
         let dying = DyingState(forBrain: self)
-        self.stateMachine = GKStateMachine(states: [
+        stateMachine = GKStateMachine(states: [
             seekingLove,
             approachingLove,
             seekingFood,
             approachingFood,
             wandering,
-            dying
+            dying,
         ])
     }
 
@@ -77,17 +77,19 @@ class AeonCreatureBrain {
     // MARK: - Thought Process
 
     public func locateLove() {
-        var creatureDifferenceArray = [(speed: CGFloat, distance: CGFloat, node: AeonCreatureNode)]()
+        var creatureDifferenceArray = [(speed: CGFloat, distance: CGFloat, hueDistance: CGFloat, node: AeonCreatureNode)]()
         let nodes = delegate!.getNodes()
+        guard let creature = delegate as? AeonCreatureNode else { fatalError("Delegate should always be a creature node.") }
         for case let child as AeonCreatureNode in nodes where
             child != delegate as? AeonCreatureNode
             && delegate!.parentNames.contains(child.lastName) == false
             && child.parentNames.contains(delegate!.lastName) == false {
             let distanceComputed = delegate!.distance(point: child.position)
-            creatureDifferenceArray.append((child.movementSpeed, distanceComputed, child))
+            let hueDistance = abs(child.primaryHue - creature.primaryHue)
+            creatureDifferenceArray.append((child.movementSpeed, distanceComputed, hueDistance, child))
         }
 
-        creatureDifferenceArray.sort(by: { $0.distance > $1.distance })
+        creatureDifferenceArray.sort(by: { $0.hueDistance < $1.hueDistance })
 
         if creatureDifferenceArray.count > 0 {
             currentLoveTarget = creatureDifferenceArray[0].node

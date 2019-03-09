@@ -12,7 +12,6 @@ import SpriteKit
 import UIKit
 
 class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
-
     // MARK: - Creature Names
 
     public let firstName: String
@@ -30,6 +29,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
     public var movementSpeed: CGFloat = 1
     public var sizeModififer: CGFloat = 1
+    public let primaryHue: CGFloat
 
     // MARK: - Health
 
@@ -51,9 +51,10 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         firstName = AeonNameGenerator.shared.returnFirstName()
         lastName = AeonNameGenerator.shared.returnLastName()
         fullName = "\(firstName) \(lastName)"
+        self.primaryHue = primaryHue
 
         // Create limbs
-        limbOne = AeonCreatureLimb(withPrimaryHue: primaryHue)  // the "head"
+        limbOne = AeonCreatureLimb(withPrimaryHue: primaryHue) // the "head"
         limbTwo = AeonCreatureLimb(withPrimaryHue: primaryHue)
         limbThree = AeonCreatureLimb(withPrimaryHue: primaryHue)
         limbFour = AeonCreatureLimb(withPrimaryHue: primaryHue)
@@ -78,6 +79,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         firstName = AeonNameGenerator.shared.returnFirstName()
         lastName = parents.randomElement()!.lastName
         fullName = "\(firstName) \(lastName)"
+        primaryHue = (parents[0].primaryHue + parents[1].primaryHue) / 2
 
         parentNames.append(parents[0].lastName)
         parentNames.append(parents[1].lastName)

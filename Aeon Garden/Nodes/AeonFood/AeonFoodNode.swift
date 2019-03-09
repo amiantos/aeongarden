@@ -76,6 +76,7 @@ class AeonFoodNode: SKNode {
 
         })
     }
+
     func age(lastUpdate: TimeInterval) {
         if lastUpdate < 10, lifeTime < maxLifeTime {
             lifeTime += Float(lastUpdate)
