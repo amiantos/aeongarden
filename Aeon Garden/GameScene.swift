@@ -21,7 +21,7 @@ class GameScene: SKScene {
 
     public var foodPelletCount: Int = 0
     public var creatureCount: Int = 0
-    private var foodPelletMax: Int = 25
+    private var foodPelletMax: Int = 20
     private var creatureMax: Int = 20
 
     private var lastUpdateTime: TimeInterval = 0
@@ -84,7 +84,7 @@ class GameScene: SKScene {
             lastCreatureTime = currentTime
         }
 
-        if (currentTime - lastFoodTime) > 1,
+        if (currentTime - lastFoodTime) > 2,
             foodPelletCount < foodPelletMax {
             addFoodPelletToScene()
             lastFoodTime = currentTime
@@ -179,8 +179,8 @@ class GameScene: SKScene {
 extension GameScene {
     fileprivate func createInitialCreatures() {
         var totalCreatures: Int = 0
-        var initialCreatureHue: CGFloat = 50
-        let colorHueIncrement: CGFloat = CGFloat(310 / creatureMax)
+        var initialCreatureHue: CGFloat = 0
+        let colorHueIncrement: CGFloat = CGFloat(350 / creatureMax)
 
         while totalCreatures < creatureMax {
             addNewCreatureToScene(withPrimaryHue: initialCreatureHue)

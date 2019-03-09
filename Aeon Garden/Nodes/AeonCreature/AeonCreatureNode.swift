@@ -53,7 +53,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         fullName = "\(firstName) \(lastName)"
 
         // Create limbs
-        limbOne = AeonCreatureLimb(withPrimaryHue: primaryHue)
+        limbOne = AeonCreatureLimb(withPrimaryHue: primaryHue)  // the "head"
         limbTwo = AeonCreatureLimb(withPrimaryHue: primaryHue)
         limbThree = AeonCreatureLimb(withPrimaryHue: primaryHue)
         limbFour = AeonCreatureLimb(withPrimaryHue: primaryHue)
@@ -88,8 +88,8 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         limbFour = AeonCreatureLimb(withLimb: parents.randomElement()!.limbFour)
         brain = AeonCreatureBrain()
 
-        movementSpeed = parents.randomElement()!.movementSpeed * randomCGFloat(min: 0.8, max: 1.2)
-        sizeModififer = parents.randomElement()!.sizeModififer * randomCGFloat(min: 0.8, max: 1.2)
+        movementSpeed = parents.randomElement()!.movementSpeed * randomCGFloat(min: 0.95, max: 1.05)
+        sizeModififer = parents.randomElement()!.sizeModififer * randomCGFloat(min: 0.95, max: 1.05)
 
         super.init()
 
