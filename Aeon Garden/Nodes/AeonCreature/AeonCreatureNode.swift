@@ -214,7 +214,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     }
 
     func birth() {
-        NSLog("👼 \(fullName): Lo! Consciousness...")
+        brain?.printThought("Lo! Consciousness", emoji: "👼")
 
         setScale(0.1)
         let birthAction = SKAction.scale(to: sizeModififer, duration: 30)
@@ -222,7 +222,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     }
 
     func die() {
-        NSLog("☠️ \(fullName): Oh no! I died.")
+        brain?.printThought("Oh no! I'm dying.", emoji: "☠️")
 
         removeAllActions()
         physicsBody!.contactTestBitMask = 0

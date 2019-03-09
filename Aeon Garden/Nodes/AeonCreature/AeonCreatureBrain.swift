@@ -70,8 +70,8 @@ class AeonCreatureBrain {
         ])
     }
 
-    func printThought(_ message: String) {
-        NSLog("💭 \(delegate!.fullName): \(message)")
+    func printThought(_ message: String, emoji: String?) {
+        NSLog("\(emoji ?? "💭") \(delegate!.fullName): \(message)")
     }
 
     // MARK: - Thought Process
