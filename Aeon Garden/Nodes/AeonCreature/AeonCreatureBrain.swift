@@ -77,7 +77,7 @@ class AeonCreatureBrain: AeonCreatureBrainDelegate {
     weak var delegate: AeonCreatureBrainDelegate?
     var stateMachine: GKStateMachine?
 
-    public var currentState: State = State.nothing
+    public var currentState: State = State.living
     public var currentFoodTarget: AeonFoodNode?
     public var currentLoveTarget: AeonCreatureNode?
     public var currentPlayTarget: SKNode?
@@ -92,7 +92,7 @@ class AeonCreatureBrain: AeonCreatureBrainDelegate {
     public var currentFeeling: Feeling = .bored
 
     public enum State: String {
-        case nothing = "Thinking"
+        case living = "Newborn"
         case randomMovement = "Bored"
         case locatingFood = "Locating Food"
         case movingToFood = "Approaching Food"
@@ -102,24 +102,22 @@ class AeonCreatureBrain: AeonCreatureBrainDelegate {
     }
 
     init() {
+        let living = BirthState(forBrain: self)
         let seekingLove = SeekingLoveState(forBrain: self)
-        let approachingLove = ApproachingLoveState(forBrain: self)
         let seekingFood = SeekingFoodState(forBrain: self)
-        let approachingFood = ApproachingFoodState(forBrain: self)
         let wandering = WanderingState(forBrain: self)
         let dying = DyingState(forBrain: self)
         stateMachine = GKStateMachine(states: [
+            living,
             seekingLove,
-            approachingLove,
             seekingFood,
-            approachingFood,
             wandering,
             dying
         ])
     }
 
     public func startThinking() {
-        stateMachine?.enter(WanderingState.self)
+        stateMachine?.enter(BirthState.self)
     }
 
     // MARK: - Thought Process
@@ -158,7 +156,7 @@ class AeonCreatureBrain: AeonCreatureBrainDelegate {
     }
 
     public func analyzePlayTarget() {
-        if let playTarget = currentPlayTarget, getDistance(toNode: playTarget) < 30 {
+        if let playTarget = currentPlayTarget, getDistance(toNode: playTarget) < 100 {
             currentPlayTarget = nil
         }
     }
@@ -168,7 +166,7 @@ class AeonCreatureBrain: AeonCreatureBrainDelegate {
         let nodes = getNodes()
         for child in nodes {
             let distance = getDistance(toNode: child)
-            if distance > 500 {
+            if distance > 700 {
                 ratedNodeArray.append(child)
             }
         }

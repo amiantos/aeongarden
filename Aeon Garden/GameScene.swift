@@ -23,7 +23,7 @@ class GameScene: SKScene {
     public var creatureCount: Int = 0
     public var deathCount: Int = 0
     public var birthCount: Int = 0
-    private var foodPelletMax: Int = 10
+    private var foodPelletMax: Int = 20
     private var creatureMax: Int = 20
 
     private var lastUpdateTime: TimeInterval = 0
@@ -98,9 +98,7 @@ class GameScene: SKScene {
 //        }
 
         creatureCountLabel.text = """
-        Alive: \(creatureCount) -
-        Deaths: \(deathCount) -
-        Births: \(birthCount) - Pellets: \(foodPelletCount)
+        Alive: \(creatureCount)   Deaths: \(deathCount)   Births: \(birthCount)   Pellets: \(foodPelletCount)
         """
 
         let deltaTime = currentTime - lastUpdateTime
@@ -237,11 +235,13 @@ extension GameScene: SKPhysicsContactDelegate {
                 // Mutual reproduction
                 creatureA.mated()
                 creatureB.mated()
-                let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
-                newCreature.position = creatureA.position
-                addChild(newCreature)
-                creatureCount += 1
-                birthCount += 1
+                if randomBool() {
+                    let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
+                    newCreature.position = creatureA.position
+                    addChild(newCreature)
+                    creatureCount += 1
+                    birthCount += 1
+                }
             } else {
                 // Determine pursuing creature and give up
                 if creatureA.brain?.currentLoveTarget == creatureB {
@@ -317,7 +317,7 @@ extension GameScene {
     }
 
     fileprivate func setupCreatureCountUI() {
-        creatureCountShape.fillColor = .white
+        creatureCountShape.fillColor = .clear
         creatureCountShape.alpha = 0.9
         creatureCountShape.name = "creatureCount"
         cameraNode.addChild(creatureCountShape)
@@ -326,9 +326,9 @@ extension GameScene {
             cornerRadius: 10
         ).cgPath
         creatureCountShape.zPosition = 20
-        creatureCountShape.position = CGPoint(x: 0, y: -(frame.size.height / 2) + 80)
+        creatureCountShape.position = CGPoint(x: 0, y: (frame.size.height / 2) - 80)
         creatureCountLabel.zPosition = 20
-        creatureCountLabel.fontColor = .black
+        creatureCountLabel.fontColor = .white
         creatureCountShape.addChild(creatureCountLabel)
         creatureCountLabel.position = CGPoint(x: 0, y: -11)
     }

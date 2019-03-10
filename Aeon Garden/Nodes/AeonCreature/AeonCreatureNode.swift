@@ -174,8 +174,8 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     func think(deltaTime: TimeInterval, currentTime: TimeInterval) {
         if (currentTime - lastThinkTime) > 1 {
             if currentHealth <= 0 {
-                currentFeeling = .dying
                 die()
+                currentFeeling = .dying
             } else if currentHealth >= 250 {
                 currentFeeling = .horny
             } else if currentHealth <= 150 {
@@ -202,7 +202,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     }
 
     func move() {
-        if let toCGPoint = currentTarget?.position {
+        if let toCGPoint = currentTarget?.position, currentFeeling != .dying {
         if action(forKey: "Rotating") == nil {
             let angleMovement = angleBetweenPointOne(pointOne: position, andPointTwo: toCGPoint)
             var rotationDuration: CGFloat = 0
@@ -262,35 +262,31 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     // MARK: - Lifecycle
 
     func born() {
-        printThought("Lo! Consciousness", emoji: "👼")
-
         setScale(0.1)
         let birthAction = SKAction.scale(to: sizeModififer, duration: 30)
         run(birthAction)
     }
 
     func die() {
-        removeAllActions()
-        physicsBody!.contactTestBitMask = 0
-        brain?.lifeState = false
-        brain = nil
-        endWiggling()
+        if currentFeeling != .dying {
+            removeAllActions()
+            physicsBody!.contactTestBitMask = 0
+            endWiggling()
 
-        zPosition = 0
-        let fadeOut = SKAction.fadeAlpha(to: 0, duration: 20)
-        let shrinkOut = SKAction.scale(to: 0, duration: 20)
-        run(SKAction.group([fadeOut, shrinkOut]), completion: {
-            // Decrement creature count in scene
-            // And remove selectedCreature from scene if it is self
-            if let mainScene = self.scene as? GameScene {
-                mainScene.creatureCount -= 1
-                mainScene.deathCount += 1
-                if mainScene.selectedCreature == self {
-                    mainScene.selectedCreature = nil
+            zPosition = 0
+            let fadeOut = SKAction.fadeAlpha(to: 0, duration: 10)
+            let shrinkOut = SKAction.scale(to: 0, duration: 10)
+            run(SKAction.group([fadeOut, shrinkOut]), completion: {
+                if let mainScene = self.scene as? GameScene {
+                    mainScene.creatureCount -= 1
+                    mainScene.deathCount += 1
+                    if mainScene.selectedCreature == self {
+                        mainScene.selectedCreature = nil
+                    }
                 }
-            }
-            self.removeFromParent()
-        })
+                self.removeFromParent()
+            })
+        }
     }
 
     func setCurrentTarget(node: SKNode?) {

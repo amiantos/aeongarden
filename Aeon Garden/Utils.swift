@@ -25,6 +25,10 @@ func randomInteger(min: Int, max: Int) -> Int {
     return GKRandomDistribution(lowestValue: min, highestValue: max).nextInt()
 }
 
+func randomBool() -> Bool {
+    return GKRandomSource.sharedRandom().nextBool()
+}
+
 func randomCGFloat(min: CGFloat, max: CGFloat) -> CGFloat {
     return (CGFloat(arc4random()) / 0xFFFF_FFFF) * (max - min) + min
 }
