@@ -12,11 +12,36 @@ import SpriteKit
 import UIKit
 
 class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
+    func getFoodNodes() -> [AeonFoodNode] {
+        var foodArray: [AeonFoodNode] = []
+        let nodes = getNodes()
+        for case let child as AeonFoodNode in nodes {
+            foodArray.append(child)
+        }
+        return foodArray
+    }
+
+    func getEligibleMates() -> [AeonCreatureNode] {
+        var mateArray: [AeonCreatureNode] = []
+        let nodes = getNodes()
+        for case let child as AeonCreatureNode in nodes where
+            child != self
+            && parentNames.contains(child.lastName) == false
+            && child.parentNames.contains(lastName) == false {
+                mateArray.append(child)
+        }
+        return mateArray
+    }
+
     func getCurrentFeeling() -> Feeling {
         return currentFeeling
     }
 
     var currentFeeling: Feeling = .bored
+
+    func printThought(_ message: String, emoji: String?) {
+        NSLog("\(emoji ?? "💭") \(fullName) (\(Int(currentHealth))): \(message)")
+    }
 
     // MARK: - Creature Names
 
@@ -39,7 +64,8 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
     // MARK: - Current Focus
 
-    private var currentTarget: SKNode?
+    var currentTarget: SKNode?
+    var randomTarget: CGPoint?
 
     // MARK: - Health
 
@@ -157,10 +183,10 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
             } else if currentHealth <= 200 {
                 currentFeeling = .bored
             }
-//            brain?.think(deltaTime: deltaTime)
+            brain?.think(deltaTime: deltaTime)
             lastThinkTime = currentTime
         }
-        brain?.think(deltaTime: deltaTime)
+        move()
     }
 
     func getNodes() -> [SKNode] {
@@ -175,7 +201,8 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         return scene?.childNode(withName: name)
     }
 
-    func move(toCGPoint: CGPoint) {
+    func move() {
+        if let toCGPoint = currentTarget?.position {
         if action(forKey: "Rotating") == nil {
             let angleMovement = angleBetweenPointOne(pointOne: position, andPointTwo: toCGPoint)
             var rotationDuration: CGFloat = 0
@@ -210,14 +237,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         )
 
         physicsBody?.applyForce(thrustVector)
-    }
-
-    func beginRandomMovement() {
-        let positionX = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: Int(scene!.size.width)).nextInt())
-        let positionY = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: Int(scene!.size.height)).nextInt())
-        let moveToPoint = CGPoint(x: positionX, y: positionY)
-        brain?.currentMoveTarget = moveToPoint
-        brain?.currentState = .randomMovement
+        }
     }
 
     func angleBetweenPointOne(pointOne: CGPoint, andPointTwo pointTwo: CGPoint) -> CGFloat {
@@ -227,14 +247,22 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         return rad - 1.5707963268 // convert from atan's right-pointing zero to CG's up-pointing zero
     }
 
+    func getDistance(toNode node: SKNode) -> CGFloat {
+        return distance(point: node.position)
+    }
+
     func distance(point: CGPoint) -> CGFloat {
         return CGFloat(hypotf(Float(point.x - position.x), Float(point.y - position.y)))
+    }
+
+    func rate(mate: AeonCreatureNode) -> CGFloat {
+        return abs(mate.primaryHue - self.primaryHue)
     }
 
     // MARK: - Lifecycle
 
     func born() {
-        brain?.printThought("Lo! Consciousness", emoji: "👼")
+        printThought("Lo! Consciousness", emoji: "👼")
 
         setScale(0.1)
         let birthAction = SKAction.scale(to: sizeModififer, duration: 30)
@@ -242,7 +270,6 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     }
 
     func die() {
-        brain?.printThought("Oh no! I'm dying.", emoji: "☠️")
         removeAllActions()
         physicsBody!.contactTestBitMask = 0
         brain?.lifeState = false
@@ -266,18 +293,18 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         })
     }
 
-    func setCurrentTarget(node: SKNode) {
+    func setCurrentTarget(node: SKNode?) {
         currentTarget = node
     }
 
     func mated() {
         currentHealth /= 2
         brain?.currentLoveTarget = nil
-        brain?.printThought("That was nice!", emoji: "🥰")
+        printThought("That was nice!", emoji: "🥰")
     }
 
     func fed() {
-        brain?.printThought("Yum!", emoji: "🍽")
+        printThought("Yum!", emoji: "🍽")
         currentHealth += Float(randomCGFloat(min: 100, max: 300))
     }
 

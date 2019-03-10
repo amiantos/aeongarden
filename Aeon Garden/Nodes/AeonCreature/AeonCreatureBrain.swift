@@ -10,7 +10,6 @@ import Foundation
 import GameplayKit
 import SpriteKit
 
-
 enum Feeling: String {
     case hungry = "Hungry"
     case horny = "Horny"
@@ -19,31 +18,69 @@ enum Feeling: String {
 }
 
 protocol AeonCreatureBrainDelegate: class {
-    var fullName: String { get set }
-    var lastName: String { get set }
-    var parentNames: [String] { get set }
-    var currentHealth: Float { get set }
-    func distance(point: CGPoint) -> CGFloat
-
     func getNodes(atPosition position: CGPoint) -> [SKNode]
     func getNodes() -> [SKNode]
     func getNode(byName name: String) -> SKNode?
 
-    func move(toCGPoint: CGPoint)
-    func beginRandomMovement()
+    func getFoodNodes() -> [AeonFoodNode]
+    func getEligibleMates() -> [AeonCreatureNode]
 
-    func setCurrentTarget(node: SKNode)
+    func setCurrentTarget(node: SKNode?)
     func getCurrentFeeling() -> Feeling
+    func getDistance(toNode node: SKNode) -> CGFloat
+    func rate(mate: AeonCreatureNode) -> CGFloat
+
+    func printThought(_ message: String, emoji: String?)
 }
 
-class AeonCreatureBrain {
+class AeonCreatureBrain: AeonCreatureBrainDelegate {
+    func rate(mate: AeonCreatureNode) -> CGFloat {
+        return delegate!.rate(mate: mate)
+    }
+
+    func getDistance(toNode node: SKNode) -> CGFloat {
+        return delegate!.getDistance(toNode: node)
+    }
+
+    func getNodes(atPosition position: CGPoint) -> [SKNode] {
+        return delegate!.getNodes(atPosition: position)
+    }
+
+    func getNodes() -> [SKNode] {
+        return delegate!.getNodes()
+    }
+
+    func getNode(byName name: String) -> SKNode? {
+        return delegate!.getNode(byName: name)
+    }
+
+    func getFoodNodes() -> [AeonFoodNode] {
+        return delegate!.getFoodNodes()
+    }
+
+    func getEligibleMates() -> [AeonCreatureNode] {
+        return delegate!.getEligibleMates()
+    }
+
+    func setCurrentTarget(node: SKNode?) {
+        delegate?.setCurrentTarget(node: node)
+    }
+
+    func getCurrentFeeling() -> Feeling {
+        return delegate!.getCurrentFeeling()
+    }
+
+    func printThought(_ message: String, emoji: String?) {
+        delegate!.printThought(message, emoji: emoji)
+    }
+
     weak var delegate: AeonCreatureBrainDelegate?
     var stateMachine: GKStateMachine?
 
     public var currentState: State = State.nothing
     public var currentFoodTarget: AeonFoodNode?
     public var currentLoveTarget: AeonCreatureNode?
-    public var currentMoveTarget: CGPoint?
+    public var currentPlayTarget: SKNode?
     public var lifeState: Bool = true {
         didSet {
             if !lifeState {
@@ -56,7 +93,7 @@ class AeonCreatureBrain {
 
     public enum State: String {
         case nothing = "Thinking"
-        case randomMovement = "Wandering"
+        case randomMovement = "Bored"
         case locatingFood = "Locating Food"
         case movingToFood = "Approaching Food"
         case locatingLove = "Looking for Love"
@@ -85,92 +122,59 @@ class AeonCreatureBrain {
         stateMachine?.enter(WanderingState.self)
     }
 
-    func printThought(_ message: String, emoji: String?) {
-        NSLog("\(emoji ?? "💭") \(delegate!.fullName) (\(Int(delegate!.currentHealth))): \(message)")
-    }
-
     // MARK: - Thought Process
 
     public func locateLove() {
         var creatureDifferenceArray = [(
-            speed: CGFloat,
-            distance: CGFloat,
-            hueDistance: CGFloat,
+            rating: CGFloat,
             node: AeonCreatureNode
         )]()
-        let nodes = delegate!.getNodes()
-        guard let creature = delegate as? AeonCreatureNode else {
-            fatalError("Delegate should always be a creature node.")
-        }
-        for case let child as AeonCreatureNode in nodes where
-            child != delegate as? AeonCreatureNode
-            && delegate!.parentNames.contains(child.lastName) == false
-            && child.parentNames.contains(delegate!.lastName) == false {
-            let distanceComputed = delegate!.distance(point: child.position)
-            let hueDistance = abs(child.primaryHue - creature.primaryHue)
-            creatureDifferenceArray.append((child.movementSpeed, distanceComputed, hueDistance, child))
+        let nodes = getEligibleMates()
+        for child in nodes {
+            let mateRating = rate(mate: child)
+            creatureDifferenceArray.append((mateRating, child))
         }
 
-        creatureDifferenceArray.sort(by: { $0.hueDistance < $1.hueDistance })
+        creatureDifferenceArray.sort(by: { $0.rating < $1.rating })
 
         if creatureDifferenceArray.count > 0 {
             currentLoveTarget = creatureDifferenceArray[0].node
-        }
-    }
-
-    public func moveToLove() {
-        if let loveTarget = currentLoveTarget {
-            if let node = delegate!.getNode(byName: loveTarget.fullName) {
-                delegate!.move(toCGPoint: node.position)
-            } else {
-                currentLoveTarget = nil
-            }
+            setCurrentTarget(node: currentLoveTarget!)
         }
     }
 
     public func locateFood() {
-        var foodDistanceArray = [(distance: CGFloat, node: AeonFoodNode)]()
-        let nodes = delegate!.getNodes()
-        for case let child as AeonFoodNode in nodes {
-            let distanceComputed = delegate!.distance(point: child.position)
-            foodDistanceArray.append((distanceComputed, child))
+        var foodDistanceArray = [(rating: CGFloat, node: AeonFoodNode)]()
+        let nodes = getFoodNodes()
+        for child in nodes {
+            let foodRating = getDistance(toNode: child)
+            foodDistanceArray.append((foodRating, child))
         }
-        foodDistanceArray.sort(by: { $0.distance < $1.distance })
+        foodDistanceArray.sort(by: { $0.rating < $1.rating })
         if foodDistanceArray.count > 0 {
             currentFoodTarget = foodDistanceArray[0].node
+            setCurrentTarget(node: currentFoodTarget!)
         }
     }
 
-    public func moveToFood() {
-        var nodeFound = 0
-        if let foodTarget = self.currentFoodTarget {
-            let nodes = delegate!.getNodes(atPosition: foodTarget.position)
-            for node in nodes where node.name == "aeonFood" {
-                nodeFound = 1
-            }
-            if nodeFound == 1 {
-                delegate!.move(toCGPoint: foodTarget.position)
-            } else {
-                currentFoodTarget = nil
-            }
+    public func analyzePlayTarget() {
+        if let playTarget = currentPlayTarget, getDistance(toNode: playTarget) < 30 {
+            currentPlayTarget = nil
         }
     }
 
-    public func moveRandomly() {
-        var nodeFound = 0
-        // Check if self is not already at point...
-        if let moveTarget = self.currentMoveTarget {
-            let nodes = delegate!.getNodes(atPosition: moveTarget)
-            for node in nodes where node == delegate as? AeonCreatureNode {
-                nodeFound = 1
+    public func locatePlayTarget() {
+        var ratedNodeArray: [SKNode] = []
+        let nodes = getNodes()
+        for child in nodes {
+            let distance = getDistance(toNode: child)
+            if distance > 500 {
+                ratedNodeArray.append(child)
             }
-            if nodeFound == 0 {
-                delegate!.move(toCGPoint: moveTarget)
-            } else {
-                delegate!.beginRandomMovement()
-            }
-        } else {
-            delegate!.beginRandomMovement()
+        }
+        if let playTarget = ratedNodeArray.randomElement() {
+            currentPlayTarget = playTarget
+            setCurrentTarget(node: playTarget)
         }
     }
 

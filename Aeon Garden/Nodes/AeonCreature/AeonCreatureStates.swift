@@ -17,7 +17,7 @@ class WanderingState: GKState {
     }
 
     override func didEnter(from _: GKState?) {
-        brain?.printThought("I guess I'll wander around.", emoji: nil)
+        brain?.printThought("I'm bored.", emoji: nil)
         brain?.currentState = .randomMovement
     }
 
@@ -29,12 +29,14 @@ class WanderingState: GKState {
             case .horny:
                 stateMachine?.enter(SeekingLoveState.self)
             case .bored:
-                break
+                brain.analyzePlayTarget()
+                if brain.currentPlayTarget == nil {
+                    brain.locatePlayTarget()
+                }
             case .dying:
                 stateMachine?.enter(DyingState.self)
             }
         }
-        brain?.moveRandomly()
     }
 }
 
@@ -91,9 +93,8 @@ class ApproachingFoodState: GKState {
         if let brain = brain {
             switch brain.currentFeeling {
             case .hungry:
-                if brain.currentFoodTarget != nil {
-                    brain.moveToFood()
-                } else {
+                brain.locateFood()
+                if brain.currentFoodTarget == nil {
                     stateMachine?.enter(SeekingFoodState.self)
                 }
             case .horny:
@@ -162,9 +163,7 @@ class ApproachingLoveState: GKState {
             case .hungry:
                 stateMachine?.enter(SeekingFoodState.self)
             case .horny:
-                if brain.currentLoveTarget != nil {
-                    brain.moveToLove()
-                } else {
+                if brain.currentLoveTarget == nil {
                     stateMachine?.enter(SeekingLoveState.self)
                 }
             case .bored:
@@ -188,6 +187,7 @@ class DyingState: GKState {
     }
 
     override func didEnter(from _: GKState?) {
+        brain?.printThought("Oh no! I'm dying.", emoji: "☠️")
         brain?.currentState = .dead
     }
 }
