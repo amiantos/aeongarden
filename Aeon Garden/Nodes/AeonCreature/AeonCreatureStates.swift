@@ -100,10 +100,6 @@ class SeekingFoodState: GKState {
             }
         }
     }
-
-    override func willExit(to _: GKState) {
-        brain?.currentFoodTarget = nil
-    }
 }
 
 // MARK: - Romance

@@ -94,10 +94,8 @@ class AeonCreatureBrain: AeonCreatureBrainDelegate {
     public enum State: String {
         case living = "Newborn"
         case randomMovement = "Bored"
-        case locatingFood = "Locating Food"
-        case movingToFood = "Approaching Food"
+        case locatingFood = "Looking for Food"
         case locatingLove = "Looking for Love"
-        case movingToLove = "Chasing Love"
         case dead = "Dying"
     }
 

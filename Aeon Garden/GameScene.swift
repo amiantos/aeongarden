@@ -262,7 +262,7 @@ extension GameScene: SKPhysicsContactDelegate {
             contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyB.node as? AeonCreatureNode,
                 let food = contact.bodyA.node as? AeonFoodNode,
-                creature.brain?.currentState == .movingToFood {
+                creature.brain?.currentState ==  .locatingFood {
                 creature.fed()
                 food.eaten()
                 foodPelletCount -= 1
@@ -271,7 +271,7 @@ extension GameScene: SKPhysicsContactDelegate {
             contact.bodyA.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyA.node as? AeonCreatureNode,
                 let food = contact.bodyB.node as? AeonFoodNode,
-                creature.brain?.currentState == .movingToFood {
+                creature.brain?.currentState == .locatingFood {
                 creature.fed()
                 food.eaten()
                 foodPelletCount -= 1
