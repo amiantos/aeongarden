@@ -12,6 +12,12 @@ import SpriteKit
 import UIKit
 
 class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
+    func getCurrentFeeling() -> Feeling {
+        return currentFeeling
+    }
+
+    var currentFeeling: Feeling = .bored
+
     // MARK: - Creature Names
 
     public let firstName: String
@@ -31,21 +37,19 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     public var sizeModififer: CGFloat = 1
     public let primaryHue: CGFloat
 
+    // MARK: - Current Focus
+
+    private var currentTarget: SKNode?
+
     // MARK: - Health
 
-    public var currentHealth: Float = Float(randomInteger(min: 125, max: 300)) {
-        didSet {
-            if currentHealth <= 0 {
-                die()
-            } else if currentHealth > 300 {
-                currentHealth = 300
-            }
-        }
-    }
+    public var currentHealth: Float = Float(randomInteger(min: 125, max: 300))
 
     public var lifeTime: Float = 0
 
     var brain: AeonCreatureBrain?
+
+    var lastThinkTime: TimeInterval = 0
 
     init(withPrimaryHue primaryHue: CGFloat) {
         firstName = AeonNameGenerator.shared.returnFirstName()
@@ -68,6 +72,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
         setupLimbs()
         setupBodyPhysics()
+
         brain?.startThinking()
     }
 
@@ -99,6 +104,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
         setupLimbs()
         setupBodyPhysics()
+
         brain?.startThinking()
     }
 
@@ -135,11 +141,27 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
         name = fullName
 
-        birth()
+        born()
         beginWiggling()
     }
 
-    func think(deltaTime: TimeInterval) {
+    func think(deltaTime: TimeInterval, currentTime: TimeInterval) {
+        if (currentTime - lastThinkTime) > 1 {
+            switch currentHealth {
+            case ...0:
+                currentFeeling = .dying
+            case 0...150:
+                currentFeeling = .hungry
+            case 151...249:
+                currentFeeling = .bored
+            case 250...:
+                currentFeeling = .horny
+            default:
+                currentFeeling = .bored
+            }
+//            brain?.think(deltaTime: deltaTime)
+            lastThinkTime = currentTime
+        }
         brain?.think(deltaTime: deltaTime)
     }
 
@@ -211,7 +233,9 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         return CGFloat(hypotf(Float(point.x - position.x), Float(point.y - position.y)))
     }
 
-    func birth() {
+    // MARK: - Lifecycle
+
+    func born() {
         brain?.printThought("Lo! Consciousness", emoji: "👼")
 
         setScale(0.1)
@@ -221,7 +245,6 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
     func die() {
         brain?.printThought("Oh no! I'm dying.", emoji: "☠️")
-
         removeAllActions()
         physicsBody!.contactTestBitMask = 0
         brain?.lifeState = false
@@ -236,12 +259,17 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
             // And remove selectedCreature from scene if it is self
             if let mainScene = self.scene as? GameScene {
                 mainScene.creatureCount -= 1
+                mainScene.deathCount += 1
                 if mainScene.selectedCreature == self {
                     mainScene.selectedCreature = nil
                 }
             }
             self.removeFromParent()
         })
+    }
+
+    func setCurrentTarget(node: SKNode) {
+        currentTarget = node
     }
 
     func mated() {

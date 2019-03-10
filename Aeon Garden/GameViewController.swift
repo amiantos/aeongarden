@@ -19,9 +19,9 @@ class GameViewController: UIViewController {
         UIApplication.shared.isIdleTimerDisabled = true
         scene = GameScene(size: view.bounds.size)
         skView = view as? SKView
-        skView!.showsFPS = true
-        skView!.showsNodeCount = true
-        skView!.ignoresSiblingOrder = true
+        //skView!.showsFPS = true
+        //skView!.showsNodeCount = true
+        skView!.ignoresSiblingOrder = false
         // skView!.showsPhysics = true
         scene!.scaleMode = .aspectFill
         scene!.backgroundColor = UIColor(red: 0.102, green: 0.2824, blue: 0.3569, alpha: 1.0) /* #1a485b */

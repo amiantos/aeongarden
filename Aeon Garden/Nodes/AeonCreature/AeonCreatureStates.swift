@@ -22,10 +22,19 @@ class WanderingState: GKState {
     }
 
     override func update(deltaTime _: TimeInterval) {
-        brain?.moveRandomly()
-        if (brain?.delegate?.currentHealth)! <= Float(100) {
-            stateMachine?.enter(SeekingFoodState.self)
+        if let brain = brain {
+            switch brain.currentFeeling {
+            case .hungry:
+                stateMachine?.enter(SeekingFoodState.self)
+            case .horny:
+                stateMachine?.enter(SeekingLoveState.self)
+            case .bored:
+                break
+            case .dying:
+                stateMachine?.enter(DyingState.self)
+            }
         }
+        brain?.moveRandomly()
     }
 }
 
@@ -48,10 +57,21 @@ class SeekingFoodState: GKState {
     }
 
     override func update(deltaTime _: TimeInterval) {
+        if let brain = brain {
+            switch brain.currentFeeling {
+            case .hungry:
+                break
+            case .horny:
+                stateMachine?.enter(SeekingLoveState.self)
+            case .bored:
+                stateMachine?.enter(WanderingState.self)
+            case .dying:
+                stateMachine?.enter(DyingState.self)
+            }
+        }
+        brain?.locateFood()
         if brain?.currentFoodTarget != nil {
             stateMachine?.enter(ApproachingFoodState.self)
-        } else {
-            brain?.locateFood()
         }
     }
 }
@@ -69,13 +89,19 @@ class ApproachingFoodState: GKState {
     }
 
     override func update(deltaTime _: TimeInterval) {
-        if (brain?.delegate?.currentHealth)! >= Float(250) {
-            stateMachine?.enter(SeekingLoveState.self)
-        } else if brain?.currentFoodTarget == nil {
-            stateMachine?.enter(SeekingFoodState.self)
-        } else {
-            brain?.moveToFood()
+        if let brain = brain {
+            switch brain.currentFeeling {
+            case .hungry:
+                break
+            case .horny:
+                stateMachine?.enter(SeekingLoveState.self)
+            case .bored:
+                stateMachine?.enter(WanderingState.self)
+            case .dying:
+                stateMachine?.enter(DyingState.self)
+            }
         }
+        brain?.moveToFood()
     }
 
     override func willExit(to _: GKState) {
@@ -98,14 +124,21 @@ class SeekingLoveState: GKState {
     }
 
     override func update(deltaTime _: TimeInterval) {
-        if (brain?.delegate?.currentHealth)! <= Float(100) {
-            stateMachine?.enter(SeekingFoodState.self)
-        } else if (brain?.delegate?.currentHealth)! <= Float(250) {
-            stateMachine?.enter(WanderingState.self)
-        } else if brain?.currentLoveTarget != nil {
+        if let brain = brain {
+            switch brain.currentFeeling {
+            case .hungry:
+                stateMachine?.enter(SeekingFoodState.self)
+            case .horny:
+                break
+            case .bored:
+                stateMachine?.enter(WanderingState.self)
+            case .dying:
+                stateMachine?.enter(DyingState.self)
+            }
+        }
+        brain?.locateLove()
+        if brain?.currentLoveTarget != nil {
             stateMachine?.enter(ApproachingLoveState.self)
-        } else {
-            brain?.locateLove()
         }
     }
 }
@@ -123,15 +156,19 @@ class ApproachingLoveState: GKState {
     }
 
     override func update(deltaTime _: TimeInterval) {
-        if (brain?.delegate?.currentHealth)! <= Float(100) {
-            stateMachine?.enter(SeekingFoodState.self)
-        } else if (brain?.delegate?.currentHealth)! <= Float(200) {
-            stateMachine?.enter(WanderingState.self)
-        } else if brain?.currentLoveTarget == nil {
-            stateMachine?.enter(SeekingLoveState.self)
-        } else {
-            brain?.moveToLove()
+        if let brain = brain {
+            switch brain.currentFeeling {
+            case .hungry:
+                stateMachine?.enter(SeekingFoodState.self)
+            case .horny:
+                break
+            case .bored:
+                stateMachine?.enter(WanderingState.self)
+            case .dying:
+                stateMachine?.enter(DyingState.self)
+            }
         }
+        brain?.moveToLove()
     }
 
     override func willExit(to _: GKState) {

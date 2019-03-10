@@ -21,8 +21,10 @@ class GameScene: SKScene {
 
     public var foodPelletCount: Int = 0
     public var creatureCount: Int = 0
-    private var foodPelletMax: Int = 10
-    private var creatureMax: Int = 10
+    public var deathCount: Int = 0
+    public var birthCount: Int = 0
+    private var foodPelletMax: Int = 20
+    private var creatureMax: Int = 20
 
     private var lastUpdateTime: TimeInterval = 0
     private var lastFoodTime: TimeInterval = 0
@@ -30,7 +32,7 @@ class GameScene: SKScene {
     private var lastCreatureTime: TimeInterval = 0
 
     private var creatureCountLabel = SKLabelNode(fontNamed: "Helvetica-Light")
-    private let creatureCountShape = SKShapeNode(rect: CGRect(x: 0, y: -100, width: 200, height: 60))
+    private let creatureCountShape = SKShapeNode(rect: CGRect(x: 0, y: -100, width: 300, height: 240))
 
     private let creatureStatsNode = SKSpriteNode(imageNamed: "aeonStatsLine")
     private var nameLabel = SKLabelNode(fontNamed: "Helvetica-Bold")
@@ -95,7 +97,11 @@ class GameScene: SKScene {
 //            lastCreatureTime = currentTime
 //        }
 
-        creatureCountLabel.text = "Alive: \(creatureCount)"
+        creatureCountLabel.text = """
+        Alive: \(creatureCount) -
+        Deaths: \(deathCount) -
+        Births: \(birthCount) - Pellets: \(foodPelletCount)
+        """
 
         let deltaTime = currentTime - lastUpdateTime
         perFrameNodeActivity(deltaTime, currentTime)
@@ -105,10 +111,10 @@ class GameScene: SKScene {
 
     // MARK: - Per Frame Processes
 
-    fileprivate func perFrameNodeActivity(_ deltaTime: Double, _: TimeInterval) {
+    fileprivate func perFrameNodeActivity(_ deltaTime: Double, _ currentTime: TimeInterval) {
         for child in children {
             if let child = child as? AeonCreatureNode {
-                child.think(deltaTime: deltaTime)
+                child.think(deltaTime: deltaTime, currentTime: currentTime)
                 child.age(lastUpdate: deltaTime)
             } else if let child = child as? AeonFoodNode {
                 child.age(lastUpdate: deltaTime)
@@ -204,14 +210,14 @@ extension GameScene {
         let aeonFood = AeonFoodNode()
         let foodPositionX = CGFloat(
             GKRandomDistribution(
-                lowestValue: Int(size.width * 0.01),
-                highestValue: Int(size.width * 0.99)
+                lowestValue: Int(size.width * 0.10),
+                highestValue: Int(size.width * 0.90)
             ).nextInt()
         )
         let foodPositionY = CGFloat(
             GKRandomDistribution(
-                lowestValue: Int(size.height * 0.01),
-                highestValue: Int(size.height * 0.99)
+                lowestValue: Int(size.height * 0.10),
+                highestValue: Int(size.height * 0.90)
             ).nextInt()
         )
         aeonFood.position = CGPoint(x: foodPositionX, y: foodPositionY)
@@ -235,6 +241,7 @@ extension GameScene: SKPhysicsContactDelegate {
                 newCreature.position = creatureA.position
                 addChild(newCreature)
                 creatureCount += 1
+                birthCount += 1
             } else {
                 // Determine pursuing creature and give up
                 if creatureA.brain?.currentLoveTarget == creatureB {
@@ -315,16 +322,15 @@ extension GameScene {
         creatureCountShape.name = "creatureCount"
         cameraNode.addChild(creatureCountShape)
         creatureCountShape.path = UIBezierPath(
-            roundedRect: CGRect(x: -100, y: -30, width: 200, height: 60),
+            roundedRect: CGRect(x: -350, y: -30, width: 700, height: 60),
             cornerRadius: 10
         ).cgPath
         creatureCountShape.zPosition = 20
-        creatureCountShape.position = CGPoint(x: (frame.size.width / 2) - 120, y: -(frame.size.height / 2) + 80)
+        creatureCountShape.position = CGPoint(x: 0, y: -(frame.size.height / 2) + 80)
         creatureCountLabel.zPosition = 20
         creatureCountLabel.fontColor = .black
         creatureCountShape.addChild(creatureCountLabel)
         creatureCountLabel.position = CGPoint(x: 0, y: -11)
-        creatureCountLabel.text = "Alive: 0"
     }
 
     fileprivate func setupCreatureStatsUI() {

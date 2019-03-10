@@ -10,14 +10,19 @@ import Foundation
 import GameplayKit
 import SpriteKit
 
+
+enum Feeling: String {
+    case hungry = "Hungry"
+    case horny = "Horny"
+    case bored = "Bored"
+    case dying = "Dying"
+}
+
 protocol AeonCreatureBrainDelegate: class {
-    var currentHealth: Float { get set }
-    var lifeTime: Float { get set }
     var fullName: String { get set }
     var lastName: String { get set }
     var parentNames: [String] { get set }
-
-    func beginRandomMovement()
+    var currentHealth: Float { get set }
     func distance(point: CGPoint) -> CGFloat
 
     func getNodes(atPosition position: CGPoint) -> [SKNode]
@@ -25,6 +30,10 @@ protocol AeonCreatureBrainDelegate: class {
     func getNode(byName name: String) -> SKNode?
 
     func move(toCGPoint: CGPoint)
+    func beginRandomMovement()
+
+    func setCurrentTarget(node: SKNode)
+    func getCurrentFeeling() -> Feeling
 }
 
 class AeonCreatureBrain {
@@ -42,6 +51,8 @@ class AeonCreatureBrain {
             }
         }
     }
+
+    public var currentFeeling: Feeling = .bored
 
     public enum State: String {
         case nothing = "Thinking"
@@ -68,6 +79,10 @@ class AeonCreatureBrain {
             wandering,
             dying
         ])
+    }
+
+    public func startThinking() {
+        stateMachine?.enter(WanderingState.self)
     }
 
     func printThought(_ message: String, emoji: String?) {
@@ -159,11 +174,8 @@ class AeonCreatureBrain {
         }
     }
 
-    func startThinking() {
-        stateMachine?.enter(WanderingState.self)
-    }
-
     func think(deltaTime: TimeInterval) {
+        currentFeeling = delegate!.getCurrentFeeling()
         stateMachine?.update(deltaTime: deltaTime)
     }
 }
