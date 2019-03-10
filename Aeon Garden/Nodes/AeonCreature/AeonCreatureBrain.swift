@@ -18,12 +18,9 @@ enum Feeling: String {
 }
 
 protocol AeonCreatureBrainDelegate: class {
-    func getNodes(atPosition position: CGPoint) -> [SKNode]
-    func getNodes() -> [SKNode]
-    func getNode(byName name: String) -> SKNode?
-
     func getFoodNodes() -> [AeonFoodNode]
     func getEligibleMates() -> [AeonCreatureNode]
+    func getEligiblePlayMates() -> [SKNode]
 
     func setCurrentTarget(node: SKNode?)
     func getCurrentFeeling() -> Feeling
@@ -33,47 +30,7 @@ protocol AeonCreatureBrainDelegate: class {
     func printThought(_ message: String, emoji: String?)
 }
 
-class AeonCreatureBrain: AeonCreatureBrainDelegate {
-    func rate(mate: AeonCreatureNode) -> CGFloat {
-        return delegate!.rate(mate: mate)
-    }
-
-    func getDistance(toNode node: SKNode) -> CGFloat {
-        return delegate!.getDistance(toNode: node)
-    }
-
-    func getNodes(atPosition position: CGPoint) -> [SKNode] {
-        return delegate!.getNodes(atPosition: position)
-    }
-
-    func getNodes() -> [SKNode] {
-        return delegate!.getNodes()
-    }
-
-    func getNode(byName name: String) -> SKNode? {
-        return delegate!.getNode(byName: name)
-    }
-
-    func getFoodNodes() -> [AeonFoodNode] {
-        return delegate!.getFoodNodes()
-    }
-
-    func getEligibleMates() -> [AeonCreatureNode] {
-        return delegate!.getEligibleMates()
-    }
-
-    func setCurrentTarget(node: SKNode?) {
-        delegate?.setCurrentTarget(node: node)
-    }
-
-    func getCurrentFeeling() -> Feeling {
-        return delegate!.getCurrentFeeling()
-    }
-
-    func printThought(_ message: String, emoji: String?) {
-        delegate!.printThought(message, emoji: emoji)
-    }
-
+class AeonCreatureBrain {
     weak var delegate: AeonCreatureBrainDelegate?
     var stateMachine: GKStateMachine?
 
@@ -114,11 +71,16 @@ class AeonCreatureBrain: AeonCreatureBrainDelegate {
         ])
     }
 
+    // MARK: - Thought Process
+
     public func startThinking() {
         stateMachine?.enter(BirthState.self)
     }
 
-    // MARK: - Thought Process
+    func think(deltaTime: TimeInterval) {
+        currentFeeling = delegate!.getCurrentFeeling()
+        stateMachine?.update(deltaTime: deltaTime)
+    }
 
     public func locateLove() {
         var creatureDifferenceArray = [(
@@ -161,7 +123,7 @@ class AeonCreatureBrain: AeonCreatureBrainDelegate {
 
     public func locatePlayTarget() {
         var ratedNodeArray: [SKNode] = []
-        let nodes = getNodes()
+        let nodes = getEligiblePlayMates()
         for child in nodes {
             let distance = getDistance(toNode: child)
             if distance > 700 {
@@ -173,9 +135,38 @@ class AeonCreatureBrain: AeonCreatureBrainDelegate {
             setCurrentTarget(node: playTarget)
         }
     }
+}
 
-    func think(deltaTime: TimeInterval) {
-        currentFeeling = delegate!.getCurrentFeeling()
-        stateMachine?.update(deltaTime: deltaTime)
+extension AeonCreatureBrain: AeonCreatureBrainDelegate {
+    func getEligiblePlayMates() -> [SKNode] {
+        return delegate!.getEligibleMates()
+    }
+
+    func rate(mate: AeonCreatureNode) -> CGFloat {
+        return delegate!.rate(mate: mate)
+    }
+
+    func getDistance(toNode node: SKNode) -> CGFloat {
+        return delegate!.getDistance(toNode: node)
+    }
+
+    func getFoodNodes() -> [AeonFoodNode] {
+        return delegate!.getFoodNodes()
+    }
+
+    func getEligibleMates() -> [AeonCreatureNode] {
+        return delegate!.getEligibleMates()
+    }
+
+    func setCurrentTarget(node: SKNode?) {
+        delegate?.setCurrentTarget(node: node)
+    }
+
+    func getCurrentFeeling() -> Feeling {
+        return delegate!.getCurrentFeeling()
+    }
+
+    func printThought(_ message: String, emoji: String?) {
+        delegate!.printThought(message, emoji: emoji)
     }
 }

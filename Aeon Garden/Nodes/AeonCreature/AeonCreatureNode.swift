@@ -11,39 +11,9 @@ import GameplayKit
 import SpriteKit
 import UIKit
 
-class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
-    func getFoodNodes() -> [AeonFoodNode] {
-        var foodArray: [AeonFoodNode] = []
-        let nodes = getNodes()
-        for case let child as AeonFoodNode in nodes {
-            foodArray.append(child)
-        }
-        return foodArray
-    }
+class AeonCreatureNode: SKNode {
 
-    func getEligibleMates() -> [AeonCreatureNode] {
-        var mateArray: [AeonCreatureNode] = []
-        let nodes = getNodes()
-        for case let child as AeonCreatureNode in nodes where
-            child != self
-            && parentNames.contains(child.lastName) == false
-            && child.parentNames.contains(lastName) == false {
-                mateArray.append(child)
-        }
-        return mateArray
-    }
-
-    func getCurrentFeeling() -> Feeling {
-        return currentFeeling
-    }
-
-    var currentFeeling: Feeling = .bored
-
-    func printThought(_ message: String, emoji: String?) {
-        NSLog("\(emoji ?? "💭") \(fullName) (\(Int(currentHealth))): \(message)")
-    }
-
-    // MARK: - Creature Names
+    // MARK: - Creature Name
 
     public let firstName: String
     public var lastName: String
@@ -65,7 +35,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
     // MARK: - Current Focus
 
     var currentTarget: SKNode?
-    var randomTarget: CGPoint?
+    var currentFeeling: Feeling = .bored
 
     // MARK: - Health
 
@@ -73,9 +43,31 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
     public var lifeTime: Float = 0
 
+    // MARK: - Brain
+
     var brain: AeonCreatureBrain?
 
     var lastThinkTime: TimeInterval = 0
+
+    func think(deltaTime: TimeInterval, currentTime: TimeInterval) {
+        if (currentTime - lastThinkTime) > 1 {
+            if currentHealth <= 0 {
+                die()
+                currentFeeling = .dying
+            } else if currentHealth >= 600 {
+                currentFeeling = .horny
+            } else if currentHealth <= 150 {
+                currentFeeling = .hungry
+            } else if currentHealth <= 400 && currentFeeling == .horny {
+                currentFeeling = .bored
+            }
+            brain?.think(deltaTime: deltaTime)
+            lastThinkTime = currentTime
+        }
+        move()
+    }
+
+    // MARK: - Creation
 
     init(withPrimaryHue primaryHue: CGFloat) {
         firstName = AeonNameGenerator.shared.returnFirstName()
@@ -171,34 +163,8 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         beginWiggling()
     }
 
-    func think(deltaTime: TimeInterval, currentTime: TimeInterval) {
-        if (currentTime - lastThinkTime) > 1 {
-            if currentHealth <= 0 {
-                die()
-                currentFeeling = .dying
-            } else if currentHealth >= 250 {
-                currentFeeling = .horny
-            } else if currentHealth <= 150 {
-                currentFeeling = .hungry
-            } else if currentHealth <= 200 {
-                currentFeeling = .bored
-            }
-            brain?.think(deltaTime: deltaTime)
-            lastThinkTime = currentTime
-        }
-        move()
-    }
-
     func getNodes() -> [SKNode] {
         return scene!.children
-    }
-
-    func getNodes(atPosition position: CGPoint) -> [SKNode] {
-        return scene!.nodes(at: position)
-    }
-
-    func getNode(byName name: String) -> SKNode? {
-        return scene?.childNode(withName: name)
     }
 
     func move() {
@@ -247,16 +213,9 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         return rad - 1.5707963268 // convert from atan's right-pointing zero to CG's up-pointing zero
     }
 
-    func getDistance(toNode node: SKNode) -> CGFloat {
-        return distance(point: node.position)
-    }
 
     func distance(point: CGPoint) -> CGFloat {
         return CGFloat(hypotf(Float(point.x - position.x), Float(point.y - position.y)))
-    }
-
-    func rate(mate: AeonCreatureNode) -> CGFloat {
-        return abs(mate.primaryHue - self.primaryHue)
     }
 
     // MARK: - Lifecycle
@@ -289,10 +248,6 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
         }
     }
 
-    func setCurrentTarget(node: SKNode?) {
-        currentTarget = node
-    }
-
     func mated() {
         currentHealth /= 2
         brain?.currentLoveTarget = nil
@@ -301,7 +256,7 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
     func fed() {
         printThought("Yum!", emoji: "🍽")
-        currentHealth += Float(randomCGFloat(min: 100, max: 300))
+        currentHealth += Float(randomCGFloat(min: 100, max: 200))
     }
 
     func beginWiggling() {
@@ -378,5 +333,61 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - Brain Delegate
+
+extension AeonCreatureNode: AeonCreatureBrainDelegate {
+    func getFoodNodes() -> [AeonFoodNode] {
+        var foodArray: [AeonFoodNode] = []
+        let nodes = getNodes()
+        for case let child as AeonFoodNode in nodes {
+            foodArray.append(child)
+        }
+        return foodArray
+    }
+
+    func getEligibleMates() -> [AeonCreatureNode] {
+        var mateArray: [AeonCreatureNode] = []
+        let nodes = getNodes()
+        for case let child as AeonCreatureNode in nodes where
+            child != self
+                && parentNames.contains(child.lastName) == false
+                && child.parentNames.contains(lastName) == false {
+                    mateArray.append(child)
+        }
+        return mateArray
+    }
+
+    func getEligiblePlayMates() -> [SKNode] {
+        var playMates: [SKNode] = []
+        let nodes = getNodes()
+        for child in nodes where
+            child != self
+                && (child is AeonFoodNode || child is AeonCreatureNode) {
+                    playMates.append(child)
+        }
+        return playMates
+    }
+
+    func setCurrentTarget(node: SKNode?) {
+        currentTarget = node
+    }
+
+    func getCurrentFeeling() -> Feeling {
+        return currentFeeling
+    }
+
+    func getDistance(toNode node: SKNode) -> CGFloat {
+        return distance(point: node.position)
+    }
+
+    func rate(mate: AeonCreatureNode) -> CGFloat {
+        return abs(mate.primaryHue - self.primaryHue)
+    }
+
+    func printThought(_ message: String, emoji: String?) {
+        NSLog("\(emoji ?? "💭") \(fullName) (\(Int(currentHealth))): \(message)")
     }
 }
