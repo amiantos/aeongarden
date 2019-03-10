@@ -60,7 +60,10 @@ class SeekingFoodState: GKState {
         if let brain = brain {
             switch brain.currentFeeling {
             case .hungry:
-                break
+                brain.locateFood()
+                if brain.currentFoodTarget != nil {
+                    stateMachine?.enter(ApproachingFoodState.self)
+                }
             case .horny:
                 stateMachine?.enter(SeekingLoveState.self)
             case .bored:
@@ -68,10 +71,6 @@ class SeekingFoodState: GKState {
             case .dying:
                 stateMachine?.enter(DyingState.self)
             }
-        }
-        brain?.locateFood()
-        if brain?.currentFoodTarget != nil {
-            stateMachine?.enter(ApproachingFoodState.self)
         }
     }
 }
@@ -92,7 +91,11 @@ class ApproachingFoodState: GKState {
         if let brain = brain {
             switch brain.currentFeeling {
             case .hungry:
-                break
+                if brain.currentFoodTarget != nil {
+                    brain.moveToFood()
+                } else {
+                    stateMachine?.enter(SeekingFoodState.self)
+                }
             case .horny:
                 stateMachine?.enter(SeekingLoveState.self)
             case .bored:
@@ -101,7 +104,6 @@ class ApproachingFoodState: GKState {
                 stateMachine?.enter(DyingState.self)
             }
         }
-        brain?.moveToFood()
     }
 
     override func willExit(to _: GKState) {
@@ -129,16 +131,15 @@ class SeekingLoveState: GKState {
             case .hungry:
                 stateMachine?.enter(SeekingFoodState.self)
             case .horny:
-                break
+                brain.locateLove()
+                if brain.currentLoveTarget != nil {
+                    stateMachine?.enter(ApproachingLoveState.self)
+                }
             case .bored:
                 stateMachine?.enter(WanderingState.self)
             case .dying:
                 stateMachine?.enter(DyingState.self)
             }
-        }
-        brain?.locateLove()
-        if brain?.currentLoveTarget != nil {
-            stateMachine?.enter(ApproachingLoveState.self)
         }
     }
 }
@@ -161,14 +162,17 @@ class ApproachingLoveState: GKState {
             case .hungry:
                 stateMachine?.enter(SeekingFoodState.self)
             case .horny:
-                break
+                if brain.currentLoveTarget != nil {
+                    brain.moveToLove()
+                } else {
+                    stateMachine?.enter(SeekingLoveState.self)
+                }
             case .bored:
                 stateMachine?.enter(WanderingState.self)
             case .dying:
                 stateMachine?.enter(DyingState.self)
             }
         }
-        brain?.moveToLove()
     }
 
     override func willExit(to _: GKState) {

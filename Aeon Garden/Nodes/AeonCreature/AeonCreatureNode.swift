@@ -147,16 +147,14 @@ class AeonCreatureNode: SKNode, AeonCreatureBrainDelegate {
 
     func think(deltaTime: TimeInterval, currentTime: TimeInterval) {
         if (currentTime - lastThinkTime) > 1 {
-            switch currentHealth {
-            case ...0:
+            if currentHealth <= 0 {
                 currentFeeling = .dying
-            case 0...150:
-                currentFeeling = .hungry
-            case 151...249:
-                currentFeeling = .bored
-            case 250...:
+                die()
+            } else if currentHealth >= 250 {
                 currentFeeling = .horny
-            default:
+            } else if currentHealth <= 150 {
+                currentFeeling = .hungry
+            } else if currentHealth <= 200 {
                 currentFeeling = .bored
             }
 //            brain?.think(deltaTime: deltaTime)
