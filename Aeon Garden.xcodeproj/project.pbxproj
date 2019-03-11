@@ -180,7 +180,6 @@
 			buildConfigurationList = B48DDAC91F80943500DEA908 /* Build configuration list for PBXNativeTarget "Aeon Garden" */;
 			buildPhases = (
 				41E5EB57845D8B78540DEB3F /* [CP] Check Pods Manifest.lock */,
-				44868F692231F96D009F0460 /* SwiftFormat */,
 				B48DDAAD1F80943500DEA908 /* Sources */,
 				B48DDAAE1F80943500DEA908 /* Frameworks */,
 				B48DDAAF1F80943500DEA908 /* Resources */,
@@ -288,24 +287,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
-		};
-		44868F692231F96D009F0460 /* SwiftFormat */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftFormat;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\"\n";
 		};
 		44D18FE0222F5697003C48BC /* Increment Build Number */ = {
 			isa = PBXShellScriptBuildPhase;

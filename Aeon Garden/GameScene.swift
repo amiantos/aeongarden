@@ -23,13 +23,14 @@ class GameScene: SKScene {
     public var creatureCount: Int = 0
     public var deathCount: Int = 0
     public var birthCount: Int = 0
-    private var foodPelletMax: Int = 20
+    private var foodPelletMax: Int = 30
     private var creatureMax: Int = 20
 
     private var lastUpdateTime: TimeInterval = 0
     private var lastFoodTime: TimeInterval = 0
     private var lastThinkTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
+    private var lastUIUpdateTime: TimeInterval = 0
 
     private var creatureCountLabel = SKLabelNode(fontNamed: "Helvetica-Light")
     private let creatureCountShape = SKShapeNode(rect: CGRect(x: 0, y: -100, width: 300, height: 240))
@@ -86,20 +87,24 @@ class GameScene: SKScene {
             lastCreatureTime = currentTime
         }
 
-        if (currentTime - lastFoodTime) > 2,
+        if (currentTime - lastUIUpdateTime) >= 1 {
+            var foodNodes = 0
+            for case _ as AeonFoodNode in children {
+                foodNodes += 1
+            }
+            foodPelletCount = foodNodes
+
+            creatureCountLabel.text = """
+            Alive: \(creatureCount)   Deaths: \(deathCount)   Births: \(birthCount)   Pellets: \(foodPelletCount)
+            """
+            lastUIUpdateTime = currentTime
+        }
+
+        if (currentTime - lastFoodTime) >= 1,
             foodPelletCount < foodPelletMax {
             addFoodPelletToScene()
             lastFoodTime = currentTime
         }
-
-//        if (currentTime - lastCreatureTime) > 600 {
-//            addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 1, max: 365))
-//            lastCreatureTime = currentTime
-//        }
-
-        creatureCountLabel.text = """
-        Alive: \(creatureCount)   Deaths: \(deathCount)   Births: \(birthCount)   Pellets: \(foodPelletCount)
-        """
 
         let deltaTime = currentTime - lastUpdateTime
         perFrameNodeActivity(deltaTime, currentTime)
@@ -188,6 +193,7 @@ extension GameScene {
 
         while totalCreatures < creatureMax {
             addNewCreatureToScene(withPrimaryHue: initialCreatureHue)
+            addFoodPelletToScene()
             totalCreatures += 1
             initialCreatureHue += colorHueIncrement
         }
@@ -195,8 +201,8 @@ extension GameScene {
 
     fileprivate func addNewCreatureToScene(withPrimaryHue primaryHue: CGFloat) {
         let aeonCreature = AeonCreatureNode(withPrimaryHue: primaryHue)
-        let foodPositionX = randomCGFloat(min: size.width * 0.10, max: size.width * 0.90)
-        let foodPositionY = randomCGFloat(min: size.height * 0.10, max: size.height * 0.90)
+        let foodPositionX = randomCGFloat(min: size.width * 0.05, max: size.width * 0.95)
+        let foodPositionY = randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)
         aeonCreature.position = CGPoint(x: foodPositionX, y: foodPositionY)
         aeonCreature.zRotation = randomCGFloat(min: 0, max: 10)
         aeonCreature.zPosition = 12
@@ -206,22 +212,11 @@ extension GameScene {
 
     fileprivate func addFoodPelletToScene() {
         let aeonFood = AeonFoodNode()
-        let foodPositionX = CGFloat(
-            GKRandomDistribution(
-                lowestValue: Int(size.width * 0.10),
-                highestValue: Int(size.width * 0.90)
-            ).nextInt()
-        )
-        let foodPositionY = CGFloat(
-            GKRandomDistribution(
-                lowestValue: Int(size.height * 0.10),
-                highestValue: Int(size.height * 0.90)
-            ).nextInt()
-        )
+        let foodPositionX = randomCGFloat(min: size.width * 0.05, max: size.width * 0.95)
+        let foodPositionY = randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)
         aeonFood.position = CGPoint(x: foodPositionX, y: foodPositionY)
-        aeonFood.zRotation = CGFloat(GKRandomDistribution(lowestValue: 0, highestValue: 10).nextInt())
+        aeonFood.zRotation = randomCGFloat(min: 0, max: 10)
         addChild(aeonFood)
-        foodPelletCount += 1
     }
 }
 
@@ -262,10 +257,9 @@ extension GameScene: SKPhysicsContactDelegate {
             contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyB.node as? AeonCreatureNode,
                 let food = contact.bodyA.node as? AeonFoodNode,
-                creature.brain?.currentState ==  .locatingFood {
+                creature.brain?.currentState == .locatingFood {
                 creature.fed()
                 food.eaten()
-                foodPelletCount -= 1
             }
         } else if contact.bodyB.categoryBitMask == CollisionTypes.food.rawValue,
             contact.bodyA.categoryBitMask == CollisionTypes.creature.rawValue {
@@ -274,7 +268,6 @@ extension GameScene: SKPhysicsContactDelegate {
                 creature.brain?.currentState == .locatingFood {
                 creature.fed()
                 food.eaten()
-                foodPelletCount -= 1
             }
         }
     }

@@ -12,7 +12,6 @@ import SpriteKit
 import UIKit
 
 class AeonCreatureNode: SKNode {
-
     // MARK: - Creature Name
 
     public let firstName: String
@@ -58,7 +57,7 @@ class AeonCreatureNode: SKNode {
                 currentFeeling = .horny
             } else if currentHealth <= 150 {
                 currentFeeling = .hungry
-            } else if currentHealth <= 400 && currentFeeling == .horny {
+            } else if currentHealth <= 400, currentFeeling == .horny {
                 currentFeeling = .bored
             }
             brain?.think(deltaTime: deltaTime)
@@ -169,40 +168,40 @@ class AeonCreatureNode: SKNode {
 
     func move() {
         if let toCGPoint = currentTarget?.position, currentFeeling != .dying {
-        if action(forKey: "Rotating") == nil {
-            let angleMovement = angleBetweenPointOne(pointOne: position, andPointTwo: toCGPoint)
-            var rotationDuration: CGFloat = 0
+            if action(forKey: "Rotating") == nil {
+                let angleMovement = angleBetweenPointOne(pointOne: position, andPointTwo: toCGPoint)
+                var rotationDuration: CGFloat = 0
 
-            if zRotation > angleMovement {
-                rotationDuration = abs(zRotation - angleMovement) * 2.5
-            } else if zRotation < angleMovement {
-                rotationDuration = abs(angleMovement - zRotation) * 2.5
+                if zRotation > angleMovement {
+                    rotationDuration = abs(zRotation - angleMovement) * 2.5
+                } else if zRotation < angleMovement {
+                    rotationDuration = abs(angleMovement - zRotation) * 2.5
+                }
+
+                if rotationDuration > 6 { rotationDuration = 6 }
+
+                let rotationAction = SKAction.rotate(
+                    toAngle: angleMovement,
+                    duration: TimeInterval(rotationDuration),
+                    shortestUnitArc: true
+                )
+
+                rotationAction.timingMode = .easeInEaseOut
+
+                run(rotationAction, withKey: "Rotating")
             }
 
-            if rotationDuration > 6 { rotationDuration = 6 }
+            let radianFactor: CGFloat = 0.0174532925
+            let rotationInDegrees = zRotation / radianFactor
+            let newRotationDegrees = rotationInDegrees + 90
+            let newRotationRadians = newRotationDegrees * radianFactor
 
-            let rotationAction = SKAction.rotate(
-                toAngle: angleMovement,
-                duration: TimeInterval(rotationDuration),
-                shortestUnitArc: true
+            let thrustVector: CGVector = CGVector(
+                dx: cos(newRotationRadians) * movementSpeed,
+                dy: sin(newRotationRadians) * movementSpeed
             )
 
-            rotationAction.timingMode = .easeInEaseOut
-
-            run(rotationAction, withKey: "Rotating")
-        }
-
-        let radianFactor: CGFloat = 0.0174532925
-        let rotationInDegrees = zRotation / radianFactor
-        let newRotationDegrees = rotationInDegrees + 90
-        let newRotationRadians = newRotationDegrees * radianFactor
-
-        let thrustVector: CGVector = CGVector(
-            dx: cos(newRotationRadians) * movementSpeed,
-            dy: sin(newRotationRadians) * movementSpeed
-        )
-
-        physicsBody?.applyForce(thrustVector)
+            physicsBody?.applyForce(thrustVector)
         }
     }
 
@@ -212,7 +211,6 @@ class AeonCreatureNode: SKNode {
         let rad = atan2(ydiff, xdiff)
         return rad - 1.5707963268 // convert from atan's right-pointing zero to CG's up-pointing zero
     }
-
 
     func distance(point: CGPoint) -> CGFloat {
         return CGFloat(hypotf(Float(point.x - position.x), Float(point.y - position.y)))
@@ -237,7 +235,6 @@ class AeonCreatureNode: SKNode {
             let shrinkOut = SKAction.scale(to: 0, duration: 10)
             run(SKAction.group([fadeOut, shrinkOut]), completion: {
                 if let mainScene = self.scene as? GameScene {
-                    mainScene.creatureCount -= 1
                     mainScene.deathCount += 1
                     if mainScene.selectedCreature == self {
                         mainScene.selectedCreature = nil
@@ -309,17 +306,6 @@ class AeonCreatureNode: SKNode {
         }
     }
 
-    func ageWithoutDeath(lastUpdate: TimeInterval) {
-        if lastUpdate < 10, currentHealth > 0 {
-            if currentHealth - Float(lastUpdate) < 10 {
-                currentHealth = 10
-            } else {
-                currentHealth -= Float(lastUpdate)
-            }
-            lifeTime += Float(lastUpdate)
-        }
-    }
-
     func lifeTimeFormattedAsString() -> String {
         let aeonDays: Double = round(Double(lifeTime / 60) * 10) / 10
         let aeonYears: Double = round(aeonDays / 60 * 10) / 10
@@ -353,9 +339,9 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
         let nodes = getNodes()
         for case let child as AeonCreatureNode in nodes where
             child != self
-                && parentNames.contains(child.lastName) == false
-                && child.parentNames.contains(lastName) == false {
-                    mateArray.append(child)
+            && parentNames.contains(child.lastName) == false
+            && child.parentNames.contains(lastName) == false {
+            mateArray.append(child)
         }
         return mateArray
     }
@@ -365,8 +351,8 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
         let nodes = getNodes()
         for child in nodes where
             child != self
-                && (child is AeonFoodNode || child is AeonCreatureNode) {
-                    playMates.append(child)
+            && (child is AeonFoodNode || child is AeonCreatureNode) {
+            playMates.append(child)
         }
         return playMates
     }

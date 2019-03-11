@@ -126,7 +126,7 @@ class AeonCreatureBrain {
         let nodes = getEligiblePlayMates()
         for child in nodes {
             let distance = getDistance(toNode: child)
-            if distance > 700 {
+            if distance > 100 {
                 ratedNodeArray.append(child)
             }
         }

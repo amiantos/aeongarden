@@ -69,11 +69,7 @@ class AeonFoodNode: SKNode {
         let fadeOut = SKAction.fadeAlpha(to: 0, duration: 5)
         let scaleOutAction = SKAction.scale(to: 0, duration: 5)
         run(SKAction.group([fadeOut, scaleOutAction]), completion: {
-            if let mainScene = self.scene as? GameScene {
-                mainScene.foodPelletCount -= 1
-            }
             self.removeFromParent()
-
         })
     }
 
