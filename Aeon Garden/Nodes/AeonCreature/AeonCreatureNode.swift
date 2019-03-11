@@ -55,11 +55,12 @@ class AeonCreatureNode: SKNode {
                 currentFeeling = .dying
             } else if currentHealth >= 600 {
                 currentFeeling = .horny
-            } else if currentHealth <= 150 {
+            } else if currentHealth <= 300 {
                 currentFeeling = .hungry
-            } else if currentHealth <= 400, currentFeeling == .horny {
-                currentFeeling = .bored
             }
+//            } else if currentHealth <= 400, currentFeeling == .horny {
+//                currentFeeling = .bored
+//            }
             brain?.think(deltaTime: deltaTime)
             lastThinkTime = currentTime
         }

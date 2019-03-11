@@ -19,6 +19,7 @@ class AeonFoodNode: SKNode {
             }
         }
     }
+    public var interestedCreatures: Int = 0
 
     override init() {
         super.init()
