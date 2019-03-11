@@ -237,6 +237,7 @@ class AeonCreatureNode: SKNode {
             run(SKAction.group([fadeOut, shrinkOut]), completion: {
                 if let mainScene = self.scene as? GameScene {
                     mainScene.deathCount += 1
+                    mainScene.creatureCount -= 1
                     if mainScene.selectedCreature == self {
                         mainScene.selectedCreature = nil
                     }

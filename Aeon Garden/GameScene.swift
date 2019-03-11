@@ -23,7 +23,7 @@ class GameScene: SKScene {
     public var creatureCount: Int = 0
     public var deathCount: Int = 0
     public var birthCount: Int = 0
-    private var foodPelletMax: Int = 30
+    private var foodPelletMax: Int = 20
     private var creatureMax: Int = 20
 
     private var lastUpdateTime: TimeInterval = 0
@@ -70,7 +70,7 @@ class GameScene: SKScene {
         setupBackgroundAnimation()
         setupCreatureCountUI()
         setupCreatureStatsUI()
-        createInitialCreatures()
+        //createInitialCreatures()
     }
 
     override func didMove(to _: SKView) {
@@ -104,6 +104,12 @@ class GameScene: SKScene {
             foodPelletCount < foodPelletMax {
             addFoodPelletToScene()
             lastFoodTime = currentTime
+        }
+
+        if (currentTime - lastCreatureTime) >= 5,
+            creatureCount < creatureMax {
+            addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 0, max: 360))
+            lastCreatureTime = currentTime
         }
 
         let deltaTime = currentTime - lastUpdateTime
