@@ -24,7 +24,7 @@ class GameViewController: UIViewController {
         skView!.ignoresSiblingOrder = false
         // skView!.showsPhysics = true
         scene!.scaleMode = .aspectFill
-        scene!.backgroundColor = UIColor(red: 0.102, green: 0.2824, blue: 0.3569, alpha: 1.0) /* #1a485b */
+        scene!.backgroundColor = UIColor(red: 0.0706, green: 0.1961, blue: 0.2471, alpha: 1.0) /* #12323f */
         skView!.presentScene(scene)
     }
 

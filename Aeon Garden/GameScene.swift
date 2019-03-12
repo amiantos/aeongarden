@@ -31,6 +31,7 @@ class GameScene: SKScene {
     private var lastThinkTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
     private var lastUIUpdateTime: TimeInterval = 0
+    private var totalTankTime: TimeInterval = 0
 
     private var creatureCountLabel = SKLabelNode(fontNamed: "Helvetica-Light")
     private let creatureCountShape = SKShapeNode(rect: CGRect(x: 0, y: -100, width: 300, height: 240))
@@ -71,6 +72,18 @@ class GameScene: SKScene {
         setupCreatureCountUI()
         setupCreatureStatsUI()
         //createInitialCreatures()
+
+        let topColor = CIColor(color: UIColor(red: 0.102, green: 0.2824, blue: 0.3569, alpha: 1.0)) /* #1a485b */
+        let bottomColor = CIColor(color: UIColor(red: 0.0706, green: 0.1961, blue: 0.2471, alpha: 1.0)) /* #12323f */
+
+        let textureSize = CGSize(width: frame.width * 1.5, height: frame.height * 1.5)
+        let texture = SKTexture(size: textureSize, color1: bottomColor, color2: topColor, direction: GradientDirection.up)
+        texture.filteringMode = .nearest
+        let sprite = SKSpriteNode(texture: texture)
+        sprite.position = CGPoint(x: frame.midX, y: frame.midY)
+        sprite.size = textureSize
+        sprite.zPosition = -3
+        addChild(sprite)
     }
 
     override func didMove(to _: SKView) {
@@ -85,6 +98,7 @@ class GameScene: SKScene {
             lastFoodTime = currentTime
             lastThinkTime = currentTime
             lastCreatureTime = currentTime
+            lastUIUpdateTime = currentTime
         }
 
         if (currentTime - lastUIUpdateTime) >= 1 {
@@ -94,8 +108,10 @@ class GameScene: SKScene {
             }
             foodPelletCount = foodNodes
 
+            totalTankTime += (currentTime - lastUIUpdateTime)
+            let time = humanReadable(timeInterval: totalTankTime)
             creatureCountLabel.text = """
-            Alive: \(creatureCount)   Deaths: \(deathCount)   Births: \(birthCount)   Pellets: \(foodPelletCount)
+            Alive: \(creatureCount)   Deaths: \(deathCount)   Births: \(birthCount)   Pellets: \(foodPelletCount)   Time: \(time)
             """
             lastUIUpdateTime = currentTime
         }
@@ -236,7 +252,7 @@ extension GameScene: SKPhysicsContactDelegate {
                 // Mutual reproduction
                 creatureA.mated()
                 creatureB.mated()
-                if randomBool() {
+                if randomBool() && randomBool() {
                     let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
                     newCreature.position = creatureA.position
                     addChild(newCreature)
@@ -321,7 +337,7 @@ extension GameScene {
         creatureCountShape.name = "creatureCount"
         cameraNode.addChild(creatureCountShape)
         creatureCountShape.path = UIBezierPath(
-            roundedRect: CGRect(x: -350, y: -30, width: 700, height: 60),
+            roundedRect: CGRect(x: -475, y: -30, width: 950, height: 60),
             cornerRadius: 10
         ).cgPath
         creatureCountShape.zPosition = 20

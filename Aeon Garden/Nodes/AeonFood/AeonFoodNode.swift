@@ -8,7 +8,6 @@
 
 import GameplayKit
 import SpriteKit
-import UIKit
 
 class AeonFoodNode: SKNode {
     private var maxLifeTime: Float = 30
