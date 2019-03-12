@@ -73,10 +73,10 @@ class GameScene: SKScene {
         setupCreatureStatsUI()
         //createInitialCreatures()
 
-        let topColor = CIColor(color: UIColor(red: 0.0392, green: 0.1098, blue: 0.1373, alpha: 1.0)) /* #0a1c23 */
-        let bottomColor = CIColor(color: UIColor(red: 0.1294, green: 0.3569, blue: 0.4471, alpha: 1.0)) /* #215b72 */
+        let topColor = CIColor(color: UIColor(red: 0.0078, green: 0.0235, blue: 0.0275, alpha: 1.0)) /* #020607 */
+        let bottomColor = CIColor(color: UIColor(red: 0.1529, green: 0.4275, blue: 0.5373, alpha: 1.0)) /* #276d89 */
 
-        let textureSize = CGSize(width: frame.width * 1.5, height: frame.height * 1.5)
+        let textureSize = CGSize(width: frame.width * 1.5, height: frame.height * 2)
         let texture = SKTexture(
             size: CGSize(width: 200, height: 200),
             color1: topColor,
@@ -89,6 +89,12 @@ class GameScene: SKScene {
         sprite.size = textureSize
         sprite.zPosition = -3
         addChild(sprite)
+
+        let moveUpAction = SKAction.moveBy(x: 0, y: 400, duration: 30)
+        let moveDownAction = SKAction.moveBy(x: 0, y: -400, duration: 30)
+        let moveActionGroup = SKAction.sequence([moveUpAction, moveDownAction, moveDownAction, moveUpAction])
+        moveActionGroup.timingMode = .easeInEaseOut
+        sprite.run(SKAction.repeatForever(moveActionGroup))
     }
 
     override func didMove(to _: SKView) {
