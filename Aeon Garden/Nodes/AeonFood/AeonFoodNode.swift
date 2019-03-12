@@ -10,7 +10,7 @@ import GameplayKit
 import SpriteKit
 
 class AeonFoodNode: SKNode {
-    private var maxLifeTime: Float = 30
+    private var maxLifeTime: Float = 120
     public var lifeTime: Float = 0 {
         didSet {
             if lifeTime >= maxLifeTime {
