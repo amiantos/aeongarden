@@ -32,6 +32,7 @@ class AeonFoodNode: SKNode {
         physicsBody?.allowsRotation = true
         physicsBody?.isDynamic = true
         name = "aeonFood"
+        zPosition = 1
 
         let foodBody = SKSpriteNode(imageNamed: "aeonFoodPellet")
         foodBody.zPosition = 1

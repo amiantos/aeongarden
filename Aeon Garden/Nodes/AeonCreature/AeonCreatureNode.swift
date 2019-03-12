@@ -158,6 +158,7 @@ class AeonCreatureNode: SKNode {
         addChild(underShadow)
 
         name = fullName
+        zPosition = 2
 
         born()
         beginWiggling()
