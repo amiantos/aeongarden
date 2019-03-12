@@ -73,11 +73,16 @@ class GameScene: SKScene {
         setupCreatureStatsUI()
         //createInitialCreatures()
 
-        let topColor = CIColor(color: UIColor(red: 0.102, green: 0.2824, blue: 0.3569, alpha: 1.0)) /* #1a485b */
-        let bottomColor = CIColor(color: UIColor(red: 0.0706, green: 0.1961, blue: 0.2471, alpha: 1.0)) /* #12323f */
+        let topColor = CIColor(color: UIColor(red: 0.0392, green: 0.1098, blue: 0.1373, alpha: 1.0)) /* #0a1c23 */
+        let bottomColor = CIColor(color: UIColor(red: 0.1294, green: 0.3569, blue: 0.4471, alpha: 1.0)) /* #215b72 */
 
         let textureSize = CGSize(width: frame.width * 1.5, height: frame.height * 1.5)
-        let texture = SKTexture(size: textureSize, color1: bottomColor, color2: topColor, direction: GradientDirection.up)
+        let texture = SKTexture(
+            size: CGSize(width: 200, height: 200),
+            color1: topColor,
+            color2: bottomColor,
+            direction: GradientDirection.up
+        )
         texture.filteringMode = .nearest
         let sprite = SKSpriteNode(texture: texture)
         sprite.position = CGPoint(x: frame.midX, y: frame.midY)
