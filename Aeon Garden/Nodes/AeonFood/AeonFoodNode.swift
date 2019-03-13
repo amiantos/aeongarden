@@ -14,10 +14,11 @@ class AeonFoodNode: SKNode {
     public var lifeTime: Float = 0 {
         didSet {
             if lifeTime >= maxLifeTime {
-                self.die()
+                die()
             }
         }
     }
+
     public var interestedCreatures: Int = 0
 
     override init() {

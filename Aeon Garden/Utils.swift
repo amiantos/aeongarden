@@ -24,7 +24,7 @@ public extension String {
 func humanReadable(timeInterval: TimeInterval) -> String {
     let totalSeconds: Float = Float(timeInterval)
     let hours = Int(totalSeconds / 3600)
-    let minutes = Int((totalSeconds.truncatingRemainder(dividingBy: 3600)) / 60)
+    let minutes = Int(totalSeconds.truncatingRemainder(dividingBy: 3600) / 60)
     let seconds = Int(totalSeconds.truncatingRemainder(dividingBy: 60))
 
     return """

@@ -1,5 +1,5 @@
 //
-//  GameScene.swift
+//  AeonTank.swift
 //  Aeon Garden
 //
 //  Created by Bradley Root on 9/30/17.
@@ -15,7 +15,7 @@ enum CollisionTypes: UInt32 {
     case edge = 4
 }
 
-class GameScene: SKScene {
+class AeonTank: SKScene {
     var entities = [GKEntity]()
     var graphs = [String: GKGraph]()
 
@@ -71,7 +71,7 @@ class GameScene: SKScene {
         setupBackgroundAnimation()
         setupCreatureCountUI()
         setupCreatureStatsUI()
-        //createInitialCreatures()
+        // createInitialCreatures()
 
         let topColor = CIColor(color: UIColor(red: 0.0078, green: 0.0235, blue: 0.0275, alpha: 1.0)) /* #020607 */
         let bottomColor = CIColor(color: UIColor(red: 0.1529, green: 0.4275, blue: 0.5373, alpha: 1.0)) /* #276d89 */
@@ -218,7 +218,7 @@ class GameScene: SKScene {
 
 // MARK: - Node Creation
 
-extension GameScene {
+extension AeonTank {
     fileprivate func createInitialCreatures() {
         var totalCreatures: Int = 0
         var initialCreatureHue: CGFloat = 0
@@ -255,7 +255,7 @@ extension GameScene {
 
 // MARK: - Physics Interactions
 
-extension GameScene: SKPhysicsContactDelegate {
+extension AeonTank: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         if let creatureA = contact.bodyA.node as? AeonCreatureNode,
             let creatureB = contact.bodyB.node as? AeonCreatureNode {
@@ -263,7 +263,7 @@ extension GameScene: SKPhysicsContactDelegate {
                 // Mutual reproduction
                 creatureA.mated()
                 creatureB.mated()
-                if randomBool() && randomBool() {
+                if randomBool(), randomBool() {
                     let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
                     newCreature.position = creatureA.position
                     addChild(newCreature)
@@ -308,7 +308,7 @@ extension GameScene: SKPhysicsContactDelegate {
 
 // MARK: - Scene UI Setup
 
-extension GameScene {
+extension AeonTank {
     fileprivate func setupFrame() {
         size.width = frame.size.width * 2
         size.height = frame.size.height * 2

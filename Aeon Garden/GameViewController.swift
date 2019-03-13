@@ -11,13 +11,13 @@ import SpriteKit
 import UIKit
 
 class GameViewController: UIViewController {
-    var scene: GameScene?
+    var scene: AeonTank?
     var skView: SKView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.isIdleTimerDisabled = true
-        scene = GameScene(size: view.bounds.size)
+        scene = AeonTank(size: view.bounds.size)
         skView = view as? SKView
         // skView!.showsFPS = true
         // skView!.showsNodeCount = true

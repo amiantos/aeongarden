@@ -17,9 +17,7 @@ public enum GradientDirection {
 }
 
 public extension SKTexture {
-
     convenience init(size: CGSize, color1: CIColor, color2: CIColor, direction: GradientDirection = .up) {
-
         let context = CIContext(options: nil)
         let filter = CIFilter(name: "CILinearGradient")
         var startVector: CIVector
@@ -50,5 +48,4 @@ public extension SKTexture {
         let image = context.createCGImage(filter!.outputImage!, from: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         self.init(cgImage: image!)
     }
-
 }
