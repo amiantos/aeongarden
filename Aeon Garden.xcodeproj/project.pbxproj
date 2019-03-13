@@ -22,7 +22,7 @@
 		B48DDAC21F80943500DEA908 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B48DDAC11F80943500DEA908 /* Assets.xcassets */; };
 		B48DDAC51F80943500DEA908 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B48DDAC31F80943500DEA908 /* LaunchScreen.storyboard */; };
 		B48DDACE1F80B2B000DEA908 /* AeonCreature.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDACD1F80B2B000DEA908 /* AeonCreature.swift */; };
-		B48DDAD01F81A1DE00DEA908 /* AeonFoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDACF1F81A1DE00DEA908 /* AeonFoodNode.swift */; };
+		B48DDAD01F81A1DE00DEA908 /* AeonFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDACF1F81A1DE00DEA908 /* AeonFood.swift */; };
 		B48DDADC1F83241400DEA908 /* AeonSmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADB1F83241400DEA908 /* AeonSmokeParticle.sks */; };
 		B48DDADE1F8328E400DEA908 /* AeonOceanSparkle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */; };
 		BC6A4BE9A2976EB80F3200F1 /* Pods_Aeon_Garden.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55106F82B8367E59A3F6FC58 /* Pods_Aeon_Garden.framework */; };
@@ -48,7 +48,7 @@
 		B48DDAC41F80943500DEA908 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B48DDAC61F80943500DEA908 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B48DDACD1F80B2B000DEA908 /* AeonCreature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonCreature.swift; sourceTree = "<group>"; };
-		B48DDACF1F81A1DE00DEA908 /* AeonFoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonFoodNode.swift; sourceTree = "<group>"; };
+		B48DDACF1F81A1DE00DEA908 /* AeonFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonFood.swift; sourceTree = "<group>"; };
 		B48DDADB1F83241400DEA908 /* AeonSmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonSmokeParticle.sks; sourceTree = "<group>"; };
 		B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonOceanSparkle.sks; sourceTree = "<group>"; };
 		C92F255750A6748D9021CCC3 /* Pods-Aeon Garden.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden.debug.xcconfig"; path = "Target Support Files/Pods-Aeon Garden/Pods-Aeon Garden.debug.xcconfig"; sourceTree = "<group>"; };
@@ -83,14 +83,6 @@
 				44868F6A223346E3009F0460 /* AeonCreatureBrainStates.swift */,
 			);
 			path = AeonCreature;
-			sourceTree = "<group>";
-		};
-		44868F612230B6E3009F0460 /* AeonFood */ = {
-			isa = PBXGroup;
-			children = (
-				B48DDACF1F81A1DE00DEA908 /* AeonFoodNode.swift */,
-			);
-			path = AeonFood;
 			sourceTree = "<group>";
 		};
 		44868F622230B706009F0460 /* Assets */ = {
@@ -146,9 +138,9 @@
 			isa = PBXGroup;
 			children = (
 				B4364F791F8C78070002B2BB /* AeonNameGenerator */,
-				B48DDABA1F80943500DEA908 /* AeonTank.swift */,
 				44868F5F2230B6BA009F0460 /* AeonCreature */,
-				44868F612230B6E3009F0460 /* AeonFood */,
+				B48DDACF1F81A1DE00DEA908 /* AeonFood.swift */,
+				B48DDABA1F80943500DEA908 /* AeonTank.swift */,
 				B48DDAB41F80943500DEA908 /* AppDelegate.swift */,
 				B48DDABC1F80943500DEA908 /* GameViewController.swift */,
 				B48DDAC61F80943500DEA908 /* Info.plist */,
@@ -308,7 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B48DDAD01F81A1DE00DEA908 /* AeonFoodNode.swift in Sources */,
+				B48DDAD01F81A1DE00DEA908 /* AeonFood.swift in Sources */,
 				B4364F7E1F8C7A7A0002B2BB /* AeonNameGenerator.swift in Sources */,
 				44868F682231E855009F0460 /* Utils.swift in Sources */,
 				B48DDABB1F80943500DEA908 /* AeonTank.swift in Sources */,

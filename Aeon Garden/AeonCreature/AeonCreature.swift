@@ -48,8 +48,7 @@ class AeonCreature: SKNode, Updatable {
 
     // MARK: - Brain
 
-    // TODO: Brain should be private, but that requires more work...
-    public var brain: AeonCreatureBrain?
+    private var brain: AeonCreatureBrain?
     internal var lastUpdateTime: TimeInterval = 0
 
     func update(_ currentTime: TimeInterval) {
@@ -64,6 +63,10 @@ class AeonCreature: SKNode, Updatable {
         if currentHealth > 0 {
             move()
         }
+    }
+
+    func getCurrentState() -> String {
+        return brain?.currentState.rawValue ?? "Newborn"
     }
 
     // MARK: - Creation
@@ -296,10 +299,10 @@ extension AeonCreature: AeonCreatureBrainDelegate {
         return currentHealth
     }
 
-    func getFoodNodes() -> [AeonFoodNode] {
-        var foodArray: [AeonFoodNode] = []
+    func getFoodNodes() -> [AeonFood] {
+        var foodArray: [AeonFood] = []
         let nodes = getNodes()
-        for case let child as AeonFoodNode in nodes {
+        for case let child as AeonFood in nodes {
             foodArray.append(child)
         }
         return foodArray
@@ -322,7 +325,7 @@ extension AeonCreature: AeonCreatureBrainDelegate {
         let nodes = getNodes()
         for child in nodes where
             child != self
-            && (child is AeonFoodNode || child is AeonCreature) {
+            && (child is AeonFood || child is AeonCreature) {
             playMates.append(child)
         }
         return playMates

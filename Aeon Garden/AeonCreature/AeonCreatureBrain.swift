@@ -18,7 +18,7 @@ enum Feeling: String {
 }
 
 protocol AeonCreatureBrainDelegate: class {
-    func getFoodNodes() -> [AeonFoodNode]
+    func getFoodNodes() -> [AeonFood]
     func getEligibleMates() -> [AeonCreature]
     func getEligiblePlayMates() -> [SKNode]
     func getCurrentHealth() -> Float
@@ -38,7 +38,7 @@ class AeonCreatureBrain: Updatable {
 
     public var currentFeeling: Feeling = .bored
     public var currentState: State = State.living
-    public var currentFoodTarget: AeonFoodNode?
+    public var currentFoodTarget: AeonFood?
     public var currentLoveTarget: AeonCreature?
     public var currentPlayTarget: SKNode?
     private var lifeState: Bool = true {
@@ -119,7 +119,7 @@ class AeonCreatureBrain: Updatable {
     }
 
     public func locateFood() {
-        var foodArray = [(interestedCreatures: Int, distance: CGFloat, node: AeonFoodNode)]()
+        var foodArray = [(interestedCreatures: Int, distance: CGFloat, node: AeonFood)]()
         let nodes = getFoodNodes()
         for child in nodes {
             let distance = getDistance(toNode: child)
@@ -186,7 +186,7 @@ extension AeonCreatureBrain: AeonCreatureBrainDelegate {
         return delegate!.getDistance(toNode: node)
     }
 
-    func getFoodNodes() -> [AeonFoodNode] {
+    func getFoodNodes() -> [AeonFood] {
         return delegate!.getFoodNodes()
     }
 

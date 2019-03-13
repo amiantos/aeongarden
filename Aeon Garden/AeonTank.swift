@@ -92,7 +92,7 @@ class AeonTank: SKScene {
 
         if (currentTime - lastUIUpdateTime) >= 1 {
             var foodNodes = 0
-            for case _ as AeonFoodNode in children {
+            for case _ as AeonFood in children {
                 foodNodes += 1
             }
             foodPelletCount = foodNodes
@@ -136,7 +136,7 @@ class AeonTank: SKScene {
             camera?.run(cameraAction)
             nameLabel.text = followCreature.fullName
             lifeTimeLabel.text = followCreature.lifeTimeFormattedAsString()
-            currentStatusLabel.text = followCreature.brain?.currentState.rawValue ?? "Dying"
+            currentStatusLabel.text = followCreature.getCurrentState()
             healthLabel.text = "Health: \(Int(followCreature.currentHealth))"
         }
     }
@@ -216,7 +216,7 @@ extension AeonTank {
     }
 
     fileprivate func addFoodPelletToScene() {
-        let aeonFood = AeonFoodNode()
+        let aeonFood = AeonFood()
         let foodPositionX = randomCGFloat(min: size.width * 0.05, max: size.width * 0.95)
         let foodPositionY = randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)
         aeonFood.position = CGPoint(x: foodPositionX, y: foodPositionY)
@@ -231,7 +231,7 @@ extension AeonTank: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         if let creatureA = contact.bodyA.node as? AeonCreature,
             let creatureB = contact.bodyB.node as? AeonCreature {
-            if creatureA.brain?.currentLoveTarget == creatureB, creatureB.brain?.currentLoveTarget == creatureA {
+            if creatureA.currentTarget == creatureB, creatureB.currentTarget == creatureA {
                 // Mutual reproduction
                 creatureA.mated()
                 creatureB.mated()
@@ -244,16 +244,14 @@ extension AeonTank: SKPhysicsContactDelegate {
                 }
             } else {
                 // Determine pursuing creature and give up
-                if creatureA.brain?.currentLoveTarget == creatureB {
+                if creatureA.currentTarget == creatureB {
                     let aggressor = creatureA
                     // Remove love target and lose health
                     aggressor.currentHealth /= 2
-                    aggressor.brain?.currentLoveTarget = nil
-                } else if creatureB.brain?.currentLoveTarget == creatureA {
+                } else if creatureB.currentTarget == creatureA {
                     let aggressor = creatureB
                     // Remove love target and lose health
                     aggressor.currentHealth /= 2
-                    aggressor.brain?.currentLoveTarget = nil
                 }
             }
         }
@@ -261,16 +259,14 @@ extension AeonTank: SKPhysicsContactDelegate {
         if contact.bodyA.categoryBitMask == CollisionTypes.food.rawValue,
             contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyB.node as? AeonCreature,
-                let food = contact.bodyA.node as? AeonFoodNode,
-                creature.brain?.currentState == .locatingFood {
+                let food = contact.bodyA.node as? AeonFood {
                 creature.fed()
                 food.eaten()
             }
         } else if contact.bodyB.categoryBitMask == CollisionTypes.food.rawValue,
             contact.bodyA.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyA.node as? AeonCreature,
-                let food = contact.bodyB.node as? AeonFoodNode,
-                creature.brain?.currentState == .locatingFood {
+                let food = contact.bodyB.node as? AeonFood {
                 creature.fed()
                 food.eaten()
             }
