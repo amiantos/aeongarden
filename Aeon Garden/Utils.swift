@@ -9,6 +9,11 @@
 import Foundation
 import GameKit
 
+protocol Updatable {
+    func update(_ currentTime: TimeInterval)
+    var lastUpdateTime: TimeInterval { get set }
+}
+
 public extension String {
     func contentsOrBlank() -> String {
         if let path = Bundle.main.path(forResource: self, ofType: nil) {

@@ -31,7 +31,7 @@ class BirthState: GKState {
             case .bored:
                 stateMachine?.enter(WanderingState.self)
             case .dying:
-                stateMachine?.enter(DyingState.self)
+                stateMachine?.enter(DeadState.self)
             }
         }
     }
@@ -62,7 +62,7 @@ class WanderingState: GKState {
                     brain.locatePlayTarget()
                 }
             case .dying:
-                stateMachine?.enter(DyingState.self)
+                stateMachine?.enter(DeadState.self)
             }
         }
     }
@@ -96,7 +96,7 @@ class SeekingFoodState: GKState {
             case .bored:
                 stateMachine?.enter(WanderingState.self)
             case .dying:
-                stateMachine?.enter(DyingState.self)
+                stateMachine?.enter(DeadState.self)
             }
         }
     }
@@ -126,13 +126,13 @@ class SeekingLoveState: GKState {
             case .bored:
                 stateMachine?.enter(WanderingState.self)
             case .dying:
-                stateMachine?.enter(DyingState.self)
+                stateMachine?.enter(DeadState.self)
             }
         }
     }
 }
 
-class DyingState: GKState {
+class DeadState: GKState {
     weak var brain: AeonCreatureBrain?
 
     init(forBrain brain: AeonCreatureBrain) {
@@ -142,5 +142,9 @@ class DyingState: GKState {
     override func didEnter(from _: GKState?) {
         brain?.printThought("Oh no! I'm dying.", emoji: "☠️")
         brain?.currentState = .dead
+    }
+
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+        return false
     }
 }

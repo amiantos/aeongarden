@@ -21,32 +21,33 @@ protocol AeonCreatureBrainDelegate: class {
     func getFoodNodes() -> [AeonFoodNode]
     func getEligibleMates() -> [AeonCreatureNode]
     func getEligiblePlayMates() -> [SKNode]
+    func getCurrentHealth() -> Float
 
     func setCurrentTarget(node: SKNode?)
-    func getCurrentFeeling() -> Feeling
     func getDistance(toNode node: SKNode) -> CGFloat
     func rate(mate: AeonCreatureNode) -> CGFloat
+
+    func die()
 
     func printThought(_ message: String, emoji: String?)
 }
 
-class AeonCreatureBrain {
+class AeonCreatureBrain: Updatable {
     weak var delegate: AeonCreatureBrainDelegate?
     var stateMachine: GKStateMachine?
 
+    public var currentFeeling: Feeling = .bored
     public var currentState: State = State.living
     public var currentFoodTarget: AeonFoodNode?
     public var currentLoveTarget: AeonCreatureNode?
     public var currentPlayTarget: SKNode?
-    public var lifeState: Bool = true {
+    private var lifeState: Bool = true {
         didSet {
             if !lifeState {
-                stateMachine?.enter(DyingState.self)
+                stateMachine?.enter(DeadState.self)
             }
         }
     }
-
-    public var currentFeeling: Feeling = .bored
 
     public enum State: String {
         case living = "Newborn"
@@ -56,12 +57,14 @@ class AeonCreatureBrain {
         case dead = "Dying"
     }
 
+    internal var lastUpdateTime: TimeInterval = 0
+
     init() {
         let living = BirthState(forBrain: self)
         let seekingLove = SeekingLoveState(forBrain: self)
         let seekingFood = SeekingFoodState(forBrain: self)
         let wandering = WanderingState(forBrain: self)
-        let dying = DyingState(forBrain: self)
+        let dying = DeadState(forBrain: self)
         stateMachine = GKStateMachine(states: [
             living,
             seekingLove,
@@ -77,9 +80,23 @@ class AeonCreatureBrain {
         stateMachine?.enter(BirthState.self)
     }
 
-    func think(deltaTime: TimeInterval) {
-        currentFeeling = delegate!.getCurrentFeeling()
-        stateMachine?.update(deltaTime: deltaTime)
+    func update(_ currentTime: TimeInterval) {
+        if lastUpdateTime == 0 { lastUpdateTime = currentTime }
+        let deltaTime = currentTime - lastUpdateTime
+        if deltaTime <= 1 {
+            let currentHealth = delegate!.getCurrentHealth()
+            if currentHealth >= 600 {
+                currentFeeling = .horny
+            } else if currentHealth <= 300 {
+                currentFeeling = .hungry
+            }
+//          Maybe playtime will return in the future
+//          } else if currentHealth <= 400, currentFeeling == .horny {
+//              currentFeeling = .bored
+//          }
+            stateMachine?.update(deltaTime: deltaTime)
+            lastUpdateTime = currentTime
+        }
     }
 
     public func locateLove() {
@@ -149,6 +166,14 @@ class AeonCreatureBrain {
 }
 
 extension AeonCreatureBrain: AeonCreatureBrainDelegate {
+    func getCurrentHealth() -> Float {
+        return delegate!.getCurrentHealth()
+    }
+
+    func die() {
+        stateMachine?.enter(DeadState.self)
+    }
+
     func getEligiblePlayMates() -> [SKNode] {
         return delegate!.getEligibleMates()
     }
@@ -171,10 +196,6 @@ extension AeonCreatureBrain: AeonCreatureBrainDelegate {
 
     func setCurrentTarget(node: SKNode?) {
         delegate?.setCurrentTarget(node: node)
-    }
-
-    func getCurrentFeeling() -> Feeling {
-        return delegate!.getCurrentFeeling()
     }
 
     func printThought(_ message: String, emoji: String?) {

@@ -11,7 +11,7 @@ import GameplayKit
 import SpriteKit
 import UIKit
 
-class AeonCreatureNode: SKNode {
+class AeonCreatureNode: SKNode, Updatable {
     // MARK: - Creature Name
 
     public let firstName: String
@@ -34,36 +34,32 @@ class AeonCreatureNode: SKNode {
     // MARK: - Current Focus
 
     var currentTarget: SKNode?
-    var currentFeeling: Feeling = .bored
 
     // MARK: - Health
 
-    public var currentHealth: Float = Float(randomInteger(min: 125, max: 300))
-
+    public var currentHealth: Float = Float(randomInteger(min: 125, max: 300)) {
+        didSet {
+            if currentHealth <= 0 {
+                die()
+            }
+        }
+    }
     public var lifeTime: Float = 0
 
     // MARK: - Brain
 
     var brain: AeonCreatureBrain?
+    internal var lastUpdateTime: TimeInterval = 0
 
-    var lastThinkTime: TimeInterval = 0
-
-    func think(deltaTime: TimeInterval, currentTime: TimeInterval) {
-        if (currentTime - lastThinkTime) > 1 {
-            if currentHealth <= 0 {
-                die()
-                currentFeeling = .dying
-            } else if currentHealth >= 600 {
-                currentFeeling = .horny
-            } else if currentHealth <= 300 {
-                currentFeeling = .hungry
-            }
-//            } else if currentHealth <= 400, currentFeeling == .horny {
-//                currentFeeling = .bored
-//            }
-            brain?.think(deltaTime: deltaTime)
-            lastThinkTime = currentTime
+    func update(_ currentTime: TimeInterval) {
+        if lastUpdateTime == 0 { lastUpdateTime = currentTime }
+        let deltaTime = currentTime - lastUpdateTime
+        if deltaTime >= 1, currentHealth > 0 {
+            currentHealth -= Float(deltaTime)
+            lifeTime += Float(deltaTime)
+            lastUpdateTime = currentTime
         }
+        brain?.update(currentTime)
         move()
     }
 
@@ -169,7 +165,7 @@ class AeonCreatureNode: SKNode {
     }
 
     func move() {
-        if let toCGPoint = currentTarget?.position, currentFeeling != .dying {
+        if let toCGPoint = currentTarget?.position {
             if action(forKey: "Rotating") == nil {
                 let angleMovement = angleBetweenPointOne(pointOne: position, andPointTwo: toCGPoint)
                 var rotationDuration: CGFloat = 0
@@ -227,30 +223,28 @@ class AeonCreatureNode: SKNode {
     }
 
     func die() {
-        if currentFeeling != .dying {
-            removeAllActions()
-            physicsBody!.contactTestBitMask = 0
-            endWiggling()
+        brain?.die()
+        removeAllActions()
+        physicsBody!.contactTestBitMask = 0
+        endWiggling()
 
-            zPosition = 0
-            let fadeOut = SKAction.fadeAlpha(to: 0, duration: 10)
-            let shrinkOut = SKAction.scale(to: 0, duration: 10)
-            run(SKAction.group([fadeOut, shrinkOut]), completion: {
-                if let mainScene = self.scene as? AeonTank {
-                    mainScene.deathCount += 1
-                    mainScene.creatureCount -= 1
-                    if mainScene.selectedCreature == self {
-                        mainScene.selectedCreature = nil
-                    }
+        zPosition = 0
+        let fadeOut = SKAction.fadeAlpha(to: 0, duration: 10)
+        let shrinkOut = SKAction.scale(to: 0, duration: 10)
+        run(SKAction.group([fadeOut, shrinkOut]), completion: {
+            if let mainScene = self.scene as? AeonTank {
+                mainScene.deathCount += 1
+                mainScene.creatureCount -= 1
+                if mainScene.selectedCreature == self {
+                    mainScene.selectedCreature = nil
                 }
-                self.removeFromParent()
-            })
-        }
+            }
+            self.removeFromParent()
+        })
     }
 
     func mated() {
         currentHealth /= 2
-        brain?.currentLoveTarget = nil
         printThought("That was nice!", emoji: "🥰")
     }
 
@@ -302,13 +296,6 @@ class AeonCreatureNode: SKNode {
         self.removeAction(forKey: "Wiggling")
     }
 
-    func age(lastUpdate: TimeInterval) {
-        if lastUpdate < 10, currentHealth > 0 {
-            currentHealth -= Float(lastUpdate)
-            lifeTime += Float(lastUpdate)
-        }
-    }
-
     func lifeTimeFormattedAsString() -> String {
         let aeonDays: Double = round(Double(lifeTime / 60) * 10) / 10
         let aeonYears: Double = round(aeonDays / 60 * 10) / 10
@@ -328,6 +315,10 @@ class AeonCreatureNode: SKNode {
 // MARK: - Brain Delegate
 
 extension AeonCreatureNode: AeonCreatureBrainDelegate {
+    func getCurrentHealth() -> Float {
+        return currentHealth
+    }
+
     func getFoodNodes() -> [AeonFoodNode] {
         var foodArray: [AeonFoodNode] = []
         let nodes = getNodes()
@@ -362,10 +353,6 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
 
     func setCurrentTarget(node: SKNode?) {
         currentTarget = node
-    }
-
-    func getCurrentFeeling() -> Feeling {
-        return currentFeeling
     }
 
     func getDistance(toNode node: SKNode) -> CGFloat {

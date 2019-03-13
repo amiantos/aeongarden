@@ -9,9 +9,9 @@
 import GameplayKit
 import SpriteKit
 
-class AeonFoodNode: SKNode {
+class AeonFoodNode: SKNode, Updatable {
     private var maxLifeTime: Float = 120
-    public var lifeTime: Float = 0 {
+    private var lifeTime: Float = 0 {
         didSet {
             if lifeTime >= maxLifeTime {
                 die()
@@ -20,6 +20,7 @@ class AeonFoodNode: SKNode {
     }
 
     public var interestedCreatures: Int = 0
+    internal var lastUpdateTime: TimeInterval = 0
 
     override init() {
         super.init()
@@ -75,9 +76,12 @@ class AeonFoodNode: SKNode {
         })
     }
 
-    func age(lastUpdate: TimeInterval) {
-        if lastUpdate < 10, lifeTime < maxLifeTime {
-            lifeTime += Float(lastUpdate)
+    func update(_ currentTime: TimeInterval) {
+        if lastUpdateTime == 0 { lastUpdateTime = currentTime }
+        let deltaTime = currentTime - lastUpdateTime
+        if deltaTime >= 1, lifeTime < maxLifeTime {
+            lifeTime += Float(deltaTime)
+            lastUpdateTime = currentTime
         }
     }
 
