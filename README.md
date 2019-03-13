@@ -12,7 +12,11 @@ There is no scientific basis for anything about this app. It's meant to be a sim
 2. Open `Aeon Garden.xcworkspace`
 3. Compile
 
-## Screenshots
+## Video
+
+Check out [a short video on YouTube](https://www.youtube.com/watch?v=z8q0lP9vdbY&feature=youtu.be).
+
+## Screenshots (Old)
 
 ![Aeon Garden Zoomed View](https://i.imgur.com/mzmclIS.png)
 
