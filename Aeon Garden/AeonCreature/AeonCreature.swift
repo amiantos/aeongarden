@@ -65,10 +65,6 @@ class AeonCreature: SKNode, Updatable {
         }
     }
 
-    func getCurrentState() -> String {
-        return brain?.currentState.rawValue ?? "Newborn"
-    }
-
     // MARK: - Creation
 
     required init?(coder _: NSCoder) {
@@ -184,6 +180,10 @@ class AeonCreature: SKNode, Updatable {
 
     // MARK: - Sensory Data
 
+    func getCurrentState() -> String {
+        return brain?.currentState.rawValue ?? "Newborn"
+    }
+
     func getNodes() -> [SKNode] {
         return scene!.children
     }
@@ -197,7 +197,7 @@ class AeonCreature: SKNode, Updatable {
     func move() {
         if let toCGPoint = currentTarget?.position {
             if action(forKey: "Rotating") == nil {
-                let angleMovement = angleBetweenPointOne(pointOne: position, andPointTwo: toCGPoint)
+                let angleMovement = angleBetween(pointOne: position, andPointTwo: toCGPoint)
                 var rotationDuration: CGFloat = 0
 
                 if zRotation > angleMovement {
@@ -233,7 +233,7 @@ class AeonCreature: SKNode, Updatable {
         }
     }
 
-    func angleBetweenPointOne(pointOne: CGPoint, andPointTwo pointTwo: CGPoint) -> CGFloat {
+    func angleBetween(pointOne: CGPoint, andPointTwo pointTwo: CGPoint) -> CGFloat {
         let xdiff = (pointTwo.x - pointOne.x)
         let ydiff = (pointTwo.y - pointOne.y)
         let rad = atan2(ydiff, xdiff)

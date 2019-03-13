@@ -64,13 +64,13 @@ class AeonCreatureBrain: Updatable {
         let seekingLove = SeekingLoveState(forBrain: self)
         let seekingFood = SeekingFoodState(forBrain: self)
         let wandering = WanderingState(forBrain: self)
-        let dying = DeadState(forBrain: self)
+        let dead = DeadState(forBrain: self)
         stateMachine = GKStateMachine(states: [
             living,
             seekingLove,
             seekingFood,
             wandering,
-            dying
+            dead
         ])
     }
 
@@ -84,7 +84,7 @@ class AeonCreatureBrain: Updatable {
         if lastUpdateTime == 0 { lastUpdateTime = currentTime }
         let deltaTime = currentTime - lastUpdateTime
         if deltaTime <= 1 {
-            let currentHealth = delegate!.getCurrentHealth()
+            let currentHealth = getCurrentHealth()
             if currentHealth >= 600 {
                 currentFeeling = .horny
             } else if currentHealth <= 300 {

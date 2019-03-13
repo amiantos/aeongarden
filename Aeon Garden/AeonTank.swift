@@ -98,7 +98,7 @@ class AeonTank: SKScene {
             foodPelletCount = foodNodes
 
             totalTankTime += (currentTime - lastUIUpdateTime)
-            let time = humanReadable(timeInterval: totalTankTime)
+            let time = toTimestamp(timeInterval: totalTankTime)
             creatureCountLabel.text = "Alive: \(creatureCount)   "
                 + "Deaths: \(deathCount)   "
                 + "Births: \(birthCount)   "

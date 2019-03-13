@@ -1,5 +1,5 @@
 //
-//  GameViewController.swift
+//  AeonViewController.swift
 //  Aeon Garden
 //
 //  Created by Bradley Root on 9/30/17.
@@ -10,7 +10,7 @@ import GameplayKit
 import SpriteKit
 import UIKit
 
-class GameViewController: UIViewController {
+class AeonViewController: UIViewController {
     var scene: AeonTank?
     var skView: SKView?
 

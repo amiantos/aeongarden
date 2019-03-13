@@ -17,7 +17,7 @@
 		B480388E223750DD005AF239 /* SKTextureGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480388D223750DD005AF239 /* SKTextureGradient.swift */; };
 		B48DDAB51F80943500DEA908 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDAB41F80943500DEA908 /* AppDelegate.swift */; };
 		B48DDABB1F80943500DEA908 /* AeonTank.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDABA1F80943500DEA908 /* AeonTank.swift */; };
-		B48DDABD1F80943500DEA908 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDABC1F80943500DEA908 /* GameViewController.swift */; };
+		B48DDABD1F80943500DEA908 /* AeonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDABC1F80943500DEA908 /* AeonViewController.swift */; };
 		B48DDAC01F80943500DEA908 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B48DDABE1F80943500DEA908 /* Main.storyboard */; };
 		B48DDAC21F80943500DEA908 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B48DDAC11F80943500DEA908 /* Assets.xcassets */; };
 		B48DDAC51F80943500DEA908 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B48DDAC31F80943500DEA908 /* LaunchScreen.storyboard */; };
@@ -42,7 +42,7 @@
 		B48DDAB11F80943500DEA908 /* Aeon Garden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Aeon Garden.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B48DDAB41F80943500DEA908 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B48DDABA1F80943500DEA908 /* AeonTank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTank.swift; sourceTree = "<group>"; };
-		B48DDABC1F80943500DEA908 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		B48DDABC1F80943500DEA908 /* AeonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonViewController.swift; sourceTree = "<group>"; };
 		B48DDABF1F80943500DEA908 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B48DDAC11F80943500DEA908 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B48DDAC41F80943500DEA908 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -142,7 +142,7 @@
 				B48DDACF1F81A1DE00DEA908 /* AeonFood.swift */,
 				B48DDABA1F80943500DEA908 /* AeonTank.swift */,
 				B48DDAB41F80943500DEA908 /* AppDelegate.swift */,
-				B48DDABC1F80943500DEA908 /* GameViewController.swift */,
+				B48DDABC1F80943500DEA908 /* AeonViewController.swift */,
 				B48DDAC61F80943500DEA908 /* Info.plist */,
 				44868F672231E855009F0460 /* Utils.swift */,
 				44868F622230B706009F0460 /* Assets */,
@@ -309,7 +309,7 @@
 				44868F642231C2C2009F0460 /* AeonCreatureBrain.swift in Sources */,
 				B480388E223750DD005AF239 /* SKTextureGradient.swift in Sources */,
 				44868F662231C7F5009F0460 /* AeonCreatureLimb.swift in Sources */,
-				B48DDABD1F80943500DEA908 /* GameViewController.swift in Sources */,
+				B48DDABD1F80943500DEA908 /* AeonViewController.swift in Sources */,
 				B48DDAB51F80943500DEA908 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
