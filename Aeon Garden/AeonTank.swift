@@ -81,7 +81,7 @@ class AeonTank: SKScene {
             size: CGSize(width: 200, height: 200),
             color1: topColor,
             color2: bottomColor,
-            direction: GradientDirection.up
+            direction: GradientDirection.upward
         )
         texture.filteringMode = .nearest
         let sprite = SKSpriteNode(texture: texture)
@@ -121,9 +121,11 @@ class AeonTank: SKScene {
 
             totalTankTime += (currentTime - lastUIUpdateTime)
             let time = humanReadable(timeInterval: totalTankTime)
-            creatureCountLabel.text = """
-            Alive: \(creatureCount)   Deaths: \(deathCount)   Births: \(birthCount)   Pellets: \(foodPelletCount)   Time: \(time)
-            """
+            creatureCountLabel.text = "Alive: \(creatureCount)   "
+                + "Deaths: \(deathCount)   "
+                + "Births: \(birthCount)   "
+                + "Pellets: \(foodPelletCount)   "
+                + "Time: \(time)"
             lastUIUpdateTime = currentTime
         }
 
@@ -325,13 +327,6 @@ extension AeonTank {
     }
 
     fileprivate func setupBackgroundAnimation() {
-//        if let backgroundSmoke = SKEmitterNode(fileNamed: "AeonSmokeParticle.sks") {
-//            backgroundSmoke.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
-//            backgroundSmoke.zPosition = -2
-//            backgroundSmoke.particlePositionRange = CGVector(dx: self.size.width, dy: self.size.height)
-//            backgroundSmoke.advanceSimulationTime(5)
-//            self.addChild(backgroundSmoke)
-//        }
         if let backgroundSmoke2 = SKEmitterNode(fileNamed: "AeonOceanSparkle.sks") {
             backgroundSmoke2.position = CGPoint(x: size.width / 2, y: size.height / 2)
             backgroundSmoke2.zPosition = -1
