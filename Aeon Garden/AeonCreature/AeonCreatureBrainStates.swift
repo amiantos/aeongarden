@@ -1,5 +1,5 @@
 //
-//  AeonCreatureStates.swift
+//  AeonCreatureBrainStates.swift
 //  Aeon Garden
 //
 //  Created by Brad Root on 3/8/19.

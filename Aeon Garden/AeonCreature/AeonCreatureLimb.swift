@@ -69,4 +69,42 @@ class AeonCreatureLimb: SKSpriteNode {
         zRotation = CGFloat(randomInteger(min: 0, max: 10))
         zPosition = 2
     }
+
+    public func beginWiggling() {
+        var wiggleFactor = GKRandomSource.sharedRandom().nextUniform()
+        while wiggleFactor > 0.2 {
+            wiggleFactor = GKRandomSource.sharedRandom().nextUniform()
+        }
+        let wiggleAction = SKAction.rotate(
+            byAngle: CGFloat(wiggleFactor),
+            duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform())
+        )
+        let wiggleActionBack = SKAction.rotate(
+            byAngle: CGFloat(-wiggleFactor),
+            duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform())
+        )
+
+        let wiggleMoveFactor = GKRandomSource.sharedRandom().nextUniform()
+        let wiggleMoveFactor2 = GKRandomSource.sharedRandom().nextUniform()
+
+        let wiggleMovement = SKAction.moveBy(
+            x: CGFloat(wiggleMoveFactor),
+            y: CGFloat(wiggleMoveFactor2),
+            duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform())
+        )
+        let wiggleMovementBack = SKAction.moveBy(
+            x: CGFloat(-wiggleMoveFactor),
+            y: CGFloat(-wiggleMoveFactor2),
+            duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform())
+        )
+
+        let wiggleAround = SKAction.group([wiggleAction, wiggleMovement])
+        let wiggleAroundBack = SKAction.group([wiggleActionBack, wiggleMovementBack])
+
+        run(SKAction.repeatForever(SKAction.sequence([wiggleAround, wiggleAroundBack])), withKey: "Wiggling")
+    }
+
+    public func endWiggling() {
+        removeAllActions()
+    }
 }

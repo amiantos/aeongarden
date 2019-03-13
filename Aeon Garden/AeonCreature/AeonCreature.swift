@@ -1,5 +1,5 @@
 //
-//  aeonCreatureNode.swift
+//  AeonCreature.swift
 //  Aeon Garden
 //
 //  Created by Bradley Root on 9/30/17.
@@ -11,7 +11,7 @@ import GameplayKit
 import SpriteKit
 import UIKit
 
-class AeonCreatureNode: SKNode, Updatable {
+class AeonCreature: SKNode, Updatable {
     // MARK: - Creature Name
 
     public let firstName: String
@@ -48,7 +48,8 @@ class AeonCreatureNode: SKNode, Updatable {
 
     // MARK: - Brain
 
-    var brain: AeonCreatureBrain?
+    // TODO: Brain should be private, but that requires more work...
+    public var brain: AeonCreatureBrain?
     internal var lastUpdateTime: TimeInterval = 0
 
     func update(_ currentTime: TimeInterval) {
@@ -60,10 +61,16 @@ class AeonCreatureNode: SKNode, Updatable {
             lastUpdateTime = currentTime
         }
         brain?.update(currentTime)
-        move()
+        if currentHealth > 0 {
+            move()
+        }
     }
 
     // MARK: - Creation
+
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     init(withPrimaryHue primaryHue: CGFloat) {
         firstName = AeonNameGenerator.shared.returnFirstName()
@@ -90,7 +97,7 @@ class AeonCreatureNode: SKNode, Updatable {
         brain?.startThinking()
     }
 
-    init(withParents parents: [AeonCreatureNode]) {
+    init(withParents parents: [AeonCreature]) {
         if parents.count < 2 {
             fatalError("Virgin births are not allowed.")
         }
@@ -160,9 +167,29 @@ class AeonCreatureNode: SKNode, Updatable {
         beginWiggling()
     }
 
+    func beginWiggling() {
+        for case let child as AeonCreatureLimb in children {
+            child.beginWiggling()
+        }
+    }
+
+    func endWiggling() {
+        for case let child as AeonCreatureLimb in children {
+            child.endWiggling()
+        }
+    }
+
+    // MARK: - Sensory Data
+
     func getNodes() -> [SKNode] {
         return scene!.children
     }
+
+    func distance(point: CGPoint) -> CGFloat {
+        return CGFloat(hypotf(Float(point.x - position.x), Float(point.y - position.y)))
+    }
+
+    // MARK: - Locomotion
 
     func move() {
         if let toCGPoint = currentTarget?.position {
@@ -210,10 +237,6 @@ class AeonCreatureNode: SKNode, Updatable {
         return rad - 1.5707963268 // convert from atan's right-pointing zero to CG's up-pointing zero
     }
 
-    func distance(point: CGPoint) -> CGFloat {
-        return CGFloat(hypotf(Float(point.x - position.x), Float(point.y - position.y)))
-    }
-
     // MARK: - Lifecycle
 
     func born() {
@@ -253,49 +276,6 @@ class AeonCreatureNode: SKNode, Updatable {
         currentHealth += Float(randomCGFloat(min: 100, max: 200))
     }
 
-    func beginWiggling() {
-        for case let child as SKSpriteNode in children {
-            var wiggleFactor = GKRandomSource.sharedRandom().nextUniform()
-            while wiggleFactor > 0.2 {
-                wiggleFactor = GKRandomSource.sharedRandom().nextUniform()
-            }
-            let wiggleAction = SKAction.rotate(
-                byAngle: CGFloat(wiggleFactor),
-                duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform())
-            )
-            let wiggleActionBack = SKAction.rotate(
-                byAngle: CGFloat(-wiggleFactor),
-                duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform())
-            )
-
-            let wiggleMoveFactor = GKRandomSource.sharedRandom().nextUniform()
-            let wiggleMoveFactor2 = GKRandomSource.sharedRandom().nextUniform()
-
-            let wiggleMovement = SKAction.moveBy(
-                x: CGFloat(wiggleMoveFactor),
-                y: CGFloat(wiggleMoveFactor2),
-                duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform())
-            )
-            let wiggleMovementBack = SKAction.moveBy(
-                x: CGFloat(-wiggleMoveFactor),
-                y: CGFloat(-wiggleMoveFactor2),
-                duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform())
-            )
-
-            let wiggleAround = SKAction.group([wiggleAction, wiggleMovement])
-            let wiggleAroundBack = SKAction.group([wiggleActionBack, wiggleMovementBack])
-
-            child.run(SKAction.repeatForever(SKAction.sequence([wiggleAround, wiggleAroundBack])), withKey: "Wiggling")
-        }
-    }
-
-    func endWiggling() {
-        for case let child as SKSpriteNode in children {
-            child.removeAction(forKey: "Wiggling")
-        }
-        self.removeAction(forKey: "Wiggling")
-    }
-
     func lifeTimeFormattedAsString() -> String {
         let aeonDays: Double = round(Double(lifeTime / 60) * 10) / 10
         let aeonYears: Double = round(aeonDays / 60 * 10) / 10
@@ -307,14 +287,11 @@ class AeonCreatureNode: SKNode, Updatable {
         }
     }
 
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
 // MARK: - Brain Delegate
 
-extension AeonCreatureNode: AeonCreatureBrainDelegate {
+extension AeonCreature: AeonCreatureBrainDelegate {
     func getCurrentHealth() -> Float {
         return currentHealth
     }
@@ -328,10 +305,10 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
         return foodArray
     }
 
-    func getEligibleMates() -> [AeonCreatureNode] {
-        var mateArray: [AeonCreatureNode] = []
+    func getEligibleMates() -> [AeonCreature] {
+        var mateArray: [AeonCreature] = []
         let nodes = getNodes()
-        for case let child as AeonCreatureNode in nodes where
+        for case let child as AeonCreature in nodes where
             child != self
             && parentNames.contains(child.lastName) == false
             && child.parentNames.contains(lastName) == false {
@@ -345,7 +322,7 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
         let nodes = getNodes()
         for child in nodes where
             child != self
-            && (child is AeonFoodNode || child is AeonCreatureNode) {
+            && (child is AeonFoodNode || child is AeonCreature) {
             playMates.append(child)
         }
         return playMates
@@ -359,7 +336,7 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
         return distance(point: node.position)
     }
 
-    func rate(mate: AeonCreatureNode) -> CGFloat {
+    func rate(mate: AeonCreature) -> CGFloat {
         return abs(mate.primaryHue - self.primaryHue)
     }
 

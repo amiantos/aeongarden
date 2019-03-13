@@ -44,7 +44,7 @@ class AeonTank: SKScene {
 
     private var cameraNode: SKCameraNode = SKCameraNode()
 
-    var selectedCreature: AeonCreatureNode? {
+    var selectedCreature: AeonCreature? {
         didSet {
             if oldValue != selectedCreature {
                 self.creatureStatsNode.removeAllActions()
@@ -148,7 +148,7 @@ class AeonTank: SKScene {
         let touch = touches.first!
         let touchPoint = touch.location(in: self)
         let nodes = self.nodes(at: touchPoint)
-        for node in nodes where node is AeonCreatureNode {
+        for node in nodes where node is AeonCreature {
             if node == selectedCreature {
                 self.selectedCreature = nil
                 camera?.removeAllActions()
@@ -159,7 +159,7 @@ class AeonTank: SKScene {
                 )
                 camera?.run(SKAction.group([zoomInAction, cameraAction]))
             } else {
-                self.selectedCreature = node as? AeonCreatureNode
+                self.selectedCreature = node as? AeonCreature
                 let zoomInAction = SKAction.scale(to: 0.4, duration: 1)
                 camera?.run(zoomInAction, completion: {
                     let fadeInAction = SKAction.fadeAlpha(to: 1, duration: 1)
@@ -205,7 +205,7 @@ extension AeonTank {
     }
 
     fileprivate func addNewCreatureToScene(withPrimaryHue primaryHue: CGFloat) {
-        let aeonCreature = AeonCreatureNode(withPrimaryHue: primaryHue)
+        let aeonCreature = AeonCreature(withPrimaryHue: primaryHue)
         let foodPositionX = randomCGFloat(min: size.width * 0.05, max: size.width * 0.95)
         let foodPositionY = randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)
         aeonCreature.position = CGPoint(x: foodPositionX, y: foodPositionY)
@@ -229,14 +229,14 @@ extension AeonTank {
 
 extension AeonTank: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
-        if let creatureA = contact.bodyA.node as? AeonCreatureNode,
-            let creatureB = contact.bodyB.node as? AeonCreatureNode {
+        if let creatureA = contact.bodyA.node as? AeonCreature,
+            let creatureB = contact.bodyB.node as? AeonCreature {
             if creatureA.brain?.currentLoveTarget == creatureB, creatureB.brain?.currentLoveTarget == creatureA {
                 // Mutual reproduction
                 creatureA.mated()
                 creatureB.mated()
                 if randomBool(), randomBool() {
-                    let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
+                    let newCreature = AeonCreature(withParents: [creatureA, creatureB])
                     newCreature.position = creatureA.position
                     addChild(newCreature)
                     creatureCount += 1
@@ -260,7 +260,7 @@ extension AeonTank: SKPhysicsContactDelegate {
 
         if contact.bodyA.categoryBitMask == CollisionTypes.food.rawValue,
             contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
-            if let creature = contact.bodyB.node as? AeonCreatureNode,
+            if let creature = contact.bodyB.node as? AeonCreature,
                 let food = contact.bodyA.node as? AeonFoodNode,
                 creature.brain?.currentState == .locatingFood {
                 creature.fed()
@@ -268,7 +268,7 @@ extension AeonTank: SKPhysicsContactDelegate {
             }
         } else if contact.bodyB.categoryBitMask == CollisionTypes.food.rawValue,
             contact.bodyA.categoryBitMask == CollisionTypes.creature.rawValue {
-            if let creature = contact.bodyA.node as? AeonCreatureNode,
+            if let creature = contact.bodyA.node as? AeonCreature,
                 let food = contact.bodyB.node as? AeonFoodNode,
                 creature.brain?.currentState == .locatingFood {
                 creature.fed()
