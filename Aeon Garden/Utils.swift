@@ -45,6 +45,10 @@ func randomBool() -> Bool {
     return GKRandomSource.sharedRandom().nextBool()
 }
 
+func randomUniform() -> CGFloat {
+    return randomCGFloat(min: 0, max: 1)
+}
+
 func randomCGFloat(min: CGFloat, max: CGFloat) -> CGFloat {
-    return (CGFloat(arc4random()) / 0xFFFF_FFFF) * (max - min) + min
+    return CGFloat(Float.random(in: Float(min)...Float(max)))
 }

@@ -71,31 +71,31 @@ class AeonCreatureLimb: SKSpriteNode {
     }
 
     public func beginWiggling() {
-        var wiggleFactor = GKRandomSource.sharedRandom().nextUniform()
+        var wiggleFactor = randomUniform()
         while wiggleFactor > 0.2 {
-            wiggleFactor = GKRandomSource.sharedRandom().nextUniform()
+            wiggleFactor = randomUniform()
         }
         let wiggleAction = SKAction.rotate(
             byAngle: CGFloat(wiggleFactor),
-            duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform())
+            duration: TimeInterval(randomUniform())
         )
         let wiggleActionBack = SKAction.rotate(
             byAngle: CGFloat(-wiggleFactor),
-            duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform())
+            duration: TimeInterval(randomUniform())
         )
 
-        let wiggleMoveFactor = GKRandomSource.sharedRandom().nextUniform()
-        let wiggleMoveFactor2 = GKRandomSource.sharedRandom().nextUniform()
+        let wiggleMoveFactor = randomUniform()
+        let wiggleMoveFactor2 = randomUniform()
 
         let wiggleMovement = SKAction.moveBy(
-            x: CGFloat(wiggleMoveFactor),
-            y: CGFloat(wiggleMoveFactor2),
-            duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform())
+            x: wiggleMoveFactor,
+            y: wiggleMoveFactor2,
+            duration: TimeInterval(randomUniform())
         )
         let wiggleMovementBack = SKAction.moveBy(
-            x: CGFloat(-wiggleMoveFactor),
-            y: CGFloat(-wiggleMoveFactor2),
-            duration: TimeInterval(GKRandomSource.sharedRandom().nextUniform())
+            x: -wiggleMoveFactor,
+            y: -wiggleMoveFactor2,
+            duration: TimeInterval(randomUniform())
         )
 
         let wiggleAround = SKAction.group([wiggleAction, wiggleMovement])
