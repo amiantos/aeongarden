@@ -85,11 +85,12 @@ class AeonCreatureBrain: Updatable {
         let deltaTime = currentTime - lastUpdateTime
         if deltaTime <= 1 {
             let currentHealth = getCurrentHealth()
-            if currentHealth >= 600 {
-                currentFeeling = .horny
-            } else if currentHealth <= 300 {
-                currentFeeling = .hungry
-            }
+            currentFeeling = .hungry
+//            if currentHealth >= 600 {
+//                currentFeeling = .horny
+//            } else if currentHealth <= 300 {
+//                currentFeeling = .hungry
+//            }
 //          Maybe playtime will return in the future
 //          } else if currentHealth <= 400, currentFeeling == .horny {
 //              currentFeeling = .bored
@@ -129,9 +130,9 @@ class AeonCreatureBrain: Updatable {
                 foodArray.append((child.interestedCreatures, distance, child))
             }
         }
-        foodArray.sort(by: { $0.interestedCreatures < $1.interestedCreatures })
-        let prefix = Int(foodArray.count / 2)
-        foodArray = Array(foodArray.prefix(upTo: prefix))
+//        foodArray.sort(by: { $0.interestedCreatures < $1.interestedCreatures })
+//        let prefix = Int(foodArray.count / 2)
+//        foodArray = Array(foodArray.prefix(upTo: prefix))
         foodArray.sort(by: { $0.distance < $1.distance })
         if foodArray.count > 0 {
             if currentFoodTarget != foodArray[0].node {

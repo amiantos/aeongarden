@@ -152,7 +152,7 @@ class AeonCreature: SKNode, Updatable {
         physicsBody?.restitution = 1
         physicsBody?.mass = 1
         physicsBody?.linearDamping = 0.5
-        physicsBody?.angularDamping = 0
+        physicsBody?.angularDamping = 1
 
         let underShadow = SKSpriteNode(imageNamed: "aeonBodyShadow")
         underShadow.setScale(1.2)
@@ -196,30 +196,58 @@ class AeonCreature: SKNode, Updatable {
 
     func move() {
         if let toCGPoint = currentTarget?.position {
-            if action(forKey: "Rotating") == nil {
-                let angleMovement = angleBetween(pointOne: position, andPointTwo: toCGPoint)
-                var rotationDuration: CGFloat = 0
 
-                if zRotation > angleMovement {
-                    rotationDuration = abs(zRotation - angleMovement) * 2.5
-                } else if zRotation < angleMovement {
-                    rotationDuration = abs(angleMovement - zRotation) * 2.5
-                }
+//            if action(forKey: "Rotating") == nil {
+//                let angleMovement = angleBetween(pointOne: position, andPointTwo: toCGPoint)
+//                var rotationDuration: CGFloat = 0
+//
+//                if zRotation > angleMovement {
+//                    rotationDuration = abs(zRotation - angleMovement) * 2.5
+//                } else if zRotation < angleMovement {
+//                    rotationDuration = abs(angleMovement - zRotation) * 2.5
+//                }
+//
+//                if rotationDuration > 6 { rotationDuration = 6 }
+//
+//                let rotationAction = SKAction.rotate(
+//                    toAngle: angleMovement,
+//                    duration: TimeInterval(rotationDuration),
+//                    shortestUnitArc: true
+//                )
+//
+//                rotationAction.timingMode = .easeInEaseOut
+//
+//                run(rotationAction, withKey: "Rotating")
+//            }
 
-                if rotationDuration > 6 { rotationDuration = 6 }
+            var goalAngle = angleBetween(pointOne: position, andPointTwo: toCGPoint)
+            var creatureAngle = atan2(physicsBody!.velocity.dy, physicsBody!.velocity.dx) - (CGFloat.pi / 2)
+            var angleDifference: CGFloat = 0
 
-                let rotationAction = SKAction.rotate(
-                    toAngle: angleMovement,
-                    duration: TimeInterval(rotationDuration),
-                    shortestUnitArc: true
-                )
-
-                rotationAction.timingMode = .easeInEaseOut
-
-                run(rotationAction, withKey: "Rotating")
+            if creatureAngle > CGFloat.pi {
+                creatureAngle -= 2 * .pi
+            } else if creatureAngle < -CGFloat.pi {
+                creatureAngle += 2 * .pi
             }
 
-            let radianFactor: CGFloat = 0.0174532925
+            if goalAngle > CGFloat.pi {
+                goalAngle -= 2 * .pi
+            } else if goalAngle < -CGFloat.pi {
+                goalAngle += 2 * .pi
+            }
+
+            angleDifference = goalAngle - creatureAngle
+            if angleDifference > CGFloat.pi {
+                angleDifference -= 2 * CGFloat.pi
+            } else if angleDifference < -CGFloat.pi {
+                angleDifference += 2 * CGFloat.pi
+            }
+
+            print("Goal: \(goalAngle) cAngle: \(creatureAngle) Difference: \(angleDifference)")
+
+            physicsBody?.applyTorque(angleDifference / 1000)
+
+            let radianFactor: CGFloat = CGFloat.pi / 180
             let rotationInDegrees = zRotation / radianFactor
             let newRotationDegrees = rotationInDegrees + 90
             let newRotationRadians = newRotationDegrees * radianFactor
@@ -237,15 +265,15 @@ class AeonCreature: SKNode, Updatable {
         let xdiff = (pointTwo.x - pointOne.x)
         let ydiff = (pointTwo.y - pointOne.y)
         let rad = atan2(ydiff, xdiff)
-        return rad - 1.5707963268 // convert from atan's right-pointing zero to CG's up-pointing zero
+        return rad - (CGFloat.pi / 2) // convert from atan's right-pointing zero to CG's up-pointing zero
     }
 
     // MARK: - Lifecycle
 
     func born() {
-        setScale(0.1)
-        let birthAction = SKAction.scale(to: sizeModififer, duration: 30)
-        run(birthAction)
+//        setScale(0.1)
+//        let birthAction = SKAction.scale(to: sizeModififer, duration: 30)
+//        run(birthAction)
     }
 
     func die() {
