@@ -16,19 +16,15 @@ enum CollisionTypes: UInt32 {
 }
 
 class AeonTank: SKScene {
-    var entities = [GKEntity]()
-    var graphs = [String: GKGraph]()
-
     public var foodPelletCount: Int = 0
     public var creatureCount: Int = 0
     public var deathCount: Int = 0
     public var birthCount: Int = 0
+
     private var foodPelletMax: Int = 20
     private var creatureMax: Int = 1
 
-    private var lastUpdateTime: TimeInterval = 0
     private var lastFoodTime: TimeInterval = 0
-    private var lastThinkTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
     private var lastUIUpdateTime: TimeInterval = 0
     private var totalTankTime: TimeInterval = 0
@@ -55,7 +51,10 @@ class AeonTank: SKScene {
                 self.creatureStatsNode.alpha = 0
                 let zoomInAction = SKAction.scale(to: 1, duration: 1)
                 let cameraAction = SKAction.move(
-                    to: CGPoint(x: self.size.width / 2, y: self.size.height / 2),
+                    to: CGPoint(
+                        x: self.size.width / 2,
+                        y: self.size.height / 2
+                    ),
                     duration: 1
                 )
                 camera?.run(SKAction.group([zoomInAction, cameraAction]))
@@ -82,10 +81,8 @@ class AeonTank: SKScene {
     override func update(_ currentTime: TimeInterval) {
         followSelectedCreatureWithCamera()
 
-        if lastUpdateTime == 0 {
-            lastUpdateTime = currentTime
+        if lastUIUpdateTime == 0 {
             lastFoodTime = currentTime
-            lastThinkTime = currentTime
             lastCreatureTime = currentTime
             lastUIUpdateTime = currentTime
         }
@@ -124,8 +121,6 @@ class AeonTank: SKScene {
                 child.update(currentTime)
             }
         }
-
-        lastUpdateTime = currentTime
     }
 
     // MARK: - Per Frame Processes
@@ -232,10 +227,11 @@ extension AeonTank: SKPhysicsContactDelegate {
         if let creatureA = contact.bodyA.node as? AeonCreature,
             let creatureB = contact.bodyB.node as? AeonCreature {
             if creatureA.currentTarget == creatureB, creatureB.currentTarget == creatureA {
-                // Mutual reproduction
+                // Mutual Reproduction
                 creatureA.mated()
                 creatureB.mated()
-                if randomBool(), randomBool() {
+                // Random chance to breed
+                if randomInteger(min: 0, max: 4) == 4 {
                     let newCreature = AeonCreature(withParents: [creatureA, creatureB])
                     newCreature.position = creatureA.position
                     addChild(newCreature)
@@ -243,15 +239,11 @@ extension AeonTank: SKPhysicsContactDelegate {
                     birthCount += 1
                 }
             } else {
-                // Determine pursuing creature and give up
+                // If one creature is pursuing the other, get wrecked
                 if creatureA.currentTarget == creatureB {
-                    let aggressor = creatureA
-                    // Remove love target and lose health
-                    aggressor.currentHealth /= 2
+                    creatureA.wounded()
                 } else if creatureB.currentTarget == creatureA {
-                    let aggressor = creatureB
-                    // Remove love target and lose health
-                    aggressor.currentHealth /= 2
+                    creatureB.wounded()
                 }
             }
         }

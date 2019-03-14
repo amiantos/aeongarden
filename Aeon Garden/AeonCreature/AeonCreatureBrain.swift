@@ -6,9 +6,7 @@
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
 
-import Foundation
 import GameplayKit
-import SpriteKit
 
 enum Feeling: String {
     case hungry = "Hungry"
@@ -85,12 +83,11 @@ class AeonCreatureBrain: Updatable {
         let deltaTime = currentTime - lastUpdateTime
         if deltaTime <= 1 {
             let currentHealth = getCurrentHealth()
-            currentFeeling = .hungry
-//            if currentHealth >= 600 {
-//                currentFeeling = .horny
-//            } else if currentHealth <= 300 {
-//                currentFeeling = .hungry
-//            }
+            if currentHealth >= 600 {
+                currentFeeling = .horny
+            } else if currentHealth <= 300 {
+                currentFeeling = .hungry
+            }
 //          Maybe playtime will return in the future
 //          } else if currentHealth <= 400, currentFeeling == .horny {
 //              currentFeeling = .bored

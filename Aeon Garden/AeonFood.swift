@@ -6,7 +6,6 @@
 //  Copyright © 2017 Brad Root. All rights reserved.
 //
 
-import GameplayKit
 import SpriteKit
 
 class AeonFood: SKNode, Updatable {

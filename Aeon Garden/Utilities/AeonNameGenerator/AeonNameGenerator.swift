@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import GameKit
 
 class AeonNameGenerator {
     static let shared = AeonNameGenerator()
@@ -16,13 +15,25 @@ class AeonNameGenerator {
         let lastNames: [String] = "Surnames".contentsOrBlank().split(
             separator: "\n", omittingEmptySubsequences: true
         ).map(String.init)
-        return (lastNames[GKRandomDistribution(lowestValue: 0, highestValue: lastNames.count - 1).nextInt()])
+        return (lastNames[randomInteger(min: 0, max: lastNames.count - 1)])
     }
 
     func returnFirstName() -> String {
         let firstNames: [String] = "FirstNames".contentsOrBlank().split(
             separator: "\n", omittingEmptySubsequences: true
         ).map(String.init)
-        return (firstNames[GKRandomDistribution(lowestValue: 0, highestValue: firstNames.count - 1).nextInt()])
+        return (firstNames[randomInteger(min: 0, max: firstNames.count - 1)])
+    }
+}
+
+public extension String {
+    func contentsOrBlank() -> String {
+        if let path = Bundle.main.path(forResource: self, ofType: nil) {
+            do {
+                let text = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
+                return text
+            } catch { print("Failed to read text from bundle file \(self)") }
+        } else { print("Failed to load file from bundle \(self)") }
+        return ""
     }
 }

@@ -6,7 +6,6 @@
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
 
-import Foundation
 import GameKit
 
 class BirthState: GKState {

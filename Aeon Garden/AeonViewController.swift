@@ -6,7 +6,6 @@
 //  Copyright © 2017 Brad Root. All rights reserved.
 //
 
-import GameplayKit
 import SpriteKit
 import UIKit
 
@@ -21,7 +20,7 @@ class AeonViewController: UIViewController {
         skView = view as? SKView
         // skView!.showsFPS = true
         // skView!.showsNodeCount = true
-        skView!.ignoresSiblingOrder = false
+        // skView!.ignoresSiblingOrder = false
         // skView!.showsPhysics = true
         scene!.scaleMode = .aspectFill
         scene!.backgroundColor = UIColor(red: 0.0706, green: 0.1961, blue: 0.2471, alpha: 1.0) /* #12323f */

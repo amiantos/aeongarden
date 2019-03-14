@@ -6,10 +6,7 @@
 //  Copyright © 2017 Brad Root. All rights reserved.
 //
 
-import Foundation
-import GameplayKit
 import SpriteKit
-import UIKit
 
 class AeonCreature: SKNode, Updatable {
     // MARK: - Creature Name
@@ -33,11 +30,11 @@ class AeonCreature: SKNode, Updatable {
 
     // MARK: - Current Focus
 
-    var currentTarget: SKNode?
+    public private(set) var currentTarget: SKNode?
 
     // MARK: - Health
 
-    public var currentHealth: Float = Float(randomInteger(min: 125, max: 300)) {
+    public private(set) var currentHealth: Float = Float(randomInteger(min: 125, max: 300)) {
         didSet {
             if currentHealth <= 0 {
                 die()
@@ -51,20 +48,6 @@ class AeonCreature: SKNode, Updatable {
 
     private var brain: AeonCreatureBrain?
     internal var lastUpdateTime: TimeInterval = 0
-
-    func update(_ currentTime: TimeInterval) {
-        if lastUpdateTime == 0 { lastUpdateTime = currentTime }
-        let deltaTime = currentTime - lastUpdateTime
-        if deltaTime >= 1, currentHealth > 0 {
-            currentHealth -= Float(deltaTime)
-            lifeTime += Float(deltaTime)
-            lastUpdateTime = currentTime
-        }
-        brain?.update(currentTime)
-        if currentHealth > 0 {
-            move()
-        }
-    }
 
     // MARK: - Creation
 
@@ -136,7 +119,7 @@ class AeonCreature: SKNode, Updatable {
         addChild(limbThree)
         addChild(limbFour)
         // Position limbs on body
-        limbOne.position = CGPoint(x: 0, y: randomInteger(min: 7, max: 10))
+        limbOne.position = CGPoint(x: 0, y: randomInteger(min: 8, max: 12))
         limbTwo.position = CGPoint(x: randomInteger(min: 7, max: 10), y: 0)
         limbThree.position = CGPoint(x: 0, y: -randomInteger(min: 7, max: 10))
         limbFour.position = CGPoint(x: -randomInteger(min: 7, max: 10), y: 0)
@@ -144,8 +127,6 @@ class AeonCreature: SKNode, Updatable {
 
     private func setupBodyPhysics() {
         physicsBody = SKPhysicsBody(circleOfRadius: 13)
-        physicsBody?.isDynamic = true
-        physicsBody?.allowsRotation = true
         physicsBody?.categoryBitMask = CollisionTypes.creature.rawValue
         physicsBody?.collisionBitMask = CollisionTypes.creature.rawValue | CollisionTypes.food.rawValue
         physicsBody?.contactTestBitMask = CollisionTypes.creature.rawValue | CollisionTypes.food.rawValue
@@ -193,6 +174,13 @@ class AeonCreature: SKNode, Updatable {
         return CGFloat(hypotf(Float(point.x - position.x), Float(point.y - position.y)))
     }
 
+    func angleBetween(pointOne: CGPoint, andPointTwo pointTwo: CGPoint) -> CGFloat {
+        let xdiff = (pointTwo.x - pointOne.x)
+        let ydiff = (pointTwo.y - pointOne.y)
+        let rad = atan2(ydiff, xdiff)
+        return rad - (CGFloat.pi / 2) // convert from atan's right-pointing zero to CG's up-pointing zero
+    }
+
     // MARK: - Locomotion
 
     func move() {
@@ -229,25 +217,21 @@ class AeonCreature: SKNode, Updatable {
         }
     }
 
-    func angleBetween(pointOne: CGPoint, andPointTwo pointTwo: CGPoint) -> CGFloat {
-        let xdiff = (pointTwo.x - pointOne.x)
-        let ydiff = (pointTwo.y - pointOne.y)
-        let rad = atan2(ydiff, xdiff)
-        return rad - (CGFloat.pi / 2) // convert from atan's right-pointing zero to CG's up-pointing zero
-    }
+    // MARK: - Lifecycle
 
-    func convertRadiansToPi(_ radian: CGFloat) -> CGFloat {
-        // Remove rotation data from radian (e.g. any value above pi is 'switched' to the other side)
-        if radian > CGFloat.pi {
-            return radian - 2 * .pi
-        } else if radian < -CGFloat.pi {
-            return radian + 2 * .pi
-        } else {
-            return radian
+    func update(_ currentTime: TimeInterval) {
+        if lastUpdateTime == 0 { lastUpdateTime = currentTime }
+        let deltaTime = currentTime - lastUpdateTime
+        if deltaTime >= 1, currentHealth > 0 {
+            currentHealth -= Float(deltaTime)
+            lifeTime += Float(deltaTime)
+            lastUpdateTime = currentTime
+        }
+        brain?.update(currentTime)
+        if currentHealth > 0 {
+            move()
         }
     }
-
-    // MARK: - Lifecycle
 
     func born() {
         setScale(0.1)
@@ -257,6 +241,7 @@ class AeonCreature: SKNode, Updatable {
 
     func die() {
         brain?.die()
+        currentTarget = nil
         removeAllActions()
         physicsBody!.contactTestBitMask = 0
         endWiggling()
@@ -276,24 +261,31 @@ class AeonCreature: SKNode, Updatable {
         })
     }
 
+    func wounded() {
+        currentTarget = nil
+        currentHealth /= 2
+        printThought("Ouch!", emoji: "🤕")
+    }
+
     func mated() {
+        currentTarget = nil
         currentHealth /= 2
         printThought("That was nice!", emoji: "🥰")
     }
 
     func fed() {
-        printThought("Yum!", emoji: "🍽")
         currentHealth += Float(randomCGFloat(min: 100, max: 200))
+        printThought("Yum!", emoji: "🍽")
     }
 
     func lifeTimeFormattedAsString() -> String {
-        let aeonDays: Double = round(Double(lifeTime / 60) * 10) / 10
-        let aeonYears: Double = round(aeonDays / 60 * 10) / 10
+        let minutes: Double = round(Double(lifeTime / 60) * 10) / 10
+        let hours: Double = round(minutes / 60 * 10) / 10
 
-        if aeonDays < 60 {
-            return "\(aeonDays) Minutes Old"
+        if minutes < 60 {
+            return "\(minutes) Minutes Old"
         } else {
-            return "\(aeonYears) Hours Old"
+            return "\(hours) Hours Old"
         }
     }
 }
@@ -345,11 +337,11 @@ extension AeonCreature: AeonCreatureBrainDelegate {
         return distance(point: node.position)
     }
 
+    /// Rate mate based on similarity of hue
     func rateMate(_ mate: AeonCreature) -> CGFloat {
-        // Rate mate based on similarity of hue
         return min(
             abs(mate.primaryHue - primaryHue),
-            360-abs(mate.primaryHue - primaryHue)
+            360 - abs(mate.primaryHue - primaryHue)
         )
     }
 

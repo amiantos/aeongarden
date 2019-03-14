@@ -6,8 +6,6 @@
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
 
-import Foundation
-import GameKit
 import SpriteKit
 
 class AeonCreatureLimb: SKSpriteNode {
@@ -71,16 +69,13 @@ class AeonCreatureLimb: SKSpriteNode {
     }
 
     public func beginWiggling() {
-        var wiggleFactor = randomUniform()
-        while wiggleFactor > 0.2 {
-            wiggleFactor = randomUniform()
-        }
+        let wiggleFactor = randomCGFloat(min: 0, max: 0.2)
         let wiggleAction = SKAction.rotate(
-            byAngle: CGFloat(wiggleFactor),
+            byAngle: wiggleFactor,
             duration: TimeInterval(randomUniform())
         )
         let wiggleActionBack = SKAction.rotate(
-            byAngle: CGFloat(-wiggleFactor),
+            byAngle: -wiggleFactor,
             duration: TimeInterval(randomUniform())
         )
 

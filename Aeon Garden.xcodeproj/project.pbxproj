@@ -97,6 +97,15 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		44D36650223B1D63006AB1C7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B4364F791F8C78070002B2BB /* AeonNameGenerator */,
+				44868F672231E855009F0460 /* Utils.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		B4364F791F8C78070002B2BB /* AeonNameGenerator */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,14 +146,13 @@
 		B48DDAB31F80943500DEA908 /* Aeon Garden */ = {
 			isa = PBXGroup;
 			children = (
-				B4364F791F8C78070002B2BB /* AeonNameGenerator */,
 				44868F5F2230B6BA009F0460 /* AeonCreature */,
 				B48DDACF1F81A1DE00DEA908 /* AeonFood.swift */,
 				B48DDABA1F80943500DEA908 /* AeonTank.swift */,
 				B48DDAB41F80943500DEA908 /* AppDelegate.swift */,
 				B48DDABC1F80943500DEA908 /* AeonViewController.swift */,
 				B48DDAC61F80943500DEA908 /* Info.plist */,
-				44868F672231E855009F0460 /* Utils.swift */,
+				44D36650223B1D63006AB1C7 /* Utilities */,
 				44868F622230B706009F0460 /* Assets */,
 			);
 			path = "Aeon Garden";
