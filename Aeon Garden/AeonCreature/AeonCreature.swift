@@ -243,8 +243,6 @@ class AeonCreature: SKNode, Updatable {
                 angleDifference += 2 * CGFloat.pi
             }
 
-            //print("Goal: \(goalAngle) cAngle: \(creatureAngle) Difference: \(angleDifference)")
-
             physicsBody?.applyTorque(angleDifference / 750)
 
             let radianFactor: CGFloat = CGFloat.pi / 180
@@ -257,7 +255,6 @@ class AeonCreature: SKNode, Updatable {
             if distanceToTarget < 40 {
                 adjustedMovementSpeed /= 2
             }
-            print("Movement Speed: \(adjustedMovementSpeed) - Distance: \(distanceToTarget)")
 
             let thrustVector: CGVector = CGVector(
                 dx: cos(newRotationRadians) * adjustedMovementSpeed,
