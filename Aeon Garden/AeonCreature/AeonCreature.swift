@@ -249,9 +249,9 @@ class AeonCreature: SKNode, Updatable {
     // MARK: - Lifecycle
 
     func born() {
-//        setScale(0.1)
-//        let birthAction = SKAction.scale(to: sizeModififer, duration: 30)
-//        run(birthAction)
+        setScale(0.1)
+        let birthAction = SKAction.scale(to: sizeModififer, duration: 30)
+        run(birthAction)
     }
 
     func die() {
