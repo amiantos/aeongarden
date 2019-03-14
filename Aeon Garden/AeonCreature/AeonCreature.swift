@@ -346,7 +346,11 @@ extension AeonCreature: AeonCreatureBrainDelegate {
     }
 
     func rateMate(_ mate: AeonCreature) -> CGFloat {
-        return abs(mate.primaryHue - primaryHue)
+        // Rate mate based on similarity of hue
+        return min(
+            abs(mate.primaryHue - primaryHue),
+            360-abs(mate.primaryHue - primaryHue)
+        )
     }
 
     func printThought(_ message: String, emoji: String?) {
