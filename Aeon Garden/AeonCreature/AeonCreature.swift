@@ -196,55 +196,18 @@ class AeonCreature: SKNode, Updatable {
 
     func move() {
         if let toCGPoint = currentTarget?.position {
-
-//            if action(forKey: "Rotating") == nil {
-//                let angleMovement = angleBetween(pointOne: position, andPointTwo: toCGPoint)
-//                var rotationDuration: CGFloat = 0
-//
-//                if zRotation > angleMovement {
-//                    rotationDuration = abs(zRotation - angleMovement) * 2.5
-//                } else if zRotation < angleMovement {
-//                    rotationDuration = abs(angleMovement - zRotation) * 2.5
-//                }
-//
-//                if rotationDuration > 6 { rotationDuration = 6 }
-//
-//                let rotationAction = SKAction.rotate(
-//                    toAngle: angleMovement,
-//                    duration: TimeInterval(rotationDuration),
-//                    shortestUnitArc: true
-//                )
-//
-//                rotationAction.timingMode = .easeInEaseOut
-//
-//                run(rotationAction, withKey: "Rotating")
-//            }
-
+            // Rotation
             var goalAngle = angleBetween(pointOne: position, andPointTwo: toCGPoint)
             var creatureAngle = atan2(physicsBody!.velocity.dy, physicsBody!.velocity.dx) - (CGFloat.pi / 2)
-            var angleDifference: CGFloat = 0
 
-            if creatureAngle > CGFloat.pi {
-                creatureAngle -= 2 * .pi
-            } else if creatureAngle < -CGFloat.pi {
-                creatureAngle += 2 * .pi
-            }
+            creatureAngle = convertRadiansToPi(creatureAngle)
+            goalAngle = convertRadiansToPi(goalAngle)
 
-            if goalAngle > CGFloat.pi {
-                goalAngle -= 2 * .pi
-            } else if goalAngle < -CGFloat.pi {
-                goalAngle += 2 * .pi
-            }
-
-            angleDifference = goalAngle - creatureAngle
-            if angleDifference > CGFloat.pi {
-                angleDifference -= 2 * CGFloat.pi
-            } else if angleDifference < -CGFloat.pi {
-                angleDifference += 2 * CGFloat.pi
-            }
+            let angleDifference = convertRadiansToPi(goalAngle - creatureAngle)
 
             physicsBody?.applyTorque(angleDifference / 750)
 
+            // Thrust
             let radianFactor: CGFloat = CGFloat.pi / 180
             let rotationInDegrees = zRotation / radianFactor
             let newRotationDegrees = rotationInDegrees + 90
@@ -270,6 +233,17 @@ class AeonCreature: SKNode, Updatable {
         let ydiff = (pointTwo.y - pointOne.y)
         let rad = atan2(ydiff, xdiff)
         return rad - (CGFloat.pi / 2) // convert from atan's right-pointing zero to CG's up-pointing zero
+    }
+
+    func convertRadiansToPi(_ radian: CGFloat) -> CGFloat {
+        // Remove rotation data from radian (e.g. any value above pi is 'switched' to the other side)
+        if radian > CGFloat.pi {
+            return radian - 2 * .pi
+        } else if radian < -CGFloat.pi {
+            return radian + 2 * .pi
+        } else {
+            return radian
+        }
     }
 
     // MARK: - Lifecycle
