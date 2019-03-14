@@ -44,6 +44,7 @@ class AeonCreature: SKNode, Updatable {
             }
         }
     }
+
     public var lifeTime: Float = 0
 
     // MARK: - Brain
@@ -295,7 +296,6 @@ class AeonCreature: SKNode, Updatable {
             return "\(aeonYears) Hours Old"
         }
     }
-
 }
 
 // MARK: - Brain Delegate
@@ -346,7 +346,7 @@ extension AeonCreature: AeonCreatureBrainDelegate {
     }
 
     func rateMate(_ mate: AeonCreature) -> CGFloat {
-        return abs(mate.primaryHue - self.primaryHue)
+        return abs(mate.primaryHue - primaryHue)
     }
 
     func printThought(_ message: String, emoji: String?) {

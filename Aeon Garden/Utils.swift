@@ -50,5 +50,5 @@ func randomUniform() -> CGFloat {
 }
 
 func randomCGFloat(min: CGFloat, max: CGFloat) -> CGFloat {
-    return CGFloat(Float.random(in: Float(min)...Float(max)))
+    return CGFloat(Float.random(in: Float(min) ... Float(max)))
 }

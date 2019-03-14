@@ -144,7 +144,7 @@ class DeadState: GKState {
         brain?.currentState = .dead
     }
 
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_: AnyClass) -> Bool {
         return false
     }
 }
