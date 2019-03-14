@@ -345,7 +345,7 @@ extension AeonCreature: AeonCreatureBrainDelegate {
         return distance(point: node.position)
     }
 
-    func rate(mate: AeonCreature) -> CGFloat {
+    func rateMate(_ mate: AeonCreature) -> CGFloat {
         return abs(mate.primaryHue - self.primaryHue)
     }
 

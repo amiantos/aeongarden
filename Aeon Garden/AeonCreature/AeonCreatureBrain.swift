@@ -25,7 +25,7 @@ protocol AeonCreatureBrainDelegate: class {
 
     func setCurrentTarget(node: SKNode?)
     func getDistance(toNode node: SKNode) -> CGFloat
-    func rate(mate: AeonCreature) -> CGFloat
+    func rateMate(_ mate: AeonCreature) -> CGFloat
 
     func die()
 
@@ -107,7 +107,7 @@ class AeonCreatureBrain: Updatable {
         )]()
         let nodes = getEligibleMates()
         for child in nodes {
-            let mateRating = rate(mate: child)
+            let mateRating = rateMate(child)
             creatureDifferenceArray.append((mateRating, child))
         }
 
@@ -179,8 +179,8 @@ extension AeonCreatureBrain: AeonCreatureBrainDelegate {
         return delegate!.getEligibleMates()
     }
 
-    func rate(mate: AeonCreature) -> CGFloat {
-        return delegate!.rate(mate: mate)
+    func rateMate(_ mate: AeonCreature) -> CGFloat {
+        return delegate!.rateMate(mate)
     }
 
     func getDistance(toNode node: SKNode) -> CGFloat {
