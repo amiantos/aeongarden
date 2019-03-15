@@ -130,10 +130,10 @@ class AeonCreatureBrain: Updatable {
                 foodArray.append((child.interestedCreatures, distance, child))
             }
         }
-//        foodArray.sort(by: { $0.interestedCreatures < $1.interestedCreatures })
-//        let prefix = Int(foodArray.count / 2)
-//        foodArray = Array(foodArray.prefix(upTo: prefix))
         foodArray.sort(by: { $0.distance < $1.distance })
+        let prefix = foodArray.count < 5 ? foodArray.count : 5
+        foodArray = Array(foodArray.prefix(upTo: prefix))
+        foodArray.sort(by: { $0.interestedCreatures < $1.interestedCreatures })
         if foodArray.count > 0 {
             if currentFoodTarget != foodArray[0].node {
                 currentFoodTarget?.interestedCreatures -= 1
