@@ -5,25 +5,15 @@
 //  Created by Brad Root on 3/7/19.
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import Foundation
 import GameKit
 
 protocol Updatable {
     func update(_ currentTime: TimeInterval)
     var lastUpdateTime: TimeInterval { get set }
-}
-
-public extension String {
-    func contentsOrBlank() -> String {
-        if let path = Bundle.main.path(forResource: self, ofType: nil) {
-            do {
-                let text = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
-                return text
-            } catch { print("Failed to read text from bundle file \(self)") }
-        } else { print("Failed to load file from bundle \(self)") }
-        return ""
-    }
 }
 
 func toTimestamp(timeInterval: TimeInterval) -> String {
@@ -50,5 +40,16 @@ func randomUniform() -> CGFloat {
 }
 
 func randomCGFloat(min: CGFloat, max: CGFloat) -> CGFloat {
-    return CGFloat(Float.random(in: Float(min)...Float(max)))
+    return CGFloat(Float.random(in: Float(min) ... Float(max)))
+}
+
+/// Remove rotation data from radian (e.g. any value above pi is 'switched' to the other side)
+func convertRadiansToPi(_ radian: CGFloat) -> CGFloat {
+    if radian > CGFloat.pi {
+        return radian - 2 * .pi
+    } else if radian < -CGFloat.pi {
+        return radian + 2 * .pi
+    } else {
+        return radian
+    }
 }

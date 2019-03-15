@@ -5,10 +5,11 @@
 //  Created by Brad Root on 3/7/19.
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import Foundation
 import GameplayKit
-import SpriteKit
 
 enum Feeling: String {
     case hungry = "Hungry"
@@ -25,7 +26,7 @@ protocol AeonCreatureBrainDelegate: class {
 
     func setCurrentTarget(node: SKNode?)
     func getDistance(toNode node: SKNode) -> CGFloat
-    func rate(mate: AeonCreature) -> CGFloat
+    func rateMate(_ mate: AeonCreature) -> CGFloat
 
     func die()
 
@@ -106,7 +107,7 @@ class AeonCreatureBrain: Updatable {
         )]()
         let nodes = getEligibleMates()
         for child in nodes {
-            let mateRating = rate(mate: child)
+            let mateRating = rateMate(child)
             creatureDifferenceArray.append((mateRating, child))
         }
 
@@ -129,10 +130,10 @@ class AeonCreatureBrain: Updatable {
                 foodArray.append((child.interestedCreatures, distance, child))
             }
         }
-        foodArray.sort(by: { $0.interestedCreatures < $1.interestedCreatures })
-        let prefix = Int(foodArray.count / 2)
-        foodArray = Array(foodArray.prefix(upTo: prefix))
         foodArray.sort(by: { $0.distance < $1.distance })
+        let prefix = foodArray.count < 5 ? foodArray.count : 5
+        foodArray = Array(foodArray.prefix(upTo: prefix))
+        foodArray.sort(by: { $0.interestedCreatures < $1.interestedCreatures })
         if foodArray.count > 0 {
             if currentFoodTarget != foodArray[0].node {
                 currentFoodTarget?.interestedCreatures -= 1
@@ -178,8 +179,8 @@ extension AeonCreatureBrain: AeonCreatureBrainDelegate {
         return delegate!.getEligibleMates()
     }
 
-    func rate(mate: AeonCreature) -> CGFloat {
-        return delegate!.rate(mate: mate)
+    func rateMate(_ mate: AeonCreature) -> CGFloat {
+        return delegate!.rateMate(mate)
     }
 
     func getDistance(toNode node: SKNode) -> CGFloat {

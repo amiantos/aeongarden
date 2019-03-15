@@ -5,11 +5,11 @@
 //  Created by Bradley Root on 9/30/17.
 //  Copyright © 2017 Brad Root. All rights reserved.
 //
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import Foundation
-import GameplayKit
 import SpriteKit
-import UIKit
 
 class AeonCreature: SKNode, Updatable {
     // MARK: - Creature Name
@@ -33,37 +33,24 @@ class AeonCreature: SKNode, Updatable {
 
     // MARK: - Current Focus
 
-    var currentTarget: SKNode?
+    public private(set) var currentTarget: SKNode?
 
     // MARK: - Health
 
-    public var currentHealth: Float = Float(randomInteger(min: 125, max: 300)) {
+    public private(set) var currentHealth: Float = Float(randomInteger(min: 125, max: 300)) {
         didSet {
             if currentHealth <= 0 {
                 die()
             }
         }
     }
+
     public var lifeTime: Float = 0
 
     // MARK: - Brain
 
     private var brain: AeonCreatureBrain?
     internal var lastUpdateTime: TimeInterval = 0
-
-    func update(_ currentTime: TimeInterval) {
-        if lastUpdateTime == 0 { lastUpdateTime = currentTime }
-        let deltaTime = currentTime - lastUpdateTime
-        if deltaTime >= 1, currentHealth > 0 {
-            currentHealth -= Float(deltaTime)
-            lifeTime += Float(deltaTime)
-            lastUpdateTime = currentTime
-        }
-        brain?.update(currentTime)
-        if currentHealth > 0 {
-            move()
-        }
-    }
 
     // MARK: - Creation
 
@@ -87,7 +74,7 @@ class AeonCreature: SKNode, Updatable {
         super.init()
 
         brain?.delegate = self
-        movementSpeed = randomCGFloat(min: 5, max: 10)
+        movementSpeed = randomCGFloat(min: 7, max: 12)
         sizeModififer = randomCGFloat(min: 0.7, max: 1.4)
 
         setupLimbs()
@@ -135,7 +122,7 @@ class AeonCreature: SKNode, Updatable {
         addChild(limbThree)
         addChild(limbFour)
         // Position limbs on body
-        limbOne.position = CGPoint(x: 0, y: randomInteger(min: 7, max: 10))
+        limbOne.position = CGPoint(x: 0, y: randomInteger(min: 8, max: 12))
         limbTwo.position = CGPoint(x: randomInteger(min: 7, max: 10), y: 0)
         limbThree.position = CGPoint(x: 0, y: -randomInteger(min: 7, max: 10))
         limbFour.position = CGPoint(x: -randomInteger(min: 7, max: 10), y: 0)
@@ -143,8 +130,6 @@ class AeonCreature: SKNode, Updatable {
 
     private func setupBodyPhysics() {
         physicsBody = SKPhysicsBody(circleOfRadius: 13)
-        physicsBody?.isDynamic = true
-        physicsBody?.allowsRotation = true
         physicsBody?.categoryBitMask = CollisionTypes.creature.rawValue
         physicsBody?.collisionBitMask = CollisionTypes.creature.rawValue | CollisionTypes.food.rawValue
         physicsBody?.contactTestBitMask = CollisionTypes.creature.rawValue | CollisionTypes.food.rawValue
@@ -152,7 +137,7 @@ class AeonCreature: SKNode, Updatable {
         physicsBody?.restitution = 1
         physicsBody?.mass = 1
         physicsBody?.linearDamping = 0.5
-        physicsBody?.angularDamping = 0
+        physicsBody?.angularDamping = 1
 
         let underShadow = SKSpriteNode(imageNamed: "aeonBodyShadow")
         underShadow.setScale(1.2)
@@ -192,55 +177,68 @@ class AeonCreature: SKNode, Updatable {
         return CGFloat(hypotf(Float(point.x - position.x), Float(point.y - position.y)))
     }
 
+    func angleBetween(pointOne: CGPoint, andPointTwo pointTwo: CGPoint) -> CGFloat {
+        let xdiff = (pointTwo.x - pointOne.x)
+        let ydiff = (pointTwo.y - pointOne.y)
+        let rad = atan2(ydiff, xdiff)
+        return rad - (CGFloat.pi / 2) // convert from atan's right-pointing zero to CG's up-pointing zero
+    }
+
     // MARK: - Locomotion
 
     func move() {
         if let toCGPoint = currentTarget?.position {
-            if action(forKey: "Rotating") == nil {
-                let angleMovement = angleBetween(pointOne: position, andPointTwo: toCGPoint)
-                var rotationDuration: CGFloat = 0
+            // Rotation
+            var goalAngle = angleBetween(pointOne: position, andPointTwo: toCGPoint)
+            var creatureAngle = atan2(physicsBody!.velocity.dy, physicsBody!.velocity.dx) - (CGFloat.pi / 2)
 
-                if zRotation > angleMovement {
-                    rotationDuration = abs(zRotation - angleMovement) * 2.5
-                } else if zRotation < angleMovement {
-                    rotationDuration = abs(angleMovement - zRotation) * 2.5
-                }
+            creatureAngle = convertRadiansToPi(creatureAngle)
+            goalAngle = convertRadiansToPi(goalAngle)
 
-                if rotationDuration > 6 { rotationDuration = 6 }
+            let angleDifference = convertRadiansToPi(goalAngle - creatureAngle)
 
-                let rotationAction = SKAction.rotate(
-                    toAngle: angleMovement,
-                    duration: TimeInterval(rotationDuration),
-                    shortestUnitArc: true
-                )
+            physicsBody?.applyTorque(angleDifference / 750)
 
-                rotationAction.timingMode = .easeInEaseOut
-
-                run(rotationAction, withKey: "Rotating")
-            }
-
-            let radianFactor: CGFloat = 0.0174532925
+            // Thrust
+            let radianFactor: CGFloat = CGFloat.pi / 180
             let rotationInDegrees = zRotation / radianFactor
             let newRotationDegrees = rotationInDegrees + 90
             let newRotationRadians = newRotationDegrees * radianFactor
 
+            var adjustedMovementSpeed = movementSpeed
+            let distanceToTarget = distance(point: toCGPoint)
+            if distanceToTarget < 150 {
+                adjustedMovementSpeed *= 0.75
+            } else if distanceToTarget < 75 {
+                adjustedMovementSpeed *= 0.5
+            } else if distanceToTarget < 30 {
+                adjustedMovementSpeed *= 0.3
+            }
+
             let thrustVector: CGVector = CGVector(
-                dx: cos(newRotationRadians) * movementSpeed,
-                dy: sin(newRotationRadians) * movementSpeed
+                dx: cos(newRotationRadians) * adjustedMovementSpeed,
+                dy: sin(newRotationRadians) * adjustedMovementSpeed
             )
 
             physicsBody?.applyForce(thrustVector)
         }
     }
 
-    func angleBetween(pointOne: CGPoint, andPointTwo pointTwo: CGPoint) -> CGFloat {
-        let xdiff = (pointTwo.x - pointOne.x)
-        let ydiff = (pointTwo.y - pointOne.y)
-        let rad = atan2(ydiff, xdiff)
-        return rad - 1.5707963268 // convert from atan's right-pointing zero to CG's up-pointing zero
-    }
-
     // MARK: - Lifecycle
+
+    func update(_ currentTime: TimeInterval) {
+        if lastUpdateTime == 0 { lastUpdateTime = currentTime }
+        let deltaTime = currentTime - lastUpdateTime
+        if deltaTime >= 1, currentHealth > 0 {
+            currentHealth -= Float(deltaTime)
+            lifeTime += Float(deltaTime)
+            lastUpdateTime = currentTime
+        }
+        brain?.update(currentTime)
+        if currentHealth > 0 {
+            move()
+        }
+    }
 
     func born() {
         setScale(0.1)
@@ -250,6 +248,7 @@ class AeonCreature: SKNode, Updatable {
 
     func die() {
         brain?.die()
+        currentTarget = nil
         removeAllActions()
         physicsBody!.contactTestBitMask = 0
         endWiggling()
@@ -269,27 +268,33 @@ class AeonCreature: SKNode, Updatable {
         })
     }
 
+    func wounded() {
+        currentTarget = nil
+        currentHealth /= 2
+        printThought("Ouch!", emoji: "🤕")
+    }
+
     func mated() {
+        currentTarget = nil
         currentHealth /= 2
         printThought("That was nice!", emoji: "🥰")
     }
 
     func fed() {
-        printThought("Yum!", emoji: "🍽")
         currentHealth += Float(randomCGFloat(min: 100, max: 200))
+        printThought("Yum!", emoji: "🍽")
     }
 
     func lifeTimeFormattedAsString() -> String {
-        let aeonDays: Double = round(Double(lifeTime / 60) * 10) / 10
-        let aeonYears: Double = round(aeonDays / 60 * 10) / 10
+        let minutes: Double = round(Double(lifeTime / 60) * 10) / 10
+        let hours: Double = round(minutes / 60 * 10) / 10
 
-        if aeonDays < 60 {
-            return "\(aeonDays) Minutes Old"
+        if minutes < 60 {
+            return "\(minutes) Minutes Old"
         } else {
-            return "\(aeonYears) Hours Old"
+            return "\(hours) Hours Old"
         }
     }
-
 }
 
 // MARK: - Brain Delegate
@@ -339,8 +344,12 @@ extension AeonCreature: AeonCreatureBrainDelegate {
         return distance(point: node.position)
     }
 
-    func rate(mate: AeonCreature) -> CGFloat {
-        return abs(mate.primaryHue - self.primaryHue)
+    /// Rate mate based on similarity of hue
+    func rateMate(_ mate: AeonCreature) -> CGFloat {
+        return min(
+            abs(mate.primaryHue - primaryHue),
+            360 - abs(mate.primaryHue - primaryHue)
+        )
     }
 
     func printThought(_ message: String, emoji: String?) {
