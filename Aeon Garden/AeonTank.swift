@@ -24,8 +24,8 @@ class AeonTank: SKScene {
     public var deathCount: Int = 0
     public var birthCount: Int = 0
 
-    private var foodPelletMax: Int = 20
-    private var creatureMinimum: Int = 20
+    private var foodPelletMax: Int = 10
+    private var creatureMinimum: Int = 10
 
     private var lastFoodTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
@@ -196,6 +196,7 @@ extension AeonTank {
         let colorHueIncrement: CGFloat = CGFloat((360 - creatureDivisor) / CGFloat(creatureMinimum))
 
         while totalCreatures < creatureMinimum {
+            addNewCreatureToScene(withPrimaryHue: initialCreatureHue)
             addNewCreatureToScene(withPrimaryHue: initialCreatureHue)
             addFoodPelletToScene()
             totalCreatures += 1
