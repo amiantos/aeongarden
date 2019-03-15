@@ -74,7 +74,7 @@ class AeonCreature: SKNode, Updatable {
         super.init()
 
         brain?.delegate = self
-        movementSpeed = randomCGFloat(min: 10, max: 15)
+        movementSpeed = randomCGFloat(min: 7, max: 12)
         sizeModififer = randomCGFloat(min: 0.7, max: 1.4)
 
         setupLimbs()
@@ -208,9 +208,11 @@ class AeonCreature: SKNode, Updatable {
             var adjustedMovementSpeed = movementSpeed
             let distanceToTarget = distance(point: toCGPoint)
             if distanceToTarget < 150 {
-                adjustedMovementSpeed /= 2
-            } else if distanceToTarget < 50 {
-                adjustedMovementSpeed /= 3
+                adjustedMovementSpeed *= 0.75
+            } else if distanceToTarget < 75 {
+                adjustedMovementSpeed *= 0.5
+            } else if distanceToTarget < 30 {
+                adjustedMovementSpeed *= 0.3
             }
 
             let thrustVector: CGVector = CGVector(

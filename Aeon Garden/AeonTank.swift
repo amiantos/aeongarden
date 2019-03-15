@@ -25,7 +25,7 @@ class AeonTank: SKScene {
     public var birthCount: Int = 0
 
     private var foodPelletMax: Int = 20
-    private var creatureMinimum: Int = 10
+    private var creatureMinimum: Int = 20
 
     private var lastFoodTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
