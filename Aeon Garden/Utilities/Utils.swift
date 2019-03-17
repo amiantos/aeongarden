@@ -53,3 +53,20 @@ func convertRadiansToPi(_ radian: CGFloat) -> CGFloat {
         return radian
     }
 }
+
+func getAverageHue(_ hues: [CGFloat]) -> CGFloat {
+    var xAxisHue: CGFloat = 0
+    var yAxisHue: CGFloat = 0
+    for hue in hues {
+        xAxisHue += cos(hue / 180 * CGFloat.pi)
+        yAxisHue += sin(hue / 180 * CGFloat.pi)
+    }
+    yAxisHue /= CGFloat(hues.count)
+    xAxisHue /= CGFloat(hues.count)
+
+    var averageHue = round(atan2(yAxisHue, xAxisHue) * 180 / CGFloat.pi)
+    if averageHue < 0 {
+        averageHue += 360
+    }
+    return abs(averageHue)
+}

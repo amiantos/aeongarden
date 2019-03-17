@@ -91,7 +91,6 @@ class AeonCreature: SKNode, Updatable {
         firstName = AeonNameGenerator.shared.returnFirstName()
         lastName = parents.randomElement()!.lastName
         fullName = "\(firstName) \(lastName)"
-        primaryHue = (parents[0].primaryHue + parents[1].primaryHue) / 2
 
         parentNames.append(parents[0].lastName)
         parentNames.append(parents[1].lastName)
@@ -100,8 +99,13 @@ class AeonCreature: SKNode, Updatable {
         limbTwo = AeonCreatureLimb(withLimb: parents.randomElement()!.limbTwo)
         limbThree = AeonCreatureLimb(withLimb: parents.randomElement()!.limbThree)
         limbFour = AeonCreatureLimb(withLimb: parents.randomElement()!.limbFour)
-        brain = AeonCreatureBrain()
 
+        let hues: [CGFloat] = [limbOne.hue, limbTwo.hue, limbThree.hue, limbFour.hue]
+        primaryHue = getAverageHue(hues)
+
+        print("Hue Array: \(hues) Average Hue: \(primaryHue)")
+
+        brain = AeonCreatureBrain()
         movementSpeed = parents.randomElement()!.movementSpeed * randomCGFloat(min: 0.95, max: 1.05)
         sizeModififer = parents.randomElement()!.sizeModififer * randomCGFloat(min: 0.95, max: 1.05)
 
