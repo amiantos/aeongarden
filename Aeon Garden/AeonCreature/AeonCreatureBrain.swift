@@ -103,14 +103,19 @@ class AeonCreatureBrain: Updatable {
     public func locateLove() {
         var creatureDifferenceArray = [(
             rating: CGFloat,
+            distance: CGFloat,
             node: AeonCreature
         )]()
         let nodes = getEligibleMates()
         for child in nodes {
             let mateRating = rateMate(child)
-            creatureDifferenceArray.append((mateRating, child))
+            let distance = getDistance(toNode: child)
+            creatureDifferenceArray.append((mateRating, distance, child))
         }
 
+        creatureDifferenceArray.sort(by: { $0.distance < $1.distance })
+        let prefix = creatureDifferenceArray.count < 5 ? creatureDifferenceArray.count : 5
+        creatureDifferenceArray = Array(creatureDifferenceArray.prefix(upTo: prefix))
         creatureDifferenceArray.sort(by: { $0.rating < $1.rating })
 
         if creatureDifferenceArray.count > 0 {
