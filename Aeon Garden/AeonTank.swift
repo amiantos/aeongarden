@@ -191,12 +191,10 @@ class AeonTank: SKScene {
 extension AeonTank {
     fileprivate func createInitialCreatures() {
         var totalCreatures: Int = 0
-        let creatureDivisor: CGFloat = CGFloat(360 / creatureMinimum)
         var initialCreatureHue: CGFloat = 0
-        let colorHueIncrement: CGFloat = CGFloat((360 - creatureDivisor) / CGFloat(creatureMinimum))
+        let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(creatureMinimum))
 
         while totalCreatures < creatureMinimum {
-            addNewCreatureToScene(withPrimaryHue: initialCreatureHue)
             addNewCreatureToScene(withPrimaryHue: initialCreatureHue)
             addFoodPelletToScene()
             totalCreatures += 1
