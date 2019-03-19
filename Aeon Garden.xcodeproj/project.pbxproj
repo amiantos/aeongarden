@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4419E9F22241A557007FE456 /* AeonSmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */; };
+		4419E9F32241A557007FE456 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F12241A557007FE456 /* Assets.xcassets */; };
 		44868F642231C2C2009F0460 /* AeonCreatureBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F632231C2C2009F0460 /* AeonCreatureBrain.swift */; };
 		44868F662231C7F5009F0460 /* AeonCreatureLimb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F652231C7F5009F0460 /* AeonCreatureLimb.swift */; };
 		44868F682231E855009F0460 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F672231E855009F0460 /* Utils.swift */; };
@@ -23,12 +25,13 @@
 		B48DDAC51F80943500DEA908 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B48DDAC31F80943500DEA908 /* LaunchScreen.storyboard */; };
 		B48DDACE1F80B2B000DEA908 /* AeonCreature.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDACD1F80B2B000DEA908 /* AeonCreature.swift */; };
 		B48DDAD01F81A1DE00DEA908 /* AeonFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDACF1F81A1DE00DEA908 /* AeonFood.swift */; };
-		B48DDADC1F83241400DEA908 /* AeonSmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADB1F83241400DEA908 /* AeonSmokeParticle.sks */; };
 		B48DDADE1F8328E400DEA908 /* AeonOceanSparkle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */; };
 		BC6A4BE9A2976EB80F3200F1 /* Pods_Aeon_Garden.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55106F82B8367E59A3F6FC58 /* Pods_Aeon_Garden.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonSmokeParticle.sks; sourceTree = "<group>"; };
+		4419E9F12241A557007FE456 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44868F632231C2C2009F0460 /* AeonCreatureBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonCreatureBrain.swift; sourceTree = "<group>"; };
 		44868F652231C7F5009F0460 /* AeonCreatureLimb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonCreatureLimb.swift; sourceTree = "<group>"; };
 		44868F672231E855009F0460 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -49,7 +52,6 @@
 		B48DDAC61F80943500DEA908 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B48DDACD1F80B2B000DEA908 /* AeonCreature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonCreature.swift; sourceTree = "<group>"; };
 		B48DDACF1F81A1DE00DEA908 /* AeonFood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonFood.swift; sourceTree = "<group>"; };
-		B48DDADB1F83241400DEA908 /* AeonSmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonSmokeParticle.sks; sourceTree = "<group>"; };
 		B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonOceanSparkle.sks; sourceTree = "<group>"; };
 		C92F255750A6748D9021CCC3 /* Pods-Aeon Garden.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden.debug.xcconfig"; path = "Target Support Files/Pods-Aeon Garden/Pods-Aeon Garden.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,8 +121,9 @@
 		B4364F7A1F8C78190002B2BB /* Particles */ = {
 			isa = PBXGroup;
 			children = (
-				B48DDADB1F83241400DEA908 /* AeonSmokeParticle.sks */,
 				B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */,
+				4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */,
+				4419E9F12241A557007FE456 /* Assets.xcassets */,
 			);
 			path = Particles;
 			sourceTree = "<group>";
@@ -232,10 +235,11 @@
 			files = (
 				B4364F811F8C81C20002B2BB /* Surnames in Resources */,
 				B48DDADE1F8328E400DEA908 /* AeonOceanSparkle.sks in Resources */,
-				B48DDADC1F83241400DEA908 /* AeonSmokeParticle.sks in Resources */,
+				4419E9F22241A557007FE456 /* AeonSmokeParticle.sks in Resources */,
 				B4364F831F8C86020002B2BB /* FirstNames in Resources */,
 				B48DDAC01F80943500DEA908 /* Main.storyboard in Resources */,
 				B48DDAC21F80943500DEA908 /* Assets.xcassets in Resources */,
+				4419E9F32241A557007FE456 /* Assets.xcassets in Resources */,
 				B48DDAC51F80943500DEA908 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
