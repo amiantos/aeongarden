@@ -285,7 +285,7 @@ class AeonCreature: SKNode, Updatable {
     }
 
     func fed() {
-        currentHealth += Float(randomCGFloat(min: 100, max: 200))
+        currentHealth += Float(randomCGFloat(min: 30, max: 80))
         printThought("Yum!", emoji: "🍽")
     }
 

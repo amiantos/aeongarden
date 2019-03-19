@@ -24,7 +24,7 @@ class AeonTank: SKScene {
     public var deathCount: Int = 0
     public var birthCount: Int = 0
 
-    private var foodPelletMax: Int = 10
+    private var foodPelletMax: Int = 20
     private var creatureMinimum: Int = 10
 
     private var lastFoodTime: TimeInterval = 0
@@ -74,7 +74,7 @@ class AeonTank: SKScene {
         setupBackgroundAnimation()
         setupCreatureCountUI()
         setupCreatureStatsUI()
-        createInitialCreatures()
+//        createInitialCreatures()
     }
 
     override func didMove(to _: SKView) {
@@ -107,7 +107,7 @@ class AeonTank: SKScene {
             lastUIUpdateTime = currentTime
         }
 
-        if (currentTime - lastFoodTime) >= 1,
+        if (currentTime - lastFoodTime) >= 2,
             foodPelletCount < foodPelletMax {
             addFoodPelletToScene()
             lastFoodTime = currentTime
