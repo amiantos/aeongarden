@@ -151,7 +151,6 @@ class AeonCreature: SKNode, Updatable {
         name = fullName
         zPosition = 2
 
-        born()
         beginWiggling()
     }
 
@@ -248,6 +247,15 @@ class AeonCreature: SKNode, Updatable {
         setScale(0.1)
         let birthAction = SKAction.scale(to: sizeModififer, duration: 30)
         run(birthAction)
+
+        if let emitter = SKEmitterNode(fileNamed: "AeonSmokeParticle.sks") {
+            emitter.name = "AeonSmokeParticle.sks"
+            emitter.zPosition = 1
+            emitter.targetNode = scene
+//            let alphaSequence = SKKeyframeSequence(keyframeValues: [0, 0.25, 0.50, 0.25, 0], times: [0, 0.25, 0.5, 0.75, 1])
+//            emitter.particleAlphaSequence = alphaSequence
+            addChild(emitter)
+        }
     }
 
     func die() {

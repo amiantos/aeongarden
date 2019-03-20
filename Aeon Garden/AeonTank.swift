@@ -210,6 +210,7 @@ extension AeonTank {
         aeonCreature.zRotation = randomCGFloat(min: 0, max: 10)
         aeonCreature.zPosition = 12
         addChild(aeonCreature)
+        aeonCreature.born()
         creatureCount += 1
     }
 
