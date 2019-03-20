@@ -16,6 +16,8 @@ class AeonViewController: UIViewController {
     var scene: AeonTank?
     var skView: SKView?
 
+    @IBOutlet weak var menuBarView: UIView!
+
     @IBAction func newTankButtonPress(_ sender: UIButton) {
         createTank()
     }
@@ -26,6 +28,8 @@ class AeonViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.isIdleTimerDisabled = true
+        menuBarView.layer.cornerRadius = 10
+        menuBarView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         createTank()
     }
 
