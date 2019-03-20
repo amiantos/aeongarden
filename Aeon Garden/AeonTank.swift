@@ -74,7 +74,7 @@ class AeonTank: SKScene {
         setupBackgroundAnimation()
         setupCreatureCountUI()
         setupCreatureStatsUI()
-//        createInitialCreatures()
+        createInitialCreatures()
     }
 
     override func didMove(to _: SKView) {
@@ -239,6 +239,7 @@ extension AeonTank: SKPhysicsContactDelegate {
                     let newCreature = AeonCreature(withParents: [creatureA, creatureB])
                     newCreature.position = creatureA.position
                     addChild(newCreature)
+                    newCreature.born()
                     creatureCount += 1
                     birthCount += 1
                 }
