@@ -20,13 +20,39 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="snQ-lv-F9p">
                                 <rect key="frame" x="0.0" y="0.0" width="568" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cja-TU-pLr">
+                                        <rect key="frame" x="10" y="10" width="67" height="30"/>
+                                        <state key="normal" title="New Tank">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="newTankButtonPress:" destination="BV1-FR-VrT" eventType="touchUpInside" id="tub-tM-MAl"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MH5-xP-vIJ">
+                                        <rect key="frame" x="524" y="10" width="34" height="30"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveTankButtonPress:" destination="BV1-FR-VrT" eventType="touchUpInside" id="55a-sj-0iE"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="Cja-TU-pLr" firstAttribute="top" secondItem="snQ-lv-F9p" secondAttribute="top" constant="10" id="6ne-pa-tcn"/>
+                                    <constraint firstAttribute="bottom" secondItem="Cja-TU-pLr" secondAttribute="bottom" constant="10" id="C9f-9J-Vle"/>
+                                    <constraint firstAttribute="bottom" secondItem="MH5-xP-vIJ" secondAttribute="bottom" constant="10" id="Kx7-DO-gvT"/>
+                                    <constraint firstAttribute="trailing" secondItem="MH5-xP-vIJ" secondAttribute="trailing" constant="10" id="i64-0y-GTc"/>
+                                    <constraint firstItem="Cja-TU-pLr" firstAttribute="leading" secondItem="snQ-lv-F9p" secondAttribute="leading" constant="10" id="jKH-7K-fcO"/>
                                     <constraint firstAttribute="height" constant="50" id="mXz-59-VVJ"/>
+                                    <constraint firstItem="MH5-xP-vIJ" firstAttribute="top" secondItem="snQ-lv-F9p" secondAttribute="top" constant="10" id="pqx-Dy-yzR"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.10440000000000001" green="0.28332000000000002" blue="0.35999999999999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="snQ-lv-F9p" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" id="BbX-zF-dWM"/>
                             <constraint firstItem="snQ-lv-F9p" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" id="tQh-uz-HHg"/>

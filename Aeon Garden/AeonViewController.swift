@@ -16,18 +16,17 @@ class AeonViewController: UIViewController {
     var scene: AeonTank?
     var skView: SKView?
 
+    @IBAction func newTankButtonPress(_ sender: UIButton) {
+        createTank()
+    }
+
+    @IBAction func saveTankButtonPress(_ sender: Any) {
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.isIdleTimerDisabled = true
-        scene = AeonTank(size: view.bounds.size)
-        skView = view as? SKView
-        // skView!.showsFPS = true
-        // skView!.showsNodeCount = true
-        // skView!.ignoresSiblingOrder = false
-        // skView!.showsPhysics = true
-        scene!.scaleMode = .aspectFill
-        scene!.backgroundColor = UIColor(red: 0.0706, green: 0.1961, blue: 0.2471, alpha: 1.0) /* #12323f */
-        skView!.presentScene(scene)
+        createTank()
     }
 
     override var shouldAutorotate: Bool {
@@ -42,4 +41,20 @@ class AeonViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+
+    override var prefersHomeIndicatorAutoHidden: Bool {
+        return true
+    }
+}
+
+extension AeonViewController {
+
+    fileprivate func createTank() {
+        scene = AeonTank(size: view.bounds.size)
+        skView = view as? SKView
+        scene!.scaleMode = .aspectFill
+        scene!.backgroundColor = UIColor(red: 0.0706, green: 0.1961, blue: 0.2471, alpha: 1.0) /* #12323f */
+        skView!.presentScene(scene)
+    }
+
 }
