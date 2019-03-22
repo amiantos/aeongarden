@@ -42,7 +42,6 @@ class AeonViewController: UIViewController {
 }
 
 extension AeonViewController {
-
     fileprivate func createTank() {
         scene = AeonTank(size: view.bounds.size)
         skView = view as? SKView
@@ -50,5 +49,4 @@ extension AeonViewController {
         scene!.backgroundColor = UIColor(red: 0.0706, green: 0.1961, blue: 0.2471, alpha: 1.0) /* #12323f */
         skView!.presentScene(scene)
     }
-
 }
