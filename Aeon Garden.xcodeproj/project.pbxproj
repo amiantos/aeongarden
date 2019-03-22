@@ -20,7 +20,6 @@
 		B48DDAB51F80943500DEA908 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDAB41F80943500DEA908 /* AppDelegate.swift */; };
 		B48DDABB1F80943500DEA908 /* AeonTank.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDABA1F80943500DEA908 /* AeonTank.swift */; };
 		B48DDABD1F80943500DEA908 /* AeonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDABC1F80943500DEA908 /* AeonViewController.swift */; };
-		B48DDAC01F80943500DEA908 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B48DDABE1F80943500DEA908 /* Main.storyboard */; };
 		B48DDAC21F80943500DEA908 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B48DDAC11F80943500DEA908 /* Assets.xcassets */; };
 		B48DDAC51F80943500DEA908 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B48DDAC31F80943500DEA908 /* LaunchScreen.storyboard */; };
 		B48DDACE1F80B2B000DEA908 /* AeonCreature.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDACD1F80B2B000DEA908 /* AeonCreature.swift */; };
@@ -46,7 +45,6 @@
 		B48DDAB41F80943500DEA908 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B48DDABA1F80943500DEA908 /* AeonTank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTank.swift; sourceTree = "<group>"; };
 		B48DDABC1F80943500DEA908 /* AeonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonViewController.swift; sourceTree = "<group>"; };
-		B48DDABF1F80943500DEA908 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B48DDAC11F80943500DEA908 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B48DDAC41F80943500DEA908 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B48DDAC61F80943500DEA908 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -91,7 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				B4364F7A1F8C78190002B2BB /* Particles */,
-				B48DDABE1F80943500DEA908 /* Main.storyboard */,
 				B48DDAC11F80943500DEA908 /* Assets.xcassets */,
 				B48DDAC31F80943500DEA908 /* LaunchScreen.storyboard */,
 				B480388D223750DD005AF239 /* SKTextureGradient.swift */,
@@ -237,7 +234,6 @@
 				B48DDADE1F8328E400DEA908 /* AeonOceanSparkle.sks in Resources */,
 				4419E9F22241A557007FE456 /* AeonSmokeParticle.sks in Resources */,
 				B4364F831F8C86020002B2BB /* FirstNames in Resources */,
-				B48DDAC01F80943500DEA908 /* Main.storyboard in Resources */,
 				B48DDAC21F80943500DEA908 /* Assets.xcassets in Resources */,
 				4419E9F32241A557007FE456 /* Assets.xcassets in Resources */,
 				B48DDAC51F80943500DEA908 /* LaunchScreen.storyboard in Resources */,
@@ -329,14 +325,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B48DDABE1F80943500DEA908 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B48DDABF1F80943500DEA908 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B48DDAC31F80943500DEA908 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
