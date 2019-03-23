@@ -11,6 +11,7 @@
 
 import SpriteKit
 import UIKit
+import SnapKit
 
 class AeonViewController: UIViewController {
     var scene: AeonTank?
@@ -21,6 +22,27 @@ class AeonViewController: UIViewController {
         UIApplication.shared.isIdleTimerDisabled = true
         view = SKView(frame: UIScreen.main.bounds)
         createTank()
+
+        let menuButton = MenuButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        menuButton.addTarget(self, action: #selector(myButtonAction), for: .touchUpInside)
+
+        view.addSubview(menuButton)
+        menuButton.snp.makeConstraints { (make) in
+            make.width.equalTo(30)
+            make.height.equalTo(30)
+            make.topMargin.equalToSuperview().offset(18)
+            make.rightMargin.equalToSuperview().offset(-18)
+        }
+
+        let populationPill = DataPillView(frame: CGRect(x: 0, y: 0, width: 121, height: 30))
+
+        view.addSubview(populationPill)
+        populationPill.snp.makeConstraints { (make) in
+            make.width.equalTo(121)
+            make.height.equalTo(30)
+            make.right.equalTo(menuButton.snp.left).offset(-18)
+            make.topMargin.equalToSuperview().offset(18)
+        }
     }
 
     override var shouldAutorotate: Bool {
@@ -50,3 +72,10 @@ extension AeonViewController {
         skView!.presentScene(scene)
     }
 }
+
+extension AeonViewController {
+    @objc func myButtonAction(sender: UIButton!) {
+        print("My Button tapped")
+    }
+}
+
