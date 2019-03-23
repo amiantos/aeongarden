@@ -18,6 +18,10 @@ enum CollisionTypes: UInt32 {
     case edge = 4
 }
 
+protocol AeonTankDelegate: class {
+    func updatePopulation(_ population: Int)
+}
+
 class AeonTank: SKScene {
     public var foodPelletCount: Int = 0
     public var creatureCount: Int = 0
@@ -42,6 +46,8 @@ class AeonTank: SKScene {
     private var currentStatusLabel = SKLabelNode(fontNamed: "Helvetica-Light")
 
     private var cameraNode: SKCameraNode = SKCameraNode()
+
+    weak var tankDelegate: AeonTankDelegate?
 
     var selectedCreature: AeonCreature? {
         didSet {
@@ -91,6 +97,7 @@ class AeonTank: SKScene {
         }
 
         if (currentTime - lastUIUpdateTime) >= 1 {
+            tankDelegate?.updatePopulation(creatureCount)
             var foodNodes = 0
             for case _ as AeonFood in children {
                 foodNodes += 1

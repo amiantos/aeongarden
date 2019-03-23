@@ -14,17 +14,25 @@ class MenuButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        backgroundColor = .white
+        backgroundColor = .clear
         layer.cornerRadius = 15
+        clipsToBounds = true
 
+        let gradientView: UIView = UIView(frame: frame)
+        gradientView.isUserInteractionEnabled = false
+        addSubview(gradientView)
+        gradientView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
         let gradientLayer: CAGradientLayer = CAGradientLayer()
         gradientLayer.frame.size = frame.size
         gradientLayer.colors = [
             UIColor.white.cgColor,
             UIColor(hue: 0.5861, saturation: 0.07, brightness: 0.93, alpha: 1.0).cgColor
         ]
-        layer.addSublayer(gradientLayer)
-        clipsToBounds = true
+        gradientView.layer.cornerRadius = 15
+        gradientView.layer.addSublayer(gradientLayer)
+        gradientView.clipsToBounds = true
 
         let buttonIcon = UIImageView()
         buttonIcon.frame = frame
@@ -38,6 +46,12 @@ class MenuButton: UIButton {
             make.height.equalTo(25)
             make.center.equalToSuperview()
         }
+
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.25
+        layer.shadowOffset = CGSize(width: 0, height: 4)
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 15).cgPath
+        layer.masksToBounds = false
     }
 
     required init?(coder aDecoder: NSCoder) {

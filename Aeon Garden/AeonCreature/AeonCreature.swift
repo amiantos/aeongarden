@@ -248,22 +248,22 @@ class AeonCreature: SKNode, Updatable {
         let birthAction = SKAction.scale(to: sizeModififer, duration: 30)
         run(birthAction)
 
-        if let emitter = SKEmitterNode(fileNamed: "AeonSmokeParticle.sks") {
-            emitter.name = "AeonSmokeParticle.sks"
-            emitter.zPosition = 1
-            emitter.targetNode = scene
-            let scaleSequence = SKKeyframeSequence(
-                keyframeValues: [0.1, 0.25, 0.50, 0.75, 1],
-                times: [0, 0.50, 0.70, 0.90, 1]
-            )
-            let alphaSequence = SKKeyframeSequence(
-                keyframeValues: [0.5, 0.6, 0.7, 0.5, 0],
-                times: [0, 0.25, 0.5, 0.75, 1]
-            )
-            emitter.particleAlphaSequence = alphaSequence
-            emitter.particleScaleSequence = scaleSequence
-            addChild(emitter)
-        }
+//        if let emitter = SKEmitterNode(fileNamed: "AeonSmokeParticle.sks") {
+//            emitter.name = "AeonSmokeParticle.sks"
+//            emitter.zPosition = 1
+//            emitter.targetNode = scene
+//            let scaleSequence = SKKeyframeSequence(
+//                keyframeValues: [0.1, 0.25, 0.50, 0.75, 1],
+//                times: [0, 0.50, 0.70, 0.90, 1]
+//            )
+//            let alphaSequence = SKKeyframeSequence(
+//                keyframeValues: [0.5, 0.6, 0.7, 0.5, 0],
+//                times: [0, 0.25, 0.5, 0.75, 1]
+//            )
+//            emitter.particleAlphaSequence = alphaSequence
+//            emitter.particleScaleSequence = scaleSequence
+//            addChild(emitter)
+//        }
     }
 
     func die() {

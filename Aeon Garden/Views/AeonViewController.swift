@@ -17,31 +17,32 @@ class AeonViewController: UIViewController {
     var scene: AeonTank?
     var skView: SKView?
 
+    let menuButton = MenuButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+
+    let populationPill = DataPillView(frame: CGRect(x: 0, y: 0, width: 121, height: 30))
+
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.isIdleTimerDisabled = true
         view = SKView(frame: UIScreen.main.bounds)
         createTank()
 
-        let menuButton = MenuButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         menuButton.addTarget(self, action: #selector(myButtonAction), for: .touchUpInside)
 
         view.addSubview(menuButton)
         menuButton.snp.makeConstraints { (make) in
             make.width.equalTo(30)
             make.height.equalTo(30)
-            make.topMargin.equalToSuperview().offset(18)
+            make.topMargin.equalToSuperview().offset(36)
             make.rightMargin.equalToSuperview().offset(-18)
         }
 
-        let populationPill = DataPillView(frame: CGRect(x: 0, y: 0, width: 121, height: 30))
-
         view.addSubview(populationPill)
         populationPill.snp.makeConstraints { (make) in
-            make.width.equalTo(121)
+            make.width.equalTo(130)
             make.height.equalTo(30)
-            make.right.equalTo(menuButton.snp.left).offset(-18)
-            make.topMargin.equalToSuperview().offset(18)
+            make.right.equalTo(menuButton.snp.left).offset(-16)
+            make.topMargin.equalToSuperview().offset(36)
         }
     }
 
@@ -63,9 +64,16 @@ class AeonViewController: UIViewController {
     }
 }
 
+extension AeonViewController: AeonTankDelegate {
+    func updatePopulation(_ population: Int) {
+        populationPill.number = population
+    }
+}
+
 extension AeonViewController {
     fileprivate func createTank() {
         scene = AeonTank(size: view.bounds.size)
+        scene?.tankDelegate = self
         skView = view as? SKView
         scene!.scaleMode = .aspectFill
         scene!.backgroundColor = UIColor(red: 0.0706, green: 0.1961, blue: 0.2471, alpha: 1.0) /* #12323f */
@@ -78,4 +86,3 @@ extension AeonViewController {
         print("My Button tapped")
     }
 }
-
