@@ -20,6 +20,7 @@ class AeonViewController: UIViewController {
     let menuButton = MenuButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
 
     let populationPill = DataPillView(frame: CGRect(x: 0, y: 0, width: 121, height: 30))
+    let foodPill = DataPillView(frame: CGRect(x: 0, y: 0, width: 121, height: 30))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,13 +38,22 @@ class AeonViewController: UIViewController {
             make.rightMargin.equalToSuperview().offset(-18)
         }
 
-        view.addSubview(populationPill)
-        populationPill.snp.makeConstraints { (make) in
-            make.width.equalTo(130)
-            make.height.equalTo(30)
+        view.addSubview(foodPill)
+        foodPill.title = "Food"
+        foodPill.snp.makeConstraints { (make) in
+            make.height.greaterThanOrEqualTo(30)
             make.right.equalTo(menuButton.snp.left).offset(-16)
             make.topMargin.equalToSuperview().offset(36)
         }
+
+        view.addSubview(populationPill)
+        populationPill.title = "Population"
+        populationPill.snp.makeConstraints { (make) in
+            make.height.greaterThanOrEqualTo(30)
+            make.right.equalTo(foodPill.snp.left).offset(-16)
+            make.topMargin.equalToSuperview().offset(36)
+        }
+
     }
 
     override var shouldAutorotate: Bool {
@@ -65,6 +75,10 @@ class AeonViewController: UIViewController {
 }
 
 extension AeonViewController: AeonTankDelegate {
+    func updateFood(_ food: Int) {
+        foodPill.number = food
+    }
+
     func updatePopulation(_ population: Int) {
         populationPill.number = population
     }

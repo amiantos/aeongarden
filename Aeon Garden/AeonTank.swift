@@ -20,6 +20,7 @@ enum CollisionTypes: UInt32 {
 
 protocol AeonTankDelegate: class {
     func updatePopulation(_ population: Int)
+    func updateFood(_ food: Int)
 }
 
 class AeonTank: SKScene {
@@ -98,20 +99,23 @@ class AeonTank: SKScene {
 
         if (currentTime - lastUIUpdateTime) >= 1 {
             tankDelegate?.updatePopulation(creatureCount)
+
             var foodNodes = 0
             for case _ as AeonFood in children {
                 foodNodes += 1
             }
             foodPelletCount = foodNodes
 
-            totalTankTime += (currentTime - lastUIUpdateTime)
-            let time = toTimestamp(timeInterval: totalTankTime)
-            creatureCountLabel.text = "Alive: \(creatureCount)   "
-                + "Deaths: \(deathCount)   "
-                + "Births: \(birthCount)   "
-                + "Pellets: \(foodPelletCount)   "
-                + "Time: \(time)"
-            lastUIUpdateTime = currentTime
+            tankDelegate?.updateFood(foodPelletCount)
+
+//            totalTankTime += (currentTime - lastUIUpdateTime)
+//            let time = toTimestamp(timeInterval: totalTankTime)
+//            creatureCountLabel.text = "Alive: \(creatureCount)   "
+//                + "Deaths: \(deathCount)   "
+//                + "Births: \(birthCount)   "
+//                + "Pellets: \(foodPelletCount)   "
+//                + "Time: \(time)"
+//            lastUIUpdateTime = currentTime
         }
 
         if (currentTime - lastFoodTime) >= 2,
@@ -333,20 +337,20 @@ extension AeonTank {
     }
 
     fileprivate func setupCreatureCountUI() {
-        creatureCountShape.fillColor = .clear
-        creatureCountShape.alpha = 0.9
-        creatureCountShape.name = "creatureCount"
-        cameraNode.addChild(creatureCountShape)
-        creatureCountShape.path = UIBezierPath(
-            roundedRect: CGRect(x: -475, y: -30, width: 950, height: 60),
-            cornerRadius: 10
-        ).cgPath
-        creatureCountShape.zPosition = 20
-        creatureCountShape.position = CGPoint(x: 0, y: (frame.size.height / 2) - 80)
-        creatureCountLabel.zPosition = 20
-        creatureCountLabel.fontColor = .white
-        creatureCountShape.addChild(creatureCountLabel)
-        creatureCountLabel.position = CGPoint(x: 0, y: -11)
+//        creatureCountShape.fillColor = .clear
+//        creatureCountShape.alpha = 0.9
+//        creatureCountShape.name = "creatureCount"
+//        cameraNode.addChild(creatureCountShape)
+//        creatureCountShape.path = UIBezierPath(
+//            roundedRect: CGRect(x: -475, y: -30, width: 950, height: 60),
+//            cornerRadius: 10
+//        ).cgPath
+//        creatureCountShape.zPosition = 20
+//        creatureCountShape.position = CGPoint(x: 0, y: (frame.size.height / 2) - 80)
+//        creatureCountLabel.zPosition = 20
+//        creatureCountLabel.fontColor = .white
+//        creatureCountShape.addChild(creatureCountLabel)
+//        creatureCountLabel.position = CGPoint(x: 0, y: -11)
     }
 
     fileprivate func setupCreatureStatsUI() {
