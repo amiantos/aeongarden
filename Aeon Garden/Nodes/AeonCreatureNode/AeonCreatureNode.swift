@@ -202,7 +202,7 @@ class AeonCreatureNode: SKNode, Updatable {
             } else if distanceToTarget < 75 {
                 adjustedMovementSpeed *= 0.4
             } else if distanceToTarget < 30 {
-                adjustedMovementSpeed *= 0.1
+                adjustedMovementSpeed *= 0.05
             }
 
             let thrustVector: CGVector = CGVector(
@@ -220,10 +220,21 @@ class AeonCreatureNode: SKNode, Updatable {
             goalAngle = convertRadiansToPi(goalAngle)
 
             let angleDifference = convertRadiansToPi(goalAngle - creatureAngle)
-            let angleDivisor: CGFloat = 700
+            let angleDivisor: CGFloat = 600
 
             physicsBody?.applyTorque(angleDifference / angleDivisor)
         }
+    }
+
+    fileprivate func scaleAnimation() {
+        let currentSize = (xScale + yScale) / 2
+        let scaleUp = SKAction.scale(to: currentSize * 1.2, duration: 0.3)
+        let scaleDown = SKAction.scale(to: currentSize * 0.8, duration: 0.3)
+        let scaleBounce = SKAction.scale(to: currentSize * 1.1, duration: 0.3)
+        let scaleBounceIn = SKAction.scale(to: currentSize * 0.9, duration: 0.2)
+        let scaleBounceBack = SKAction.scale(to: currentSize, duration: 0.2)
+        let scaleSequence = SKAction.sequence([scaleUp, scaleDown, scaleBounce, scaleBounceIn, scaleBounceBack])
+        run(scaleSequence)
     }
 
     // MARK: - Lifecycle
@@ -298,6 +309,8 @@ class AeonCreatureNode: SKNode, Updatable {
         currentHealth /= 2
         printThought("That was nice!", emoji: "🥰")
         brain?.mated()
+
+        scaleAnimation()
     }
 
     func fed() {
@@ -305,13 +318,7 @@ class AeonCreatureNode: SKNode, Updatable {
         printThought("Yum!", emoji: "🍽")
         brain?.fed()
 
-        let currentSize = (xScale + yScale) / 2
-        let scaleUp = SKAction.scale(to: currentSize * 1.2, duration: 0.5)
-        let scaleDown = SKAction.scale(to: currentSize, duration: 0.5)
-        let scaleSequence = SKAction.sequence([scaleUp, scaleDown])
-        scaleSequence.timingMode = .easeInEaseOut
-        run(scaleSequence)
-
+        scaleAnimation()
     }
 
     func lifeTimeFormattedAsString() -> String {
