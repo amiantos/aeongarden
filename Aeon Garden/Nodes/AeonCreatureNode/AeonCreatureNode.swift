@@ -191,17 +191,6 @@ class AeonCreatureNode: SKNode, Updatable {
 
     func move() {
         if let toCGPoint = currentTarget?.position {
-            // Rotation
-            var goalAngle = angleBetween(pointOne: position, andPointTwo: toCGPoint)
-            var creatureAngle = atan2(physicsBody!.velocity.dy, physicsBody!.velocity.dx) - (CGFloat.pi / 2)
-
-            creatureAngle = convertRadiansToPi(creatureAngle)
-            goalAngle = convertRadiansToPi(goalAngle)
-
-            let angleDifference = convertRadiansToPi(goalAngle - creatureAngle)
-
-            physicsBody?.applyTorque(angleDifference / 750)
-
             // Thrust
             let radianFactor: CGFloat = CGFloat.pi / 180
             let rotationInDegrees = zRotation / radianFactor
@@ -213,9 +202,9 @@ class AeonCreatureNode: SKNode, Updatable {
             if distanceToTarget < 150 {
                 adjustedMovementSpeed *= 0.75
             } else if distanceToTarget < 75 {
-                adjustedMovementSpeed *= 0.5
+                adjustedMovementSpeed *= 0.4
             } else if distanceToTarget < 30 {
-                adjustedMovementSpeed *= 0.3
+                adjustedMovementSpeed *= 0.1
             }
 
             let thrustVector: CGVector = CGVector(
@@ -224,6 +213,23 @@ class AeonCreatureNode: SKNode, Updatable {
             )
 
             physicsBody?.applyForce(thrustVector)
+
+            // Rotation
+            var goalAngle = angleBetween(pointOne: position, andPointTwo: toCGPoint)
+            var creatureAngle = atan2(physicsBody!.velocity.dy, physicsBody!.velocity.dx) - (CGFloat.pi / 2)
+
+            creatureAngle = convertRadiansToPi(creatureAngle)
+            goalAngle = convertRadiansToPi(goalAngle)
+
+            let angleDifference = convertRadiansToPi(goalAngle - creatureAngle)
+
+            print("Difference:", angleDifference)
+            var angleDivisor: CGFloat = 650
+            if abs(angleDifference) < 0.5 {
+                angleDivisor = 350
+            }
+
+            physicsBody?.applyTorque(angleDifference / angleDivisor)
         }
     }
 
