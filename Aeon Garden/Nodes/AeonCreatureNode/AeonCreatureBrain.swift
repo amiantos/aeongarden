@@ -125,20 +125,18 @@ class AeonCreatureBrain: Updatable {
     }
 
     public func locateFood() {
-        var foodArray = [(interestedCreatures: Int, distance: CGFloat, node: AeonFoodNode)]()
+        var foodArray = [(rating: CGFloat, node: AeonFoodNode)]()
         let nodes = getFoodNodes()
         for child in nodes {
-            let distance = getDistance(toNode: child)
+            var rating: CGFloat = 0
             if child == currentFoodTarget {
-                foodArray.append((child.interestedCreatures - 1, distance, child))
+                rating = getDistance(toNode: child) + (CGFloat(child.interestedCreatures) * 30) - 30.0
             } else {
-                foodArray.append((child.interestedCreatures, distance, child))
+                rating = getDistance(toNode: child) + (CGFloat(child.interestedCreatures) * 30)
             }
+            foodArray.append((rating, child))
         }
-        foodArray.sort(by: { $0.distance < $1.distance })
-        let prefix = foodArray.count < 5 ? foodArray.count : 5
-        foodArray = Array(foodArray.prefix(upTo: prefix))
-        foodArray.sort(by: { $0.interestedCreatures < $1.interestedCreatures })
+        foodArray.sort(by: { $0.rating < $1.rating })
         if foodArray.count > 0 {
             if currentFoodTarget != foodArray[0].node {
                 currentFoodTarget?.interestedCreatures -= 1
