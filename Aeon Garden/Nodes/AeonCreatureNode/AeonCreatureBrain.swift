@@ -130,9 +130,9 @@ class AeonCreatureBrain: Updatable {
         for child in nodes {
             var rating: CGFloat = 0
             if child == currentFoodTarget {
-                rating = getDistance(toNode: child) + (CGFloat(child.interestedCreatures) * 30) - 30.0
+                rating = getDistance(toNode: child) + (CGFloat(child.interestedCreatures) * 100) - 100.0
             } else {
-                rating = getDistance(toNode: child) + (CGFloat(child.interestedCreatures) * 30)
+                rating = getDistance(toNode: child) + (CGFloat(child.interestedCreatures) * 100)
             }
             foodArray.append((rating, child))
         }
