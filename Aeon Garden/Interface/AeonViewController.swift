@@ -59,6 +59,7 @@ class AeonViewController: UIViewController {
             make.center.equalToSuperview()
             make.size.equalTo(300)
         }
+        menuView.isHidden = true
     }
 
     override var shouldAutorotate: Bool {
@@ -102,6 +103,6 @@ extension AeonViewController {
 
 extension AeonViewController {
     @objc func myButtonAction(sender _: UIButton!) {
-        print("My Button tapped")
+        menuView.isHidden.toggle()
     }
 }
