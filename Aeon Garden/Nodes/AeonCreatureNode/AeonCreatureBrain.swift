@@ -88,15 +88,14 @@ class AeonCreatureBrain: Updatable {
         let deltaTime = currentTime - lastUpdateTime
         if deltaTime <= 1 {
             let currentHealth = getCurrentHealth()
-            if currentHealth >= 300 {
+            if currentHealth >= 400 {
                 currentFeeling = .horny
-            } else if currentHealth <= 150 {
+            } else if currentHealth <= 200 {
                 currentFeeling = .hungry
+            } else if currentHealth <= 300,
+                currentFeeling == .horny {
+                currentFeeling = .bored
             }
-//          Maybe playtime will return in the future
-//          } else if currentHealth <= 400, currentFeeling == .horny {
-//              currentFeeling = .bored
-//          }
             stateMachine?.update(deltaTime: deltaTime)
             lastUpdateTime = currentTime
         }
@@ -121,8 +120,10 @@ class AeonCreatureBrain: Updatable {
         creatureDifferenceArray.sort(by: { $0.rating < $1.rating })
 
         if creatureDifferenceArray.count > 0 {
-            currentLoveTarget = creatureDifferenceArray[0].node
-            setCurrentTarget(node: currentLoveTarget!)
+            if creatureDifferenceArray[0].node != currentLoveTarget {
+                currentLoveTarget = creatureDifferenceArray[0].node
+                setCurrentTarget(node: currentLoveTarget!)
+            }
         }
     }
 
@@ -150,23 +151,22 @@ class AeonCreatureBrain: Updatable {
     }
 
     public func analyzePlayTarget() {
-        if let playTarget = currentPlayTarget, getDistance(toNode: playTarget) < 100 {
-            currentPlayTarget = nil
-        }
+//        if let playTarget = currentPlayTarget, getDistance(toNode: playTarget) < 100 {
+//            currentPlayTarget = nil
+//        }
     }
 
     public func locatePlayTarget() {
-        var ratedNodeArray: [SKNode] = []
+        var ballArray = [(rating: CGFloat, node: SKNode)]()
         let nodes = getEligiblePlayMates()
         for child in nodes {
             let distance = getDistance(toNode: child)
-            if distance > 200 {
-                ratedNodeArray.append(child)
-            }
+            ballArray.append((distance, child))
         }
-        if let playTarget = ratedNodeArray.randomElement() {
+        ballArray.sort(by: { $0.rating < $1.rating })
+        if let playTarget = ballArray.first?.node {
             currentPlayTarget = playTarget
-            setCurrentTarget(node: playTarget)
+            setCurrentTarget(node: currentPlayTarget)
         }
     }
 }
@@ -190,7 +190,7 @@ extension AeonCreatureBrain: AeonCreatureBrainDelegate {
     }
 
     func getEligiblePlayMates() -> [SKNode] {
-        return delegate!.getEligibleMates()
+        return delegate!.getEligiblePlayMates()
     }
 
     func rateMate(_ mate: AeonCreatureNode) -> CGFloat {

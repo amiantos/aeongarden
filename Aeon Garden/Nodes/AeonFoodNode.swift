@@ -29,7 +29,7 @@ class AeonFoodNode: SKNode, Updatable {
 
         physicsBody = SKPhysicsBody(circleOfRadius: 5)
         physicsBody?.categoryBitMask = CollisionTypes.food.rawValue
-        physicsBody?.collisionBitMask = CollisionTypes.edge.rawValue | CollisionTypes.creature.rawValue
+        physicsBody?.collisionBitMask = CollisionTypes.edge.rawValue | CollisionTypes.creature.rawValue | CollisionTypes.ball.rawValue
         physicsBody?.affectedByGravity = false
         physicsBody?.restitution = 1
         physicsBody?.linearDamping = 0.5

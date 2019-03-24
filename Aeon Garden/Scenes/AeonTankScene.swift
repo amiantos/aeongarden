@@ -16,6 +16,7 @@ enum CollisionTypes: UInt32 {
     case creature = 1
     case food = 2
     case edge = 4
+    case ball = 8
 }
 
 protocol AeonTankDelegate: class {
@@ -80,6 +81,7 @@ class AeonTankScene: SKScene {
         setupBackgroundAnimation()
         setupCreatureStatsUI()
         createInitialCreatures()
+        createInitialBalls()
     }
 
     override func didMove(to _: SKView) {
@@ -195,13 +197,23 @@ extension AeonTankScene {
     fileprivate func createInitialCreatures() {
         var totalCreatures: Int = 0
         var initialCreatureHue: CGFloat = 0
-        let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(creatureMinimum))
+        let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(20))
 
-        while totalCreatures < creatureMinimum {
+        while totalCreatures < 20 {
             addNewCreatureToScene(withPrimaryHue: initialCreatureHue)
             addFoodPelletToScene()
             totalCreatures += 1
             initialCreatureHue += colorHueIncrement
+        }
+    }
+
+    fileprivate func createInitialBalls() {
+        let totalBalls = 10
+        var currentBalls = 0
+
+        while currentBalls < totalBalls {
+            addBallToScene()
+            currentBalls += 1
         }
     }
 
@@ -226,6 +238,16 @@ extension AeonTankScene {
         )
         aeonFood.zRotation = randomCGFloat(min: 0, max: 10)
         addChild(aeonFood)
+    }
+
+    fileprivate func addBallToScene() {
+        let aeonBall = AeonBallNode()
+        aeonBall.position = CGPoint(
+            x: randomCGFloat(min: size.width * 0.05, max: size.width * 0.95),
+            y: randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)
+        )
+        aeonBall.zRotation = randomCGFloat(min: 0, max: 10)
+        addChild(aeonBall)
     }
 }
 

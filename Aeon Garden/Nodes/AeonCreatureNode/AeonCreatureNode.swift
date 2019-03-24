@@ -37,7 +37,7 @@ class AeonCreatureNode: SKNode, Updatable {
 
     // MARK: - Health
 
-    public private(set) var currentHealth: Float = Float(randomInteger(min: 100, max: 300)) {
+    public private(set) var currentHealth: Float = Float(randomInteger(min: 100, max: 500)) {
         didSet {
             if currentHealth <= 0 {
                 die()
@@ -136,7 +136,8 @@ class AeonCreatureNode: SKNode, Updatable {
         physicsBody?.collisionBitMask = CollisionTypes.creature.rawValue | CollisionTypes.food.rawValue
         physicsBody?.contactTestBitMask = CollisionTypes.creature.rawValue | CollisionTypes.food.rawValue
         physicsBody?.affectedByGravity = false
-        physicsBody?.restitution = 1
+        physicsBody?.restitution = 0.8
+        physicsBody?.friction = 0
         physicsBody?.mass = 1
         physicsBody?.linearDamping = 0.5
         physicsBody?.angularDamping = 1
@@ -197,12 +198,15 @@ class AeonCreatureNode: SKNode, Updatable {
 
             var adjustedMovementSpeed = movementSpeed
             let distanceToTarget = distance(point: toCGPoint)
-            if distanceToTarget < 150 {
-                adjustedMovementSpeed *= 0.75
-            } else if distanceToTarget < 75 {
-                adjustedMovementSpeed *= 0.4
-            } else if distanceToTarget < 30 {
-                adjustedMovementSpeed *= 0.05
+
+            if currentTarget is AeonCreatureNode || currentTarget is AeonFoodNode {
+                if distanceToTarget < 150 {
+                    adjustedMovementSpeed *= 0.75
+                } else if distanceToTarget < 75 {
+                    adjustedMovementSpeed *= 0.4
+                } else if distanceToTarget < 30 {
+                    adjustedMovementSpeed *= 0.05
+                }
             }
 
             let thrustVector: CGVector = CGVector(
@@ -314,7 +318,7 @@ class AeonCreatureNode: SKNode, Updatable {
     }
 
     func fed() {
-        currentHealth += Float(randomCGFloat(min: 30, max: 80))
+        currentHealth += Float(randomCGFloat(min: 80, max: 160))
         printThought("Yum!", emoji: "🍽")
         brain?.fed()
 
@@ -365,8 +369,7 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
         var playMates: [SKNode] = []
         let nodes = getNodes()
         for child in nodes where
-            child != self
-            && (child is AeonFoodNode || child is AeonCreatureNode) {
+            child is AeonBallNode {
             playMates.append(child)
         }
         return playMates
