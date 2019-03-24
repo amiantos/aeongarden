@@ -1,5 +1,5 @@
 //
-//  AeonBallNode.swift
+//  AeonBubbleNode.swift
 //  Aeon Garden
 //
 //  Created by Bradley Root on 3/24/19.
@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class AeonBallNode: SKNode, Updatable {
+class AeonBubbleNode: SKNode, Updatable {
     private var maxLifeTime: Float = 25
     private var lifeTime: Float = 0 {
         didSet {

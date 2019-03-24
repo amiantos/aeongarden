@@ -369,7 +369,7 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
         var playMates: [SKNode] = []
         let nodes = getNodes()
         for child in nodes where
-            child is AeonBallNode {
+            child is AeonBubbleNode {
             playMates.append(child)
         }
         return playMates

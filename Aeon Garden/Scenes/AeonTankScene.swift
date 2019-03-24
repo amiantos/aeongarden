@@ -247,7 +247,7 @@ extension AeonTankScene {
     }
 
     fileprivate func addBallToScene() {
-        let aeonBall = AeonBallNode()
+        let aeonBall = AeonBubbleNode()
         aeonBall.position = CGPoint(
             x: randomCGFloat(min: size.width * 0.05, max: size.width * 0.95),
             y: randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)
@@ -305,12 +305,12 @@ extension AeonTankScene: SKPhysicsContactDelegate {
         }
 
         if contact.bodyA.categoryBitMask == CollisionTypes.ball.rawValue,
-            let ball = contact.bodyA.node as? AeonBallNode {
+            let ball = contact.bodyA.node as? AeonBubbleNode {
             ball.dieQuick()
         }
 
         if contact.bodyB.categoryBitMask == CollisionTypes.ball.rawValue,
-            let ball = contact.bodyB.node as? AeonBallNode {
+            let ball = contact.bodyB.node as? AeonBubbleNode {
             ball.dieQuick()
         }
     }
