@@ -12,7 +12,7 @@
 import UIKit
 
 extension UIColor {
-    static let aeonUIBackgroundLight = UIColor(hue: 0.5861, saturation: 0.07, brightness: 0.93, alpha: 1.0)
-    static let aeonUIBackgroundDark = UIColor(hue: 0.5861, saturation: 0.24, brightness: 0.89, alpha: 1.0)
-    static let aeonTintColor = UIColor(hue: 0.5778, saturation: 0.62, brightness: 0.49, alpha: 1.0)
+    static let aeonUIBackgroundLight = UIColor(hue: 0.5861, saturation: 0.07, brightness: 0.93, alpha: 0.7)
+    static let aeonUIBackgroundDark = UIColor(hue: 0.5861, saturation: 0.24, brightness: 0.89, alpha: 0.7)
+    static let aeonTintColor = UIColor(hue: 0.5778, saturation: 0.62, brightness: 0.39, alpha: 1.0)
 }

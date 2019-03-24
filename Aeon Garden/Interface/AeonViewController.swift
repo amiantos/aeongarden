@@ -34,10 +34,34 @@ class AeonViewController: UIViewController {
 
         view.addSubview(menuButton)
         menuButton.snp.makeConstraints { make in
-            make.width.equalTo(30)
-            make.height.equalTo(30)
+            make.width.equalTo(36)
+            make.height.equalTo(36)
             make.topMargin.equalToSuperview().offset(36)
             make.rightMargin.equalToSuperview().offset(-18)
+        }
+
+        view.addSubview(foodDataPill)
+        foodDataPill.title = "Food"
+        foodDataPill.snp.makeConstraints { make in
+            make.height.greaterThanOrEqualTo(30)
+            make.rightMargin.equalToSuperview().offset(-18)
+            make.bottomMargin.equalToSuperview().offset(-36)
+        }
+
+        view.addSubview(deathsDataPill)
+        deathsDataPill.title = "Deaths"
+        deathsDataPill.snp.makeConstraints { make in
+            make.height.greaterThanOrEqualTo(30)
+            make.rightMargin.equalToSuperview().offset(-18)
+            make.bottom.equalTo(foodDataPill.snp.top).offset(-36)
+        }
+
+        view.addSubview(birthsDataPill)
+        birthsDataPill.title = "Births"
+        birthsDataPill.snp.makeConstraints { make in
+            make.height.greaterThanOrEqualTo(30)
+            make.rightMargin.equalToSuperview().offset(-18)
+            make.bottom.equalTo(deathsDataPill.snp.top).offset(-18)
         }
 
         view.addSubview(populationDataPill)
@@ -45,31 +69,7 @@ class AeonViewController: UIViewController {
         populationDataPill.snp.makeConstraints { make in
             make.height.greaterThanOrEqualTo(30)
             make.rightMargin.equalToSuperview().offset(-18)
-            make.top.equalTo(menuButton.snp.bottom).offset(18)
-        }
-
-        view.addSubview(birthsDataPill)
-        birthsDataPill.title = "Births"
-        birthsDataPill.snp.makeConstraints { make in
-            make.height.greaterThanOrEqualTo(30)
-            make.right.equalTo(populationDataPill.snp.right)
-            make.top.equalTo(populationDataPill.snp.bottom).offset(16)
-        }
-
-        view.addSubview(deathsDataPill)
-        deathsDataPill.title = "Deaths"
-        deathsDataPill.snp.makeConstraints { make in
-            make.height.greaterThanOrEqualTo(30)
-            make.right.equalTo(populationDataPill.snp.right)
-            make.top.equalTo(birthsDataPill.snp.bottom).offset(16)
-        }
-
-        view.addSubview(foodDataPill)
-        foodDataPill.title = "Food"
-        foodDataPill.snp.makeConstraints { make in
-            make.height.greaterThanOrEqualTo(30)
-            make.right.equalTo(populationDataPill.snp.right)
-            make.top.equalTo(deathsDataPill.snp.bottom).offset(22)
+            make.bottom.equalTo(birthsDataPill.snp.top).offset(-18)
         }
 
         view.addSubview(menuView)

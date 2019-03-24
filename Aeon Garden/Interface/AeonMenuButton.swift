@@ -17,7 +17,7 @@ class AeonMenuButton: UIButton {
         super.init(frame: frame)
 
         backgroundColor = .aeonUIBackgroundLight
-        layer.cornerRadius = 15
+        layer.cornerRadius = 18
         clipsToBounds = true
 
         let buttonIcon = UIImageView()
