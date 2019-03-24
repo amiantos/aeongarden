@@ -21,6 +21,8 @@ enum CollisionTypes: UInt32 {
 protocol AeonTankDelegate: class {
     func updatePopulation(_ population: Int)
     func updateFood(_ food: Int)
+    func updateBirths(_ births: Int)
+    func updateDeaths(_ deaths: Int)
 }
 
 class AeonTankScene: SKScene {
@@ -99,6 +101,8 @@ class AeonTankScene: SKScene {
 
         if (currentTime - lastUIUpdateTime) >= 1 {
             tankDelegate?.updatePopulation(creatureCount)
+            tankDelegate?.updateBirths(birthCount)
+            tankDelegate?.updateDeaths(deathCount)
 
             var foodNodes = 0
             for case _ as AeonFoodNode in children {

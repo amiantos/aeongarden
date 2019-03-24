@@ -17,9 +17,11 @@ class AeonViewController: UIViewController {
     var scene: AeonTankScene?
     var skView: SKView?
 
-    let menuButton = AeonMenuButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-    let populationDataPill = AeonDataPillView(frame: CGRect(x: 0, y: 0, width: 121, height: 30))
-    let foodDataPill = AeonDataPillView(frame: CGRect(x: 0, y: 0, width: 121, height: 30))
+    let menuButton = AeonMenuButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    let populationDataPill = AeonDataPillView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    let deathsDataPill = AeonDataPillView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    let birthsDataPill = AeonDataPillView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    let foodDataPill = AeonDataPillView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     let menuView = AeonMenuView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 
     override func viewDidLoad() {
@@ -54,6 +56,22 @@ class AeonViewController: UIViewController {
             make.topMargin.equalToSuperview().offset(36)
         }
 
+        view.addSubview(birthsDataPill)
+        birthsDataPill.title = "Births"
+        birthsDataPill.snp.makeConstraints { make in
+            make.height.greaterThanOrEqualTo(30)
+            make.right.equalTo(populationDataPill.snp.right)
+            make.top.equalTo(populationDataPill.snp.bottom).offset(16)
+        }
+
+        view.addSubview(deathsDataPill)
+        deathsDataPill.title = "Deaths"
+        deathsDataPill.snp.makeConstraints { make in
+            make.height.greaterThanOrEqualTo(30)
+            make.right.equalTo(populationDataPill.snp.right)
+            make.top.equalTo(birthsDataPill.snp.bottom).offset(16)
+        }
+
         view.addSubview(menuView)
         menuView.snp.makeConstraints { make in
             make.center.equalToSuperview()
@@ -81,6 +99,14 @@ class AeonViewController: UIViewController {
 }
 
 extension AeonViewController: AeonTankDelegate {
+    func updateBirths(_ births: Int) {
+        birthsDataPill.number = births
+    }
+
+    func updateDeaths(_ deaths: Int) {
+        deathsDataPill.number = deaths
+    }
+
     func updateFood(_ food: Int) {
         foodDataPill.number = food
     }
