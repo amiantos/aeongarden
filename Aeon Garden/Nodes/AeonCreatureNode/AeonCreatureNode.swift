@@ -131,7 +131,7 @@ class AeonCreatureNode: SKNode, Updatable {
     }
 
     private func setupBodyPhysics() {
-        physicsBody = SKPhysicsBody(circleOfRadius: 13)
+        physicsBody = SKPhysicsBody(circleOfRadius: 16)
         physicsBody?.categoryBitMask = CollisionTypes.creature.rawValue
         physicsBody?.collisionBitMask = CollisionTypes.creature.rawValue | CollisionTypes.food.rawValue
         physicsBody?.contactTestBitMask = CollisionTypes.creature.rawValue | CollisionTypes.food.rawValue
@@ -297,11 +297,21 @@ class AeonCreatureNode: SKNode, Updatable {
         currentTarget = nil
         currentHealth /= 2
         printThought("That was nice!", emoji: "🥰")
+        brain?.mated()
     }
 
     func fed() {
         currentHealth += Float(randomCGFloat(min: 30, max: 80))
         printThought("Yum!", emoji: "🍽")
+        brain?.fed()
+
+        let currentSize = (xScale + yScale) / 2
+        let scaleUp = SKAction.scale(to: currentSize * 1.2, duration: 0.5)
+        let scaleDown = SKAction.scale(to: currentSize, duration: 0.5)
+        let scaleSequence = SKAction.sequence([scaleUp, scaleDown])
+        scaleSequence.timingMode = .easeInEaseOut
+        run(scaleSequence)
+
     }
 
     func lifeTimeFormattedAsString() -> String {

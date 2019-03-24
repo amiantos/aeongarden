@@ -11,11 +11,6 @@
 
 import GameKit
 
-protocol Updatable {
-    func update(_ currentTime: TimeInterval)
-    var lastUpdateTime: TimeInterval { get set }
-}
-
 func toTimestamp(timeInterval: TimeInterval) -> String {
     let totalSeconds: Float = Float(timeInterval)
     let hours = Int(totalSeconds / 3600)

@@ -29,6 +29,8 @@ protocol AeonCreatureBrainDelegate: class {
     func rateMate(_ mate: AeonCreatureNode) -> CGFloat
 
     func die()
+    func mated()
+    func fed()
 
     func printThought(_ message: String, emoji: String?)
 }
@@ -130,9 +132,9 @@ class AeonCreatureBrain: Updatable {
         for child in nodes {
             var rating: CGFloat = 0
             if child == currentFoodTarget {
-                rating = getDistance(toNode: child) + (CGFloat(child.interestedCreatures) * 100) - 100.0
+                rating = getDistance(toNode: child) + (CGFloat(child.interestedCreatures) * 250) - 250.0
             } else {
-                rating = getDistance(toNode: child) + (CGFloat(child.interestedCreatures) * 100)
+                rating = getDistance(toNode: child) + (CGFloat(child.interestedCreatures) * 250)
             }
             foodArray.append((rating, child))
         }
@@ -158,7 +160,7 @@ class AeonCreatureBrain: Updatable {
         let nodes = getEligiblePlayMates()
         for child in nodes {
             let distance = getDistance(toNode: child)
-            if distance > 100 {
+            if distance > 200 {
                 ratedNodeArray.append(child)
             }
         }
@@ -170,12 +172,21 @@ class AeonCreatureBrain: Updatable {
 }
 
 extension AeonCreatureBrain: AeonCreatureBrainDelegate {
-    func getCurrentHealth() -> Float {
-        return delegate!.getCurrentHealth()
+    func mated() {
+        currentLoveTarget = nil
+        stateMachine?.enter(WanderingState.self)
+    }
+
+    func fed() {
+        currentFoodTarget = nil
     }
 
     func die() {
         stateMachine?.enter(DeadState.self)
+    }
+
+    func getCurrentHealth() -> Float {
+        return delegate!.getCurrentHealth()
     }
 
     func getEligiblePlayMates() -> [SKNode] {

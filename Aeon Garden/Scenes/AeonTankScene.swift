@@ -220,9 +220,10 @@ extension AeonTankScene {
 
     fileprivate func addFoodPelletToScene() {
         let aeonFood = AeonFoodNode()
-        let foodPositionX = randomCGFloat(min: size.width * 0.05, max: size.width * 0.95)
-        let foodPositionY = randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)
-        aeonFood.position = CGPoint(x: foodPositionX, y: foodPositionY)
+        aeonFood.position = CGPoint(
+            x: randomCGFloat(min: size.width * 0.05, max: size.width * 0.95),
+            y: randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)
+        )
         aeonFood.zRotation = randomCGFloat(min: 0, max: 10)
         addChild(aeonFood)
     }
@@ -260,16 +261,20 @@ extension AeonTankScene: SKPhysicsContactDelegate {
         if contact.bodyA.categoryBitMask == CollisionTypes.food.rawValue,
             contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyB.node as? AeonCreatureNode,
-                let food = contact.bodyA.node as? AeonFoodNode {
-                creature.fed()
-                food.eaten()
+                let food = contact.bodyA.node as? AeonFoodNode,
+                creature.currentTarget == food {
+                    creature.fed()
+//                    food.eaten()
+                    food.eaten(animateTo: creature.position)
             }
         } else if contact.bodyB.categoryBitMask == CollisionTypes.food.rawValue,
             contact.bodyA.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyA.node as? AeonCreatureNode,
-                let food = contact.bodyB.node as? AeonFoodNode {
-                creature.fed()
-                food.eaten()
+                let food = contact.bodyB.node as? AeonFoodNode,
+                creature.currentTarget == food {
+                    creature.fed()
+//                    food.eaten()
+                    food.eaten(animateTo: creature.position)
             }
         }
     }
