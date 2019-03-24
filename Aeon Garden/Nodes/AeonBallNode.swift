@@ -35,19 +35,20 @@ class AeonBallNode: SKNode, Updatable {
         zPosition = 1
 
         let ballColor = SKShapeNode(circleOfRadius: 16)
-        ballColor.fillColor = UIColor(hue: 0.5472, saturation: 1, brightness: 0.68, alpha: 0.4) /* #007cad */
+        ballColor.fillColor = UIColor(hue: 0.5472, saturation: 1, brightness: 0.68, alpha: 1) /* #007cad */
         ballColor.strokeColor = .clear
         ballColor.zPosition = 1
         addChild(ballColor)
 
         alpha = 0
-        let fadeInAction = SKAction.fadeIn(withDuration: 10)
+        let fadeMax = randomCGFloat(min: 0.2, max: 0.5)
+        let fadeInAction = SKAction.fadeAlpha(to: fadeMax, duration: 10)
         setScale(0.2)
         let scaleMax = randomCGFloat(min: 0.4, max: 0.8)
         let scaleInAction = SKAction.scale(to: scaleMax, duration: 10)
         run(SKAction.group([fadeInAction, scaleInAction]))
 
-        let floatUp = SKAction.moveBy(x: 0, y: 2, duration: 0.2)
+        let floatUp = SKAction.moveBy(x: 0, y: randomCGFloat(min: 1, max: 3), duration: 0.2)
         run(SKAction.repeatForever(floatUp))
 
         let shiftLeft = SKAction.moveBy(x: 8, y: 0, duration: 2)
@@ -72,16 +73,16 @@ class AeonBallNode: SKNode, Updatable {
     }
 
     func die() {
-        let fadeOut = SKAction.fadeAlpha(to: 0, duration: 10)
-        let scaleOutAction = SKAction.scale(to: 0, duration: 10)
+        let fadeOut = SKAction.fadeAlpha(to: 0, duration: 5)
+        let scaleOutAction = SKAction.scale(to: 1, duration: 5)
         run(SKAction.group([fadeOut, scaleOutAction]), completion: {
             self.removeFromParent()
         })
     }
 
     func dieQuick() {
-        let fadeOut = SKAction.fadeAlpha(to: 0, duration: 0.2)
-        let scaleOutAction = SKAction.scale(to: 0, duration: 0.2)
+        let fadeOut = SKAction.fadeAlpha(to: 0, duration: 0.1)
+        let scaleOutAction = SKAction.scale(to: 1, duration: 0.1)
         run(SKAction.group([fadeOut, scaleOutAction]), completion: {
             self.removeFromParent()
         })

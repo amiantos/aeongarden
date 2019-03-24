@@ -120,7 +120,7 @@ class AeonTankScene: SKScene {
             lastFoodTime = currentTime
         }
 
-        if (currentTime - lastBallTime) >= 1 {
+        if (currentTime - lastBallTime) >= 0.5 {
             addBallToScene()
             lastBallTime = currentTime
         }
