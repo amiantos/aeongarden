@@ -32,15 +32,12 @@ class AeonTankScene: SKScene {
     public var birthCount: Int = 0
 
     private var foodPelletMax: Int = 20
-    private var creatureMinimum: Int = 20
+    private var creatureMinimum: Int = 10
 
     private var lastFoodTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
     private var lastUIUpdateTime: TimeInterval = 0
     private var totalTankTime: TimeInterval = 0
-
-    private var creatureCountLabel = SKLabelNode(fontNamed: "Helvetica-Light")
-    private let creatureCountShape = SKShapeNode(rect: CGRect(x: 0, y: -100, width: 300, height: 240))
 
     private let creatureStatsNode = SKSpriteNode(imageNamed: "aeonStatsLine")
     private var nameLabel = SKLabelNode(fontNamed: "Helvetica-Bold")
@@ -81,7 +78,6 @@ class AeonTankScene: SKScene {
         setupCamera()
         setupBackgroundGradient()
         setupBackgroundAnimation()
-        setupCreatureCountUI()
         setupCreatureStatsUI()
         createInitialCreatures()
     }
@@ -109,8 +105,9 @@ class AeonTankScene: SKScene {
                 foodNodes += 1
             }
             foodPelletCount = foodNodes
-
             tankDelegate?.updateFood(foodPelletCount)
+
+            lastUIUpdateTime = currentTime
         }
 
         if (currentTime - lastFoodTime) >= 2,
@@ -210,9 +207,10 @@ extension AeonTankScene {
 
     fileprivate func addNewCreatureToScene(withPrimaryHue primaryHue: CGFloat) {
         let aeonCreature = AeonCreatureNode(withPrimaryHue: primaryHue)
-        let foodPositionX = randomCGFloat(min: size.width * 0.05, max: size.width * 0.95)
-        let foodPositionY = randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)
-        aeonCreature.position = CGPoint(x: foodPositionX, y: foodPositionY)
+        aeonCreature.position = CGPoint(
+            x: randomCGFloat(min: size.width * 0.05, max: size.width * 0.95),
+            y: randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)
+        )
         aeonCreature.zRotation = randomCGFloat(min: 0, max: 10)
         aeonCreature.zPosition = 12
         addChild(aeonCreature)
@@ -241,7 +239,7 @@ extension AeonTankScene: SKPhysicsContactDelegate {
                 creatureA.mated()
                 creatureB.mated()
                 // Random chance to breed
-                if randomInteger(min: 0, max: 8) == 8 {
+                if randomInteger(min: 0, max: 6) == 6 {
                     let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
                     newCreature.position = creatureA.position
                     addChild(newCreature)
@@ -329,23 +327,6 @@ extension AeonTankScene {
             backgroundSmoke2.name = "backgroundSparkle"
             addChild(backgroundSmoke2)
         }
-    }
-
-    fileprivate func setupCreatureCountUI() {
-//        creatureCountShape.fillColor = .clear
-//        creatureCountShape.alpha = 0.9
-//        creatureCountShape.name = "creatureCount"
-//        cameraNode.addChild(creatureCountShape)
-//        creatureCountShape.path = UIBezierPath(
-//            roundedRect: CGRect(x: -475, y: -30, width: 950, height: 60),
-//            cornerRadius: 10
-//        ).cgPath
-//        creatureCountShape.zPosition = 20
-//        creatureCountShape.position = CGPoint(x: 0, y: (frame.size.height / 2) - 80)
-//        creatureCountLabel.zPosition = 20
-//        creatureCountLabel.fontColor = .white
-//        creatureCountShape.addChild(creatureCountLabel)
-//        creatureCountLabel.position = CGPoint(x: 0, y: -11)
     }
 
     fileprivate func setupCreatureStatsUI() {

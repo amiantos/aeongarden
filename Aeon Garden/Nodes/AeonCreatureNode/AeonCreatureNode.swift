@@ -37,7 +37,7 @@ class AeonCreatureNode: SKNode, Updatable {
 
     // MARK: - Health
 
-    public private(set) var currentHealth: Float = Float(randomInteger(min: 125, max: 300)) {
+    public private(set) var currentHealth: Float = Float(randomInteger(min: 100, max: 300)) {
         didSet {
             if currentHealth <= 0 {
                 die()
@@ -102,8 +102,6 @@ class AeonCreatureNode: SKNode, Updatable {
 
         let hues: [CGFloat] = [limbOne.hue, limbTwo.hue, limbThree.hue, limbFour.hue]
         primaryHue = getAverageHue(hues)
-
-        print("Hue Array: \(hues) Average Hue: \(primaryHue)")
 
         brain = AeonCreatureBrain()
         movementSpeed = parents.randomElement()!.movementSpeed * randomCGFloat(min: 0.95, max: 1.05)
@@ -222,12 +220,7 @@ class AeonCreatureNode: SKNode, Updatable {
             goalAngle = convertRadiansToPi(goalAngle)
 
             let angleDifference = convertRadiansToPi(goalAngle - creatureAngle)
-
-            print("Difference:", angleDifference)
-            var angleDivisor: CGFloat = 650
-            if abs(angleDifference) < 0.5 {
-                angleDivisor = 350
-            }
+            let angleDivisor: CGFloat = 700
 
             physicsBody?.applyTorque(angleDifference / angleDivisor)
         }

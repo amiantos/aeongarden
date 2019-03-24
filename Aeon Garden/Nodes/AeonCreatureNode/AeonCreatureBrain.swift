@@ -86,9 +86,9 @@ class AeonCreatureBrain: Updatable {
         let deltaTime = currentTime - lastUpdateTime
         if deltaTime <= 1 {
             let currentHealth = getCurrentHealth()
-            if currentHealth >= 600 {
+            if currentHealth >= 300 {
                 currentFeeling = .horny
-            } else if currentHealth <= 300 {
+            } else if currentHealth <= 150 {
                 currentFeeling = .hungry
             }
 //          Maybe playtime will return in the future
