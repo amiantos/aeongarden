@@ -40,20 +40,12 @@ class AeonViewController: UIViewController {
             make.rightMargin.equalToSuperview().offset(-18)
         }
 
-        view.addSubview(foodDataPill)
-        foodDataPill.title = "Food"
-        foodDataPill.snp.makeConstraints { make in
-            make.height.greaterThanOrEqualTo(30)
-            make.right.equalTo(menuButton.snp.left).offset(-16)
-            make.topMargin.equalToSuperview().offset(36)
-        }
-
         view.addSubview(populationDataPill)
         populationDataPill.title = "Population"
         populationDataPill.snp.makeConstraints { make in
             make.height.greaterThanOrEqualTo(30)
-            make.right.equalTo(foodDataPill.snp.left).offset(-16)
-            make.topMargin.equalToSuperview().offset(36)
+            make.rightMargin.equalToSuperview().offset(-18)
+            make.top.equalTo(menuButton.snp.bottom).offset(18)
         }
 
         view.addSubview(birthsDataPill)
@@ -70,6 +62,14 @@ class AeonViewController: UIViewController {
             make.height.greaterThanOrEqualTo(30)
             make.right.equalTo(populationDataPill.snp.right)
             make.top.equalTo(birthsDataPill.snp.bottom).offset(16)
+        }
+
+        view.addSubview(foodDataPill)
+        foodDataPill.title = "Food"
+        foodDataPill.snp.makeConstraints { make in
+            make.height.greaterThanOrEqualTo(30)
+            make.right.equalTo(populationDataPill.snp.right)
+            make.top.equalTo(deathsDataPill.snp.bottom).offset(22)
         }
 
         view.addSubview(menuView)
