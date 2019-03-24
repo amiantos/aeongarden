@@ -59,10 +59,7 @@ class WanderingState: GKState {
             case .horny:
                 stateMachine?.enter(SeekingLoveState.self)
             case .bored:
-                brain.analyzePlayTarget()
-                if brain.currentPlayTarget == nil {
-                    brain.locatePlayTarget()
-                }
+                brain.locatePlayTarget()
             case .dying:
                 stateMachine?.enter(DeadState.self)
             }

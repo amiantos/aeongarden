@@ -88,11 +88,11 @@ class AeonCreatureBrain: Updatable {
         let deltaTime = currentTime - lastUpdateTime
         if deltaTime <= 1 {
             let currentHealth = getCurrentHealth()
-            if currentHealth >= 400 {
+            if currentHealth >= 800 {
                 currentFeeling = .horny
             } else if currentHealth <= 200 {
                 currentFeeling = .hungry
-            } else if currentHealth <= 300,
+            } else if currentHealth <= 600,
                 currentFeeling == .horny {
                 currentFeeling = .bored
             }
@@ -148,12 +148,6 @@ class AeonCreatureBrain: Updatable {
                 setCurrentTarget(node: currentFoodTarget!)
             }
         }
-    }
-
-    public func analyzePlayTarget() {
-//        if let playTarget = currentPlayTarget, getDistance(toNode: playTarget) < 100 {
-//            currentPlayTarget = nil
-//        }
     }
 
     public func locatePlayTarget() {

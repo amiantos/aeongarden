@@ -39,6 +39,7 @@ class AeonTankScene: SKScene {
     private var lastCreatureTime: TimeInterval = 0
     private var lastUIUpdateTime: TimeInterval = 0
     private var totalTankTime: TimeInterval = 0
+    private var lastBallTime: TimeInterval = 0
 
     private let creatureStatsNode = SKSpriteNode(imageNamed: "aeonStatsLine")
     private var nameLabel = SKLabelNode(fontNamed: "Helvetica-Bold")
@@ -95,6 +96,7 @@ class AeonTankScene: SKScene {
             lastFoodTime = currentTime
             lastCreatureTime = currentTime
             lastUIUpdateTime = currentTime
+            lastBallTime = currentTime
         }
 
         if (currentTime - lastUIUpdateTime) >= 1 {
@@ -116,6 +118,11 @@ class AeonTankScene: SKScene {
             foodPelletCount < foodPelletMax {
             addFoodPelletToScene()
             lastFoodTime = currentTime
+        }
+
+        if (currentTime - lastBallTime) >= 1 {
+            addBallToScene()
+            lastBallTime = currentTime
         }
 
         if (currentTime - lastCreatureTime) >= 5,
@@ -208,12 +215,11 @@ extension AeonTankScene {
     }
 
     fileprivate func createInitialBalls() {
-        let totalBalls = 10
-        var currentBalls = 0
-
-        while currentBalls < totalBalls {
+        var ballCount: Int = 0
+        let ballMinimum: Int = 10
+        while ballCount < ballMinimum {
             addBallToScene()
-            currentBalls += 1
+            ballCount += 1
         }
     }
 
@@ -286,7 +292,6 @@ extension AeonTankScene: SKPhysicsContactDelegate {
                 let food = contact.bodyA.node as? AeonFoodNode,
                 creature.currentTarget == food {
                     creature.fed()
-//                    food.eaten()
                     food.eaten(animateTo: creature.position)
             }
         } else if contact.bodyB.categoryBitMask == CollisionTypes.food.rawValue,
@@ -295,9 +300,18 @@ extension AeonTankScene: SKPhysicsContactDelegate {
                 let food = contact.bodyB.node as? AeonFoodNode,
                 creature.currentTarget == food {
                     creature.fed()
-//                    food.eaten()
                     food.eaten(animateTo: creature.position)
             }
+        }
+
+        if contact.bodyA.categoryBitMask == CollisionTypes.ball.rawValue,
+            let ball = contact.bodyA.node as? AeonBallNode {
+            ball.dieQuick()
+        }
+
+        if contact.bodyB.categoryBitMask == CollisionTypes.ball.rawValue,
+            let ball = contact.bodyB.node as? AeonBallNode {
+            ball.dieQuick()
         }
     }
 }

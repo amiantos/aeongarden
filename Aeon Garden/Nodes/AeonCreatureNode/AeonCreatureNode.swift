@@ -137,7 +137,7 @@ class AeonCreatureNode: SKNode, Updatable {
         physicsBody?.contactTestBitMask = CollisionTypes.creature.rawValue | CollisionTypes.food.rawValue
         physicsBody?.affectedByGravity = false
         physicsBody?.restitution = 0.8
-        physicsBody?.friction = 0
+        physicsBody?.friction = 0.1
         physicsBody?.mass = 1
         physicsBody?.linearDamping = 0.5
         physicsBody?.angularDamping = 1
