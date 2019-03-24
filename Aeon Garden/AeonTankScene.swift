@@ -1,5 +1,5 @@
 //
-//  AeonTank.swift
+//  AeonTankScene.swift
 //  Aeon Garden
 //
 //  Created by Bradley Root on 9/30/17.
@@ -23,14 +23,14 @@ protocol AeonTankDelegate: class {
     func updateFood(_ food: Int)
 }
 
-class AeonTank: SKScene {
+class AeonTankScene: SKScene {
     public var foodPelletCount: Int = 0
     public var creatureCount: Int = 0
     public var deathCount: Int = 0
     public var birthCount: Int = 0
 
     private var foodPelletMax: Int = 20
-    private var creatureMinimum: Int = 10
+    private var creatureMinimum: Int = 20
 
     private var lastFoodTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
@@ -50,7 +50,7 @@ class AeonTank: SKScene {
 
     weak var tankDelegate: AeonTankDelegate?
 
-    var selectedCreature: AeonCreature? {
+    var selectedCreature: AeonCreatureNode? {
         didSet {
             if oldValue != selectedCreature {
                 self.creatureStatsNode.removeAllActions()
@@ -101,21 +101,12 @@ class AeonTank: SKScene {
             tankDelegate?.updatePopulation(creatureCount)
 
             var foodNodes = 0
-            for case _ as AeonFood in children {
+            for case _ as AeonFoodNode in children {
                 foodNodes += 1
             }
             foodPelletCount = foodNodes
 
             tankDelegate?.updateFood(foodPelletCount)
-
-//            totalTankTime += (currentTime - lastUIUpdateTime)
-//            let time = toTimestamp(timeInterval: totalTankTime)
-//            creatureCountLabel.text = "Alive: \(creatureCount)   "
-//                + "Deaths: \(deathCount)   "
-//                + "Births: \(birthCount)   "
-//                + "Pellets: \(foodPelletCount)   "
-//                + "Time: \(time)"
-//            lastUIUpdateTime = currentTime
         }
 
         if (currentTime - lastFoodTime) >= 2,
@@ -157,7 +148,7 @@ class AeonTank: SKScene {
         let touch = touches.first!
         let touchPoint = touch.location(in: self)
         let nodes = self.nodes(at: touchPoint)
-        for node in nodes where node is AeonCreature {
+        for node in nodes where node is AeonCreatureNode {
             if node == selectedCreature {
                 self.selectedCreature = nil
                 camera?.removeAllActions()
@@ -168,7 +159,7 @@ class AeonTank: SKScene {
                 )
                 camera?.run(SKAction.group([zoomInAction, cameraAction]))
             } else {
-                self.selectedCreature = node as? AeonCreature
+                self.selectedCreature = node as? AeonCreatureNode
                 let zoomInAction = SKAction.scale(to: 0.4, duration: 1)
                 camera?.run(zoomInAction, completion: {
                     let fadeInAction = SKAction.fadeAlpha(to: 1, duration: 1)
@@ -199,7 +190,7 @@ class AeonTank: SKScene {
 
 // MARK: - Node Creation
 
-extension AeonTank {
+extension AeonTankScene {
     fileprivate func createInitialCreatures() {
         var totalCreatures: Int = 0
         var initialCreatureHue: CGFloat = 0
@@ -214,7 +205,7 @@ extension AeonTank {
     }
 
     fileprivate func addNewCreatureToScene(withPrimaryHue primaryHue: CGFloat) {
-        let aeonCreature = AeonCreature(withPrimaryHue: primaryHue)
+        let aeonCreature = AeonCreatureNode(withPrimaryHue: primaryHue)
         let foodPositionX = randomCGFloat(min: size.width * 0.05, max: size.width * 0.95)
         let foodPositionY = randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)
         aeonCreature.position = CGPoint(x: foodPositionX, y: foodPositionY)
@@ -226,7 +217,7 @@ extension AeonTank {
     }
 
     fileprivate func addFoodPelletToScene() {
-        let aeonFood = AeonFood()
+        let aeonFood = AeonFoodNode()
         let foodPositionX = randomCGFloat(min: size.width * 0.05, max: size.width * 0.95)
         let foodPositionY = randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)
         aeonFood.position = CGPoint(x: foodPositionX, y: foodPositionY)
@@ -237,17 +228,17 @@ extension AeonTank {
 
 // MARK: - Physics Interactions
 
-extension AeonTank: SKPhysicsContactDelegate {
+extension AeonTankScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
-        if let creatureA = contact.bodyA.node as? AeonCreature,
-            let creatureB = contact.bodyB.node as? AeonCreature {
+        if let creatureA = contact.bodyA.node as? AeonCreatureNode,
+            let creatureB = contact.bodyB.node as? AeonCreatureNode {
             if creatureA.currentTarget == creatureB, creatureB.currentTarget == creatureA {
                 // Mutual Reproduction
                 creatureA.mated()
                 creatureB.mated()
                 // Random chance to breed
-                if randomInteger(min: 0, max: 4) == 4 {
-                    let newCreature = AeonCreature(withParents: [creatureA, creatureB])
+                if randomInteger(min: 0, max: 8) == 8 {
+                    let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
                     newCreature.position = creatureA.position
                     addChild(newCreature)
                     newCreature.born()
@@ -266,15 +257,15 @@ extension AeonTank: SKPhysicsContactDelegate {
 
         if contact.bodyA.categoryBitMask == CollisionTypes.food.rawValue,
             contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
-            if let creature = contact.bodyB.node as? AeonCreature,
-                let food = contact.bodyA.node as? AeonFood {
+            if let creature = contact.bodyB.node as? AeonCreatureNode,
+                let food = contact.bodyA.node as? AeonFoodNode {
                 creature.fed()
                 food.eaten()
             }
         } else if contact.bodyB.categoryBitMask == CollisionTypes.food.rawValue,
             contact.bodyA.categoryBitMask == CollisionTypes.creature.rawValue {
-            if let creature = contact.bodyA.node as? AeonCreature,
-                let food = contact.bodyB.node as? AeonFood {
+            if let creature = contact.bodyA.node as? AeonCreatureNode,
+                let food = contact.bodyB.node as? AeonFoodNode {
                 creature.fed()
                 food.eaten()
             }
@@ -284,7 +275,7 @@ extension AeonTank: SKPhysicsContactDelegate {
 
 // MARK: - Scene UI Setup
 
-extension AeonTank {
+extension AeonTankScene {
     fileprivate func setupFrame() {
         size.width = frame.size.width * 2
         size.height = frame.size.height * 2

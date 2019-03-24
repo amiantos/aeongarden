@@ -1,5 +1,5 @@
 //
-//  AeonCreature.swift
+//  AeonCreatureNode.swift
 //  Aeon Garden
 //
 //  Created by Bradley Root on 9/30/17.
@@ -11,7 +11,7 @@
 
 import SpriteKit
 
-class AeonCreature: SKNode, Updatable {
+class AeonCreatureNode: SKNode, Updatable {
     // MARK: - Creature Name
 
     public let firstName: String
@@ -22,10 +22,10 @@ class AeonCreature: SKNode, Updatable {
 
     // MARK: - Inheritable Traits
 
-    private var limbOne: AeonCreatureLimb
-    private var limbTwo: AeonCreatureLimb
-    private var limbThree: AeonCreatureLimb
-    private var limbFour: AeonCreatureLimb
+    private var limbOne: AeonLimbNode
+    private var limbTwo: AeonLimbNode
+    private var limbThree: AeonLimbNode
+    private var limbFour: AeonLimbNode
 
     public var movementSpeed: CGFloat = 1
     public var sizeModififer: CGFloat = 1
@@ -65,10 +65,10 @@ class AeonCreature: SKNode, Updatable {
         self.primaryHue = primaryHue
 
         // Create limbs
-        limbOne = AeonCreatureLimb(withPrimaryHue: primaryHue) // the "head"
-        limbTwo = AeonCreatureLimb(withPrimaryHue: primaryHue)
-        limbThree = AeonCreatureLimb(withPrimaryHue: primaryHue)
-        limbFour = AeonCreatureLimb(withPrimaryHue: primaryHue)
+        limbOne = AeonLimbNode(withPrimaryHue: primaryHue) // the "head"
+        limbTwo = AeonLimbNode(withPrimaryHue: primaryHue)
+        limbThree = AeonLimbNode(withPrimaryHue: primaryHue)
+        limbFour = AeonLimbNode(withPrimaryHue: primaryHue)
         brain = AeonCreatureBrain()
 
         super.init()
@@ -83,7 +83,7 @@ class AeonCreature: SKNode, Updatable {
         brain?.startThinking()
     }
 
-    init(withParents parents: [AeonCreature]) {
+    init(withParents parents: [AeonCreatureNode]) {
         if parents.count < 2 {
             fatalError("Virgin births are not allowed.")
         }
@@ -95,10 +95,10 @@ class AeonCreature: SKNode, Updatable {
         parentNames.append(parents[0].lastName)
         parentNames.append(parents[1].lastName)
 
-        limbOne = AeonCreatureLimb(withLimb: parents.randomElement()!.limbOne)
-        limbTwo = AeonCreatureLimb(withLimb: parents.randomElement()!.limbTwo)
-        limbThree = AeonCreatureLimb(withLimb: parents.randomElement()!.limbThree)
-        limbFour = AeonCreatureLimb(withLimb: parents.randomElement()!.limbFour)
+        limbOne = AeonLimbNode(withLimb: parents.randomElement()!.limbOne)
+        limbTwo = AeonLimbNode(withLimb: parents.randomElement()!.limbTwo)
+        limbThree = AeonLimbNode(withLimb: parents.randomElement()!.limbThree)
+        limbFour = AeonLimbNode(withLimb: parents.randomElement()!.limbFour)
 
         let hues: [CGFloat] = [limbOne.hue, limbTwo.hue, limbThree.hue, limbFour.hue]
         primaryHue = getAverageHue(hues)
@@ -155,13 +155,13 @@ class AeonCreature: SKNode, Updatable {
     }
 
     func beginWiggling() {
-        for case let child as AeonCreatureLimb in children {
+        for case let child as AeonLimbNode in children {
             child.beginWiggling()
         }
     }
 
     func endWiggling() {
-        for case let child as AeonCreatureLimb in children {
+        for case let child as AeonLimbNode in children {
             child.endWiggling()
         }
     }
@@ -277,7 +277,7 @@ class AeonCreature: SKNode, Updatable {
         let fadeOut = SKAction.fadeAlpha(to: 0, duration: 10)
         let shrinkOut = SKAction.scale(to: 0, duration: 10)
         run(SKAction.group([fadeOut, shrinkOut]), completion: {
-            if let mainScene = self.scene as? AeonTank {
+            if let mainScene = self.scene as? AeonTankScene {
                 mainScene.deathCount += 1
                 mainScene.creatureCount -= 1
                 if mainScene.selectedCreature == self {
@@ -319,24 +319,24 @@ class AeonCreature: SKNode, Updatable {
 
 // MARK: - Brain Delegate
 
-extension AeonCreature: AeonCreatureBrainDelegate {
+extension AeonCreatureNode: AeonCreatureBrainDelegate {
     func getCurrentHealth() -> Float {
         return currentHealth
     }
 
-    func getFoodNodes() -> [AeonFood] {
-        var foodArray: [AeonFood] = []
+    func getFoodNodes() -> [AeonFoodNode] {
+        var foodArray: [AeonFoodNode] = []
         let nodes = getNodes()
-        for case let child as AeonFood in nodes {
+        for case let child as AeonFoodNode in nodes {
             foodArray.append(child)
         }
         return foodArray
     }
 
-    func getEligibleMates() -> [AeonCreature] {
-        var mateArray: [AeonCreature] = []
+    func getEligibleMates() -> [AeonCreatureNode] {
+        var mateArray: [AeonCreatureNode] = []
         let nodes = getNodes()
-        for case let child as AeonCreature in nodes where
+        for case let child as AeonCreatureNode in nodes where
             child != self
             && parentNames.contains(child.lastName) == false
             && child.parentNames.contains(lastName) == false {
@@ -350,7 +350,7 @@ extension AeonCreature: AeonCreatureBrainDelegate {
         let nodes = getNodes()
         for child in nodes where
             child != self
-            && (child is AeonFood || child is AeonCreature) {
+            && (child is AeonFoodNode || child is AeonCreatureNode) {
             playMates.append(child)
         }
         return playMates
@@ -365,7 +365,7 @@ extension AeonCreature: AeonCreatureBrainDelegate {
     }
 
     /// Rate mate based on similarity of hue
-    func rateMate(_ mate: AeonCreature) -> CGFloat {
+    func rateMate(_ mate: AeonCreatureNode) -> CGFloat {
         return min(
             abs(mate.primaryHue - primaryHue),
             360 - abs(mate.primaryHue - primaryHue)

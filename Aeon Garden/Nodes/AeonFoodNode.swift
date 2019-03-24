@@ -1,5 +1,5 @@
 //
-//  AeonFood.swift
+//  AeonFoodNode.swift
 //  Aeon Garden
 //
 //  Created by Bradley Root on 10/1/17.
@@ -11,7 +11,7 @@
 
 import SpriteKit
 
-class AeonFood: SKNode, Updatable {
+class AeonFoodNode: SKNode, Updatable {
     private var maxLifeTime: Float = 120
     private var lifeTime: Float = 0 {
         didSet {

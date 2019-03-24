@@ -1,20 +1,23 @@
 //
-//  MenuButton.swift
+//  AeonMenuButton.swift
 //  Aeon Garden
 //
 //  Created by Brad Root on 3/22/19.
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import UIKit
 import SnapKit
 
-class MenuButton: UIButton {
+class AeonMenuButton: UIButton {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        backgroundColor = UIColor(hue: 0.5861, saturation: 0.07, brightness: 0.93, alpha: 1.0)
+        backgroundColor = .aeonUIBackgroundLight
         layer.cornerRadius = 15
         clipsToBounds = true
 
@@ -22,7 +25,7 @@ class MenuButton: UIButton {
         buttonIcon.frame = frame
         buttonIcon.clipsToBounds = true
         buttonIcon.image = UIImage(named: "menuIcon")
-        buttonIcon.tintColor = UIColor(hue: 0.5778, saturation: 0.62, brightness: 0.49, alpha: 1.0)
+        buttonIcon.tintColor = .aeonTintColor
         addSubview(buttonIcon)
 
         buttonIcon.snp.makeConstraints { (make) in

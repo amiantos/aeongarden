@@ -19,14 +19,14 @@ enum Feeling: String {
 }
 
 protocol AeonCreatureBrainDelegate: class {
-    func getFoodNodes() -> [AeonFood]
-    func getEligibleMates() -> [AeonCreature]
+    func getFoodNodes() -> [AeonFoodNode]
+    func getEligibleMates() -> [AeonCreatureNode]
     func getEligiblePlayMates() -> [SKNode]
     func getCurrentHealth() -> Float
 
     func setCurrentTarget(node: SKNode?)
     func getDistance(toNode node: SKNode) -> CGFloat
-    func rateMate(_ mate: AeonCreature) -> CGFloat
+    func rateMate(_ mate: AeonCreatureNode) -> CGFloat
 
     func die()
 
@@ -39,8 +39,8 @@ class AeonCreatureBrain: Updatable {
 
     public var currentFeeling: Feeling = .bored
     public var currentState: State = State.living
-    public var currentFoodTarget: AeonFood?
-    public var currentLoveTarget: AeonCreature?
+    public var currentFoodTarget: AeonFoodNode?
+    public var currentLoveTarget: AeonCreatureNode?
     public var currentPlayTarget: SKNode?
     private var lifeState: Bool = true {
         didSet {
@@ -104,7 +104,7 @@ class AeonCreatureBrain: Updatable {
         var creatureDifferenceArray = [(
             rating: CGFloat,
             distance: CGFloat,
-            node: AeonCreature
+            node: AeonCreatureNode
         )]()
         let nodes = getEligibleMates()
         for child in nodes {
@@ -125,7 +125,7 @@ class AeonCreatureBrain: Updatable {
     }
 
     public func locateFood() {
-        var foodArray = [(interestedCreatures: Int, distance: CGFloat, node: AeonFood)]()
+        var foodArray = [(interestedCreatures: Int, distance: CGFloat, node: AeonFoodNode)]()
         let nodes = getFoodNodes()
         for child in nodes {
             let distance = getDistance(toNode: child)
@@ -184,7 +184,7 @@ extension AeonCreatureBrain: AeonCreatureBrainDelegate {
         return delegate!.getEligibleMates()
     }
 
-    func rateMate(_ mate: AeonCreature) -> CGFloat {
+    func rateMate(_ mate: AeonCreatureNode) -> CGFloat {
         return delegate!.rateMate(mate)
     }
 
@@ -192,11 +192,11 @@ extension AeonCreatureBrain: AeonCreatureBrainDelegate {
         return delegate!.getDistance(toNode: node)
     }
 
-    func getFoodNodes() -> [AeonFood] {
+    func getFoodNodes() -> [AeonFoodNode] {
         return delegate!.getFoodNodes()
     }
 
-    func getEligibleMates() -> [AeonCreature] {
+    func getEligibleMates() -> [AeonCreatureNode] {
         return delegate!.getEligibleMates()
     }
 

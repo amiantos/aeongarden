@@ -1,5 +1,5 @@
 //
-//  AeonCreatureBodyGenerator.swift
+//  AeonLimbNode.swift
 //  Aeon Garden
 //
 //  Created by Brad Root on 3/7/19.
@@ -11,7 +11,7 @@
 
 import SpriteKit
 
-class AeonCreatureLimb: SKSpriteNode {
+class AeonLimbNode: SKSpriteNode {
     public var shape: BodyPart
     public var hue: CGFloat
     public var blend: CGFloat
@@ -28,7 +28,7 @@ class AeonCreatureLimb: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(withLimb limb: AeonCreatureLimb) {
+    init(withLimb limb: AeonLimbNode) {
         shape = limb.shape
         hue = limb.hue
         brightness = limb.brightness

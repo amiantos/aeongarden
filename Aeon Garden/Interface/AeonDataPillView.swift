@@ -1,28 +1,29 @@
 //
-//  DataPillView.swift
+//  AeonDataPillView.swift
 //  Aeon Garden
 //
 //  Created by Brad Root on 3/22/19.
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import UIKit
 import SnapKit
 
-class DataPillView: UIView {
+class AeonDataPillView: UIView {
 
     let numberLabel: UILabel
-    let titleLabel: UILabel
-    let numberView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-    let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-    let titleGradientLayer: CAGradientLayer = CAGradientLayer()
-    let numberGradientLayer: CAGradientLayer = CAGradientLayer()
-
+    let numberView: UIView
     public var number: Int = 0 {
         didSet {
             numberLabel.text = String(number)
         }
     }
+
+    let titleLabel: UILabel
+    let titleView: UIView
     public var title: String = "" {
         didSet {
             titleLabel.text = title
@@ -31,19 +32,29 @@ class DataPillView: UIView {
 
     override init(frame: CGRect) {
         titleLabel = UILabel(frame: frame)
-        numberLabel = UILabel(frame: numberView.frame)
+        numberLabel = UILabel(frame: frame)
+        numberView = UIView(frame: frame)
+        titleView = UIView(frame: frame)
 
         super.init(frame: frame)
 
         backgroundColor = .clear
         layer.cornerRadius = 15
 
-        // MARK: - Number View
+        setupNumberView()
+        setupTitleView()
+        setupDropShadow()
+    }
 
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    fileprivate func setupNumberView() {
         numberView.layer.cornerRadius = 15
         numberView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
         numberView.clipsToBounds = true
-        numberView.backgroundColor = UIColor(hue: 0.5861, saturation: 0.24, brightness: 0.89, alpha: 1.0)
+        numberView.backgroundColor = .aeonUIBackgroundDark
         addSubview(numberView)
 
         numberView.snp.makeConstraints { (make) in
@@ -56,19 +67,20 @@ class DataPillView: UIView {
         numberLabel.textAlignment = .center
         numberLabel.text = String(number)
         numberLabel.font = numberLabel.font.withSize(14)
-        numberLabel.textColor = UIColor(hue: 0.5778, saturation: 0.62, brightness: 0.49, alpha: 1.0)
+        numberLabel.textColor = .aeonTintColor
         numberView.addSubview(numberLabel)
+
         numberLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview().offset(-2)
             make.centerY.equalToSuperview()
         }
+    }
 
-        // MARK: - Title View
-
+    fileprivate func setupTitleView() {
         titleView.layer.cornerRadius = 15
         titleView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
         titleView.clipsToBounds = true
-        titleView.backgroundColor = UIColor(hue: 0.5861, saturation: 0.07, brightness: 0.93, alpha: 1.0)
+        titleView.backgroundColor = .aeonUIBackgroundLight
         addSubview(titleView)
 
         titleView.snp.makeConstraints { (make) in
@@ -81,17 +93,18 @@ class DataPillView: UIView {
         titleLabel.textAlignment = .center
         titleLabel.text = String(title)
         titleLabel.font = titleLabel.font.withSize(14)
-        titleLabel.textColor = UIColor(hue: 0.5778, saturation: 0.62, brightness: 0.49, alpha: 1.0)
+        titleLabel.textColor = .aeonTintColor
         titleView.addSubview(titleLabel)
+
         titleLabel.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
             make.left.equalToSuperview().offset(12)
             make.right.equalToSuperview().offset(-8)
         }
+    }
 
-        // MARK: - Effects
-
+    fileprivate func setupDropShadow() {
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.25
         layer.shadowOffset = CGSize(width: 0, height: 4)
@@ -99,18 +112,6 @@ class DataPillView: UIView {
         layer.rasterizationScale = UIScreen.main.scale
         layer.shouldRasterize = true
         layer.masksToBounds = false
-
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        titleGradientLayer.frame = titleView.bounds
-        numberGradientLayer.frame = numberView.bounds
     }
 
 }

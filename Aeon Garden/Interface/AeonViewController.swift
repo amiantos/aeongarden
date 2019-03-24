@@ -14,13 +14,13 @@ import UIKit
 import SnapKit
 
 class AeonViewController: UIViewController {
-    var scene: AeonTank?
+    var scene: AeonTankScene?
     var skView: SKView?
 
-    let menuButton = MenuButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-
-    let populationPill = DataPillView(frame: CGRect(x: 0, y: 0, width: 121, height: 30))
-    let foodPill = DataPillView(frame: CGRect(x: 0, y: 0, width: 121, height: 30))
+    let menuButton = AeonMenuButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+    let populationDataPill = AeonDataPillView(frame: CGRect(x: 0, y: 0, width: 121, height: 30))
+    let foodDataPill = AeonDataPillView(frame: CGRect(x: 0, y: 0, width: 121, height: 30))
+    let menuView = AeonMenuView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,20 +38,26 @@ class AeonViewController: UIViewController {
             make.rightMargin.equalToSuperview().offset(-18)
         }
 
-        view.addSubview(foodPill)
-        foodPill.title = "Food"
-        foodPill.snp.makeConstraints { (make) in
+        view.addSubview(foodDataPill)
+        foodDataPill.title = "Food"
+        foodDataPill.snp.makeConstraints { (make) in
             make.height.greaterThanOrEqualTo(30)
             make.right.equalTo(menuButton.snp.left).offset(-16)
             make.topMargin.equalToSuperview().offset(36)
         }
 
-        view.addSubview(populationPill)
-        populationPill.title = "Population"
-        populationPill.snp.makeConstraints { (make) in
+        view.addSubview(populationDataPill)
+        populationDataPill.title = "Population"
+        populationDataPill.snp.makeConstraints { (make) in
             make.height.greaterThanOrEqualTo(30)
-            make.right.equalTo(foodPill.snp.left).offset(-16)
+            make.right.equalTo(foodDataPill.snp.left).offset(-16)
             make.topMargin.equalToSuperview().offset(36)
+        }
+
+        view.addSubview(menuView)
+        menuView.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.size.equalTo(300)
         }
 
     }
@@ -76,17 +82,17 @@ class AeonViewController: UIViewController {
 
 extension AeonViewController: AeonTankDelegate {
     func updateFood(_ food: Int) {
-        foodPill.number = food
+        foodDataPill.number = food
     }
 
     func updatePopulation(_ population: Int) {
-        populationPill.number = population
+        populationDataPill.number = population
     }
 }
 
 extension AeonViewController {
     fileprivate func createTank() {
-        scene = AeonTank(size: view.bounds.size)
+        scene = AeonTankScene(size: view.bounds.size)
         scene?.tankDelegate = self
         skView = view as? SKView
         scene!.scaleMode = .aspectFill
