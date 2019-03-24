@@ -9,11 +9,10 @@
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import UIKit
 import SnapKit
+import UIKit
 
 class AeonDataPillView: UIView {
-
     let numberLabel: UILabel
     let numberView: UIView
     public var number: Int = 0 {
@@ -46,7 +45,7 @@ class AeonDataPillView: UIView {
         setupDropShadow()
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -57,7 +56,7 @@ class AeonDataPillView: UIView {
         numberView.backgroundColor = .aeonUIBackgroundDark
         addSubview(numberView)
 
-        numberView.snp.makeConstraints { (make) in
+        numberView.snp.makeConstraints { make in
             make.right.equalToSuperview()
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
@@ -70,7 +69,7 @@ class AeonDataPillView: UIView {
         numberLabel.textColor = .aeonTintColor
         numberView.addSubview(numberLabel)
 
-        numberLabel.snp.makeConstraints { (make) in
+        numberLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview().offset(-2)
             make.centerY.equalToSuperview()
         }
@@ -83,7 +82,7 @@ class AeonDataPillView: UIView {
         titleView.backgroundColor = .aeonUIBackgroundLight
         addSubview(titleView)
 
-        titleView.snp.makeConstraints { (make) in
+        titleView.snp.makeConstraints { make in
             make.right.equalTo(numberView.snp.left)
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
@@ -96,7 +95,7 @@ class AeonDataPillView: UIView {
         titleLabel.textColor = .aeonTintColor
         titleView.addSubview(titleLabel)
 
-        titleLabel.snp.makeConstraints { (make) in
+        titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
             make.left.equalToSuperview().offset(12)
@@ -113,5 +112,4 @@ class AeonDataPillView: UIView {
         layer.shouldRasterize = true
         layer.masksToBounds = false
     }
-
 }

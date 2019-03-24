@@ -9,11 +9,10 @@
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import UIKit
 import SnapKit
+import UIKit
 
 class AeonMenuButton: UIButton {
-
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -28,7 +27,7 @@ class AeonMenuButton: UIButton {
         buttonIcon.tintColor = .aeonTintColor
         addSubview(buttonIcon)
 
-        buttonIcon.snp.makeConstraints { (make) in
+        buttonIcon.snp.makeConstraints { make in
             make.width.equalTo(25)
             make.height.equalTo(25)
             make.center.equalToSuperview()
@@ -43,8 +42,7 @@ class AeonMenuButton: UIButton {
         layer.masksToBounds = false
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }

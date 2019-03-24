@@ -9,9 +9,9 @@
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import SnapKit
 import SpriteKit
 import UIKit
-import SnapKit
 
 class AeonViewController: UIViewController {
     var scene: AeonTankScene?
@@ -31,7 +31,7 @@ class AeonViewController: UIViewController {
         menuButton.addTarget(self, action: #selector(myButtonAction), for: .touchUpInside)
 
         view.addSubview(menuButton)
-        menuButton.snp.makeConstraints { (make) in
+        menuButton.snp.makeConstraints { make in
             make.width.equalTo(30)
             make.height.equalTo(30)
             make.topMargin.equalToSuperview().offset(36)
@@ -40,7 +40,7 @@ class AeonViewController: UIViewController {
 
         view.addSubview(foodDataPill)
         foodDataPill.title = "Food"
-        foodDataPill.snp.makeConstraints { (make) in
+        foodDataPill.snp.makeConstraints { make in
             make.height.greaterThanOrEqualTo(30)
             make.right.equalTo(menuButton.snp.left).offset(-16)
             make.topMargin.equalToSuperview().offset(36)
@@ -48,18 +48,17 @@ class AeonViewController: UIViewController {
 
         view.addSubview(populationDataPill)
         populationDataPill.title = "Population"
-        populationDataPill.snp.makeConstraints { (make) in
+        populationDataPill.snp.makeConstraints { make in
             make.height.greaterThanOrEqualTo(30)
             make.right.equalTo(foodDataPill.snp.left).offset(-16)
             make.topMargin.equalToSuperview().offset(36)
         }
 
         view.addSubview(menuView)
-        menuView.snp.makeConstraints { (make) in
+        menuView.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.size.equalTo(300)
         }
-
     }
 
     override var shouldAutorotate: Bool {
@@ -102,7 +101,7 @@ extension AeonViewController {
 }
 
 extension AeonViewController {
-    @objc func myButtonAction(sender: UIButton!) {
+    @objc func myButtonAction(sender _: UIButton!) {
         print("My Button tapped")
     }
 }
