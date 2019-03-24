@@ -8,5 +8,6 @@ target 'Aeon Garden' do
   # Pods for Aeon Garden
   pod 'SwiftLint'
   pod 'SwiftFormat/CLI'
+  pod 'SnapKit', '~> 4.0'
 
 end
