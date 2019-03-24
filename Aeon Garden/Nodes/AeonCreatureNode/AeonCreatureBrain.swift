@@ -94,7 +94,7 @@ class AeonCreatureBrain: Updatable {
                 currentFeeling = .hungry
             } else if currentHealth <= 600,
                 currentFeeling == .horny {
-                currentFeeling = .bored
+                    currentFeeling = .bored
             }
             stateMachine?.update(deltaTime: deltaTime)
             lastUpdateTime = currentTime
