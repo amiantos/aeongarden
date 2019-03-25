@@ -39,7 +39,7 @@ class AeonTankScene: SKScene {
     private var lastCreatureTime: TimeInterval = 0
     private var lastUIUpdateTime: TimeInterval = 0
     private var totalTankTime: TimeInterval = 0
-    private var lastBallTime: TimeInterval = 0
+    private var lastBubbleTime: TimeInterval = 0
 
     private let creatureStatsNode = SKSpriteNode(imageNamed: "aeonStatsLine")
     private var nameLabel = SKLabelNode(fontNamed: "Helvetica-Bold")
@@ -96,7 +96,7 @@ class AeonTankScene: SKScene {
             lastFoodTime = currentTime
             lastCreatureTime = currentTime
             lastUIUpdateTime = currentTime
-            lastBallTime = currentTime
+            lastBubbleTime = currentTime
         }
 
         if (currentTime - lastUIUpdateTime) >= 1 {
@@ -120,9 +120,9 @@ class AeonTankScene: SKScene {
             lastFoodTime = currentTime
         }
 
-        if (currentTime - lastBallTime) >= 0.5 {
-            addBallToScene()
-            lastBallTime = currentTime
+        if (currentTime - lastBubbleTime) >= 1 {
+            addBubbleToScene()
+            lastBubbleTime = currentTime
         }
 
         if (currentTime - lastCreatureTime) >= 5,
@@ -218,7 +218,7 @@ extension AeonTankScene {
         var ballCount: Int = 0
         let ballMinimum: Int = 10
         while ballCount < ballMinimum {
-            addBallToScene()
+            addBubbleToScene()
             ballCount += 1
         }
     }
@@ -246,7 +246,7 @@ extension AeonTankScene {
         addChild(aeonFood)
     }
 
-    fileprivate func addBallToScene() {
+    fileprivate func addBubbleToScene() {
         let aeonBall = AeonBubbleNode()
         aeonBall.position = CGPoint(
             x: randomCGFloat(min: size.width * 0.05, max: size.width * 0.95),
