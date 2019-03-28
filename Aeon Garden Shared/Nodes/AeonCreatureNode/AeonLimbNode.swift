@@ -65,7 +65,7 @@ class AeonLimbNode: SKSpriteNode {
             brightness: brightness,
             alpha: 1.0
         )
-        super.init(texture: texture, color: color, size: texture.size())
+        super.init(texture: texture, color: color, size: CGSize(width: 20, height: 20))
         colorBlendFactor = blend
         zRotation = CGFloat(randomInteger(min: 0, max: 10))
         zPosition = 2

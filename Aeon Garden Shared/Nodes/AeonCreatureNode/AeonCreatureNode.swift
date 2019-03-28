@@ -143,6 +143,7 @@ class AeonCreatureNode: SKNode, Updatable {
         physicsBody?.angularDamping = 1
 
         let underShadow = SKSpriteNode(imageNamed: "aeonBodyShadow")
+        underShadow.size = CGSize(width: 40, height: 40)
         underShadow.setScale(1.2)
         underShadow.alpha = 0.2
         addChild(underShadow)
