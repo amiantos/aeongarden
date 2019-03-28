@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_Aeon_GardenVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_Aeon_GardenVersionString[];
+FOUNDATION_EXPORT double Pods_Aeon_Garden_Original_iOSVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_Aeon_Garden_Original_iOSVersionString[];
 
