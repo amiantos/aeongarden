@@ -15,7 +15,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let scene = GameScene.newGameScene()
+        let scene = AeonTankScene(size: view.bounds.size)
         
         // Present the scene
         let skView = self.view as! SKView
