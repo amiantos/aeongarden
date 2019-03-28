@@ -16,9 +16,9 @@
 		44868F6B223346E3009F0460 /* AeonCreatureBrainStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F6A223346E3009F0460 /* AeonCreatureBrainStates.swift */; };
 		44A1711A2245B70F00890D32 /* AeonDataPillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A171192245B70F00890D32 /* AeonDataPillView.swift */; };
 		44A1711C2245B72800890D32 /* AeonMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1711B2245B72800890D32 /* AeonMenuButton.swift */; };
+		8E7E158ACFE2903488CE6E7E /* Pods_Aeon_Garden_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A69E33689BDFD1DAC0725B2E /* Pods_Aeon_Garden_iOS.framework */; };
 		B413AB78224D73C400E8BDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB77224D73C400E8BDD1 /* AppDelegate.swift */; };
 		B413AB7A224D73C400E8BDD1 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB79224D73C400E8BDD1 /* GameViewController.swift */; };
-		B413AB7D224D73C400E8BDD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B413AB7B224D73C400E8BDD1 /* Main.storyboard */; };
 		B413AB80224D73C400E8BDD1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B413AB7E224D73C400E8BDD1 /* LaunchScreen.storyboard */; };
 		B413AB89224D73C400E8BDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB88224D73C400E8BDD1 /* AppDelegate.swift */; };
 		B413AB8B224D73C400E8BDD1 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB8A224D73C400E8BDD1 /* GameViewController.swift */; };
@@ -35,9 +35,61 @@
 		B413ABA4224D73C400E8BDD1 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB6F224D73C200E8BDD1 /* GameScene.swift */; };
 		B413ABA5224D73C400E8BDD1 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB6F224D73C200E8BDD1 /* GameScene.swift */; };
 		B413ABA6224D73C400E8BDD1 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB6F224D73C200E8BDD1 /* GameScene.swift */; };
-		B413ABA7224D73C400E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413AB70224D73C400E8BDD1 /* Assets.xcassets */; };
-		B413ABA8224D73C400E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413AB70224D73C400E8BDD1 /* Assets.xcassets */; };
-		B413ABA9224D73C400E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413AB70224D73C400E8BDD1 /* Assets.xcassets */; };
+		B413ABB5224D7C7100E8BDD1 /* AeonTankScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDABA1F80943500DEA908 /* AeonTankScene.swift */; };
+		B413ABB6224D7C7200E8BDD1 /* AeonTankScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDABA1F80943500DEA908 /* AeonTankScene.swift */; };
+		B413ABB7224D7C7300E8BDD1 /* AeonTankScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDABA1F80943500DEA908 /* AeonTankScene.swift */; };
+		B413ABB8224D7C8100E8BDD1 /* AeonCreatureNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDACD1F80B2B000DEA908 /* AeonCreatureNode.swift */; };
+		B413ABB9224D7C8100E8BDD1 /* AeonLimbNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F652231C7F5009F0460 /* AeonLimbNode.swift */; };
+		B413ABBA224D7C8100E8BDD1 /* AeonCreatureBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F632231C2C2009F0460 /* AeonCreatureBrain.swift */; };
+		B413ABBB224D7C8100E8BDD1 /* AeonCreatureBrainStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F6A223346E3009F0460 /* AeonCreatureBrainStates.swift */; };
+		B413ABBC224D7C8100E8BDD1 /* AeonFoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDACF1F81A1DE00DEA908 /* AeonFoodNode.swift */; };
+		B413ABBD224D7C8100E8BDD1 /* AeonNodeProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED37224806850026604C /* AeonNodeProtocols.swift */; };
+		B413ABBE224D7C8100E8BDD1 /* AeonBubbleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED39224817D80026604C /* AeonBubbleNode.swift */; };
+		B413ABBF224D7C8200E8BDD1 /* AeonCreatureNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDACD1F80B2B000DEA908 /* AeonCreatureNode.swift */; };
+		B413ABC0224D7C8200E8BDD1 /* AeonLimbNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F652231C7F5009F0460 /* AeonLimbNode.swift */; };
+		B413ABC1224D7C8200E8BDD1 /* AeonCreatureBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F632231C2C2009F0460 /* AeonCreatureBrain.swift */; };
+		B413ABC2224D7C8200E8BDD1 /* AeonCreatureBrainStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F6A223346E3009F0460 /* AeonCreatureBrainStates.swift */; };
+		B413ABC3224D7C8200E8BDD1 /* AeonFoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDACF1F81A1DE00DEA908 /* AeonFoodNode.swift */; };
+		B413ABC4224D7C8200E8BDD1 /* AeonNodeProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED37224806850026604C /* AeonNodeProtocols.swift */; };
+		B413ABC5224D7C8200E8BDD1 /* AeonBubbleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED39224817D80026604C /* AeonBubbleNode.swift */; };
+		B413ABC6224D7C8300E8BDD1 /* AeonCreatureNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDACD1F80B2B000DEA908 /* AeonCreatureNode.swift */; };
+		B413ABC7224D7C8300E8BDD1 /* AeonLimbNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F652231C7F5009F0460 /* AeonLimbNode.swift */; };
+		B413ABC8224D7C8300E8BDD1 /* AeonCreatureBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F632231C2C2009F0460 /* AeonCreatureBrain.swift */; };
+		B413ABC9224D7C8300E8BDD1 /* AeonCreatureBrainStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F6A223346E3009F0460 /* AeonCreatureBrainStates.swift */; };
+		B413ABCA224D7C8300E8BDD1 /* AeonFoodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDACF1F81A1DE00DEA908 /* AeonFoodNode.swift */; };
+		B413ABCB224D7C8300E8BDD1 /* AeonNodeProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED37224806850026604C /* AeonNodeProtocols.swift */; };
+		B413ABCC224D7C8300E8BDD1 /* AeonBubbleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED39224817D80026604C /* AeonBubbleNode.swift */; };
+		B413ABCD224D7C8A00E8BDD1 /* AeonNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */; };
+		B413ABCE224D7C8A00E8BDD1 /* Surnames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F801F8C81C10002B2BB /* Surnames */; };
+		B413ABCF224D7C8A00E8BDD1 /* FirstNames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F821F8C86020002B2BB /* FirstNames */; };
+		B413ABD0224D7C8A00E8BDD1 /* AeonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F672231E855009F0460 /* AeonUtils.swift */; };
+		B413ABD1224D7C8A00E8BDD1 /* AeonColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED31224708800026604C /* AeonColors.swift */; };
+		B413ABD2224D7C8A00E8BDD1 /* SKTextureGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480388D223750DD005AF239 /* SKTextureGradient.swift */; };
+		B413ABD3224D7C8B00E8BDD1 /* AeonNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */; };
+		B413ABD4224D7C8B00E8BDD1 /* Surnames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F801F8C81C10002B2BB /* Surnames */; };
+		B413ABD5224D7C8B00E8BDD1 /* FirstNames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F821F8C86020002B2BB /* FirstNames */; };
+		B413ABD6224D7C8B00E8BDD1 /* AeonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F672231E855009F0460 /* AeonUtils.swift */; };
+		B413ABD7224D7C8B00E8BDD1 /* AeonColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED31224708800026604C /* AeonColors.swift */; };
+		B413ABD8224D7C8B00E8BDD1 /* SKTextureGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480388D223750DD005AF239 /* SKTextureGradient.swift */; };
+		B413ABD9224D7C8C00E8BDD1 /* AeonNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */; };
+		B413ABDA224D7C8C00E8BDD1 /* Surnames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F801F8C81C10002B2BB /* Surnames */; };
+		B413ABDB224D7C8C00E8BDD1 /* FirstNames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F821F8C86020002B2BB /* FirstNames */; };
+		B413ABDC224D7C8C00E8BDD1 /* AeonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F672231E855009F0460 /* AeonUtils.swift */; };
+		B413ABDD224D7C8C00E8BDD1 /* AeonColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED31224708800026604C /* AeonColors.swift */; };
+		B413ABDE224D7C8C00E8BDD1 /* SKTextureGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480388D223750DD005AF239 /* SKTextureGradient.swift */; };
+		B413ABDF224D7CC000E8BDD1 /* AeonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDABC1F80943500DEA908 /* AeonViewController.swift */; };
+		B413ABE0224D7CC000E8BDD1 /* AeonDataPillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A171192245B70F00890D32 /* AeonDataPillView.swift */; };
+		B413ABE1224D7CC000E8BDD1 /* AeonMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1711B2245B72800890D32 /* AeonMenuButton.swift */; };
+		B413ABE2224D7CC000E8BDD1 /* AeonMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED3322470B980026604C /* AeonMenuView.swift */; };
+		B413ABE3224D7D4F00E8BDD1 /* AeonOceanSparkle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */; };
+		B413ABE4224D7D4F00E8BDD1 /* AeonSmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */; };
+		B413ABE5224D7D4F00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F12241A557007FE456 /* Assets.xcassets */; };
+		B413ABE6224D7D4F00E8BDD1 /* AeonOceanSparkle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */; };
+		B413ABE7224D7D4F00E8BDD1 /* AeonSmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */; };
+		B413ABE8224D7D4F00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F12241A557007FE456 /* Assets.xcassets */; };
+		B413ABE9224D7D5000E8BDD1 /* AeonOceanSparkle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */; };
+		B413ABEA224D7D5000E8BDD1 /* AeonSmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */; };
+		B413ABEB224D7D5000E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F12241A557007FE456 /* Assets.xcassets */; };
 		B4364F7E1F8C7A7A0002B2BB /* AeonNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */; };
 		B4364F811F8C81C20002B2BB /* Surnames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F801F8C81C10002B2BB /* Surnames */; };
 		B4364F831F8C86020002B2BB /* FirstNames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F821F8C86020002B2BB /* FirstNames */; };
@@ -58,6 +110,7 @@
 
 /* Begin PBXFileReference section */
 		1921664E2469C290D4148C61 /* Pods-Aeon Garden Original iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden Original iOS.debug.xcconfig"; path = "Target Support Files/Pods-Aeon Garden Original iOS/Pods-Aeon Garden Original iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		36FD16856D813C5EFD6431ED /* Pods-Aeon Garden iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden iOS.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden iOS/Pods-Aeon Garden iOS.release.xcconfig"; sourceTree = "<group>"; };
 		4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonSmokeParticle.sks; sourceTree = "<group>"; };
 		4419E9F12241A557007FE456 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44868F632231C2C2009F0460 /* AeonCreatureBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonCreatureBrain.swift; sourceTree = "<group>"; };
@@ -68,15 +121,15 @@
 		44A1711B2245B72800890D32 /* AeonMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonMenuButton.swift; sourceTree = "<group>"; };
 		55106F82B8367E59A3F6FC58 /* Pods_Aeon_Garden.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DEDF779719125253E8C1592 /* Pods-Aeon Garden.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden/Pods-Aeon Garden.release.xcconfig"; sourceTree = "<group>"; };
+		9DA5FBDDF894B044FA1831F3 /* Pods-Aeon Garden iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden iOS.debug.xcconfig"; path = "Target Support Files/Pods-Aeon Garden iOS/Pods-Aeon Garden iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		A69E33689BDFD1DAC0725B2E /* Pods_Aeon_Garden_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD05DABBB678E736592C175E /* Pods-Aeon Garden Original iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden Original iOS.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden Original iOS/Pods-Aeon Garden Original iOS.release.xcconfig"; sourceTree = "<group>"; };
 		B413AB6D224D73C200E8BDD1 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		B413AB6E224D73C200E8BDD1 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		B413AB6F224D73C200E8BDD1 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		B413AB70224D73C400E8BDD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B413AB75224D73C400E8BDD1 /* Aeon Garden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Aeon Garden.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B413AB77224D73C400E8BDD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B413AB79224D73C400E8BDD1 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		B413AB7C224D73C400E8BDD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B413AB7F224D73C400E8BDD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B413AB81224D73C400E8BDD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B413AB86224D73C400E8BDD1 /* Aeon Garden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Aeon Garden.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +169,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E7E158ACFE2903488CE6E7E /* Pods_Aeon_Garden_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +203,7 @@
 			children = (
 				55106F82B8367E59A3F6FC58 /* Pods_Aeon_Garden.framework */,
 				E7FF2114A3347A2F93E3B678 /* Pods_Aeon_Garden_Original_iOS.framework */,
+				A69E33689BDFD1DAC0725B2E /* Pods_Aeon_Garden_iOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -167,7 +222,6 @@
 		44868F622230B706009F0460 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				B4364F7A1F8C78190002B2BB /* Particles */,
 				B48DDAC11F80943500DEA908 /* Assets.xcassets */,
 				B48DDAC31F80943500DEA908 /* LaunchScreen.storyboard */,
 			);
@@ -182,8 +236,9 @@
 				44A1711B2245B72800890D32 /* AeonMenuButton.swift */,
 				B4DEED3322470B980026604C /* AeonMenuView.swift */,
 			);
-			path = Interface;
-			sourceTree = "<group>";
+			name = Interface;
+			path = "Aeon Garden iOS/Interface";
+			sourceTree = SOURCE_ROOT;
 		};
 		44D36650223B1D63006AB1C7 /* Utilities */ = {
 			isa = PBXGroup;
@@ -193,26 +248,30 @@
 				B4DEED31224708800026604C /* AeonColors.swift */,
 				B480388D223750DD005AF239 /* SKTextureGradient.swift */,
 			);
-			path = Utilities;
-			sourceTree = "<group>";
+			name = Utilities;
+			path = "Aeon Garden Shared/Utilities";
+			sourceTree = SOURCE_ROOT;
 		};
 		B413AB6C224D73C200E8BDD1 /* Aeon Garden Shared */ = {
 			isa = PBXGroup;
 			children = (
+				B4364F7A1F8C78190002B2BB /* Particles */,
+				B4DEED362248065B0026604C /* Scenes */,
+				B4DEED3522470E400026604C /* Nodes */,
+				44D36650223B1D63006AB1C7 /* Utilities */,
 				B413AB6D224D73C200E8BDD1 /* Actions.sks */,
 				B413AB6E224D73C200E8BDD1 /* GameScene.sks */,
 				B413AB6F224D73C200E8BDD1 /* GameScene.swift */,
-				B413AB70224D73C400E8BDD1 /* Assets.xcassets */,
 			);
 			path = "Aeon Garden Shared";
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		B413AB76224D73C400E8BDD1 /* Aeon Garden iOS */ = {
 			isa = PBXGroup;
 			children = (
+				44A1711D2245B73200890D32 /* Interface */,
 				B413AB77224D73C400E8BDD1 /* AppDelegate.swift */,
 				B413AB79224D73C400E8BDD1 /* GameViewController.swift */,
-				B413AB7B224D73C400E8BDD1 /* Main.storyboard */,
 				B413AB7E224D73C400E8BDD1 /* LaunchScreen.storyboard */,
 				B413AB81224D73C400E8BDD1 /* Info.plist */,
 			);
@@ -258,8 +317,9 @@
 				4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */,
 				4419E9F12241A557007FE456 /* Assets.xcassets */,
 			);
-			path = Particles;
-			sourceTree = "<group>";
+			name = Particles;
+			path = "Aeon Garden Shared/Particles";
+			sourceTree = SOURCE_ROOT;
 		};
 		B48DDAA81F80943500DEA908 = {
 			isa = PBXGroup;
@@ -290,10 +350,6 @@
 			isa = PBXGroup;
 			children = (
 				B48DDAB41F80943500DEA908 /* AppDelegate.swift */,
-				44A1711D2245B73200890D32 /* Interface */,
-				B4DEED362248065B0026604C /* Scenes */,
-				B4DEED3522470E400026604C /* Nodes */,
-				44D36650223B1D63006AB1C7 /* Utilities */,
 				44868F622230B706009F0460 /* Assets */,
 				B48DDAC61F80943500DEA908 /* Info.plist */,
 			);
@@ -308,16 +364,18 @@
 				B4DEED37224806850026604C /* AeonNodeProtocols.swift */,
 				B4DEED39224817D80026604C /* AeonBubbleNode.swift */,
 			);
-			path = Nodes;
-			sourceTree = "<group>";
+			name = Nodes;
+			path = "Aeon Garden Shared/Nodes";
+			sourceTree = SOURCE_ROOT;
 		};
 		B4DEED362248065B0026604C /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
 				B48DDABA1F80943500DEA908 /* AeonTankScene.swift */,
 			);
-			path = Scenes;
-			sourceTree = "<group>";
+			name = Scenes;
+			path = "Aeon Garden Shared/Scenes";
+			sourceTree = SOURCE_ROOT;
 		};
 		C3FE8F8E96A673E848F74E7E /* Pods */ = {
 			isa = PBXGroup;
@@ -326,6 +384,8 @@
 				8DEDF779719125253E8C1592 /* Pods-Aeon Garden.release.xcconfig */,
 				1921664E2469C290D4148C61 /* Pods-Aeon Garden Original iOS.debug.xcconfig */,
 				AD05DABBB678E736592C175E /* Pods-Aeon Garden Original iOS.release.xcconfig */,
+				9DA5FBDDF894B044FA1831F3 /* Pods-Aeon Garden iOS.debug.xcconfig */,
+				36FD16856D813C5EFD6431ED /* Pods-Aeon Garden iOS.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -337,9 +397,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B413ABB0224D73C400E8BDD1 /* Build configuration list for PBXNativeTarget "Aeon Garden iOS" */;
 			buildPhases = (
+				219FFC9F148B3EEBF1CF4463 /* [CP] Check Pods Manifest.lock */,
 				B413AB71224D73C400E8BDD1 /* Sources */,
 				B413AB72224D73C400E8BDD1 /* Frameworks */,
 				B413AB73224D73C400E8BDD1 /* Resources */,
+				E474D9030D5C7030406D7C4F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -459,11 +521,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B413ABE3224D7D4F00E8BDD1 /* AeonOceanSparkle.sks in Resources */,
 				B413ABA1224D73C400E8BDD1 /* GameScene.sks in Resources */,
-				B413AB7D224D73C400E8BDD1 /* Main.storyboard in Resources */,
+				B413ABE4224D7D4F00E8BDD1 /* AeonSmokeParticle.sks in Resources */,
 				B413AB9E224D73C400E8BDD1 /* Actions.sks in Resources */,
+				B413ABCE224D7C8A00E8BDD1 /* Surnames in Resources */,
 				B413AB80224D73C400E8BDD1 /* LaunchScreen.storyboard in Resources */,
-				B413ABA7224D73C400E8BDD1 /* Assets.xcassets in Resources */,
+				B413ABCF224D7C8A00E8BDD1 /* FirstNames in Resources */,
+				B413ABE5224D7D4F00E8BDD1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,9 +536,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B413ABE6224D7D4F00E8BDD1 /* AeonOceanSparkle.sks in Resources */,
 				B413AB8E224D73C400E8BDD1 /* Main.storyboard in Resources */,
+				B413ABE7224D7D4F00E8BDD1 /* AeonSmokeParticle.sks in Resources */,
 				B413ABA2224D73C400E8BDD1 /* GameScene.sks in Resources */,
-				B413ABA8224D73C400E8BDD1 /* Assets.xcassets in Resources */,
+				B413ABD4224D7C8B00E8BDD1 /* Surnames in Resources */,
+				B413ABD5224D7C8B00E8BDD1 /* FirstNames in Resources */,
+				B413ABE8224D7D4F00E8BDD1 /* Assets.xcassets in Resources */,
 				B413AB9F224D73C400E8BDD1 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -482,9 +551,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B413ABE9224D7D5000E8BDD1 /* AeonOceanSparkle.sks in Resources */,
 				B413AB9C224D73C400E8BDD1 /* Main.storyboard in Resources */,
+				B413ABEA224D7D5000E8BDD1 /* AeonSmokeParticle.sks in Resources */,
 				B413ABA3224D73C400E8BDD1 /* GameScene.sks in Resources */,
-				B413ABA9224D73C400E8BDD1 /* Assets.xcassets in Resources */,
+				B413ABDA224D7C8C00E8BDD1 /* Surnames in Resources */,
+				B413ABDB224D7C8C00E8BDD1 /* FirstNames in Resources */,
+				B413ABEB224D7D5000E8BDD1 /* Assets.xcassets in Resources */,
 				B413ABA0224D73C400E8BDD1 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,6 +579,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		219FFC9F148B3EEBF1CF4463 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Aeon Garden iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		41E5EB57845D8B78540DEB3F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -568,6 +663,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Aeon Garden Original iOS/Pods-Aeon Garden Original iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E474D9030D5C7030406D7C4F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Aeon Garden iOS/Pods-Aeon Garden iOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Aeon Garden iOS/Pods-Aeon Garden iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -575,8 +692,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B413ABD1224D7C8A00E8BDD1 /* AeonColors.swift in Sources */,
+				B413ABB9224D7C8100E8BDD1 /* AeonLimbNode.swift in Sources */,
+				B413ABCD224D7C8A00E8BDD1 /* AeonNameGenerator.swift in Sources */,
+				B413ABB8224D7C8100E8BDD1 /* AeonCreatureNode.swift in Sources */,
 				B413ABA4224D73C400E8BDD1 /* GameScene.swift in Sources */,
+				B413ABDF224D7CC000E8BDD1 /* AeonViewController.swift in Sources */,
+				B413ABD2224D7C8A00E8BDD1 /* SKTextureGradient.swift in Sources */,
+				B413ABB5224D7C7100E8BDD1 /* AeonTankScene.swift in Sources */,
+				B413ABBA224D7C8100E8BDD1 /* AeonCreatureBrain.swift in Sources */,
+				B413ABE2224D7CC000E8BDD1 /* AeonMenuView.swift in Sources */,
+				B413ABBC224D7C8100E8BDD1 /* AeonFoodNode.swift in Sources */,
+				B413ABE0224D7CC000E8BDD1 /* AeonDataPillView.swift in Sources */,
+				B413ABBD224D7C8100E8BDD1 /* AeonNodeProtocols.swift in Sources */,
 				B413AB7A224D73C400E8BDD1 /* GameViewController.swift in Sources */,
+				B413ABE1224D7CC000E8BDD1 /* AeonMenuButton.swift in Sources */,
+				B413ABBB224D7C8100E8BDD1 /* AeonCreatureBrainStates.swift in Sources */,
+				B413ABBE224D7C8100E8BDD1 /* AeonBubbleNode.swift in Sources */,
+				B413ABD0224D7C8A00E8BDD1 /* AeonUtils.swift in Sources */,
 				B413AB78224D73C400E8BDD1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -585,8 +718,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B413ABD7224D7C8B00E8BDD1 /* AeonColors.swift in Sources */,
+				B413ABC0224D7C8200E8BDD1 /* AeonLimbNode.swift in Sources */,
+				B413ABD3224D7C8B00E8BDD1 /* AeonNameGenerator.swift in Sources */,
+				B413ABBF224D7C8200E8BDD1 /* AeonCreatureNode.swift in Sources */,
 				B413ABA5224D73C400E8BDD1 /* GameScene.swift in Sources */,
+				B413ABD8224D7C8B00E8BDD1 /* SKTextureGradient.swift in Sources */,
+				B413ABB6224D7C7200E8BDD1 /* AeonTankScene.swift in Sources */,
+				B413ABC1224D7C8200E8BDD1 /* AeonCreatureBrain.swift in Sources */,
+				B413ABC3224D7C8200E8BDD1 /* AeonFoodNode.swift in Sources */,
+				B413ABC4224D7C8200E8BDD1 /* AeonNodeProtocols.swift in Sources */,
 				B413AB8B224D73C400E8BDD1 /* GameViewController.swift in Sources */,
+				B413ABC2224D7C8200E8BDD1 /* AeonCreatureBrainStates.swift in Sources */,
+				B413ABC5224D7C8200E8BDD1 /* AeonBubbleNode.swift in Sources */,
+				B413ABD6224D7C8B00E8BDD1 /* AeonUtils.swift in Sources */,
 				B413AB89224D73C400E8BDD1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -595,8 +740,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B413ABDD224D7C8C00E8BDD1 /* AeonColors.swift in Sources */,
+				B413ABC7224D7C8300E8BDD1 /* AeonLimbNode.swift in Sources */,
+				B413ABD9224D7C8C00E8BDD1 /* AeonNameGenerator.swift in Sources */,
+				B413ABC6224D7C8300E8BDD1 /* AeonCreatureNode.swift in Sources */,
 				B413ABA6224D73C400E8BDD1 /* GameScene.swift in Sources */,
+				B413ABDE224D7C8C00E8BDD1 /* SKTextureGradient.swift in Sources */,
+				B413ABB7224D7C7300E8BDD1 /* AeonTankScene.swift in Sources */,
+				B413ABC8224D7C8300E8BDD1 /* AeonCreatureBrain.swift in Sources */,
+				B413ABCA224D7C8300E8BDD1 /* AeonFoodNode.swift in Sources */,
+				B413ABCB224D7C8300E8BDD1 /* AeonNodeProtocols.swift in Sources */,
 				B413AB99224D73C400E8BDD1 /* GameViewController.swift in Sources */,
+				B413ABC9224D7C8300E8BDD1 /* AeonCreatureBrainStates.swift in Sources */,
+				B413ABCC224D7C8300E8BDD1 /* AeonBubbleNode.swift in Sources */,
+				B413ABDC224D7C8C00E8BDD1 /* AeonUtils.swift in Sources */,
 				B413AB97224D73C400E8BDD1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -628,14 +785,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B413AB7B224D73C400E8BDD1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B413AB7C224D73C400E8BDD1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B413AB7E224D73C400E8BDD1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -673,6 +822,7 @@
 /* Begin XCBuildConfiguration section */
 		B413ABAA224D73C400E8BDD1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DA5FBDDF894B044FA1831F3 /* Pods-Aeon Garden iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -680,7 +830,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
 				INFOPLIST_FILE = "Aeon Garden iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -694,6 +844,7 @@
 		};
 		B413ABAB224D73C400E8BDD1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36FD16856D813C5EFD6431ED /* Pods-Aeon Garden iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -701,7 +852,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
 				INFOPLIST_FILE = "Aeon Garden iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.amiantos.Aeon-Garden";
