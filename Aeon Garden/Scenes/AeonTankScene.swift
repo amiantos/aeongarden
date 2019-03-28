@@ -32,8 +32,8 @@ class AeonTankScene: SKScene {
     public var deathCount: Int = 0
     public var birthCount: Int = 0
 
-    private var foodPelletMax: Int = 20
-    private var creatureMinimum: Int = 10
+    private var foodPelletMax: Int = 10
+    private var creatureMinimum: Int = 6
 
     private var lastFoodTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
@@ -114,7 +114,7 @@ class AeonTankScene: SKScene {
             lastUIUpdateTime = currentTime
         }
 
-        if (currentTime - lastFoodTime) >= 2,
+        if (currentTime - lastFoodTime) >= 3,
             foodPelletCount < foodPelletMax {
             addFoodPelletToScene()
             lastFoodTime = currentTime
@@ -125,11 +125,11 @@ class AeonTankScene: SKScene {
             lastBubbleTime = currentTime
         }
 
-        if (currentTime - lastCreatureTime) >= 5,
-            creatureCount < creatureMinimum {
-            addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 0, max: 360))
-            lastCreatureTime = currentTime
-        }
+//        if (currentTime - lastCreatureTime) >= 5,
+//            creatureCount < creatureMinimum {
+//            addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 0, max: 360))
+//            lastCreatureTime = currentTime
+//        }
 
         for child in children {
             if let child = child as? Updatable {
@@ -204,9 +204,9 @@ extension AeonTankScene {
     fileprivate func createInitialCreatures() {
         var totalCreatures: Int = 0
         var initialCreatureHue: CGFloat = 0
-        let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(20))
+        let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(creatureMinimum))
 
-        while totalCreatures < 20 {
+        while totalCreatures < creatureMinimum {
             addNewCreatureToScene(withPrimaryHue: initialCreatureHue)
             addFoodPelletToScene()
             totalCreatures += 1

@@ -33,11 +33,11 @@ class AeonCreatureNode: SKNode, Updatable {
 
     // MARK: - Current Focus
 
-    public private(set) var currentTarget: SKNode?
+    weak public private(set) var currentTarget: SKNode?
 
     // MARK: - Health
 
-    public private(set) var currentHealth: Float = Float(randomInteger(min: 100, max: 500)) {
+    public private(set) var currentHealth: Float = Float(randomInteger(min: 50, max: 100)) {
         didSet {
             if currentHealth <= 0 {
                 die()

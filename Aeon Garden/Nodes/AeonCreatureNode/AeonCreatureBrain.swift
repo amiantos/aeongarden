@@ -41,9 +41,9 @@ class AeonCreatureBrain: Updatable {
 
     public var currentFeeling: Feeling = .bored
     public var currentState: State = State.living
-    public var currentFoodTarget: AeonFoodNode?
-    public var currentLoveTarget: AeonCreatureNode?
-    public var currentPlayTarget: SKNode?
+    weak public var currentFoodTarget: AeonFoodNode?
+    weak public var currentLoveTarget: AeonCreatureNode?
+    weak public var currentPlayTarget: SKNode?
     private var lifeState: Bool = true {
         didSet {
             if !lifeState {
@@ -88,11 +88,11 @@ class AeonCreatureBrain: Updatable {
         let deltaTime = currentTime - lastUpdateTime
         if deltaTime <= 1 {
             let currentHealth = getCurrentHealth()
-            if currentHealth >= 800 {
+            if currentHealth >= 700 {
                 currentFeeling = .horny
             } else if currentHealth <= 200 {
                 currentFeeling = .hungry
-            } else if currentHealth <= 600,
+            } else if currentHealth <= 500,
                 currentFeeling == .horny {
                     currentFeeling = .bored
             }
@@ -114,10 +114,10 @@ class AeonCreatureBrain: Updatable {
             creatureDifferenceArray.append((mateRating, distance, child))
         }
 
-        creatureDifferenceArray.sort(by: { $0.distance < $1.distance })
-        let prefix = creatureDifferenceArray.count < 5 ? creatureDifferenceArray.count : 5
-        creatureDifferenceArray = Array(creatureDifferenceArray.prefix(upTo: prefix))
-        creatureDifferenceArray.sort(by: { $0.rating < $1.rating })
+//        creatureDifferenceArray.sort(by: { $0.distance < $1.distance })
+//        let prefix = creatureDifferenceArray.count < 5 ? creatureDifferenceArray.count : 5
+//        creatureDifferenceArray = Array(creatureDifferenceArray.prefix(upTo: prefix))
+        creatureDifferenceArray.sort(by: { ($0.rating + $0.distance) < ($1.rating + $1.distance) })
 
         if creatureDifferenceArray.count > 0 {
             if creatureDifferenceArray[0].node != currentLoveTarget {
