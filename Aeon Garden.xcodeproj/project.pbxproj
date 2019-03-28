@@ -90,6 +90,10 @@
 		B413ABE9224D7D5000E8BDD1 /* AeonOceanSparkle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */; };
 		B413ABEA224D7D5000E8BDD1 /* AeonSmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */; };
 		B413ABEB224D7D5000E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F12241A557007FE456 /* Assets.xcassets */; };
+		B413ABED224D7E1B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
+		B413ABEE224D7E1B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
+		B413ABEF224D7E1B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
+		B413ABF0224D7E1B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
 		B4364F7E1F8C7A7A0002B2BB /* AeonNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */; };
 		B4364F811F8C81C20002B2BB /* Surnames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F801F8C81C10002B2BB /* Surnames */; };
 		B4364F831F8C86020002B2BB /* FirstNames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F821F8C86020002B2BB /* FirstNames */; };
@@ -142,6 +146,7 @@
 		B413AB98224D73C400E8BDD1 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		B413AB9B224D73C400E8BDD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B413AB9D224D73C400E8BDD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonNameGenerator.swift; sourceTree = "<group>"; };
 		B4364F801F8C81C10002B2BB /* Surnames */ = {isa = PBXFileReference; lastKnownFileType = text; path = Surnames; sourceTree = "<group>"; };
 		B4364F821F8C86020002B2BB /* FirstNames */ = {isa = PBXFileReference; lastKnownFileType = text; path = FirstNames; sourceTree = "<group>"; };
@@ -255,6 +260,7 @@
 		B413AB6C224D73C200E8BDD1 /* Aeon Garden Shared */ = {
 			isa = PBXGroup;
 			children = (
+				B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */,
 				B4364F7A1F8C78190002B2BB /* Particles */,
 				B4DEED362248065B0026604C /* Scenes */,
 				B4DEED3522470E400026604C /* Nodes */,
@@ -528,6 +534,7 @@
 				B413ABCE224D7C8A00E8BDD1 /* Surnames in Resources */,
 				B413AB80224D73C400E8BDD1 /* LaunchScreen.storyboard in Resources */,
 				B413ABCF224D7C8A00E8BDD1 /* FirstNames in Resources */,
+				B413ABEE224D7E1B00E8BDD1 /* Assets.xcassets in Resources */,
 				B413ABE5224D7D4F00E8BDD1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -543,6 +550,7 @@
 				B413ABD4224D7C8B00E8BDD1 /* Surnames in Resources */,
 				B413ABD5224D7C8B00E8BDD1 /* FirstNames in Resources */,
 				B413ABE8224D7D4F00E8BDD1 /* Assets.xcassets in Resources */,
+				B413ABEF224D7E1B00E8BDD1 /* Assets.xcassets in Resources */,
 				B413AB9F224D73C400E8BDD1 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -558,6 +566,7 @@
 				B413ABDA224D7C8C00E8BDD1 /* Surnames in Resources */,
 				B413ABDB224D7C8C00E8BDD1 /* FirstNames in Resources */,
 				B413ABEB224D7D5000E8BDD1 /* Assets.xcassets in Resources */,
+				B413ABF0224D7E1B00E8BDD1 /* Assets.xcassets in Resources */,
 				B413ABA0224D73C400E8BDD1 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -572,6 +581,7 @@
 				B4364F831F8C86020002B2BB /* FirstNames in Resources */,
 				B48DDAC21F80943500DEA908 /* Assets.xcassets in Resources */,
 				4419E9F32241A557007FE456 /* Assets.xcassets in Resources */,
+				B413ABED224D7E1B00E8BDD1 /* Assets.xcassets in Resources */,
 				B48DDAC51F80943500DEA908 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
