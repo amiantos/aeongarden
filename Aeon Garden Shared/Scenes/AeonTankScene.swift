@@ -73,6 +73,26 @@ class AeonTankScene: SKScene {
         }
     }
 
+    func resetCamera() {
+        self.selectedCreature = nil
+        camera?.removeAllActions()
+        let zoomInAction = SKAction.scale(to: 1, duration: 1)
+        let cameraAction = SKAction.move(
+            to: CGPoint(x: self.size.width / 2, y: self.size.height / 2),
+            duration: 1
+        )
+        camera?.run(SKAction.group([zoomInAction, cameraAction]))
+    }
+
+    func selectCreature(_ creature: AeonCreatureNode) {
+        self.selectedCreature = creature
+        let zoomInAction = SKAction.scale(to: 0.4, duration: 1)
+        camera?.run(zoomInAction, completion: {
+            let fadeInAction = SKAction.fadeAlpha(to: 1, duration: 1)
+            self.creatureStatsNode.run(fadeInAction)
+        })
+    }
+
     // MARK: - Scene
 
     override func sceneDidLoad() {
@@ -154,7 +174,7 @@ class AeonTankScene: SKScene {
     // MARK: - Touch Events
 
 
-    #if TARGET_OS_IPHONE
+    #if os(iOS)
     override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
         for touch in touches { touchDown(atPoint: touch.location(in: self)) }
         let touch = touches.first!
@@ -162,21 +182,9 @@ class AeonTankScene: SKScene {
         let nodes = self.nodes(at: touchPoint)
         for node in nodes where node is AeonCreatureNode {
             if node == selectedCreature {
-                self.selectedCreature = nil
-                camera?.removeAllActions()
-                let zoomInAction = SKAction.scale(to: 1, duration: 1)
-                let cameraAction = SKAction.move(
-                    to: CGPoint(x: self.size.width / 2, y: self.size.height / 2),
-                    duration: 1
-                )
-                camera?.run(SKAction.group([zoomInAction, cameraAction]))
+                resetCamera()
             } else {
-                self.selectedCreature = node as? AeonCreatureNode
-                let zoomInAction = SKAction.scale(to: 0.4, duration: 1)
-                camera?.run(zoomInAction, completion: {
-                    let fadeInAction = SKAction.fadeAlpha(to: 1, duration: 1)
-                    self.creatureStatsNode.run(fadeInAction)
-                })
+                selectCreature(node as! AeonCreatureNode)
             }
         }
     }
@@ -377,6 +385,7 @@ extension AeonTankScene {
     fileprivate func setupCreatureStatsUI() {
         cameraNode.addChild(creatureStatsNode)
         creatureStatsNode.alpha = 0
+        creatureStatsNode.size = CGSize(width: 533, height: 33)
         creatureStatsNode.size.width /= 1.2
         creatureStatsNode.position.x = creatureStatsNode.size.width / 2.2
 

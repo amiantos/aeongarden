@@ -20,7 +20,7 @@ class GameViewController: UIViewController {
         scene = AeonTankScene(size: view.bounds.size)
         
         // Present the scene
-        skView = self.view as! SKView
+        skView = self.view as? SKView
         skView?.presentScene(scene)
         
         skView?.showsFPS = true
@@ -38,7 +38,12 @@ class GameViewController: UIViewController {
         for case let child as AeonCreatureNode in nodes {
             mateArray.append(child)
         }
-        scene!.selectedCreature = mateArray.randomElement()
+        let selected = mateArray.randomElement()!
+        if selected == scene!.selectedCreature {
+            scene!.resetCamera()
+        } else {
+            scene!.selectCreature(selected)
+        }
     }
 
 }
