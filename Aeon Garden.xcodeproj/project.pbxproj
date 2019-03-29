@@ -73,6 +73,7 @@
 		B413ABEE224D7E1B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
 		B413ABF0224D7E1B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
 		B413ABF3224D847B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
+		B413ABF4224DC6A000E8BDD1 /* AeonColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED31224708800026604C /* AeonColors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -559,6 +560,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B413ABF4224DC6A000E8BDD1 /* AeonColors.swift in Sources */,
 				B413ABC7224D7C8300E8BDD1 /* AeonLimbNode.swift in Sources */,
 				B413ABD9224D7C8C00E8BDD1 /* AeonNameGenerator.swift in Sources */,
 				B413ABC6224D7C8300E8BDD1 /* AeonCreatureNode.swift in Sources */,

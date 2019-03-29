@@ -32,8 +32,8 @@ class AeonTankScene: SKScene {
     public var deathCount: Int = 0
     public var birthCount: Int = 0
 
-    private var foodPelletMax: Int = 10
-    private var creatureMinimum: Int = 6
+    private var foodPelletMax: Int = 20
+    private var creatureMinimum: Int = 20
 
     private var lastFoodTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
@@ -153,6 +153,8 @@ class AeonTankScene: SKScene {
 
     // MARK: - Touch Events
 
+
+    #if TARGET_OS_IPHONE
     override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
         for touch in touches { touchDown(atPoint: touch.location(in: self)) }
         let touch = touches.first!
@@ -196,6 +198,7 @@ class AeonTankScene: SKScene {
     override func touchesCancelled(_ touches: Set<UITouch>, with _: UIEvent?) {
         for touch in touches { touchUp(atPoint: touch.location(in: self)) }
     }
+    #endif
 }
 
 // MARK: - Node Creation
@@ -322,6 +325,7 @@ extension AeonTankScene {
     fileprivate func setupFrame() {
         size.width = frame.size.width * 2
         size.height = frame.size.height * 2
+        backgroundColor = .aeonTintColor
 
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsBody?.categoryBitMask = CollisionTypes.edge.rawValue
@@ -335,28 +339,28 @@ extension AeonTankScene {
     }
 
     fileprivate func setupBackgroundGradient() {
-        let topColor = CIColor(color: UIColor(red: 0.0078, green: 0.0235, blue: 0.0275, alpha: 1.0)) /* #020607 */
-        let bottomColor = CIColor(color: UIColor(red: 0.1529, green: 0.4275, blue: 0.5373, alpha: 1.0)) /* #276d89 */
-
-        let textureSize = CGSize(width: frame.width * 1.5, height: frame.height * 2)
-        let texture = SKTexture(
-            size: CGSize(width: 200, height: 200),
-            color1: topColor,
-            color2: bottomColor,
-            direction: GradientDirection.upward
-        )
-        texture.filteringMode = .nearest
-        let sprite = SKSpriteNode(texture: texture)
-        sprite.position = CGPoint(x: frame.midX, y: frame.midY)
-        sprite.size = textureSize
-        sprite.zPosition = -3
-        addChild(sprite)
-
-        let moveUpAction = SKAction.moveBy(x: 0, y: 400, duration: 30)
-        let moveDownAction = SKAction.moveBy(x: 0, y: -400, duration: 30)
-        let moveActionGroup = SKAction.sequence([moveUpAction, moveDownAction, moveDownAction, moveUpAction])
-        moveActionGroup.timingMode = .easeInEaseOut
-        sprite.run(SKAction.repeatForever(moveActionGroup))
+//        let topColor = CIColor(color: UIColor(red: 0.0078, green: 0.0235, blue: 0.0275, alpha: 1.0)) /* #020607 */
+//        let bottomColor = CIColor(color: UIColor(red: 0.1529, green: 0.4275, blue: 0.5373, alpha: 1.0)) /* #276d89 */
+//
+//        let textureSize = CGSize(width: frame.width * 1.5, height: frame.height * 2)
+//        let texture = SKTexture(
+//            size: CGSize(width: 200, height: 200),
+//            color1: topColor,
+//            color2: bottomColor,
+//            direction: GradientDirection.upward
+//        )
+//        texture.filteringMode = .nearest
+//        let sprite = SKSpriteNode(texture: texture)
+//        sprite.position = CGPoint(x: frame.midX, y: frame.midY)
+//        sprite.size = textureSize
+//        sprite.zPosition = -3
+//        addChild(sprite)
+//
+//        let moveUpAction = SKAction.moveBy(x: 0, y: 400, duration: 30)
+//        let moveDownAction = SKAction.moveBy(x: 0, y: -400, duration: 30)
+//        let moveActionGroup = SKAction.sequence([moveUpAction, moveDownAction, moveDownAction, moveUpAction])
+//        moveActionGroup.timingMode = .easeInEaseOut
+//        sprite.run(SKAction.repeatForever(moveActionGroup))
     }
 
     fileprivate func setupBackgroundAnimation() {

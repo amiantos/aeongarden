@@ -35,7 +35,7 @@ class AeonBubbleNode: SKNode, Updatable {
         zPosition = 1
 
         let ballColor = SKShapeNode(circleOfRadius: 16)
-        ballColor.fillColor = UIColor(hue: 0.5472, saturation: 1, brightness: 0.68, alpha: 1) /* #007cad */
+        ballColor.fillColor = SKColor(hue: 0.5472, saturation: 1, brightness: 0.68, alpha: 1) /* #007cad */
         ballColor.strokeColor = .clear
         ballColor.zPosition = 1
         addChild(ballColor)
