@@ -86,7 +86,7 @@ class AeonCreatureBrain: Updatable {
     func update(_ currentTime: TimeInterval) {
         if lastUpdateTime == 0 { lastUpdateTime = currentTime }
         let deltaTime = currentTime - lastUpdateTime
-        if deltaTime <= 1 {
+        if deltaTime >= 1 {
             let currentHealth = getCurrentHealth()
             if currentHealth >= 700 {
                 currentFeeling = .horny

@@ -247,9 +247,10 @@ class AeonCreatureNode: SKNode, Updatable {
     func update(_ currentTime: TimeInterval) {
         if lastUpdateTime == 0 { lastUpdateTime = currentTime }
         let deltaTime = currentTime - lastUpdateTime
-        if deltaTime >= 1, currentHealth > 0 {
-            currentHealth -= Float(deltaTime)
-            lifeTime += Float(deltaTime)
+        let correctedDeltaTime = deltaTime > 1 ? 1 : deltaTime
+        if correctedDeltaTime >= 1, currentHealth > 0 {
+            currentHealth -= Float(correctedDeltaTime)
+            lifeTime += Float(correctedDeltaTime)
             lastUpdateTime = currentTime
         }
         brain?.update(currentTime)

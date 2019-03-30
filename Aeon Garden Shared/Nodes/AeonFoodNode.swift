@@ -91,8 +91,9 @@ class AeonFoodNode: SKNode, Updatable {
     func update(_ currentTime: TimeInterval) {
         if lastUpdateTime == 0 { lastUpdateTime = currentTime }
         let deltaTime = currentTime - lastUpdateTime
-        if deltaTime >= 1, lifeTime < maxLifeTime {
-            lifeTime += Float(deltaTime)
+        let correctedDeltaTime = deltaTime > 1 ? 1 : deltaTime
+        if correctedDeltaTime >= 1, lifeTime < maxLifeTime {
+            lifeTime += Float(correctedDeltaTime)
             lastUpdateTime = currentTime
         }
     }
