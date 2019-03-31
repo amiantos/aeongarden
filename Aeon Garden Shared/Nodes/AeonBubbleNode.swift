@@ -24,8 +24,7 @@ class AeonBubbleNode: SKNode, Updatable {
 
         physicsBody = SKPhysicsBody(circleOfRadius: 16)
         physicsBody?.categoryBitMask = CollisionTypes.ball.rawValue
-        physicsBody?.collisionBitMask = CollisionTypes.edge.rawValue | CollisionTypes.creature.rawValue | CollisionTypes.food.rawValue | CollisionTypes.ball.rawValue
-        physicsBody?.contactTestBitMask = CollisionTypes.creature.rawValue | CollisionTypes.edge.rawValue
+        physicsBody?.contactTestBitMask = CollisionTypes.creature.rawValue
         physicsBody?.allowsRotation = true
         physicsBody?.affectedByGravity = false
         physicsBody?.restitution = 0.2
@@ -82,6 +81,7 @@ class AeonBubbleNode: SKNode, Updatable {
     }
 
     func dieQuick() {
+        AeonSoundManager.shared.play(.bubblePop, onNode: self)
         physicsBody = nil
         let fadeOut = SKAction.fadeAlpha(to: 0, duration: 0.1)
         let scaleOutAction = SKAction.scale(to: 1, duration: 0.1)

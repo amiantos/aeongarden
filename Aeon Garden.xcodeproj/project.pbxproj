@@ -74,6 +74,12 @@
 		B413ABF0224D7E1B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
 		B413ABF3224D847B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
 		B413ABF4224DC6A000E8BDD1 /* AeonColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED31224708800026604C /* AeonColors.swift */; };
+		B413ABF7224FFD3800E8BDD1 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413ABF6224FFD3800E8BDD1 /* pop.wav */; };
+		B413ABF8224FFD3800E8BDD1 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413ABF6224FFD3800E8BDD1 /* pop.wav */; };
+		B413ABF9224FFD3800E8BDD1 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413ABF6224FFD3800E8BDD1 /* pop.wav */; };
+		B413ABFC224FFD7D00E8BDD1 /* AeonSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413ABFB224FFD7D00E8BDD1 /* AeonSoundManager.swift */; };
+		B413ABFD225002A300E8BDD1 /* AeonSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413ABFB224FFD7D00E8BDD1 /* AeonSoundManager.swift */; };
+		B413ABFE225002A400E8BDD1 /* AeonSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413ABFB224FFD7D00E8BDD1 /* AeonSoundManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +113,8 @@
 		B413AB9B224D73C400E8BDD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B413AB9D224D73C400E8BDD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Aeon Garden Shared/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
+		B413ABF6224FFD3800E8BDD1 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = pop.wav; path = ../pop.wav; sourceTree = "<group>"; };
+		B413ABFB224FFD7D00E8BDD1 /* AeonSoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AeonSoundManager.swift; path = "Aeon Garden Shared/Sound/AeonSoundManager.swift"; sourceTree = SOURCE_ROOT; };
 		B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonNameGenerator.swift; sourceTree = "<group>"; };
 		B4364F801F8C81C10002B2BB /* Surnames */ = {isa = PBXFileReference; lastKnownFileType = text; path = Surnames; sourceTree = "<group>"; };
 		B4364F821F8C86020002B2BB /* FirstNames */ = {isa = PBXFileReference; lastKnownFileType = text; path = FirstNames; sourceTree = "<group>"; };
@@ -199,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */,
+				B413ABFA224FFD3B00E8BDD1 /* Sound */,
 				B4364F7A1F8C78190002B2BB /* Particles */,
 				B4DEED362248065B0026604C /* Scenes */,
 				B4DEED3522470E400026604C /* Nodes */,
@@ -238,6 +247,15 @@
 				B413AB9D224D73C400E8BDD1 /* Info.plist */,
 			);
 			path = "Aeon Garden macOS";
+			sourceTree = "<group>";
+		};
+		B413ABFA224FFD3B00E8BDD1 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				B413ABF6224FFD3800E8BDD1 /* pop.wav */,
+				B413ABFB224FFD7D00E8BDD1 /* AeonSoundManager.swift */,
+			);
+			path = Sound;
 			sourceTree = "<group>";
 		};
 		B4364F791F8C78070002B2BB /* AeonNameGenerator */ = {
@@ -425,6 +443,7 @@
 			files = (
 				B413ABE3224D7D4F00E8BDD1 /* AeonOceanSparkle.sks in Resources */,
 				B413ABE4224D7D4F00E8BDD1 /* AeonSmokeParticle.sks in Resources */,
+				B413ABF7224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABCE224D7C8A00E8BDD1 /* Surnames in Resources */,
 				B413AB80224D73C400E8BDD1 /* LaunchScreen.storyboard in Resources */,
 				B413ABCF224D7C8A00E8BDD1 /* FirstNames in Resources */,
@@ -439,6 +458,7 @@
 			files = (
 				B413ABE6224D7D4F00E8BDD1 /* AeonOceanSparkle.sks in Resources */,
 				B413AB8E224D73C400E8BDD1 /* Main.storyboard in Resources */,
+				B413ABF8224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABE7224D7D4F00E8BDD1 /* AeonSmokeParticle.sks in Resources */,
 				B413ABD4224D7C8B00E8BDD1 /* Surnames in Resources */,
 				B413ABD5224D7C8B00E8BDD1 /* FirstNames in Resources */,
@@ -453,6 +473,7 @@
 			files = (
 				B413ABE9224D7D5000E8BDD1 /* AeonOceanSparkle.sks in Resources */,
 				B413AB9C224D73C400E8BDD1 /* Main.storyboard in Resources */,
+				B413ABF9224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABEA224D7D5000E8BDD1 /* AeonSmokeParticle.sks in Resources */,
 				B413ABDA224D7C8C00E8BDD1 /* Surnames in Resources */,
 				B413ABDB224D7C8C00E8BDD1 /* FirstNames in Resources */,
@@ -529,6 +550,7 @@
 				B413ABBD224D7C8100E8BDD1 /* AeonNodeProtocols.swift in Sources */,
 				B413ABE1224D7CC000E8BDD1 /* AeonMenuButton.swift in Sources */,
 				B413ABBB224D7C8100E8BDD1 /* AeonCreatureBrainStates.swift in Sources */,
+				B413ABFC224FFD7D00E8BDD1 /* AeonSoundManager.swift in Sources */,
 				B413ABBE224D7C8100E8BDD1 /* AeonBubbleNode.swift in Sources */,
 				B413ABD0224D7C8A00E8BDD1 /* AeonUtils.swift in Sources */,
 				B413AB78224D73C400E8BDD1 /* AppDelegate.swift in Sources */,
@@ -547,6 +569,7 @@
 				B413ABB6224D7C7200E8BDD1 /* AeonTankScene.swift in Sources */,
 				B413ABC1224D7C8200E8BDD1 /* AeonCreatureBrain.swift in Sources */,
 				B413ABC3224D7C8200E8BDD1 /* AeonFoodNode.swift in Sources */,
+				B413ABFD225002A300E8BDD1 /* AeonSoundManager.swift in Sources */,
 				B413ABC4224D7C8200E8BDD1 /* AeonNodeProtocols.swift in Sources */,
 				B413AB8B224D73C400E8BDD1 /* GameViewController.swift in Sources */,
 				B413ABC2224D7C8200E8BDD1 /* AeonCreatureBrainStates.swift in Sources */,
@@ -568,6 +591,7 @@
 				B413ABB7224D7C7300E8BDD1 /* AeonTankScene.swift in Sources */,
 				B413ABC8224D7C8300E8BDD1 /* AeonCreatureBrain.swift in Sources */,
 				B413ABCA224D7C8300E8BDD1 /* AeonFoodNode.swift in Sources */,
+				B413ABFE225002A400E8BDD1 /* AeonSoundManager.swift in Sources */,
 				B413ABCB224D7C8300E8BDD1 /* AeonNodeProtocols.swift in Sources */,
 				B413AB99224D73C400E8BDD1 /* GameViewController.swift in Sources */,
 				B413ABC9224D7C8300E8BDD1 /* AeonCreatureBrainStates.swift in Sources */,
