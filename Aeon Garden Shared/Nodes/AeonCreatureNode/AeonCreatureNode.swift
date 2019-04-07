@@ -28,6 +28,7 @@ class AeonCreatureNode: SKNode, Updatable {
     private var limbFour: AeonLimbNode
 
     public var movementSpeed: CGFloat = 1
+    public var turnSpeed: CGFloat = 650
     public var sizeModififer: CGFloat = 1
     public let primaryHue: CGFloat
 
@@ -76,6 +77,7 @@ class AeonCreatureNode: SKNode, Updatable {
         brain?.delegate = self
         movementSpeed = randomCGFloat(min: 7, max: 12)
         sizeModififer = randomCGFloat(min: 0.7, max: 1.4)
+        turnSpeed = randomCGFloat(min: 550, max: 750)
 
         setupLimbs()
         setupBodyPhysics()
@@ -106,6 +108,7 @@ class AeonCreatureNode: SKNode, Updatable {
         brain = AeonCreatureBrain()
         movementSpeed = parents.randomElement()!.movementSpeed * randomCGFloat(min: 0.95, max: 1.05)
         sizeModififer = parents.randomElement()!.sizeModififer * randomCGFloat(min: 0.95, max: 1.05)
+        turnSpeed = parents.randomElement()!.turnSpeed * randomCGFloat(min: 0.95, max: 1.05)
 
         super.init()
 
@@ -225,7 +228,7 @@ class AeonCreatureNode: SKNode, Updatable {
             goalAngle = convertRadiansToPi(goalAngle)
 
             let angleDifference = convertRadiansToPi(goalAngle - creatureAngle)
-            let angleDivisor: CGFloat = 600
+            let angleDivisor: CGFloat = turnSpeed
 
             physicsBody?.applyTorque(angleDifference / angleDivisor)
         }

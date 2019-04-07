@@ -346,8 +346,8 @@ extension AeonTankScene {
         cameraNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
         addChild(cameraNode)
         camera = cameraNode
-        listener = cameraNode
-        audioEngine.mainMixerNode.outputVolume = 0.2
+//        listener = cameraNode
+//        audioEngine.mainMixerNode.outputVolume = 0.2
     }
 
     fileprivate func setupBackgroundGradient() {
