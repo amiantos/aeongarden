@@ -27,7 +27,7 @@ class AeonFoodNode: SKNode, Updatable {
     override init() {
         super.init()
 
-        physicsBody = SKPhysicsBody(circleOfRadius: 5)
+        physicsBody = SKPhysicsBody(circleOfRadius: 8)
         physicsBody?.categoryBitMask = CollisionTypes.food.rawValue
         physicsBody?.collisionBitMask = CollisionTypes.edge.rawValue | CollisionTypes.creature.rawValue | CollisionTypes.ball.rawValue
         physicsBody?.affectedByGravity = false
@@ -39,7 +39,7 @@ class AeonFoodNode: SKNode, Updatable {
         zPosition = 1
 
         let foodBody = SKSpriteNode(imageNamed: "aeonFoodPellet")
-        foodBody.size = CGSize(width: 25, height: 32)
+        foodBody.size = CGSize(width: 23, height: 33)
         foodBody.zPosition = 1
         foodBody.name = "AeonFoodSprite"
         addChild(foodBody)
