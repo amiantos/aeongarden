@@ -122,7 +122,6 @@ extension AeonViewController {
         scene?.tankDelegate = self
         skView = view as? SKView
         scene!.scaleMode = .aspectFill
-        scene!.backgroundColor = UIColor(red: 0.0706, green: 0.1961, blue: 0.2471, alpha: 1.0) /* #12323f */
         skView!.presentScene(scene)
     }
 }

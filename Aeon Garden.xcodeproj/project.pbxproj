@@ -86,6 +86,9 @@
 		B413AC082259A3E600E8BDD1 /* pad_confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413AC072259A3E600E8BDD1 /* pad_confirm.wav */; };
 		B413AC092259A3E600E8BDD1 /* pad_confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413AC072259A3E600E8BDD1 /* pad_confirm.wav */; };
 		B413AC0A2259A3E600E8BDD1 /* pad_confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413AC072259A3E600E8BDD1 /* pad_confirm.wav */; };
+		B413AC0D2259C55800E8BDD1 /* AeonSomething.sks in Resources */ = {isa = PBXBuildFile; fileRef = B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */; };
+		B413AC0E2259C55800E8BDD1 /* AeonSomething.sks in Resources */ = {isa = PBXBuildFile; fileRef = B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */; };
+		B413AC0F2259C55800E8BDD1 /* AeonSomething.sks in Resources */ = {isa = PBXBuildFile; fileRef = B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,6 +126,7 @@
 		B413ABFF22599F6C00E8BDD1 /* pop_drip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop_drip.wav; sourceTree = "<group>"; };
 		B413AC032259A3AF00E8BDD1 /* click_04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click_04.wav; sourceTree = "<group>"; };
 		B413AC072259A3E600E8BDD1 /* pad_confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pad_confirm.wav; sourceTree = "<group>"; };
+		B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonSomething.sks; sourceTree = "<group>"; };
 		B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonNameGenerator.swift; sourceTree = "<group>"; };
 		B4364F801F8C81C10002B2BB /* Surnames */ = {isa = PBXFileReference; lastKnownFileType = text; path = Surnames; sourceTree = "<group>"; };
 		B4364F821F8C86020002B2BB /* FirstNames */ = {isa = PBXFileReference; lastKnownFileType = text; path = FirstNames; sourceTree = "<group>"; };
@@ -284,6 +288,7 @@
 			children = (
 				B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */,
 				4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */,
+				B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */,
 			);
 			name = Particles;
 			path = "Aeon Garden Shared/Particles";
@@ -455,6 +460,7 @@
 				B413ABE4224D7D4F00E8BDD1 /* AeonSmokeParticle.sks in Resources */,
 				B413ABF7224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABCE224D7C8A00E8BDD1 /* Surnames in Resources */,
+				B413AC0D2259C55800E8BDD1 /* AeonSomething.sks in Resources */,
 				B413AB80224D73C400E8BDD1 /* LaunchScreen.storyboard in Resources */,
 				B413AC082259A3E600E8BDD1 /* pad_confirm.wav in Resources */,
 				B413ABCF224D7C8A00E8BDD1 /* FirstNames in Resources */,
@@ -472,6 +478,7 @@
 				B413AB8E224D73C400E8BDD1 /* Main.storyboard in Resources */,
 				B413ABF8224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABE7224D7D4F00E8BDD1 /* AeonSmokeParticle.sks in Resources */,
+				B413AC0E2259C55800E8BDD1 /* AeonSomething.sks in Resources */,
 				B413ABD4224D7C8B00E8BDD1 /* Surnames in Resources */,
 				B413AC092259A3E600E8BDD1 /* pad_confirm.wav in Resources */,
 				B413ABD5224D7C8B00E8BDD1 /* FirstNames in Resources */,
@@ -489,6 +496,7 @@
 				B413AB9C224D73C400E8BDD1 /* Main.storyboard in Resources */,
 				B413ABF9224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABEA224D7D5000E8BDD1 /* AeonSmokeParticle.sks in Resources */,
+				B413AC0F2259C55800E8BDD1 /* AeonSomething.sks in Resources */,
 				B413ABDA224D7C8C00E8BDD1 /* Surnames in Resources */,
 				B413AC0A2259A3E600E8BDD1 /* pad_confirm.wav in Resources */,
 				B413ABDB224D7C8C00E8BDD1 /* FirstNames in Resources */,

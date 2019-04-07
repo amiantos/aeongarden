@@ -376,6 +376,20 @@ extension AeonTankScene {
     }
 
     fileprivate func setupBackgroundAnimation() {
+        if let backgroundSmoke = SKEmitterNode(fileNamed: "AeonSomething.sks") {
+            backgroundSmoke.position = CGPoint(x: size.width / 2, y: size.height / 2)
+            backgroundSmoke.zPosition = -2
+            backgroundSmoke.particlePositionRange = CGVector(dx: size.width, dy: size.height)
+            let alphaSequence = SKKeyframeSequence(
+                keyframeValues: [0, 0.2, 0.3, 0.2, 0.15, 0],
+                times: [0, 0.25, 0.5, 0.75, 0.9, 1]
+            )
+            backgroundSmoke.particleAlphaSequence = alphaSequence
+            // backgroundSmoke.advanceSimulationTime(5)
+            backgroundSmoke.name = "backgroundShadow"
+            addChild(backgroundSmoke)
+        }
+
         if let backgroundSmoke2 = SKEmitterNode(fileNamed: "AeonOceanSparkle.sks") {
             backgroundSmoke2.position = CGPoint(x: size.width / 2, y: size.height / 2)
             backgroundSmoke2.zPosition = -1
