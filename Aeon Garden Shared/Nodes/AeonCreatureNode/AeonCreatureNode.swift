@@ -205,9 +205,9 @@ class AeonCreatureNode: SKNode, Updatable {
 
             if currentTarget is AeonCreatureNode || currentTarget is AeonFoodNode {
                 if distanceToTarget < 150 {
-                    adjustedMovementSpeed *= 0.75
+                    adjustedMovementSpeed *= 0.65
                 } else if distanceToTarget < 75 {
-                    adjustedMovementSpeed *= 0.4
+                    adjustedMovementSpeed *= 0.3
                 } else if distanceToTarget < 30 {
                     adjustedMovementSpeed *= 0.05
                 }
