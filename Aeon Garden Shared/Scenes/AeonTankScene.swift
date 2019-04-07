@@ -333,7 +333,7 @@ extension AeonTankScene {
     fileprivate func setupFrame() {
         size.width = frame.size.width * 2
         size.height = frame.size.height * 2
-        backgroundColor = .aeonTintColor
+        backgroundColor = .aeonTankBgColor
 
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsBody?.categoryBitMask = CollisionTypes.edge.rawValue

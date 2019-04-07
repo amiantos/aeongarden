@@ -74,7 +74,7 @@ class AeonBubbleNode: SKNode, Updatable {
     func die() {
         physicsBody = nil
         let fadeOut = SKAction.fadeAlpha(to: 0, duration: 5)
-        let scaleOutAction = SKAction.scale(to: 1, duration: 5)
+        let scaleOutAction = SKAction.scale(to: 1.5, duration: 5)
         run(SKAction.group([fadeOut, scaleOutAction]), completion: {
             self.removeFromParent()
         })

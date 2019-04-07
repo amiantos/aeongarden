@@ -15,4 +15,5 @@ extension SKColor {
     static let aeonUIBackgroundLight = SKColor(hue: 0.5861, saturation: 0.07, brightness: 0.93, alpha: 0.7)
     static let aeonUIBackgroundDark = SKColor(hue: 0.5861, saturation: 0.24, brightness: 0.89, alpha: 0.7)
     static let aeonTintColor = SKColor(hue: 0.5778, saturation: 0.62, brightness: 0.39, alpha: 1.0)
+    static let aeonTankBgColor = SKColor(hue: 205/360, saturation: 100/100, brightness: 35/100, alpha: 1.0) /* #003459 */
 }
