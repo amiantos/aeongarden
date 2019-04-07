@@ -26,13 +26,21 @@ class GameViewController: UIViewController {
         skView?.showsFPS = true
         skView?.showsNodeCount = true
 
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
-        tapRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.playPause.rawValue)];
-        self.view.addGestureRecognizer(tapRecognizer)
+        let selectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectRandomCreature))
+        selectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.playPause.rawValue)];
+        self.view.addGestureRecognizer(selectCreatureRecognizer)
+
+        let deselectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(deselectCreature))
+        deselectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)];
+        self.view.addGestureRecognizer(deselectCreatureRecognizer)
 
     }
 
-    @objc func tapped() {
+    @objc func deselectCreature() {
+        scene!.resetCamera()
+    }
+
+    @objc func selectRandomCreature() {
         var mateArray: [AeonCreatureNode] = []
         let nodes = scene!.children
         for case let child as AeonCreatureNode in nodes {
