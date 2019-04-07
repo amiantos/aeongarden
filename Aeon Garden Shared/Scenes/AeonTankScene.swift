@@ -351,28 +351,28 @@ extension AeonTankScene {
     }
 
     fileprivate func setupBackgroundGradient() {
-//        let topColor = CIColor(color: UIColor(red: 0.0078, green: 0.0235, blue: 0.0275, alpha: 1.0)) /* #020607 */
-//        let bottomColor = CIColor(color: UIColor(red: 0.1529, green: 0.4275, blue: 0.5373, alpha: 1.0)) /* #276d89 */
-//
-//        let textureSize = CGSize(width: frame.width * 1.5, height: frame.height * 2)
-//        let texture = SKTexture(
-//            size: CGSize(width: 200, height: 200),
-//            color1: topColor,
-//            color2: bottomColor,
-//            direction: GradientDirection.upward
-//        )
-//        texture.filteringMode = .nearest
-//        let sprite = SKSpriteNode(texture: texture)
-//        sprite.position = CGPoint(x: frame.midX, y: frame.midY)
-//        sprite.size = textureSize
-//        sprite.zPosition = -3
-//        addChild(sprite)
-//
-//        let moveUpAction = SKAction.moveBy(x: 0, y: 400, duration: 30)
-//        let moveDownAction = SKAction.moveBy(x: 0, y: -400, duration: 30)
-//        let moveActionGroup = SKAction.sequence([moveUpAction, moveDownAction, moveDownAction, moveUpAction])
-//        moveActionGroup.timingMode = .easeInEaseOut
-//        sprite.run(SKAction.repeatForever(moveActionGroup))
+        let topColor = CIColor(color: UIColor(red: 0.0078, green: 0.0235, blue: 0.0275, alpha: 1.0)) /* #020607 */
+        let bottomColor = CIColor(color: UIColor(red: 0.1529, green: 0.4275, blue: 0.5373, alpha: 1.0)) /* #276d89 */
+
+        let textureSize = CGSize(width: frame.width * 4, height: frame.height * 4)
+        let texture = SKTexture(
+            size: CGSize(width: frame.width * 4, height: frame.height * 4),
+            color1: topColor,
+            color2: bottomColor,
+            direction: GradientDirection.upward
+        )
+        texture.filteringMode = .linear
+        let sprite = SKSpriteNode(texture: texture)
+        sprite.position = CGPoint(x: frame.midX, y: frame.midY)
+        sprite.size = textureSize
+        sprite.zPosition = -3
+        addChild(sprite)
+
+        let moveUpAction = SKAction.moveBy(x: 0, y: frame.height, duration: 60)
+        let moveDownAction = SKAction.moveBy(x: 0, y: -frame.height, duration: 60)
+        let moveActionGroup = SKAction.sequence([moveUpAction, moveDownAction, moveDownAction, moveUpAction])
+        moveActionGroup.timingMode = .easeInEaseOut
+        sprite.run(SKAction.repeatForever(moveActionGroup))
     }
 
     fileprivate func setupBackgroundAnimation() {
