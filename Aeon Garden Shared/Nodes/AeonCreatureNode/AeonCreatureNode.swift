@@ -322,6 +322,7 @@ class AeonCreatureNode: SKNode, Updatable {
     func fed() {
         currentHealth += Float(randomCGFloat(min: 80, max: 160))
         printThought("Yum!", emoji: "🍽")
+        AeonSoundManager.shared.play(.creatureEat, onNode: self)
         brain?.fed()
 
         scaleAnimation()

@@ -278,12 +278,14 @@ extension AeonTankScene: SKPhysicsContactDelegate {
                 // Mutual Reproduction
                 creatureA.mated()
                 creatureB.mated()
+                AeonSoundManager.shared.play(.creatureMate, onNode: creatureA)
                 // Random chance to breed
                 if randomInteger(min: 0, max: 6) == 6 {
                     let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
                     newCreature.position = creatureA.position
                     addChild(newCreature)
                     newCreature.born()
+                    AeonSoundManager.shared.play(.creatureBorn, onNode: newCreature)
                     creatureCount += 1
                     birthCount += 1
                 }
@@ -344,6 +346,8 @@ extension AeonTankScene {
         cameraNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
         addChild(cameraNode)
         camera = cameraNode
+        listener = cameraNode
+        audioEngine.mainMixerNode.outputVolume = 0.2
     }
 
     fileprivate func setupBackgroundGradient() {

@@ -80,6 +80,15 @@
 		B413ABFC224FFD7D00E8BDD1 /* AeonSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413ABFB224FFD7D00E8BDD1 /* AeonSoundManager.swift */; };
 		B413ABFD225002A300E8BDD1 /* AeonSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413ABFB224FFD7D00E8BDD1 /* AeonSoundManager.swift */; };
 		B413ABFE225002A400E8BDD1 /* AeonSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413ABFB224FFD7D00E8BDD1 /* AeonSoundManager.swift */; };
+		B413AC0022599F6D00E8BDD1 /* pop_drip.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413ABFF22599F6C00E8BDD1 /* pop_drip.wav */; };
+		B413AC0122599F6D00E8BDD1 /* pop_drip.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413ABFF22599F6C00E8BDD1 /* pop_drip.wav */; };
+		B413AC0222599F6D00E8BDD1 /* pop_drip.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413ABFF22599F6C00E8BDD1 /* pop_drip.wav */; };
+		B413AC042259A3AF00E8BDD1 /* click_04.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413AC032259A3AF00E8BDD1 /* click_04.wav */; };
+		B413AC052259A3AF00E8BDD1 /* click_04.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413AC032259A3AF00E8BDD1 /* click_04.wav */; };
+		B413AC062259A3AF00E8BDD1 /* click_04.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413AC032259A3AF00E8BDD1 /* click_04.wav */; };
+		B413AC082259A3E600E8BDD1 /* pad_confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413AC072259A3E600E8BDD1 /* pad_confirm.wav */; };
+		B413AC092259A3E600E8BDD1 /* pad_confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413AC072259A3E600E8BDD1 /* pad_confirm.wav */; };
+		B413AC0A2259A3E600E8BDD1 /* pad_confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413AC072259A3E600E8BDD1 /* pad_confirm.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +124,9 @@
 		B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Aeon Garden Shared/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
 		B413ABF6224FFD3800E8BDD1 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = pop.wav; path = ../pop.wav; sourceTree = "<group>"; };
 		B413ABFB224FFD7D00E8BDD1 /* AeonSoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AeonSoundManager.swift; path = "Aeon Garden Shared/Sound/AeonSoundManager.swift"; sourceTree = SOURCE_ROOT; };
+		B413ABFF22599F6C00E8BDD1 /* pop_drip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop_drip.wav; sourceTree = "<group>"; };
+		B413AC032259A3AF00E8BDD1 /* click_04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click_04.wav; sourceTree = "<group>"; };
+		B413AC072259A3E600E8BDD1 /* pad_confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pad_confirm.wav; sourceTree = "<group>"; };
 		B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonNameGenerator.swift; sourceTree = "<group>"; };
 		B4364F801F8C81C10002B2BB /* Surnames */ = {isa = PBXFileReference; lastKnownFileType = text; path = Surnames; sourceTree = "<group>"; };
 		B4364F821F8C86020002B2BB /* FirstNames */ = {isa = PBXFileReference; lastKnownFileType = text; path = FirstNames; sourceTree = "<group>"; };
@@ -253,6 +265,9 @@
 			isa = PBXGroup;
 			children = (
 				B413ABF6224FFD3800E8BDD1 /* pop.wav */,
+				B413AC032259A3AF00E8BDD1 /* click_04.wav */,
+				B413ABFF22599F6C00E8BDD1 /* pop_drip.wav */,
+				B413AC072259A3E600E8BDD1 /* pad_confirm.wav */,
 				B413ABFB224FFD7D00E8BDD1 /* AeonSoundManager.swift */,
 			);
 			path = Sound;
@@ -446,9 +461,12 @@
 				B413ABF7224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABCE224D7C8A00E8BDD1 /* Surnames in Resources */,
 				B413AB80224D73C400E8BDD1 /* LaunchScreen.storyboard in Resources */,
+				B413AC082259A3E600E8BDD1 /* pad_confirm.wav in Resources */,
 				B413ABCF224D7C8A00E8BDD1 /* FirstNames in Resources */,
+				B413AC0022599F6D00E8BDD1 /* pop_drip.wav in Resources */,
 				B413ABEE224D7E1B00E8BDD1 /* Assets.xcassets in Resources */,
 				B413ABE5224D7D4F00E8BDD1 /* Assets.xcassets in Resources */,
+				B413AC042259A3AF00E8BDD1 /* click_04.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,9 +479,12 @@
 				B413ABF8224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABE7224D7D4F00E8BDD1 /* AeonSmokeParticle.sks in Resources */,
 				B413ABD4224D7C8B00E8BDD1 /* Surnames in Resources */,
+				B413AC092259A3E600E8BDD1 /* pad_confirm.wav in Resources */,
 				B413ABD5224D7C8B00E8BDD1 /* FirstNames in Resources */,
+				B413AC0122599F6D00E8BDD1 /* pop_drip.wav in Resources */,
 				B413ABE8224D7D4F00E8BDD1 /* Assets.xcassets in Resources */,
 				B413ABF3224D847B00E8BDD1 /* Assets.xcassets in Resources */,
+				B413AC052259A3AF00E8BDD1 /* click_04.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,9 +497,12 @@
 				B413ABF9224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABEA224D7D5000E8BDD1 /* AeonSmokeParticle.sks in Resources */,
 				B413ABDA224D7C8C00E8BDD1 /* Surnames in Resources */,
+				B413AC0A2259A3E600E8BDD1 /* pad_confirm.wav in Resources */,
 				B413ABDB224D7C8C00E8BDD1 /* FirstNames in Resources */,
+				B413AC0222599F6D00E8BDD1 /* pop_drip.wav in Resources */,
 				B413ABEB224D7D5000E8BDD1 /* Assets.xcassets in Resources */,
 				B413ABF0224D7E1B00E8BDD1 /* Assets.xcassets in Resources */,
+				B413AC062259A3AF00E8BDD1 /* click_04.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

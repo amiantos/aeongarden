@@ -14,6 +14,9 @@ import SpriteKit
 
 enum AeonSound: String {
     case bubblePop = "pop.wav"
+    case creatureEat = "pop_drip.wav"
+    case creatureMate = "click_04.wav"
+    case creatureBorn = "pad_confirm.wav"
 }
 
 class AeonSoundManager {
