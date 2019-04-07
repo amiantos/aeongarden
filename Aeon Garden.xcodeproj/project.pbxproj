@@ -63,13 +63,10 @@
 		B413ABE2224D7CC000E8BDD1 /* AeonMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED3322470B980026604C /* AeonMenuView.swift */; };
 		B413ABE3224D7D4F00E8BDD1 /* AeonOceanSparkle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */; };
 		B413ABE4224D7D4F00E8BDD1 /* AeonSmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */; };
-		B413ABE5224D7D4F00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F12241A557007FE456 /* Assets.xcassets */; };
 		B413ABE6224D7D4F00E8BDD1 /* AeonOceanSparkle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */; };
 		B413ABE7224D7D4F00E8BDD1 /* AeonSmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */; };
-		B413ABE8224D7D4F00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F12241A557007FE456 /* Assets.xcassets */; };
 		B413ABE9224D7D5000E8BDD1 /* AeonOceanSparkle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */; };
 		B413ABEA224D7D5000E8BDD1 /* AeonSmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */; };
-		B413ABEB224D7D5000E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F12241A557007FE456 /* Assets.xcassets */; };
 		B413ABEE224D7E1B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
 		B413ABF0224D7E1B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
 		B413ABF3224D847B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
@@ -95,7 +92,6 @@
 		1921664E2469C290D4148C61 /* Pods-Aeon Garden Original iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden Original iOS.debug.xcconfig"; path = "Target Support Files/Pods-Aeon Garden Original iOS/Pods-Aeon Garden Original iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		36FD16856D813C5EFD6431ED /* Pods-Aeon Garden iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden iOS.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden iOS/Pods-Aeon Garden iOS.release.xcconfig"; sourceTree = "<group>"; };
 		4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonSmokeParticle.sks; sourceTree = "<group>"; };
-		4419E9F12241A557007FE456 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44868F632231C2C2009F0460 /* AeonCreatureBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonCreatureBrain.swift; sourceTree = "<group>"; };
 		44868F652231C7F5009F0460 /* AeonLimbNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonLimbNode.swift; sourceTree = "<group>"; };
 		44868F672231E855009F0460 /* AeonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonUtils.swift; sourceTree = "<group>"; };
@@ -288,7 +284,6 @@
 			children = (
 				B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */,
 				4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */,
-				4419E9F12241A557007FE456 /* Assets.xcassets */,
 			);
 			name = Particles;
 			path = "Aeon Garden Shared/Particles";
@@ -465,7 +460,6 @@
 				B413ABCF224D7C8A00E8BDD1 /* FirstNames in Resources */,
 				B413AC0022599F6D00E8BDD1 /* pop_drip.wav in Resources */,
 				B413ABEE224D7E1B00E8BDD1 /* Assets.xcassets in Resources */,
-				B413ABE5224D7D4F00E8BDD1 /* Assets.xcassets in Resources */,
 				B413AC042259A3AF00E8BDD1 /* click_04.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -482,7 +476,6 @@
 				B413AC092259A3E600E8BDD1 /* pad_confirm.wav in Resources */,
 				B413ABD5224D7C8B00E8BDD1 /* FirstNames in Resources */,
 				B413AC0122599F6D00E8BDD1 /* pop_drip.wav in Resources */,
-				B413ABE8224D7D4F00E8BDD1 /* Assets.xcassets in Resources */,
 				B413ABF3224D847B00E8BDD1 /* Assets.xcassets in Resources */,
 				B413AC052259A3AF00E8BDD1 /* click_04.wav in Resources */,
 			);
@@ -500,7 +493,6 @@
 				B413AC0A2259A3E600E8BDD1 /* pad_confirm.wav in Resources */,
 				B413ABDB224D7C8C00E8BDD1 /* FirstNames in Resources */,
 				B413AC0222599F6D00E8BDD1 /* pop_drip.wav in Resources */,
-				B413ABEB224D7D5000E8BDD1 /* Assets.xcassets in Resources */,
 				B413ABF0224D7E1B00E8BDD1 /* Assets.xcassets in Resources */,
 				B413AC062259A3AF00E8BDD1 /* click_04.wav in Resources */,
 			);

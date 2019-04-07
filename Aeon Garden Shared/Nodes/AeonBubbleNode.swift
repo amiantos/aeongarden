@@ -24,7 +24,7 @@ class AeonBubbleNode: SKNode, Updatable {
 
         physicsBody = SKPhysicsBody(circleOfRadius: 16)
         physicsBody?.categoryBitMask = CollisionTypes.ball.rawValue
-        physicsBody?.contactTestBitMask = CollisionTypes.creature.rawValue
+        physicsBody?.contactTestBitMask =  CollisionTypes.edge.rawValue | CollisionTypes.creature.rawValue
         physicsBody?.allowsRotation = true
         physicsBody?.affectedByGravity = false
         physicsBody?.restitution = 0.2
