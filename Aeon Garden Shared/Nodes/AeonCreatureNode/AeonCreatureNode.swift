@@ -276,8 +276,8 @@ class AeonCreatureNode: SKNode, Updatable {
                 times: [0, 0.50, 0.70, 0.90, 1]
             )
             let alphaSequence = SKKeyframeSequence(
-                keyframeValues: [0.5, 0.6, 0.5, 0.3, 0],
-                times: [0, 0.25, 0.5, 0.75, 1]
+                keyframeValues: [0.5, 0.6, 0.5, 0.3, 0.15, 0],
+                times: [0, 0.25, 0.5, 0.75, 0.9, 1]
             )
             emitter.particleAlphaSequence = alphaSequence
             emitter.particleScaleSequence = scaleSequence
