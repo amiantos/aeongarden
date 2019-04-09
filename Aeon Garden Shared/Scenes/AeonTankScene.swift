@@ -28,7 +28,6 @@ protocol AeonTankDelegate: class {
 
 class AeonTankScene: SKScene {
     public var foodPelletCount: Int = 0
-    public var creatureCount: Int = 0
     public var deathCount: Int = 0
     public var birthCount: Int = 0
 
@@ -41,8 +40,17 @@ class AeonTankScene: SKScene {
     private var totalTankTime: TimeInterval = 0
     private var lastBubbleTime: TimeInterval = 0
 
-    private var creatureNodes: [AeonCreatureNode] = []
-    private var updatableNodes: [Updatable] = []
+    private var creatureNodes: [AeonCreatureNode] = [] {
+        didSet {
+            tankDelegate?.updatePopulation(creatureNodes.count)
+        }
+    }
+    private var foodNodes: [AeonFoodNode] = []  {
+        didSet {
+            tankDelegate?.updateFood(foodNodes.count)
+        }
+    }
+    private var bubbleNodes: [AeonBubbleNode] = []
 
     private var cameraNode: SKCameraNode = SKCameraNode()
 
@@ -96,11 +104,25 @@ class AeonTankScene: SKScene {
     }
 
     override func addChild(_ node: SKNode) {
-        super.addChild(node)
-
         if let creature = node as? AeonCreatureNode {
             creatureNodes.append(creature)
+        } else if let food = node as? AeonFoodNode {
+            foodNodes.append(food)
+        } else if let bubble = node as? AeonBubbleNode {
+            bubbleNodes.append(bubble)
         }
+        super.addChild(node)
+    }
+
+    func removeChild(_ node: SKNode) {
+        if let creature = node as? AeonCreatureNode {
+            creatureNodes.remove(object: creature)
+        } else if let food = node as? AeonFoodNode {
+            foodNodes.remove(object: food)
+        } else if let bubble = node as? AeonBubbleNode {
+            bubbleNodes.remove(object: bubble)
+        }
+        node.removeFromParent()
     }
 
     override func update(_ currentTime: TimeInterval) {
@@ -114,25 +136,18 @@ class AeonTankScene: SKScene {
         }
 
         if (currentTime - lastUIUpdateTime) >= 1 {
-            tankDelegate?.updatePopulation(creatureCount)
+
             tankDelegate?.updateBirths(birthCount)
             tankDelegate?.updateDeaths(deathCount)
-
-            var foodNodes = 0
-            for case _ as AeonFoodNode in children {
-                foodNodes += 1
-            }
-            foodPelletCount = foodNodes
-            tankDelegate?.updateFood(foodPelletCount)
 
             lastUIUpdateTime = currentTime
         }
 
-        if (currentTime - lastFoodTime) >= 3,
-            foodPelletCount < foodPelletMax {
-            addFoodPelletToScene()
-            lastFoodTime = currentTime
-        }
+//        if (currentTime - lastFoodTime) >= 3,
+//            foodNodes.count < foodPelletMax {
+//            addFoodPelletToScene()
+//            lastFoodTime = currentTime
+//        }
 
         if (currentTime - lastBubbleTime) >= 1 {
             addBubbleToScene()
@@ -233,7 +248,6 @@ extension AeonTankScene {
         aeonCreature.zPosition = 12
         addChild(aeonCreature)
         aeonCreature.born()
-        creatureCount += 1
     }
 
     fileprivate func addFoodPelletToScene() {
@@ -275,7 +289,6 @@ extension AeonTankScene: SKPhysicsContactDelegate {
                     addChild(newCreature)
                     newCreature.born()
                     AeonSoundManager.shared.play(.creatureBorn, onNode: newCreature)
-                    creatureCount += 1
                     birthCount += 1
                 }
             } else {

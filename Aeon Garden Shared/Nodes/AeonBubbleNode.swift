@@ -77,7 +77,9 @@ class AeonBubbleNode: SKNode, Updatable {
         let fadeOut = SKAction.fadeAlpha(to: 0, duration: 5)
         let scaleOutAction = SKAction.scale(to: 1.5, duration: 5)
         run(SKAction.group([fadeOut, scaleOutAction]), completion: {
-            self.removeFromParent()
+            if let scene = self.parent as? AeonTankScene {
+                scene.removeChild(self)
+            }
         })
     }
 
@@ -87,7 +89,9 @@ class AeonBubbleNode: SKNode, Updatable {
         let fadeOut = SKAction.fadeAlpha(to: 0, duration: 0.1)
         let scaleOutAction = SKAction.scale(to: 1, duration: 0.1)
         run(SKAction.group([fadeOut, scaleOutAction]), completion: {
-            self.removeFromParent()
+            if let scene = self.parent as? AeonTankScene {
+                scene.removeChild(self)
+            }
         })
     }
 }

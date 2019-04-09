@@ -298,12 +298,13 @@ class AeonCreatureNode: SKNode, Updatable {
         run(SKAction.group([fadeOut, shrinkOut]), completion: {
             if let mainScene = self.scene as? AeonTankScene {
                 mainScene.deathCount += 1
-                mainScene.creatureCount -= 1
                 if mainScene.selectedCreature == self {
                     mainScene.selectedCreature = nil
                 }
             }
-            self.removeFromParent()
+            if let scene = self.parent as? AeonTankScene {
+                scene.removeChild(self)
+            }
         })
     }
 

@@ -68,7 +68,11 @@ class AeonFoodNode: SKNode, Updatable {
     func eaten() {
         physicsBody = nil
         let fadeOut = SKAction.fadeAlpha(to: 0, duration: 0.5)
-        run(fadeOut, completion: { self.removeFromParent() })
+        run(fadeOut, completion: {
+            if let scene = self.parent as? AeonTankScene {
+                scene.removeChild(self)
+            }
+        })
     }
 
     func eaten(animateTo: CGPoint) {
@@ -77,14 +81,20 @@ class AeonFoodNode: SKNode, Updatable {
         moveTo.timingMode = .easeIn
         let fadeOut = SKAction.fadeAlpha(to: 0, duration: 0.5)
         let actionGroup = SKAction.group([moveTo, fadeOut])
-        run(actionGroup, completion: { self.removeFromParent() })
+        run(actionGroup, completion: {
+            if let scene = self.parent as? AeonTankScene {
+                scene.removeChild(self)
+            }
+        })
     }
 
     func die() {
         let fadeOut = SKAction.fadeAlpha(to: 0, duration: 5)
         let scaleOutAction = SKAction.scale(to: 0, duration: 5)
         run(SKAction.group([fadeOut, scaleOutAction]), completion: {
-            self.removeFromParent()
+            if let scene = self.parent as? AeonTankScene {
+                scene.removeChild(self)
+            }
         })
     }
 

@@ -11,6 +11,14 @@
 
 import GameKit
 
+extension Array where Element: Equatable {
+    // Remove first collection element that is equal to the given `object`:
+    mutating func remove(object: Element) {
+        guard let index = firstIndex(of: object) else { return }
+        remove(at: index)
+    }
+}
+
 func toTimestamp(timeInterval: TimeInterval) -> String {
     let totalSeconds: Float = Float(timeInterval)
     let hours = Int(totalSeconds / 3600)
