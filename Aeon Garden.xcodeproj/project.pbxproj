@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		82BF56C3256FB0182D5F3F18 /* Pods_Aeon_Garden_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FC0A83C46425083E854700 /* Pods_Aeon_Garden_macOS.framework */; };
 		8E7E158ACFE2903488CE6E7E /* Pods_Aeon_Garden_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A69E33689BDFD1DAC0725B2E /* Pods_Aeon_Garden_iOS.framework */; };
+		AF6124CCE6E6FF06CB0E4210 /* Pods_Aeon_Garden_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BB5FC94C7B5B26BD77940B9 /* Pods_Aeon_Garden_tvOS.framework */; };
 		B413AB78224D73C400E8BDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB77224D73C400E8BDD1 /* AppDelegate.swift */; };
 		B413AB80224D73C400E8BDD1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B413AB7E224D73C400E8BDD1 /* LaunchScreen.storyboard */; };
 		B413AB89224D73C400E8BDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB88224D73C400E8BDD1 /* AppDelegate.swift */; };
@@ -104,6 +105,7 @@
 		44A171192245B70F00890D32 /* AeonDataPillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonDataPillView.swift; sourceTree = "<group>"; };
 		44A1711B2245B72800890D32 /* AeonMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonMenuButton.swift; sourceTree = "<group>"; };
 		55106F82B8367E59A3F6FC58 /* Pods_Aeon_Garden.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BB5FC94C7B5B26BD77940B9 /* Pods_Aeon_Garden_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DEDF779719125253E8C1592 /* Pods-Aeon Garden.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden/Pods-Aeon Garden.release.xcconfig"; sourceTree = "<group>"; };
 		94FC0A83C46425083E854700 /* Pods_Aeon_Garden_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		961DCC078C765B757AA3FC21 /* Pods-Aeon Garden macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden macOS.debug.xcconfig"; path = "Target Support Files/Pods-Aeon Garden macOS/Pods-Aeon Garden macOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -144,7 +146,9 @@
 		B4DEED3322470B980026604C /* AeonMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonMenuView.swift; sourceTree = "<group>"; };
 		B4DEED37224806850026604C /* AeonNodeProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonNodeProtocols.swift; sourceTree = "<group>"; };
 		B4DEED39224817D80026604C /* AeonBubbleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonBubbleNode.swift; sourceTree = "<group>"; };
+		BBCAC8D12F956FA3F979ADA7 /* Pods-Aeon Garden tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden tvOS.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden tvOS/Pods-Aeon Garden tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		C92F255750A6748D9021CCC3 /* Pods-Aeon Garden.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden.debug.xcconfig"; path = "Target Support Files/Pods-Aeon Garden/Pods-Aeon Garden.debug.xcconfig"; sourceTree = "<group>"; };
+		E0627D97642BD8C1363D7935 /* Pods-Aeon Garden tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Aeon Garden tvOS/Pods-Aeon Garden tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E7FF2114A3347A2F93E3B678 /* Pods_Aeon_Garden_Original_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden_Original_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -161,6 +165,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF6124CCE6E6FF06CB0E4210 /* Pods_Aeon_Garden_tvOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +187,7 @@
 				E7FF2114A3347A2F93E3B678 /* Pods_Aeon_Garden_Original_iOS.framework */,
 				A69E33689BDFD1DAC0725B2E /* Pods_Aeon_Garden_iOS.framework */,
 				94FC0A83C46425083E854700 /* Pods_Aeon_Garden_macOS.framework */,
+				5BB5FC94C7B5B26BD77940B9 /* Pods_Aeon_Garden_tvOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -355,6 +361,8 @@
 				36FD16856D813C5EFD6431ED /* Pods-Aeon Garden iOS.release.xcconfig */,
 				961DCC078C765B757AA3FC21 /* Pods-Aeon Garden macOS.debug.xcconfig */,
 				05B57AE72325131A628E17E6 /* Pods-Aeon Garden macOS.release.xcconfig */,
+				E0627D97642BD8C1363D7935 /* Pods-Aeon Garden tvOS.debug.xcconfig */,
+				BBCAC8D12F956FA3F979ADA7 /* Pods-Aeon Garden tvOS.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -385,9 +393,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B413ABB1224D73C400E8BDD1 /* Build configuration list for PBXNativeTarget "Aeon Garden tvOS" */;
 			buildPhases = (
+				E39BA31A484E8546D44F9DE5 /* [CP] Check Pods Manifest.lock */,
 				B413AB82224D73C400E8BDD1 /* Sources */,
 				B413AB83224D73C400E8BDD1 /* Frameworks */,
 				B413AB84224D73C400E8BDD1 /* Resources */,
+				AE46B6BE94CCCE369CB32F84 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -559,6 +569,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Aeon Garden macOS/Pods-Aeon Garden macOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		AE46B6BE94CCCE369CB32F84 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Aeon Garden tvOS/Pods-Aeon Garden tvOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SnapKit-tvOS/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Aeon Garden tvOS/Pods-Aeon Garden tvOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		D3764C1375C7211F95FE3A1D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -575,6 +603,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Aeon Garden macOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E39BA31A484E8546D44F9DE5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Aeon Garden tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -747,6 +797,7 @@
 		};
 		B413ABAC224D73C400E8BDD1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E0627D97642BD8C1363D7935 /* Pods-Aeon Garden tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "tvOS LaunchImage";
@@ -762,12 +813,13 @@
 				SDKROOT = appletvos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.2;
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Debug;
 		};
 		B413ABAD224D73C400E8BDD1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BBCAC8D12F956FA3F979ADA7 /* Pods-Aeon Garden tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "tvOS LaunchImage";
@@ -782,7 +834,7 @@
 				SDKROOT = appletvos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.2;
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

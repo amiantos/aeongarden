@@ -15,3 +15,9 @@ target 'Aeon Garden macOS' do
   use_frameworks!
   shared_pods
 end
+
+target 'Aeon Garden tvOS' do
+  platform :tvos, '11'
+  use_frameworks!
+  shared_pods
+end
