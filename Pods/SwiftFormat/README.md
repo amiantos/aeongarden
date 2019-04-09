@@ -301,9 +301,18 @@ You can disable rules individually using `--disable` followed by a list of one o
 
 ```bash
 --disable redundantSelf,trailingClosures
+--enable isEmpty
 ```
 
-If you prefer to only run a strict subset of rules, you can pass a comma-delimited list to the`--rules` argument, and it will enable only those rules:
+If you prefer, you can place your enabled/disabled rules on separate lines instead of using commas:
+
+```bash
+--disable indent
+--disable linebreaks
+--disable redundantSelf
+```
+
+To avoid automatically opting-in to new rules when SwiftFormat is updated, you can use the`--rules` argument to *only* enable the rules you specify:
 
 ```bash
 --rules indent,linebreaks
@@ -600,19 +609,6 @@ Known issues
 * The `trailingClosures` rule can generate ambiguous code if a function has multiple optional closure arguments, or if multiple functions have signatures differing only by the name of the closure argument. For this reason, the rule is limited to anonymous closure arguments by default, with a whitelist for exceptions.
 
 * The `isEmpty` rule will convert `count == 0` to `isEmpty` even for types that do not have an `isEmpty` method, such as `NSArray`/`NSDictionary`/etc. Use of Foundation collections in Swift code is pretty rare, but just in case, the rule is disabled by default.
-
-* Under rare circumstances, SwiftFormat may misinterpret a generic type followed by an `=` sign as a pair of `<` and `>=` expressions. For example, the following case would be handled incorrectly:
-
-    ```swift
-    let foo: Dictionary<String, String>=["Hello": "World"]
-    ```    
-
-    To work around this, either manually add spaces around the `=` character to eliminate the ambiguity, or add a comment directive above that line in the file:
-    
-    ```swift
-    // swiftformat:disable:next spaceAroundOperators
-    let foo: Dictionary<String, String>=["Hello": "World"]
-    ```
 
 * If a file begins with a comment, the `stripHeaders` rule will remove it if it is followed by a blank line. To avoid this, make sure that the first comment is directly followed by a line of code.
          
