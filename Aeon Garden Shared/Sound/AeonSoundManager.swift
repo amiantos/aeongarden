@@ -25,5 +25,4 @@ class AeonSoundManager {
     func play(_ sound: AeonSound, onNode node: SKNode) {
         node.run(SKAction.playSoundFileNamed(sound.rawValue, waitForCompletion: false))
     }
-
 }

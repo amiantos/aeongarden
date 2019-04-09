@@ -6,9 +6,9 @@
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
 
-import UIKit
-import SpriteKit
 import GameplayKit
+import SpriteKit
+import UIKit
 
 class GameViewController: UIViewController {
     var scene: AeonTankScene?
@@ -16,24 +16,24 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         scene = AeonTankScene(size: view.bounds.size)
-        
+
         // Present the scene
-        skView = self.view as? SKView
+        skView = view as? SKView
+        skView?.ignoresSiblingOrder = true
         skView?.presentScene(scene)
-        
+
         skView?.showsFPS = true
         skView?.showsNodeCount = true
 
         let selectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectRandomCreature))
-        selectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.playPause.rawValue)];
-        self.view.addGestureRecognizer(selectCreatureRecognizer)
+        selectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.playPause.rawValue)]
+        view.addGestureRecognizer(selectCreatureRecognizer)
 
         let deselectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(deselectCreature))
-        deselectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)];
-        self.view.addGestureRecognizer(deselectCreatureRecognizer)
-
+        deselectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
+        view.addGestureRecognizer(deselectCreatureRecognizer)
     }
 
     @objc func deselectCreature() {
@@ -53,5 +53,4 @@ class GameViewController: UIViewController {
             scene!.selectCreature(selected)
         }
     }
-
 }

@@ -34,7 +34,7 @@ class AeonCreatureNode: SKNode, Updatable {
 
     // MARK: - Current Focus
 
-    weak public private(set) var currentTarget: SKNode?
+    public private(set) weak var currentTarget: SKNode?
 
     // MARK: - Health
 

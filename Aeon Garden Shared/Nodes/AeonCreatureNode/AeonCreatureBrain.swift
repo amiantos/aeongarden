@@ -41,9 +41,9 @@ class AeonCreatureBrain: Updatable {
 
     public var currentFeeling: Feeling = .bored
     public var currentState: State = State.living
-    weak public var currentFoodTarget: AeonFoodNode?
-    weak public var currentLoveTarget: AeonCreatureNode?
-    weak public var currentPlayTarget: SKNode?
+    public weak var currentFoodTarget: AeonFoodNode?
+    public weak var currentLoveTarget: AeonCreatureNode?
+    public weak var currentPlayTarget: SKNode?
     private var lifeState: Bool = true {
         didSet {
             if !lifeState {
@@ -94,7 +94,7 @@ class AeonCreatureBrain: Updatable {
                 currentFeeling = .hungry
             } else if currentHealth <= 500,
                 currentFeeling == .horny {
-                    currentFeeling = .bored
+                currentFeeling = .bored
             }
             stateMachine?.update(deltaTime: deltaTime)
             lastUpdateTime = currentTime

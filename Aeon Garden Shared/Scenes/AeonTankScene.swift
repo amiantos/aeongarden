@@ -57,17 +57,17 @@ class AeonTankScene: SKScene {
     var selectedCreature: AeonCreatureNode? {
         didSet {
             if oldValue != selectedCreature {
-                self.creatureStatsNode.removeAllActions()
-                self.creatureStatsNode.alpha = 0
+                creatureStatsNode.removeAllActions()
+                creatureStatsNode.alpha = 0
             }
             if selectedCreature == nil {
-                self.creatureStatsNode.removeAllActions()
-                self.creatureStatsNode.alpha = 0
+                creatureStatsNode.removeAllActions()
+                creatureStatsNode.alpha = 0
                 let zoomInAction = SKAction.scale(to: 1, duration: 1)
                 let cameraAction = SKAction.move(
                     to: CGPoint(
-                        x: self.size.width / 2,
-                        y: self.size.height / 2
+                        x: size.width / 2,
+                        y: size.height / 2
                     ),
                     duration: 1
                 )
@@ -77,18 +77,18 @@ class AeonTankScene: SKScene {
     }
 
     func resetCamera() {
-        self.selectedCreature = nil
+        selectedCreature = nil
         camera?.removeAllActions()
         let zoomInAction = SKAction.scale(to: 1, duration: 1)
         let cameraAction = SKAction.move(
-            to: CGPoint(x: self.size.width / 2, y: self.size.height / 2),
+            to: CGPoint(x: size.width / 2, y: size.height / 2),
             duration: 1
         )
         camera?.run(SKAction.group([zoomInAction, cameraAction]))
     }
 
     func selectCreature(_ creature: AeonCreatureNode) {
-        self.selectedCreature = creature
+        selectedCreature = creature
         let zoomInAction = SKAction.scale(to: 0.4, duration: 1)
         camera?.run(zoomInAction, completion: {
             let fadeInAction = SKAction.fadeAlpha(to: 1, duration: 1)
@@ -184,39 +184,38 @@ class AeonTankScene: SKScene {
 
     // MARK: - Touch Events
 
-
     #if os(iOS)
-    override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
-        for touch in touches { touchDown(atPoint: touch.location(in: self)) }
-        let touch = touches.first!
-        let touchPoint = touch.location(in: self)
-        let nodes = self.nodes(at: touchPoint)
-        for node in nodes where node is AeonCreatureNode {
-            if node == selectedCreature {
-                resetCamera()
-            } else {
-                selectCreature(node as! AeonCreatureNode)
+        override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
+            for touch in touches { touchDown(atPoint: touch.location(in: self)) }
+            let touch = touches.first!
+            let touchPoint = touch.location(in: self)
+            let nodes = self.nodes(at: touchPoint)
+            for node in nodes where node is AeonCreatureNode {
+                if node == selectedCreature {
+                    resetCamera()
+                } else {
+                    selectCreature(node as! AeonCreatureNode)
+                }
             }
         }
-    }
 
-    func touchDown(atPoint _: CGPoint) {}
+        func touchDown(atPoint _: CGPoint) {}
 
-    func touchMoved(toPoint _: CGPoint) {}
+        func touchMoved(toPoint _: CGPoint) {}
 
-    func touchUp(atPoint _: CGPoint) {}
+        func touchUp(atPoint _: CGPoint) {}
 
-    override func touchesMoved(_ touches: Set<UITouch>, with _: UIEvent?) {
-        for touch in touches { touchMoved(toPoint: touch.location(in: self)) }
-    }
+        override func touchesMoved(_ touches: Set<UITouch>, with _: UIEvent?) {
+            for touch in touches { touchMoved(toPoint: touch.location(in: self)) }
+        }
 
-    override func touchesEnded(_ touches: Set<UITouch>, with _: UIEvent?) {
-        for touch in touches { touchUp(atPoint: touch.location(in: self)) }
-    }
+        override func touchesEnded(_ touches: Set<UITouch>, with _: UIEvent?) {
+            for touch in touches { touchUp(atPoint: touch.location(in: self)) }
+        }
 
-    override func touchesCancelled(_ touches: Set<UITouch>, with _: UIEvent?) {
-        for touch in touches { touchUp(atPoint: touch.location(in: self)) }
-    }
+        override func touchesCancelled(_ touches: Set<UITouch>, with _: UIEvent?) {
+            for touch in touches { touchUp(atPoint: touch.location(in: self)) }
+        }
     #endif
 }
 
@@ -315,16 +314,16 @@ extension AeonTankScene: SKPhysicsContactDelegate {
             if let creature = contact.bodyB.node as? AeonCreatureNode,
                 let food = contact.bodyA.node as? AeonFoodNode,
                 creature.currentTarget == food {
-                    creature.fed()
-                    food.eaten(animateTo: creature.position)
+                creature.fed()
+                food.eaten(animateTo: creature.position)
             }
         } else if contact.bodyB.categoryBitMask == CollisionTypes.food.rawValue,
             contact.bodyA.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyA.node as? AeonCreatureNode,
                 let food = contact.bodyB.node as? AeonFoodNode,
                 creature.currentTarget == food {
-                    creature.fed()
-                    food.eaten(animateTo: creature.position)
+                creature.fed()
+                food.eaten(animateTo: creature.position)
             }
         }
 
@@ -362,28 +361,28 @@ extension AeonTankScene {
     }
 
     fileprivate func setupBackgroundGradient() {
-        let topColor = CIColor(color: UIColor(red: 0.0078, green: 0.0235, blue: 0.0275, alpha: 1.0)) /* #020607 */
-        let bottomColor = CIColor(color: UIColor(red: 0.1529, green: 0.4275, blue: 0.5373, alpha: 1.0)) /* #276d89 */
-
-        let textureSize = CGSize(width: frame.width * 4, height: frame.height * 4)
-        let texture = SKTexture(
-            size: CGSize(width: frame.width * 4, height: frame.height * 4),
-            color1: topColor,
-            color2: bottomColor,
-            direction: GradientDirection.upward
-        )
-        texture.filteringMode = .linear
-        let sprite = SKSpriteNode(texture: texture)
-        sprite.position = CGPoint(x: frame.midX, y: frame.midY)
-        sprite.size = textureSize
-        sprite.zPosition = -3
-        addChild(sprite)
-
-        let moveUpAction = SKAction.moveBy(x: 0, y: frame.height, duration: 60)
-        let moveDownAction = SKAction.moveBy(x: 0, y: -frame.height, duration: 60)
-        let moveActionGroup = SKAction.sequence([moveUpAction, moveDownAction, moveDownAction, moveUpAction])
-        moveActionGroup.timingMode = .easeInEaseOut
-        sprite.run(SKAction.repeatForever(moveActionGroup))
+//        let topColor = CIColor(color: UIColor(red: 0.0078, green: 0.0235, blue: 0.0275, alpha: 1.0)) /* #020607 */
+//        let bottomColor = CIColor(color: UIColor(red: 0.1529, green: 0.4275, blue: 0.5373, alpha: 1.0)) /* #276d89 */
+//
+//        let textureSize = CGSize(width: frame.width * 2, height: frame.height * 3)
+//        let texture = SKTexture(
+//            size: CGSize(width: frame.width * 2, height: frame.height * 3),
+//            color1: topColor,
+//            color2: bottomColor,
+//            direction: GradientDirection.upward
+//        )
+//        texture.filteringMode = .linear
+//        let sprite = SKSpriteNode(texture: texture)
+//        sprite.position = CGPoint(x: frame.midX, y: frame.midY)
+//        sprite.size = textureSize
+//        sprite.zPosition = -3
+//        addChild(sprite)
+//
+//        let moveUpAction = SKAction.moveBy(x: 0, y: frame.height, duration: 60)
+//        let moveDownAction = SKAction.moveBy(x: 0, y: -frame.height, duration: 60)
+//        let moveActionGroup = SKAction.sequence([moveUpAction, moveDownAction, moveDownAction, moveUpAction])
+//        moveActionGroup.timingMode = .easeInEaseOut
+//        sprite.run(SKAction.repeatForever(moveActionGroup))
     }
 
     fileprivate func setupBackgroundAnimation() {

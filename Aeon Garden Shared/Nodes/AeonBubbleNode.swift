@@ -17,6 +17,7 @@ class AeonBubbleNode: SKNode, Updatable {
             }
         }
     }
+
     internal var lastUpdateTime: TimeInterval = 0
 
     override init() {
@@ -24,7 +25,7 @@ class AeonBubbleNode: SKNode, Updatable {
 
         physicsBody = SKPhysicsBody(circleOfRadius: 16)
         physicsBody?.categoryBitMask = CollisionTypes.ball.rawValue
-        physicsBody?.contactTestBitMask =  CollisionTypes.edge.rawValue | CollisionTypes.creature.rawValue
+        physicsBody?.contactTestBitMask = CollisionTypes.edge.rawValue | CollisionTypes.creature.rawValue
         physicsBody?.allowsRotation = true
         physicsBody?.affectedByGravity = false
         physicsBody?.restitution = 0.2
@@ -58,7 +59,7 @@ class AeonBubbleNode: SKNode, Updatable {
         run(SKAction.repeatForever(shiftSequence))
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

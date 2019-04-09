@@ -12,12 +12,12 @@
 import UIKit
 
 class AeonMenuView: UIView {
-
     var title: String = "" {
         didSet {
             titleLabel.text = title
         }
     }
+
     private let titleLabel: UILabel
     private let menuTableView: UITableView = UITableView()
     private let menuContents: [UITableViewCell] = []
