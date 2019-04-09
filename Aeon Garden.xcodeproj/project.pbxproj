@@ -61,11 +61,11 @@
 		B413ABE0224D7CC000E8BDD1 /* AeonDataPillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A171192245B70F00890D32 /* AeonDataPillView.swift */; };
 		B413ABE1224D7CC000E8BDD1 /* AeonMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1711B2245B72800890D32 /* AeonMenuButton.swift */; };
 		B413ABE2224D7CC000E8BDD1 /* AeonMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED3322470B980026604C /* AeonMenuView.swift */; };
-		B413ABE3224D7D4F00E8BDD1 /* AeonOceanSparkle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */; };
+		B413ABE3224D7D4F00E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */; };
 		B413ABE4224D7D4F00E8BDD1 /* AeonSmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */; };
-		B413ABE6224D7D4F00E8BDD1 /* AeonOceanSparkle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */; };
+		B413ABE6224D7D4F00E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */; };
 		B413ABE7224D7D4F00E8BDD1 /* AeonSmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */; };
-		B413ABE9224D7D5000E8BDD1 /* AeonOceanSparkle.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */; };
+		B413ABE9224D7D5000E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */; };
 		B413ABEA224D7D5000E8BDD1 /* AeonSmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */; };
 		B413ABEE224D7E1B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
 		B413ABF0224D7E1B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
@@ -135,7 +135,7 @@
 		B48DDABC1F80943500DEA908 /* AeonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonViewController.swift; sourceTree = "<group>"; };
 		B48DDACD1F80B2B000DEA908 /* AeonCreatureNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonCreatureNode.swift; sourceTree = "<group>"; };
 		B48DDACF1F81A1DE00DEA908 /* AeonFoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonFoodNode.swift; sourceTree = "<group>"; };
-		B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonOceanSparkle.sks; sourceTree = "<group>"; };
+		B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonOceanSquareBubbles.sks; sourceTree = "<group>"; };
 		B4DEED31224708800026604C /* AeonColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonColors.swift; sourceTree = "<group>"; };
 		B4DEED3322470B980026604C /* AeonMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonMenuView.swift; sourceTree = "<group>"; };
 		B4DEED37224806850026604C /* AeonNodeProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonNodeProtocols.swift; sourceTree = "<group>"; };
@@ -286,7 +286,7 @@
 		B4364F7A1F8C78190002B2BB /* Particles */ = {
 			isa = PBXGroup;
 			children = (
-				B48DDADD1F8328E400DEA908 /* AeonOceanSparkle.sks */,
+				B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */,
 				4419E9F02241A557007FE456 /* AeonSmokeParticle.sks */,
 				B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */,
 			);
@@ -456,7 +456,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B413ABE3224D7D4F00E8BDD1 /* AeonOceanSparkle.sks in Resources */,
+				B413ABE3224D7D4F00E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */,
 				B413ABE4224D7D4F00E8BDD1 /* AeonSmokeParticle.sks in Resources */,
 				B413ABF7224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABCE224D7C8A00E8BDD1 /* Surnames in Resources */,
@@ -474,7 +474,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B413ABE6224D7D4F00E8BDD1 /* AeonOceanSparkle.sks in Resources */,
+				B413ABE6224D7D4F00E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */,
 				B413AB8E224D73C400E8BDD1 /* Main.storyboard in Resources */,
 				B413ABF8224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABE7224D7D4F00E8BDD1 /* AeonSmokeParticle.sks in Resources */,
@@ -492,7 +492,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B413ABE9224D7D5000E8BDD1 /* AeonOceanSparkle.sks in Resources */,
+				B413ABE9224D7D5000E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */,
 				B413AB9C224D73C400E8BDD1 /* Main.storyboard in Resources */,
 				B413ABF9224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABEA224D7D5000E8BDD1 /* AeonSmokeParticle.sks in Resources */,

@@ -41,12 +41,6 @@ class AeonTankScene: SKScene {
     private var totalTankTime: TimeInterval = 0
     private var lastBubbleTime: TimeInterval = 0
 
-    private let creatureStatsNode = SKSpriteNode(imageNamed: "aeonStatsLine")
-    private var nameLabel = SKLabelNode(fontNamed: "Helvetica-Bold")
-    private var lifeTimeLabel = SKLabelNode(fontNamed: "Helvetica-Light")
-    private var healthLabel = SKLabelNode(fontNamed: "Helvetica-Light")
-    private var currentStatusLabel = SKLabelNode(fontNamed: "Helvetica-Light")
-
     private var creatureNodes: [AeonCreatureNode] = []
     private var updatableNodes: [Updatable] = []
 
@@ -56,13 +50,7 @@ class AeonTankScene: SKScene {
 
     var selectedCreature: AeonCreatureNode? {
         didSet {
-            if oldValue != selectedCreature {
-                creatureStatsNode.removeAllActions()
-                creatureStatsNode.alpha = 0
-            }
             if selectedCreature == nil {
-                creatureStatsNode.removeAllActions()
-                creatureStatsNode.alpha = 0
                 let zoomInAction = SKAction.scale(to: 1, duration: 1)
                 let cameraAction = SKAction.move(
                     to: CGPoint(
@@ -89,11 +77,7 @@ class AeonTankScene: SKScene {
 
     func selectCreature(_ creature: AeonCreatureNode) {
         selectedCreature = creature
-        let zoomInAction = SKAction.scale(to: 0.4, duration: 1)
-        camera?.run(zoomInAction, completion: {
-            let fadeInAction = SKAction.fadeAlpha(to: 1, duration: 1)
-            self.creatureStatsNode.run(fadeInAction)
-        })
+        camera?.run(SKAction.scale(to: 0.4, duration: 1))
     }
 
     // MARK: - Scene
@@ -103,9 +87,8 @@ class AeonTankScene: SKScene {
         setupCamera()
         setupBackgroundGradient()
         setupBackgroundAnimation()
-        setupCreatureStatsUI()
         createInitialCreatures()
-        createInitialBalls()
+        createInitialBubbles()
     }
 
     override func didMove(to _: SKView) {
@@ -175,10 +158,6 @@ class AeonTankScene: SKScene {
         if let followCreature = self.selectedCreature {
             let cameraAction = SKAction.move(to: followCreature.position, duration: 0.25)
             camera?.run(cameraAction)
-            nameLabel.text = followCreature.fullName
-            lifeTimeLabel.text = followCreature.lifeTimeFormattedAsString()
-            currentStatusLabel.text = followCreature.getCurrentState()
-            healthLabel.text = "Health: \(Int(followCreature.currentHealth))"
         }
     }
 
@@ -235,7 +214,7 @@ extension AeonTankScene {
         }
     }
 
-    fileprivate func createInitialBalls() {
+    fileprivate func createInitialBubbles() {
         var ballCount: Int = 0
         let ballMinimum: Int = 10
         while ballCount < ballMinimum {
@@ -268,13 +247,13 @@ extension AeonTankScene {
     }
 
     fileprivate func addBubbleToScene() {
-        let aeonBall = AeonBubbleNode()
-        aeonBall.position = CGPoint(
+        let aeonBubble = AeonBubbleNode()
+        aeonBubble.position = CGPoint(
             x: randomCGFloat(min: size.width * 0.05, max: size.width * 0.95),
             y: randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)
         )
-        aeonBall.zRotation = randomCGFloat(min: 0, max: 10)
-        addChild(aeonBall)
+        aeonBubble.zRotation = randomCGFloat(min: 0, max: 10)
+        addChild(aeonBubble)
     }
 }
 
@@ -400,7 +379,7 @@ extension AeonTankScene {
 //            addChild(backgroundSmoke)
 //        }
 
-        if let backgroundSmoke2 = SKEmitterNode(fileNamed: "AeonOceanSparkle.sks") {
+        if let backgroundSmoke2 = SKEmitterNode(fileNamed: "AeonOceanSquareBubbles.sks") {
             backgroundSmoke2.position = CGPoint(x: size.width / 2, y: size.height / 2)
             backgroundSmoke2.zPosition = -1
             backgroundSmoke2.particlePositionRange = CGVector(dx: size.width, dy: size.height)
@@ -410,42 +389,4 @@ extension AeonTankScene {
         }
     }
 
-    fileprivate func setupCreatureStatsUI() {
-        cameraNode.addChild(creatureStatsNode)
-        creatureStatsNode.alpha = 0
-        creatureStatsNode.size = CGSize(width: 533, height: 33)
-        creatureStatsNode.size.width /= 1.2
-        creatureStatsNode.position.x = creatureStatsNode.size.width / 2.2
-
-        creatureStatsNode.addChild(nameLabel)
-        nameLabel.position.x = 0
-        nameLabel.position.y = 15
-        nameLabel.alpha = 0.5
-        nameLabel.horizontalAlignmentMode = .center
-        nameLabel.verticalAlignmentMode = .bottom
-
-        creatureStatsNode.addChild(lifeTimeLabel)
-        lifeTimeLabel.position.x = 0
-        lifeTimeLabel.position.y = -16
-        lifeTimeLabel.fontSize = 25
-        lifeTimeLabel.alpha = 0.3
-        lifeTimeLabel.horizontalAlignmentMode = .center
-        lifeTimeLabel.verticalAlignmentMode = .top
-
-        creatureStatsNode.addChild(currentStatusLabel)
-        currentStatusLabel.position.x = 0
-        currentStatusLabel.position.y = -50
-        currentStatusLabel.fontSize = 25
-        currentStatusLabel.alpha = 0.3
-        currentStatusLabel.horizontalAlignmentMode = .center
-        currentStatusLabel.verticalAlignmentMode = .top
-
-        creatureStatsNode.addChild(healthLabel)
-        healthLabel.position.x = 0
-        healthLabel.position.y = -86
-        healthLabel.fontSize = 25
-        healthLabel.alpha = 0.3
-        healthLabel.horizontalAlignmentMode = .center
-        healthLabel.verticalAlignmentMode = .top
-    }
 }
