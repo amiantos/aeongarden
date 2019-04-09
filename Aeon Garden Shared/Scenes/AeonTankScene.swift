@@ -27,7 +27,6 @@ protocol AeonTankDelegate: class {
 }
 
 class AeonTankScene: SKScene {
-    public var foodPelletCount: Int = 0
     public var deathCount: Int = 0
     public var birthCount: Int = 0
 
@@ -36,13 +35,13 @@ class AeonTankScene: SKScene {
 
     private var lastFoodTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
-    private var lastUIUpdateTime: TimeInterval = 0
-    private var totalTankTime: TimeInterval = 0
     private var lastBubbleTime: TimeInterval = 0
 
     private var creatureNodes: [AeonCreatureNode] = [] {
         didSet {
             tankDelegate?.updatePopulation(creatureNodes.count)
+            tankDelegate?.updateBirths(birthCount)
+            tankDelegate?.updateDeaths(deathCount)
         }
     }
     private var foodNodes: [AeonFoodNode] = []  {
@@ -95,7 +94,7 @@ class AeonTankScene: SKScene {
         setupCamera()
         setupBackgroundGradient()
         setupBackgroundAnimation()
-        createInitialCreatures()
+//        createInitialCreatures()
         createInitialBubbles()
     }
 
@@ -128,37 +127,28 @@ class AeonTankScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         followSelectedCreatureWithCamera()
 
-        if lastUIUpdateTime == 0 {
+        if lastCreatureTime == 0 {
             lastFoodTime = currentTime
             lastCreatureTime = currentTime
-            lastUIUpdateTime = currentTime
             lastBubbleTime = currentTime
         }
 
-        if (currentTime - lastUIUpdateTime) >= 1 {
-
-            tankDelegate?.updateBirths(birthCount)
-            tankDelegate?.updateDeaths(deathCount)
-
-            lastUIUpdateTime = currentTime
+        if (currentTime - lastFoodTime) >= 3,
+            foodNodes.count < foodPelletMax {
+            addFoodPelletToScene()
+            lastFoodTime = currentTime
         }
-
-//        if (currentTime - lastFoodTime) >= 3,
-//            foodNodes.count < foodPelletMax {
-//            addFoodPelletToScene()
-//            lastFoodTime = currentTime
-//        }
 
         if (currentTime - lastBubbleTime) >= 1 {
             addBubbleToScene()
             lastBubbleTime = currentTime
         }
 
-//        if (currentTime - lastCreatureTime) >= 5,
-//            creatureCount < creatureMinimum {
-//            addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 0, max: 360))
-//            lastCreatureTime = currentTime
-//        }
+        if (currentTime - lastCreatureTime) >= 5,
+            creatureNodes.count < creatureMinimum {
+            addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 0, max: 360))
+            lastCreatureTime = currentTime
+        }
 
         for child in children {
             if let child = child as? Updatable {

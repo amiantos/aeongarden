@@ -267,8 +267,8 @@ class AeonCreatureNode: SKNode, Updatable {
         let birthAction = SKAction.scale(to: sizeModififer, duration: 30)
         run(birthAction)
 
-        if let emitter = SKEmitterNode(fileNamed: "AeonSmokeParticle.sks") {
-            emitter.name = "AeonSmokeParticle.sks"
+        if let emitter = SKEmitterNode(fileNamed: "AeonCreatureBubbleTrail.sks") {
+            emitter.name = "AeonCreatureBubbleTrail.sks"
             emitter.zPosition = 1
             emitter.targetNode = scene
             let scaleSequence = SKKeyframeSequence(
