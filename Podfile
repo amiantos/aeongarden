@@ -1,13 +1,17 @@
-# Uncomment the next line to define a global platform for your project
-platform :ios, '11.0'
-
-target 'Aeon Garden iOS' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
-
-  # Pods for Aeon Garden
+def shared_pods
   pod 'SwiftLint'
   pod 'SwiftFormat/CLI'
   pod 'SnapKit', '~> 4.0'
+end
 
+target 'Aeon Garden iOS' do
+  platform :ios, '11.0'
+  use_frameworks!
+  shared_pods
+end
+
+target 'Aeon Garden macOS' do
+  platform :macos, '10.14'
+  use_frameworks!
+  shared_pods
 end

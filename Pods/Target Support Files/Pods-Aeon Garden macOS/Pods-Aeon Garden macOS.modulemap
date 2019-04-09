@@ -1,0 +1,6 @@
+framework module Pods_Aeon_Garden_macOS {
+  umbrella header "Pods-Aeon Garden macOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

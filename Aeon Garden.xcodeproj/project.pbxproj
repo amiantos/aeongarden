@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		82BF56C3256FB0182D5F3F18 /* Pods_Aeon_Garden_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FC0A83C46425083E854700 /* Pods_Aeon_Garden_macOS.framework */; };
 		8E7E158ACFE2903488CE6E7E /* Pods_Aeon_Garden_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A69E33689BDFD1DAC0725B2E /* Pods_Aeon_Garden_iOS.framework */; };
 		B413AB78224D73C400E8BDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB77224D73C400E8BDD1 /* AppDelegate.swift */; };
 		B413AB80224D73C400E8BDD1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B413AB7E224D73C400E8BDD1 /* LaunchScreen.storyboard */; };
@@ -92,6 +93,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05B57AE72325131A628E17E6 /* Pods-Aeon Garden macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden macOS.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden macOS/Pods-Aeon Garden macOS.release.xcconfig"; sourceTree = "<group>"; };
 		1921664E2469C290D4148C61 /* Pods-Aeon Garden Original iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden Original iOS.debug.xcconfig"; path = "Target Support Files/Pods-Aeon Garden Original iOS/Pods-Aeon Garden Original iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		36FD16856D813C5EFD6431ED /* Pods-Aeon Garden iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden iOS.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden iOS/Pods-Aeon Garden iOS.release.xcconfig"; sourceTree = "<group>"; };
 		4419E9F02241A557007FE456 /* AeonCreatureBubbleTrail.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonCreatureBubbleTrail.sks; sourceTree = "<group>"; };
@@ -103,6 +105,8 @@
 		44A1711B2245B72800890D32 /* AeonMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonMenuButton.swift; sourceTree = "<group>"; };
 		55106F82B8367E59A3F6FC58 /* Pods_Aeon_Garden.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DEDF779719125253E8C1592 /* Pods-Aeon Garden.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden/Pods-Aeon Garden.release.xcconfig"; sourceTree = "<group>"; };
+		94FC0A83C46425083E854700 /* Pods_Aeon_Garden_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		961DCC078C765B757AA3FC21 /* Pods-Aeon Garden macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden macOS.debug.xcconfig"; path = "Target Support Files/Pods-Aeon Garden macOS/Pods-Aeon Garden macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		9DA5FBDDF894B044FA1831F3 /* Pods-Aeon Garden iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden iOS.debug.xcconfig"; path = "Target Support Files/Pods-Aeon Garden iOS/Pods-Aeon Garden iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		A69E33689BDFD1DAC0725B2E /* Pods_Aeon_Garden_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD05DABBB678E736592C175E /* Pods-Aeon Garden Original iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden Original iOS.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden Original iOS/Pods-Aeon Garden Original iOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -164,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82BF56C3256FB0182D5F3F18 /* Pods_Aeon_Garden_macOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +181,7 @@
 				55106F82B8367E59A3F6FC58 /* Pods_Aeon_Garden.framework */,
 				E7FF2114A3347A2F93E3B678 /* Pods_Aeon_Garden_Original_iOS.framework */,
 				A69E33689BDFD1DAC0725B2E /* Pods_Aeon_Garden_iOS.framework */,
+				94FC0A83C46425083E854700 /* Pods_Aeon_Garden_macOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -347,6 +353,8 @@
 				AD05DABBB678E736592C175E /* Pods-Aeon Garden Original iOS.release.xcconfig */,
 				9DA5FBDDF894B044FA1831F3 /* Pods-Aeon Garden iOS.debug.xcconfig */,
 				36FD16856D813C5EFD6431ED /* Pods-Aeon Garden iOS.release.xcconfig */,
+				961DCC078C765B757AA3FC21 /* Pods-Aeon Garden macOS.debug.xcconfig */,
+				05B57AE72325131A628E17E6 /* Pods-Aeon Garden macOS.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -394,9 +402,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B413ABB2224D73C400E8BDD1 /* Build configuration list for PBXNativeTarget "Aeon Garden macOS" */;
 			buildPhases = (
+				D3764C1375C7211F95FE3A1D /* [CP] Check Pods Manifest.lock */,
 				B413AB90224D73C400E8BDD1 /* Sources */,
 				B413AB91224D73C400E8BDD1 /* Frameworks */,
 				B413AB92224D73C400E8BDD1 /* Resources */,
+				3461CE8E59B5AC2D393F25AF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -531,6 +541,46 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3461CE8E59B5AC2D393F25AF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Aeon Garden macOS/Pods-Aeon Garden macOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SnapKit-macOS/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Aeon Garden macOS/Pods-Aeon Garden macOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D3764C1375C7211F95FE3A1D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Aeon Garden macOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E474D9030D5C7030406D7C4F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -538,7 +588,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Aeon Garden iOS/Pods-Aeon Garden iOS-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit-iOS/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -739,6 +789,7 @@
 		};
 		B413ABAE224D73C400E8BDD1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 961DCC078C765B757AA3FC21 /* Pods-Aeon Garden macOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -760,6 +811,7 @@
 		};
 		B413ABAF224D73C400E8BDD1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05B57AE72325131A628E17E6 /* Pods-Aeon Garden macOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
