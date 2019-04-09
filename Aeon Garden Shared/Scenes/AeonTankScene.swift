@@ -47,6 +47,9 @@ class AeonTankScene: SKScene {
     private var healthLabel = SKLabelNode(fontNamed: "Helvetica-Light")
     private var currentStatusLabel = SKLabelNode(fontNamed: "Helvetica-Light")
 
+    private var creatureNodes: [AeonCreatureNode] = []
+    private var updatableNodes: [Updatable] = []
+
     private var cameraNode: SKCameraNode = SKCameraNode()
 
     weak var tankDelegate: AeonTankDelegate?
@@ -107,6 +110,14 @@ class AeonTankScene: SKScene {
 
     override func didMove(to _: SKView) {
         physicsWorld.contactDelegate = self
+    }
+
+    override func addChild(_ node: SKNode) {
+        super.addChild(node)
+
+        if let creature = node as? AeonCreatureNode {
+            creatureNodes.append(creature)
+        }
     }
 
     override func update(_ currentTime: TimeInterval) {

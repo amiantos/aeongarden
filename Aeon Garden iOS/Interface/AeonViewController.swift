@@ -122,6 +122,7 @@ extension AeonViewController {
         scene?.tankDelegate = self
         skView = view as? SKView
         scene!.scaleMode = .aspectFill
+        skView?.ignoresSiblingOrder = true
         skView!.presentScene(scene)
     }
 }
