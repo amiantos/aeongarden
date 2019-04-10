@@ -276,12 +276,13 @@ extension AeonTankScene: SKPhysicsContactDelegate {
                 AeonSoundManager.shared.play(.creatureMate, onNode: creatureA)
                 // Random chance to breed
                 if randomInteger(min: 0, max: 6) == 6 {
+                    birthCount += 1
                     let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
                     newCreature.position = creatureA.position
                     addChild(newCreature)
                     newCreature.born()
                     AeonSoundManager.shared.play(.creatureBorn, onNode: newCreature)
-                    birthCount += 1
+                    selectCreature(newCreature)
                 }
             } else {
                 // If one creature is pursuing the other, get wrecked
