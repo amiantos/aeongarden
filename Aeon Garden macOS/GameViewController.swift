@@ -49,8 +49,9 @@ class GameViewController: NSViewController {
         populationLabel.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-
+        populationLabel.stringValue = "0"
     }
+
 }
 
 extension GameViewController: AeonTankDelegate {

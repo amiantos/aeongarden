@@ -150,10 +150,12 @@ class AeonTankScene: SKScene {
             lastCreatureTime = currentTime
         }
 
-        for child in children {
-            if let child = child as? Updatable {
-                child.update(currentTime)
-            }
+        var arrays: [Updatable] = []
+        arrays.append(contentsOf: creatureNodes)
+        arrays.append(contentsOf: foodNodes)
+        arrays.append(contentsOf: bubbleNodes)
+        for child in arrays {
+            child.update(currentTime)
         }
     }
 

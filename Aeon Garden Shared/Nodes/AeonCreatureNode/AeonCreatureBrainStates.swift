@@ -19,7 +19,6 @@ class BirthState: GKState {
     }
 
     override func didEnter(from _: GKState?) {
-        brain?.printThought("Lo! Consciousness", emoji: "👼")
         brain?.currentState = .living
     }
 

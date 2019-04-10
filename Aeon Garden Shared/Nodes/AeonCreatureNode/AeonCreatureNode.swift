@@ -267,6 +267,8 @@ class AeonCreatureNode: SKNode, Updatable {
         let birthAction = SKAction.scale(to: sizeModififer, duration: 30)
         run(birthAction)
 
+        brain?.printThought("Lo! Consciousness", emoji: "👼")
+
         if let emitter = SKEmitterNode(fileNamed: "AeonCreatureBubbleTrail.sks") {
             emitter.name = "AeonCreatureBubbleTrail.sks"
             emitter.zPosition = 1
