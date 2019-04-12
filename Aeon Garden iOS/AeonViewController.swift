@@ -99,6 +99,10 @@ class AeonViewController: UIViewController {
 }
 
 extension AeonViewController: AeonTankDelegate {
+    func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?) {
+        return
+    }
+
     func updateBirths(_ births: Int) {
         birthsDataPill.number = births
     }

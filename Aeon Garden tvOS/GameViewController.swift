@@ -55,16 +55,16 @@ class GameViewController: UIViewController {
         creatureNameLabel.textAlignment = .center
         creatureNameLabel.textColor = .white
         creatureNameLabel.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(20)
-            make.leading.equalToSuperview().offset(30)
-            make.trailing.equalToSuperview().offset(-30)
+            make.top.equalToSuperview().offset(30)
+            make.leading.equalToSuperview().offset(60)
+            make.trailing.equalToSuperview().offset(-60)
         }
 
         creatureDetailsView.addSubview(creaturesDetailsViewSeparator)
         creaturesDetailsViewSeparator.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 1, alpha: 0.2)
         creaturesDetailsViewSeparator.layer.cornerRadius = 1
         creaturesDetailsViewSeparator.snp.makeConstraints { (make) in
-            make.top.equalTo(creatureNameLabel.snp.bottom).offset(5)
+            make.top.equalTo(creatureNameLabel.snp.bottom).offset(20)
             make.height.equalTo(2)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
@@ -78,8 +78,8 @@ class GameViewController: UIViewController {
         creatureHealthLabel.textAlignment = .left
         creatureHealthLabel.font = creatureHealthLabel.font.withSize(20)
         creatureHealthLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(creaturesDetailsViewSeparator.snp.bottom).offset(15)
-            make.leading.equalToSuperview().offset(30)
+            make.top.equalTo(creaturesDetailsViewSeparator.snp.bottom).offset(25)
+            make.leading.equalToSuperview().offset(60)
             make.trailing.equalTo(creatureDetailsView.snp.centerX).offset(-10)
         }
 
@@ -87,34 +87,36 @@ class GameViewController: UIViewController {
         creatureLifespanLabel.textAlignment = .right
         creatureLifespanLabel.font = creatureLifespanLabel.font.withSize(20)
         creatureLifespanLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(creaturesDetailsViewSeparator.snp.bottom).offset(15)
+            make.top.equalTo(creaturesDetailsViewSeparator.snp.bottom).offset(25)
             make.leading.equalTo(creatureDetailsView.snp.centerX).offset(10)
-            make.trailing.equalToSuperview().offset(-30)
+            make.trailing.equalToSuperview().offset(-60)
         }
 
         creatureThoughtLabel.textColor = .white
         creatureThoughtLabel.textAlignment = .center
         creatureThoughtLabel.font = creatureThoughtLabel.font.withSize(26)
         creatureThoughtLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(creatureLifespanLabel.snp.bottom).offset(10)
-            make.leading.equalToSuperview().offset(30)
-            make.trailing.equalToSuperview().offset(-30)
-            make.bottom.equalToSuperview().offset(-20)
+            make.top.equalTo(creatureLifespanLabel.snp.bottom).offset(20)
+            make.leading.equalToSuperview().offset(60)
+            make.trailing.equalToSuperview().offset(-60)
+            make.bottom.equalToSuperview().offset(-30)
         }
 
 
         let blurEffect: UIBlurEffect = UIBlurEffect(style: .dark)
         blurredEffectView = UIVisualEffectView(effect: blurEffect)
-        blurredEffectView?.frame = creatureDetailsView.frame
-        creatureDetailsView.insertSubview(blurredEffectView!, at: 0)
+        blurredEffectView?.layer.cornerRadius = 5
+        blurredEffectView?.clipsToBounds = true
+        blurredEffectView?.frame = creatureDetailsView.bounds
+        view.insertSubview(blurredEffectView!, at: 0)
 
         creatureDetailsView.isHidden = true
+        blurredEffectView?.isHidden = true
 
     }
 
     override func viewDidLayoutSubviews() {
-        blurredEffectView?.frame = creatureDetailsView.bounds
-        vibrancyEffectView?.frame = creaturesDetailsViewSeparator.bounds
+        blurredEffectView?.frame = creatureDetailsView.frame
     }
 
     @objc func deselectCreature() {
@@ -167,12 +169,14 @@ extension GameViewController: AeonTankDelegate {
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?) {
         if let creature = creature {
             creatureDetailsView.isHidden = false
+            blurredEffectView?.isHidden = false
             creatureNameLabel.text = creature.name
             creatureThoughtLabel.text = creature.getCurrentState()
             creatureLifespanLabel.text = creature.lifeTimeFormattedAsString()
             creatureHealthLabel.text = "Health: " + String(Int(creature.getCurrentHealth().rounded()))
         } else {
             creatureDetailsView.isHidden = true
+            blurredEffectView?.isHidden = true
         }
 
     }

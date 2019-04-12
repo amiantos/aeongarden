@@ -32,7 +32,7 @@ class AeonTankScene: SKScene {
     public var birthCount: Int = 0
 
     private var foodPelletMax: Int = 20
-    private var creatureMinimum: Int = 6
+    private var creatureMinimum: Int = 20
 
     private var lastFoodTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
@@ -53,18 +53,17 @@ class AeonTankScene: SKScene {
     private var bubbleNodes: [AeonBubbleNode] = []
 
     private var cameraNode: SKCameraNode = SKCameraNode()
+    private var selectionRing: SKSpriteNode = SKSpriteNode(imageNamed: "aeonSelectionRing")
 
     weak var tankDelegate: AeonTankDelegate?
 
     var selectedCreature: AeonCreatureNode? {
         didSet {
             if selectedCreature == nil {
+                camera?.removeAllActions()
                 let zoomInAction = SKAction.scale(to: 1, duration: 1)
                 let cameraAction = SKAction.move(
-                    to: CGPoint(
-                        x: size.width / 2,
-                        y: size.height / 2
-                    ),
+                    to: CGPoint(x: size.width / 2, y: size.height / 2),
                     duration: 1
                 )
                 camera?.run(SKAction.group([zoomInAction, cameraAction]))
@@ -73,6 +72,7 @@ class AeonTankScene: SKScene {
     }
 
     func resetCamera() {
+        selectedCreature?.removeChildren(in: [selectionRing])
         selectedCreature = nil
         camera?.removeAllActions()
         let zoomInAction = SKAction.scale(to: 1, duration: 1)
@@ -84,7 +84,12 @@ class AeonTankScene: SKScene {
     }
 
     func selectCreature(_ creature: AeonCreatureNode) {
+        if creature != selectedCreature {
+            selectedCreature?.removeChildren(in: [selectionRing])
+        }
         selectedCreature = creature
+        creature.addChild(selectionRing)
+        selectionRing.zPosition = -2
         camera?.run(SKAction.scale(to: 0.4, duration: 1))
     }
 
@@ -116,6 +121,9 @@ class AeonTankScene: SKScene {
 
     func removeChild(_ node: SKNode) {
         if let creature = node as? AeonCreatureNode {
+            if creature == selectedCreature {
+                selectedCreature?.removeChildren(in: [selectionRing])
+            }
             creatureNodes.remove(object: creature)
         } else if let food = node as? AeonFoodNode {
             foodNodes.remove(object: food)
@@ -146,11 +154,11 @@ class AeonTankScene: SKScene {
             lastBubbleTime = currentTime
         }
 
-        if (currentTime - lastCreatureTime) >= 5,
-            creatureNodes.count < creatureMinimum {
-            addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 0, max: 360))
-            lastCreatureTime = currentTime
-        }
+//        if (currentTime - lastCreatureTime) >= 5,
+//            creatureNodes.count < creatureMinimum {
+//            addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 0, max: 360))
+//            lastCreatureTime = currentTime
+//        }
 
         var arrays: [Updatable] = []
         arrays.append(contentsOf: creatureNodes)
@@ -343,6 +351,10 @@ extension AeonTankScene {
         cameraNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
         addChild(cameraNode)
         camera = cameraNode
+
+        selectionRing.color = .aeonUIBackgroundDark
+        selectionRing.alpha = 0.1
+
 //        listener = cameraNode
 //        audioEngine.mainMixerNode.outputVolume = 0.2
     }
