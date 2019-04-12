@@ -65,7 +65,7 @@ class GameViewController: UIViewController {
         }
 
         creatureDetailsView.addSubview(creaturesDetailsViewSeparator)
-        creaturesDetailsViewSeparator.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 1, alpha: 0.2)
+        creaturesDetailsViewSeparator.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 1, alpha: 0.1)
         creaturesDetailsViewSeparator.layer.cornerRadius = 1
         creaturesDetailsViewSeparator.snp.makeConstraints { (make) in
             make.top.equalTo(creatureNameLabel.snp.bottom).offset(20)
@@ -87,7 +87,7 @@ class GameViewController: UIViewController {
         creatureThoughtLabel.font = creatureThoughtLabel.font.withSize(22)
         creatureThoughtLabel.snp.makeConstraints { (make) in
             make.top.equalTo(creaturesDetailsViewSeparator.snp.bottom).offset(25)
-            make.centerX.equalToSuperview()
+            make.centerX.equalToSuperview().offset(15)
             make.bottom.equalToSuperview().offset(-30)
         }
 
