@@ -10,8 +10,16 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import Foundation
+import SpriteKit
 
 protocol Updatable {
     func update(_ currentTime: TimeInterval)
     var lastUpdateTime: TimeInterval { get set }
+}
+
+protocol Selectable {
+    var selectionRing: SKSpriteNode { get }
+    func setupSelectionRing()
+    func displaySelectionRing(withColor color: SKColor)
+    func hideSelectionRing()
 }

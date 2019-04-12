@@ -12,6 +12,8 @@
 import SpriteKit
 
 class AeonCreatureNode: SKNode, Updatable {
+    var selectionRing: SKSpriteNode = SKSpriteNode(imageNamed: "aeonSelectionRing")
+
     // MARK: - Creature Name
 
     public let firstName: String
@@ -111,7 +113,6 @@ class AeonCreatureNode: SKNode, Updatable {
         turnSpeed = parents.randomElement()!.turnSpeed * randomCGFloat(min: 0.95, max: 1.05)
 
         super.init()
-
         brain?.delegate = self
 
         setupLimbs()
@@ -402,4 +403,29 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
     func printThought(_ message: String, emoji: String?) {
         NSLog("\(emoji ?? "💭") \(fullName) (\(Int(currentHealth))): \(message)")
     }
+}
+
+extension AeonCreatureNode: Selectable {
+
+    func setupSelectionRing() {
+        if childNode(withName: "selectionRing") == nil {
+            selectionRing.name = "selectionRing"
+            addChild(selectionRing)
+            selectionRing.position = CGPoint(x: 0, y: 2)
+        }
+    }
+
+    func displaySelectionRing(withColor color: SKColor) {
+        setupSelectionRing()
+        selectionRing.color = color
+        selectionRing.alpha = 0.1
+    }
+
+    func hideSelectionRing() {
+        if let ring = childNode(withName: "selectionRing") {
+            removeChildren(in: [ring])
+        }
+    }
+
+
 }

@@ -53,7 +53,6 @@ class AeonTankScene: SKScene {
     private var bubbleNodes: [AeonBubbleNode] = []
 
     private var cameraNode: SKCameraNode = SKCameraNode()
-    private var selectionRing: SKSpriteNode = SKSpriteNode(imageNamed: "aeonSelectionRing")
 
     weak var tankDelegate: AeonTankDelegate?
 
@@ -72,7 +71,7 @@ class AeonTankScene: SKScene {
     }
 
     func resetCamera() {
-        selectedCreature?.removeChildren(in: [selectionRing])
+        selectedCreature?.hideSelectionRing()
         selectedCreature = nil
         camera?.removeAllActions()
         let zoomInAction = SKAction.scale(to: 1, duration: 1)
@@ -85,11 +84,10 @@ class AeonTankScene: SKScene {
 
     func selectCreature(_ creature: AeonCreatureNode) {
         if creature != selectedCreature {
-            selectedCreature?.removeChildren(in: [selectionRing])
+            selectedCreature?.hideSelectionRing()
         }
         selectedCreature = creature
-        creature.addChild(selectionRing)
-        selectionRing.zPosition = -2
+        creature.displaySelectionRing(withColor: .aeonUIBackgroundDark)
         camera?.run(SKAction.scale(to: 0.4, duration: 1))
     }
 
@@ -121,9 +119,6 @@ class AeonTankScene: SKScene {
 
     func removeChild(_ node: SKNode) {
         if let creature = node as? AeonCreatureNode {
-            if creature == selectedCreature {
-                selectedCreature?.removeChildren(in: [selectionRing])
-            }
             creatureNodes.remove(object: creature)
         } else if let food = node as? AeonFoodNode {
             foodNodes.remove(object: food)
@@ -351,9 +346,6 @@ extension AeonTankScene {
         cameraNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
         addChild(cameraNode)
         camera = cameraNode
-
-        selectionRing.color = .aeonUIBackgroundDark
-        selectionRing.alpha = 0.1
 
 //        listener = cameraNode
 //        audioEngine.mainMixerNode.outputVolume = 0.2
