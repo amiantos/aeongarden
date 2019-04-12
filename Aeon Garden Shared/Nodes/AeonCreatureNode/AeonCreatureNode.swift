@@ -202,17 +202,17 @@ class AeonCreatureNode: SKNode, Updatable {
             let newRotationRadians = newRotationDegrees * radianFactor
 
             var adjustedMovementSpeed = movementSpeed
-            let distanceToTarget = distance(point: toCGPoint)
-
-            if currentTarget is AeonCreatureNode || currentTarget is AeonFoodNode {
-                if distanceToTarget < 150 {
-                    adjustedMovementSpeed *= 0.65
-                } else if distanceToTarget < 75 {
-                    adjustedMovementSpeed *= 0.3
-                } else if distanceToTarget < 30 {
-                    adjustedMovementSpeed *= 0.05
-                }
-            }
+//            let distanceToTarget = distance(point: toCGPoint)
+//
+//            if currentTarget is AeonCreatureNode || currentTarget is AeonFoodNode {
+//                if distanceToTarget < 150 {
+//                    adjustedMovementSpeed *= 0.65
+//                } else if distanceToTarget < 75 {
+//                    adjustedMovementSpeed *= 0.3
+//                } else if distanceToTarget < 30 {
+//                    adjustedMovementSpeed *= 0.05
+//                }
+//            }
 
             let thrustVector: CGVector = CGVector(
                 dx: cos(newRotationRadians) * adjustedMovementSpeed,
@@ -339,9 +339,9 @@ class AeonCreatureNode: SKNode, Updatable {
         let hours: Double = round(minutes / 60 * 10) / 10
 
         if minutes < 60 {
-            return "\(minutes) Minutes Old"
+            return "\(minutes) Minutes"
         } else {
-            return "\(hours) Hours Old"
+            return "\(hours) Hours"
         }
     }
 }
@@ -412,6 +412,7 @@ extension AeonCreatureNode: Selectable {
             selectionRing.name = "selectionRing"
             addChild(selectionRing)
             selectionRing.position = CGPoint(x: 0, y: 2)
+            selectionRing.zPosition = -2
         }
     }
 
