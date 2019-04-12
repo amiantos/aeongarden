@@ -24,6 +24,7 @@ protocol AeonTankDelegate: class {
     func updateFood(_ food: Int)
     func updateBirths(_ births: Int)
     func updateDeaths(_ deaths: Int)
+    func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?)
 }
 
 class AeonTankScene: SKScene {
@@ -31,7 +32,7 @@ class AeonTankScene: SKScene {
     public var birthCount: Int = 0
 
     private var foodPelletMax: Int = 20
-    private var creatureMinimum: Int = 20
+    private var creatureMinimum: Int = 6
 
     private var lastFoodTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
@@ -94,7 +95,7 @@ class AeonTankScene: SKScene {
         setupCamera()
         setupBackgroundGradient()
         setupBackgroundAnimation()
-//        createInitialCreatures()
+        createInitialCreatures()
         createInitialBubbles()
     }
 
@@ -126,6 +127,7 @@ class AeonTankScene: SKScene {
 
     override func update(_ currentTime: TimeInterval) {
         followSelectedCreatureWithCamera()
+        tankDelegate?.updateSelectedCreatureDetails(selectedCreature)
 
         if lastCreatureTime == 0 {
             lastFoodTime = currentTime
@@ -275,7 +277,7 @@ extension AeonTankScene: SKPhysicsContactDelegate {
                 creatureB.mated()
                 AeonSoundManager.shared.play(.creatureMate, onNode: creatureA)
                 // Random chance to breed
-                if randomInteger(min: 0, max: 6) == 6 {
+                if randomInteger(min: 0, max: 0) == 0 {
                     birthCount += 1
                     let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
                     newCreature.position = creatureA.position

@@ -123,6 +123,7 @@ extension AeonViewController {
         skView = view as? SKView
         scene!.scaleMode = .aspectFill
         skView?.ignoresSiblingOrder = true
+        skView?.showsFPS = true
         skView!.presentScene(scene)
     }
 }

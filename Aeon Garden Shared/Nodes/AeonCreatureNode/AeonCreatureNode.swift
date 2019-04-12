@@ -236,12 +236,11 @@ class AeonCreatureNode: SKNode, Updatable {
 
     fileprivate func scaleAnimation() {
         let currentSize = (xScale + yScale) / 2
-        let scaleUp = SKAction.scale(to: currentSize * 1.1, duration: 0.3)
-        let scaleDown = SKAction.scale(to: currentSize * 0.9, duration: 0.3)
+        let scaleDown = SKAction.scale(to: currentSize * 0.9, duration: 0.2)
         let scaleBounce = SKAction.scale(to: currentSize * 1.05, duration: 0.3)
         let scaleBounceIn = SKAction.scale(to: currentSize * 0.95, duration: 0.2)
         let scaleBounceBack = SKAction.scale(to: currentSize, duration: 0.2)
-        let scaleSequence = SKAction.sequence([scaleUp, scaleDown, scaleBounce, scaleBounceIn, scaleBounceBack])
+        let scaleSequence = SKAction.sequence([scaleDown, scaleBounce, scaleBounceIn, scaleBounceBack])
         run(scaleSequence)
     }
 
