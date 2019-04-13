@@ -87,13 +87,13 @@ class GameViewController: UIViewController {
         creatureThoughtLabel.font = creatureThoughtLabel.font.withSize(22)
         creatureThoughtLabel.snp.makeConstraints { (make) in
             make.top.equalTo(creaturesDetailsViewSeparator.snp.bottom).offset(25)
-            make.centerX.equalToSuperview().offset(15)
+            make.centerX.equalToSuperview().offset(20)
             make.bottom.equalToSuperview().offset(-30)
         }
 
         creatureThoughtIcon.snp.makeConstraints { (make) in
             make.centerY.equalTo(creatureThoughtLabel.snp.centerY)
-            make.size.equalTo(30)
+            make.size.equalTo(40)
             make.right.equalTo(creatureThoughtLabel.snp.left).offset(-10)
         }
 
@@ -102,13 +102,13 @@ class GameViewController: UIViewController {
         creatureHealthLabel.font = creatureHealthLabel.font.withSize(22)
         creatureHealthLabel.snp.makeConstraints { (make) in
             make.top.equalTo(creaturesDetailsViewSeparator.snp.bottom).offset(25)
-            make.leading.equalToSuperview().offset(60)
+            make.leading.equalToSuperview().offset(70)
             make.bottom.equalToSuperview().offset(-30)
         }
 
         creatureHealthIcon.snp.makeConstraints { (make) in
             make.centerY.equalTo(creatureHealthLabel.snp.centerY)
-            make.size.equalTo(30)
+            make.size.equalTo(40)
             make.right.equalTo(creatureHealthLabel.snp.left).offset(-10)
         }
 
@@ -123,7 +123,7 @@ class GameViewController: UIViewController {
 
         creatureLifespanIcon.snp.makeConstraints { (make) in
             make.centerY.equalTo(creatureLifespanLabel.snp.centerY)
-            make.size.equalTo(30)
+            make.size.equalTo(40)
             make.right.equalTo(creatureLifespanLabel.snp.left).offset(-10)
         }
 
