@@ -15,17 +15,13 @@ class GameViewController: UIViewController {
     var scene: AeonTankScene?
     var skView: SKView?
 
-    let creatureDetailsView = AeonTVBlurredView()
+    let creatureDetailsView = AeonBlurredView()
     let creaturesDetailsViewSeparator = UIView()
-    var vibrancyEffectView: UIVisualEffectView?
-    var blurredEffectView: UIVisualEffectView?
     let creatureNameLabel = UILabel()
     let creatureHealthLabel = UILabel()
-    let creatureThoughtLabel = UILabel()
-    let creatureLifespanLabel = UILabel()
-    let creatureHealthIcon = UIImageView(image: UIImage(named: "healthIcon"))
-    let creatureLifespanIcon = UIImageView(image: UIImage(named: "lifespanIcon"))
-    let creatureThoughtIcon = UIImageView(image: UIImage(named: "thoughtIcon"))
+    let healthDataButton = AeonDataButton(title: "0", imageName: "healthIcon")
+    let thoughtDataButton = AeonDataButton(title: "Newborn", imageName: "thoughtIcon")
+    let lifespanDataButton = AeonDataButton(title: "Newborn", imageName: "lifespanIcon")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,77 +70,33 @@ class GameViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-20)
         }
 
-        creatureDetailsView.addSubview(creatureHealthLabel)
-        creatureDetailsView.addSubview(creatureLifespanLabel)
-        creatureDetailsView.addSubview(creatureThoughtLabel)
-        creatureDetailsView.addSubview(creatureHealthIcon)
-        creatureDetailsView.addSubview(creatureLifespanIcon)
-        creatureDetailsView.addSubview(creatureThoughtIcon)
+        creatureDetailsView.isHidden = true
 
+        creatureDetailsView.addSubview(healthDataButton)
+        creatureDetailsView.addSubview(thoughtDataButton)
+        creatureDetailsView.addSubview(lifespanDataButton)
+        healthDataButton.isEnabled = false
+        lifespanDataButton.isEnabled = false
+        thoughtDataButton.isEnabled = false
 
-        creatureThoughtLabel.textColor = .gray
-        creatureThoughtLabel.textAlignment = .left
-        creatureThoughtLabel.font = creatureThoughtLabel.font.withSize(22)
-        creatureThoughtLabel.snp.makeConstraints { (make) in
+        healthDataButton.snp.makeConstraints { (make) in
             make.top.equalTo(creaturesDetailsViewSeparator.snp.bottom).offset(25)
-            make.centerX.equalToSuperview().offset(20)
+            make.leading.equalToSuperview().offset(20)
             make.bottom.equalToSuperview().offset(-30)
         }
 
-        creatureThoughtIcon.snp.makeConstraints { (make) in
-            make.centerY.equalTo(creatureThoughtLabel.snp.centerY)
-            make.size.equalTo(40)
-            make.right.equalTo(creatureThoughtLabel.snp.left).offset(-10)
-        }
-
-        creatureHealthLabel.textColor = .gray
-        creatureHealthLabel.textAlignment = .left
-        creatureHealthLabel.font = creatureHealthLabel.font.withSize(22)
-        creatureHealthLabel.snp.makeConstraints { (make) in
+        thoughtDataButton.snp.makeConstraints { (make) in
             make.top.equalTo(creaturesDetailsViewSeparator.snp.bottom).offset(25)
-            make.leading.equalToSuperview().offset(70)
+            make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().offset(-30)
         }
 
-        creatureHealthIcon.snp.makeConstraints { (make) in
-            make.centerY.equalTo(creatureHealthLabel.snp.centerY)
-            make.size.equalTo(40)
-            make.right.equalTo(creatureHealthLabel.snp.left).offset(-10)
-        }
-
-        creatureLifespanLabel.textColor = .gray
-        creatureLifespanLabel.textAlignment = .left
-        creatureLifespanLabel.font = creatureLifespanLabel.font.withSize(22)
-        creatureLifespanLabel.snp.makeConstraints { (make) in
+        lifespanDataButton.snp.makeConstraints { (make) in
             make.top.equalTo(creaturesDetailsViewSeparator.snp.bottom).offset(25)
             make.trailing.equalToSuperview().offset(-20)
             make.bottom.equalToSuperview().offset(-30)
         }
 
-        creatureLifespanIcon.snp.makeConstraints { (make) in
-            make.centerY.equalTo(creatureLifespanLabel.snp.centerY)
-            make.size.equalTo(40)
-            make.right.equalTo(creatureLifespanLabel.snp.left).offset(-10)
-        }
-
-        setupDropShadow(creatureThoughtIcon)
-        setupDropShadow(creatureLifespanIcon)
-        setupDropShadow(creatureHealthIcon)
-
-        let blurEffect: UIBlurEffect = UIBlurEffect(style: .dark)
-        blurredEffectView = UIVisualEffectView(effect: blurEffect)
-        blurredEffectView?.layer.cornerRadius = 5
-        blurredEffectView?.clipsToBounds = true
-        blurredEffectView?.frame = creatureDetailsView.bounds
-        view.insertSubview(blurredEffectView!, at: 0)
-
-        creatureDetailsView.isHidden = true
-        blurredEffectView?.isHidden = true
-
-    }
-
-    override func viewDidLayoutSubviews() {
-        blurredEffectView?.frame = creatureDetailsView.frame
     }
 
     @objc func deselectCreature() {
@@ -207,14 +159,12 @@ extension GameViewController: AeonTankDelegate {
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?) {
         if let creature = creature {
             creatureDetailsView.isHidden = false
-            blurredEffectView?.isHidden = false
             creatureNameLabel.text = creature.name
-            creatureThoughtLabel.text = creature.getCurrentState()
-            creatureLifespanLabel.text = creature.lifeTimeFormattedAsString()
-            creatureHealthLabel.text = String(Int(creature.getCurrentHealth().rounded()))
+            thoughtDataButton.title = creature.getCurrentState()
+            lifespanDataButton.title = creature.lifeTimeFormattedAsString()
+            healthDataButton.title = String(Int(creature.getCurrentHealth().rounded()))
         } else {
             creatureDetailsView.isHidden = true
-            blurredEffectView?.isHidden = true
         }
 
     }

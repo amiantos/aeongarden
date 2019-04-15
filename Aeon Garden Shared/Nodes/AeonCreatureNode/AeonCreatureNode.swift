@@ -202,17 +202,17 @@ class AeonCreatureNode: SKNode, Updatable {
             let newRotationRadians = newRotationDegrees * radianFactor
 
             var adjustedMovementSpeed = movementSpeed
-//            let distanceToTarget = distance(point: toCGPoint)
-//
-//            if currentTarget is AeonCreatureNode || currentTarget is AeonFoodNode {
-//                if distanceToTarget < 150 {
-//                    adjustedMovementSpeed *= 0.65
-//                } else if distanceToTarget < 75 {
-//                    adjustedMovementSpeed *= 0.3
-//                } else if distanceToTarget < 30 {
-//                    adjustedMovementSpeed *= 0.05
-//                }
-//            }
+            let distanceToTarget = distance(point: toCGPoint)
+
+            if currentTarget is AeonCreatureNode || currentTarget is AeonFoodNode {
+                if distanceToTarget < 150 {
+                    adjustedMovementSpeed *= 0.80
+                } else if distanceToTarget < 75 {
+                    adjustedMovementSpeed *= 0.5
+                } else if distanceToTarget < 30 {
+                    adjustedMovementSpeed *= 0.02
+                }
+            }
 
             let thrustVector: CGVector = CGVector(
                 dx: cos(newRotationRadians) * adjustedMovementSpeed,
