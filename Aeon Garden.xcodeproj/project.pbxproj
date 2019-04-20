@@ -136,7 +136,7 @@
 		B413AB9B224D73C400E8BDD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B413AB9D224D73C400E8BDD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Aeon Garden Shared/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
-		B413ABF6224FFD3800E8BDD1 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = pop.wav; path = ../pop.wav; sourceTree = "<group>"; };
+		B413ABF6224FFD3800E8BDD1 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
 		B413ABFB224FFD7D00E8BDD1 /* AeonSoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AeonSoundManager.swift; path = "Aeon Garden Shared/Sound/AeonSoundManager.swift"; sourceTree = SOURCE_ROOT; };
 		B413ABFF22599F6C00E8BDD1 /* pop_drip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop_drip.wav; sourceTree = "<group>"; };
 		B413AC032259A3AF00E8BDD1 /* click_04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click_04.wav; sourceTree = "<group>"; };
