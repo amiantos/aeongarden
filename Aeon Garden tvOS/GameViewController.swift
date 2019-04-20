@@ -15,6 +15,7 @@ class GameViewController: UIViewController {
     var scene: AeonTankScene?
     var skView: SKView?
 
+    let mainMenu = AeonMainMenuView(frame: CGRect(x: 0, y: 0, width: 1920, height: 1080))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +30,27 @@ class GameViewController: UIViewController {
 
         setupTemporaryControls()
 
-        let mainMenu = AeonMainMenuView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+//        let button = UIButton(type: .system)
+//        let button2 = UIButton(type: .system)
+//        button.setTitle("Hello", for: .normal)
+//        button2.setTitle("Goodbye", for: .normal)
+//
+//        view.addSubview(button)
+//        view.addSubview(button2)
+//
+//        button.snp.makeConstraints { (make) in
+//            make.top.equalToSuperview().offset(60)
+//            make.left.equalToSuperview().offset(60)
+//        }
+//
+//        button2.snp.makeConstraints { (make) in
+//            make.top.equalToSuperview().offset(60)
+//            make.left.equalTo(button.snp.right).offset(60)
+//        }
 
         view.addSubview(mainMenu)
+
+        self.setNeedsFocusUpdate()
 
 //        for family in UIFont.familyNames {
 //            print("\(family)")
@@ -41,6 +60,24 @@ class GameViewController: UIViewController {
 //        }
 
     }
+
+    override var preferredFocusEnvironments: [UIFocusEnvironment] {
+        //if subview exists, return the subview or the button, whichever is focusable
+        return [mainMenu]
+        //otherwise use the default implementation of AVPlayerController
+        return super.preferredFocusEnvironments
+    }
+
+    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        super.didUpdateFocus(in: context, with: coordinator)
+        print("Updated Focus...")
+    }
+
+    override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
+        print("Check to should update focus?")
+        return super.shouldUpdateFocus(in: context)
+    }
+
 
     @objc func deselectCreature() {
         scene!.resetCamera()

@@ -14,9 +14,9 @@ class AeonMainMenuView: UIView {
     let backgroundView = UIView()
     let titleLabel = UILabel()
 
-    let newTankButton = UIButton()
-    let saveTankButton = UIButton()
-    let tankSettingsButton = UIButton()
+    let newTankButton = UIButton(type: .system)
+    let saveTankButton = UIButton(type: .system)
+    let tankSettingsButton = UIButton(type: .system)
 
     let populationTitleLabel = UILabel()
     let populationCountLabel = UILabel()
@@ -59,26 +59,27 @@ class AeonMainMenuView: UIView {
         tankSettingsButton.setTitle("TANK SETTINGS", for: .normal)
         let buttons = [newTankButton, saveTankButton, tankSettingsButton]
         for button in buttons {
-            addSubview(button)
+            backgroundView.addSubview(button)
             button.backgroundColor = .aeonDarkRed
+
             button.layer.cornerRadius = 15
             button.titleLabel?.font = UIFont.aeonButtonFont
             button.setTitleColor(.aeonBrightYellow, for: .normal)
-            button.titleLabel?.snp.makeConstraints({ (make) in
-                make.top.equalToSuperview().offset(15)
-                make.bottom.equalToSuperview().offset(-15)
-                make.left.equalToSuperview().offset(35)
-                make.right.equalToSuperview().offset(-35)
-            })
-            button.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-            button.layer.shadowOpacity = 1
-            button.layer.shadowRadius = 20
-            button.layer.shadowOffset = CGSize(width: 0, height: 4)
-            button.layer.shouldRasterize = true
-            button.layer.rasterizationScale = UIScreen.main.scale
+//            button.titleLabel?.snp.makeConstraints({ (make) in
+//                make.top.equalToSuperview().offset(15)
+//                make.bottom.equalToSuperview().offset(-15)
+//                make.left.equalToSuperview().offset(35)
+//                make.right.equalToSuperview().offset(-35)
+//            })
+//                button.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+//                button.layer.shadowOpacity = 1
+//                button.layer.shadowRadius = 20
+//                button.layer.shadowOffset = CGSize(width: 0, height: 4)
+//                button.layer.shouldRasterize = true
+//                button.layer.rasterizationScale = UIScreen.main.scale
         }
 
-        populationCountLabel.text = "POPULATION"
+        populationTitleLabel.text = "POPULATION"
         birthsTitleLabel.text = "BIRTHS"
         deathsTitleLabel.text = "DEATHS"
         clockTitleLabel.text = "CLOCK"
@@ -133,15 +134,41 @@ class AeonMainMenuView: UIView {
             make.right.equalTo(saveTankButton.snp.left).offset(-30)
         }
 
-        deathsTitleLabel.snp.makeConstraints { (make) in
+        populationTitleLabel.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview().offset(10)
-            make.left.equalTo(backgroundView.snp.centerX).offset(20)
+            make.centerX.equalToSuperview().multipliedBy(0.50)
+        }
+        populationCountLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(populationTitleLabel.snp.centerY)
+            make.left.equalTo(populationTitleLabel.snp.right).offset(10)
         }
 
-        let shadows = UIView()
-        shadows.frame = newTankButton.frame
-        shadows.clipsToBounds = false
-        newTankButton.addSubview(shadows)
+        deathsTitleLabel.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview().offset(10)
+            make.centerX.equalToSuperview().multipliedBy(1.25)
+        }
+        deathsCountLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(deathsTitleLabel.snp.centerY)
+            make.left.equalTo(deathsTitleLabel.snp.right).offset(10)
+        }
+
+        birthsTitleLabel.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview().offset(10)
+            make.centerX.equalToSuperview().multipliedBy(0.75)
+        }
+        birthsCountLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(birthsTitleLabel.snp.centerY)
+            make.left.equalTo(birthsTitleLabel.snp.right).offset(10)
+        }
+
+        clockTitleLabel.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview().offset(10)
+            make.centerX.equalToSuperview().multipliedBy(1.5)
+        }
+        clockCountLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(clockTitleLabel.snp.centerY)
+            make.left.equalTo(clockTitleLabel.snp.right).offset(10)
+        }
 
     }
 
