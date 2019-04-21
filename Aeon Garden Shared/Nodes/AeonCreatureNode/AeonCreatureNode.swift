@@ -411,14 +411,15 @@ extension AeonCreatureNode: Selectable {
             selectionRing.name = "selectionRing"
             addChild(selectionRing)
             selectionRing.position = CGPoint(x: 0, y: 2)
-            selectionRing.zPosition = -2
+            selectionRing.zPosition = -3
         }
     }
 
     func displaySelectionRing(withColor color: SKColor) {
         setupSelectionRing()
         selectionRing.color = color
-        selectionRing.alpha = 0.1
+        selectionRing.colorBlendFactor = 1
+        selectionRing.alpha = 1
     }
 
     func hideSelectionRing() {

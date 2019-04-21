@@ -92,7 +92,7 @@ class AeonTankScene: SKScene {
             selectedCreature?.hideSelectionRing()
         }
         selectedCreature = creature
-        creature.displaySelectionRing(withColor: .aeonUIBackgroundDark)
+        creature.displaySelectionRing(withColor: .aeonBrightYellow)
         camera?.run(SKAction.scale(to: 0.4, duration: 1))
     }
 
@@ -103,8 +103,8 @@ class AeonTankScene: SKScene {
         setupCamera()
         setupBackgroundGradient()
         setupBackgroundAnimation()
-//        createInitialCreatures()
-//        createInitialBubbles()
+        createInitialCreatures()
+        createInitialBubbles()
     }
 
     override func didMove(to _: SKView) {
