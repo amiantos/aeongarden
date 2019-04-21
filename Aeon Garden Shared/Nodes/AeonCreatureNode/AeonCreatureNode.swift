@@ -406,7 +406,6 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
 }
 
 extension AeonCreatureNode: Selectable {
-
     func setupSelectionRing() {
         if childNode(withName: "selectionRing") == nil {
             selectionRing.name = "selectionRing"
@@ -427,6 +426,4 @@ extension AeonCreatureNode: Selectable {
             removeChildren(in: [ring])
         }
     }
-
-
 }

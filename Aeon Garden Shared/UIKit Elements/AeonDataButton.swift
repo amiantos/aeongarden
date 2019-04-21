@@ -9,14 +9,13 @@
 import UIKit
 
 class AeonDataButton: UIButton {
-
-
     var title: String = "" {
         didSet {
             setTitle(title, for: .normal)
             sizeToFit()
         }
     }
+
     var imageName: String = "" {
         didSet {
             let image = UIImage(named: imageName)!
@@ -44,14 +43,14 @@ class AeonDataButton: UIButton {
         label.font = label.font.withSize(22)
 //        label.backgroundColor = .black
 
-        label.snp.makeConstraints { (make) in
-            //make.right.equalToSuperview()
+        label.snp.makeConstraints { make in
+            // make.right.equalToSuperview()
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }
 
         icon.contentMode = .scaleAspectFit
-        icon.snp.makeConstraints { (make) in
+        icon.snp.makeConstraints { make in
             make.size.equalTo(40)
             make.left.equalToSuperview()
             make.top.equalToSuperview()
@@ -61,10 +60,9 @@ class AeonDataButton: UIButton {
         setupDropShadow(icon)
 
         layoutSubviews()
-
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -85,11 +83,10 @@ class AeonDataButton: UIButton {
     }
 
     /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
+     // Only override draw() if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func draw(_ rect: CGRect) {
+         // Drawing code
+     }
+     */
 }

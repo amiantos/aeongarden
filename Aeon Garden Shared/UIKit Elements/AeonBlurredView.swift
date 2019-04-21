@@ -10,7 +10,6 @@
 import UIKit
 
 class AeonBlurredView: UIView {
-
     let blurredEffectView: UIVisualEffectView
 
     override init(frame: CGRect) {
@@ -19,18 +18,16 @@ class AeonBlurredView: UIView {
         super.init(frame: frame)
         blurredEffectView.layer.cornerRadius = 5
         blurredEffectView.clipsToBounds = true
-        blurredEffectView.frame = self.bounds
-        self.insertSubview(blurredEffectView, at: 0)
+        blurredEffectView.frame = bounds
+        insertSubview(blurredEffectView, at: 0)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        blurredEffectView.frame = self.bounds
-
+        blurredEffectView.frame = bounds
     }
-
 }

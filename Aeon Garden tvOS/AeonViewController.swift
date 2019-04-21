@@ -1,5 +1,5 @@
 //
-//  GameViewController.swift
+//  AeonViewController.swift
 //  Aeon Garden tvOS
 //
 //  Created by Bradley Root on 3/28/19.
@@ -7,15 +7,15 @@
 //
 
 import GameplayKit
+import SnapKit
 import SpriteKit
 import UIKit
-import SnapKit
 
-class GameViewController: UIViewController {
+class AeonViewController: UIViewController {
     var scene: AeonTankScene?
     var skView: SKView?
 
-    let mainMenu = AeonMainMenuView(frame: CGRect(x: 0, y: 0, width: 1920, height: 1080))
+    let mainMenu = AeonTVMainMenuView(frame: CGRect(x: 0, y: 0, width: 1920, height: 1080))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +50,7 @@ class GameViewController: UIViewController {
 
         view.addSubview(mainMenu)
 
-        self.setNeedsFocusUpdate()
+        setNeedsFocusUpdate()
 
 //        for family in UIFont.familyNames {
 //            print("\(family)")
@@ -58,26 +58,14 @@ class GameViewController: UIViewController {
 //                print("== \(names)")
 //            }
 //        }
-
     }
 
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
-        //if subview exists, return the subview or the button, whichever is focusable
+        // if subview exists, return the subview or the button, whichever is focusable
         return [mainMenu]
-        //otherwise use the default implementation of AVPlayerController
+        // otherwise use the default implementation of AVPlayerController
         return super.preferredFocusEnvironments
     }
-
-    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        super.didUpdateFocus(in: context, with: coordinator)
-        print("Updated Focus...")
-    }
-
-    override func shouldUpdateFocus(in context: UIFocusUpdateContext) -> Bool {
-        print("Check to should update focus?")
-        return super.shouldUpdateFocus(in: context)
-    }
-
 
     @objc func deselectCreature() {
         scene!.resetCamera()
@@ -106,29 +94,30 @@ class GameViewController: UIViewController {
             scene!.selectCreature(selected)
         }
     }
-
 }
 
-extension GameViewController: AeonTankDelegate {
+extension AeonViewController: AeonTankDelegate {
+    func updateClock(_ clock: String) {
+        mainMenu.clockLabel.data = clock
+    }
+
     func updatePopulation(_ population: Int) {
-        return
+        mainMenu.populationLabel.data = String(population)
     }
 
     func updateFood(_ food: Int) {
-        return
+        mainMenu.foodLabel.data = String(food)
     }
 
     func updateBirths(_ births: Int) {
-        return
+        mainMenu.birthsLabel.data = String(births)
     }
 
     func updateDeaths(_ deaths: Int) {
-        return
+        mainMenu.deathsLabel.data = String(deaths)
     }
 
-    func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?) {
+    func updateSelectedCreatureDetails(_: AeonCreatureNode?) {
         return
     }
-
-
 }

@@ -24,10 +24,13 @@ protocol AeonTankDelegate: class {
     func updateFood(_ food: Int)
     func updateBirths(_ births: Int)
     func updateDeaths(_ deaths: Int)
+    func updateClock(_ clock: String)
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?)
 }
 
 class AeonTankScene: SKScene {
+    public var tankTime: TimeInterval = 0
+
     public var deathCount: Int = 0
     public var birthCount: Int = 0
 
@@ -45,11 +48,13 @@ class AeonTankScene: SKScene {
             tankDelegate?.updateDeaths(deathCount)
         }
     }
-    private var foodNodes: [AeonFoodNode] = []  {
+
+    private var foodNodes: [AeonFoodNode] = [] {
         didSet {
             tankDelegate?.updateFood(foodNodes.count)
         }
     }
+
     private var bubbleNodes: [AeonBubbleNode] = []
 
     private var cameraNode: SKCameraNode = SKCameraNode()
@@ -146,14 +151,20 @@ class AeonTankScene: SKScene {
 
         if (currentTime - lastBubbleTime) >= 1 {
             addBubbleToScene()
+
+            let deltaTime = currentTime - lastBubbleTime
+            let correctedDelta = deltaTime > 1 ? 1 : deltaTime
+            tankTime += correctedDelta
+            tankDelegate?.updateClock(toTimestamp(timeInterval: tankTime))
+
             lastBubbleTime = currentTime
         }
 
-//        if (currentTime - lastCreatureTime) >= 5,
-//            creatureNodes.count < creatureMinimum {
-//            addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 0, max: 360))
-//            lastCreatureTime = currentTime
-//        }
+        if (currentTime - lastCreatureTime) >= 5,
+            creatureNodes.count < creatureMinimum {
+            addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 0, max: 360))
+            lastCreatureTime = currentTime
+        }
 
         var arrays: [Updatable] = []
         arrays.append(contentsOf: creatureNodes)
@@ -400,5 +411,4 @@ extension AeonTankScene {
             addChild(backgroundSmoke2)
         }
     }
-
 }

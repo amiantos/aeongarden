@@ -1,5 +1,5 @@
 //
-//  GameViewController.swift
+//  AeonViewController.swift
 //  Aeon Garden macOS
 //
 //  Created by Bradley Root on 3/28/19.
@@ -8,10 +8,10 @@
 
 import Cocoa
 import GameplayKit
-import SpriteKit
 import SnapKit
+import SpriteKit
 
-class GameViewController: NSViewController {
+class AeonViewController: NSViewController {
     let population = NSView(frame: NSRect(x: 0, y: 0, width: 200, height: 200))
     let populationLabel = NSTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 200))
 
@@ -46,30 +46,27 @@ class GameViewController: NSViewController {
         populationLabel.isBezeled = false
         populationLabel.isEditable = false
         population.addSubview(populationLabel)
-        populationLabel.snp.makeConstraints { (make) in
+        populationLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         populationLabel.stringValue = "0"
     }
-
 }
 
-extension GameViewController: AeonTankDelegate {
+extension AeonViewController: AeonTankDelegate {
     func updatePopulation(_ population: Int) {
         populationLabel.stringValue = "\(population)"
     }
 
-    func updateFood(_ food: Int) {
+    func updateFood(_: Int) {
         return
     }
 
-    func updateBirths(_ births: Int) {
+    func updateBirths(_: Int) {
         return
     }
 
-    func updateDeaths(_ deaths: Int) {
+    func updateDeaths(_: Int) {
         return
     }
-
-
 }

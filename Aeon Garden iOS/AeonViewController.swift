@@ -99,7 +99,7 @@ class AeonViewController: UIViewController {
 }
 
 extension AeonViewController: AeonTankDelegate {
-    func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?) {
+    func updateSelectedCreatureDetails(_: AeonCreatureNode?) {
         return
     }
 
