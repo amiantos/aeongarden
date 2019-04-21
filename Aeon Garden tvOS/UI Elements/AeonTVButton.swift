@@ -6,8 +6,8 @@
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 class AeonTVButton: UIButton {
     override init(frame: CGRect) {
@@ -22,7 +22,6 @@ class AeonTVButton: UIButton {
     private func setupView() {
         backgroundColor = .aeonDarkRed
         layer.borderColor = UIColor.aeonBrightYellow.cgColor
-        layer.cornerRadius = 15
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.25
         layer.shadowRadius = 20
@@ -33,7 +32,7 @@ class AeonTVButton: UIButton {
         titleLabel?.font = UIFont.aeonButtonFont
         setTitleColor(.aeonBrightYellow, for: .normal)
 
-        titleLabel?.snp.makeConstraints({ (make) in
+        titleLabel?.snp.makeConstraints({ make in
             make.left.equalToSuperview().offset(35)
             make.top.equalToSuperview().offset(15)
         })
@@ -41,7 +40,7 @@ class AeonTVButton: UIButton {
         sizeToFit()
     }
 
-    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+    override func didUpdateFocus(in _: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         coordinator.addCoordinatedAnimations({
             if self.isFocused {
                 UIView.animate(withDuration: 0.2, animations: {
@@ -129,10 +128,10 @@ class AeonTVButton: UIButton {
     }
 
     private func liftButton() {
-        self.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+        transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
     }
 
     private func restButton() {
-        self.transform = .identity
+        transform = .identity
     }
 }

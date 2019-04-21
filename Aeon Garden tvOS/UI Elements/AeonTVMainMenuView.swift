@@ -13,19 +13,36 @@ class AeonTVMainMenuView: UIView {
     let backgroundView = UIView()
     let titleLabel = UILabel()
 
-    let newTankButton = AeonTVButton()
-    let saveTankButton = AeonTVButton()
-    let tankSettingsButton = AeonTVButton()
-
     let populationLabel = AeonTVDataView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
     let foodLabel = AeonTVDataView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
     let birthsLabel = AeonTVDataView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
     let deathsLabel = AeonTVDataView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
     let clockLabel = AeonTVDataView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
 
+    let settingsButton = AeonTVButton()
+    let newTankButton = AeonTVButton()
+    let saveTankButton = AeonTVButton()
+    let loadTankButton = AeonTVButton()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        setupView()
+        setupButtons()
+        setupDataLabels()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+
+        setupView()
+        setupButtons()
+        setupDataLabels()
+    }
+}
+
+extension AeonTVMainMenuView {
+    fileprivate func setupView() {
         titleLabel.textColor = .aeonBrightYellow
         titleLabel.font = UIFont.aeonTitleFontLarge
         titleLabel.text = "AEON GARDEN"
@@ -33,7 +50,7 @@ class AeonTVMainMenuView: UIView {
         backgroundView.backgroundColor = .aeonMediumRed
 
         addSubview(backgroundView)
-        backgroundView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        backgroundView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50).cgColor
         backgroundView.layer.shadowOpacity = 1
         backgroundView.layer.shadowRadius = 20
         backgroundView.layer.shadowOffset = CGSize(width: 0, height: 4)
@@ -59,34 +76,9 @@ class AeonTVMainMenuView: UIView {
             make.centerY.equalTo(backgroundView.snp.top)
             make.left.equalTo(backgroundView.snp.left).offset(-50)
         }
+    }
 
-        // MARK: - Buttons
-
-        newTankButton.setTitle("NEW TANK", for: .normal)
-        saveTankButton.setTitle("SAVE TANK", for: .normal)
-        tankSettingsButton.setTitle("TANK SETTINGS", for: .normal)
-        let buttons = [newTankButton, saveTankButton, tankSettingsButton]
-        for button in buttons {
-            backgroundView.addSubview(button)
-        }
-
-        newTankButton.snp.makeConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-            make.right.equalTo(backgroundView.snp.right).offset(20)
-        }
-
-        saveTankButton.snp.makeConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-            make.right.equalTo(newTankButton.snp.left).offset(-30)
-        }
-
-        tankSettingsButton.snp.makeConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-            make.right.equalTo(saveTankButton.snp.left).offset(-30)
-        }
-
-        // MARK: - Data Labels
-
+    fileprivate func setupDataLabels() {
         populationLabel.title = "POPULATION"
         populationLabel.data = "0"
 
@@ -110,19 +102,42 @@ class AeonTVMainMenuView: UIView {
 
         backgroundView.addSubview(stackView)
 
-        stackView.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview().offset(10)
+        stackView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview().offset(11)
             make.left.equalToSuperview().offset(90)
             make.right.equalToSuperview().offset(-90)
         }
-
     }
 
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    fileprivate func setupButtons() {
+        settingsButton.setTitle("SETTINGS", for: .normal)
+        newTankButton.setTitle("NEW TANK", for: .normal)
+        saveTankButton.setTitle("SAVE TANK", for: .normal)
+        loadTankButton.setTitle("LOAD TANK", for: .normal)
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
+        let buttons = [settingsButton, newTankButton, saveTankButton, loadTankButton]
+        for button in buttons {
+            backgroundView.addSubview(button)
+        }
+
+        newTankButton.snp.makeConstraints { make in
+            make.centerY.equalTo(backgroundView.snp.bottom)
+            make.right.equalTo(backgroundView.snp.right).offset(20)
+        }
+
+        loadTankButton.snp.makeConstraints { make in
+            make.centerY.equalTo(backgroundView.snp.bottom)
+            make.right.equalTo(newTankButton.snp.left).offset(-30)
+        }
+
+        saveTankButton.snp.makeConstraints { make in
+            make.centerY.equalTo(backgroundView.snp.bottom)
+            make.right.equalTo(loadTankButton.snp.left).offset(-30)
+        }
+
+        settingsButton.snp.makeConstraints { make in
+            make.centerY.equalTo(backgroundView.snp.bottom)
+            make.right.equalTo(saveTankButton.snp.left).offset(-30)
+        }
     }
 }
