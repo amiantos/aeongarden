@@ -55,8 +55,8 @@ class AeonCreatureBrain: Updatable {
     public enum State: String {
         case living = "Newborn"
         case randomMovement = "Bored"
-        case locatingFood = "Looking for Food"
-        case locatingLove = "Looking for Love"
+        case locatingFood = "Hungry"
+        case locatingLove = "Lonely"
         case dead = "Dying"
     }
 

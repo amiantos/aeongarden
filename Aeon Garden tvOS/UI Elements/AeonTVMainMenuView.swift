@@ -30,6 +30,7 @@ class AeonTVMainMenuView: UIView {
         setupView()
         setupButtons()
         setupDataLabels()
+        sizeToFit()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -38,6 +39,7 @@ class AeonTVMainMenuView: UIView {
         setupView()
         setupButtons()
         setupDataLabels()
+        sizeToFit()
     }
 }
 

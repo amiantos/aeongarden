@@ -16,6 +16,7 @@ class AeonViewController: UIViewController {
     var skView: SKView?
 
     let mainMenu = AeonTVMainMenuView(frame: CGRect(x: 0, y: 0, width: 1920, height: 1080))
+    let detailsView = AeonTVDetailsView(frame: CGRect(x: 0, y:0, width: 1920, height: 1080))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,41 +31,19 @@ class AeonViewController: UIViewController {
 
         setupTemporaryControls()
 
-//        let button = UIButton(type: .system)
-//        let button2 = UIButton(type: .system)
-//        button.setTitle("Hello", for: .normal)
-//        button2.setTitle("Goodbye", for: .normal)
-//
-//        view.addSubview(button)
-//        view.addSubview(button2)
-//
-//        button.snp.makeConstraints { (make) in
-//            make.top.equalToSuperview().offset(60)
-//            make.left.equalToSuperview().offset(60)
-//        }
-//
-//        button2.snp.makeConstraints { (make) in
-//            make.top.equalToSuperview().offset(60)
-//            make.left.equalTo(button.snp.right).offset(60)
-//        }
-
         view.addSubview(mainMenu)
+        view.addSubview(detailsView)
 
         setNeedsFocusUpdate()
 
-//        for family in UIFont.familyNames {
-//            print("\(family)")
-//            for names in UIFont.fontNames(forFamilyName: family){
-//                print("== \(names)")
-//            }
-//        }
     }
 
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
-        // if subview exists, return the subview or the button, whichever is focusable
-        return [mainMenu]
-        // otherwise use the default implementation of AVPlayerController
-        return super.preferredFocusEnvironments
+        if scene!.selectedCreature != nil {
+            return [detailsView]
+        } else {
+            return [mainMenu]
+        }
     }
 
     @objc func deselectCreature() {
@@ -117,7 +96,17 @@ extension AeonViewController: AeonTankDelegate {
         mainMenu.deathsLabel.data = String(deaths)
     }
 
-    func updateSelectedCreatureDetails(_: AeonCreatureNode?) {
-        return
+    func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?) {
+        if let creature = creature {
+            self.detailsView.isHidden = false
+            self.mainMenu.isHidden = true
+            self.detailsView.titleLabel.text = creature.name?.localizedUppercase
+            self.detailsView.healthLabel.data = String(Int(creature.getCurrentHealth())).localizedUppercase
+            self.detailsView.feelingLabel.data = creature.getCurrentState().localizedUppercase
+            self.detailsView.ageLabel.data = creature.lifeTimeFormattedAsString().localizedUppercase
+        } else {
+            self.detailsView.isHidden = true
+            self.mainMenu.isHidden = false
+        }
     }
 }

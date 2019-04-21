@@ -98,6 +98,7 @@
 		B494EAA02263F19C00F3F693 /* AeonDataButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B494EA9E2263F19C00F3F693 /* AeonDataButton.swift */; };
 		B4B2D1F3226BD9A40050F14C /* AeonTVButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F2226BD9A40050F14C /* AeonTVButton.swift */; };
 		B4B2D1F5226BD9D20050F14C /* AeonTVDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F4226BD9D20050F14C /* AeonTVDataView.swift */; };
+		B4B2D1F7226C372E0050F14C /* AeonTVDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F6226C372E0050F14C /* AeonTVDetailsView.swift */; };
 		B4BF89F2226AA55C006F2A33 /* AeonTVMainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BF89F0226AA55C006F2A33 /* AeonTVMainMenuView.swift */; };
 		B4C60E7B2260139300DA36B4 /* AeonBlurredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C60E7A2260139300DA36B4 /* AeonBlurredView.swift */; };
 /* End PBXBuildFile section */
@@ -155,6 +156,7 @@
 		B494EA9E2263F19C00F3F693 /* AeonDataButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonDataButton.swift; sourceTree = "<group>"; };
 		B4B2D1F2226BD9A40050F14C /* AeonTVButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTVButton.swift; sourceTree = "<group>"; };
 		B4B2D1F4226BD9D20050F14C /* AeonTVDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTVDataView.swift; sourceTree = "<group>"; };
+		B4B2D1F6226C372E0050F14C /* AeonTVDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTVDetailsView.swift; sourceTree = "<group>"; };
 		B4BF89F0226AA55C006F2A33 /* AeonTVMainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTVMainMenuView.swift; sourceTree = "<group>"; };
 		B4C60E7A2260139300DA36B4 /* AeonBlurredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AeonBlurredView.swift; path = "Aeon Garden Shared/UIKit Elements/AeonBlurredView.swift"; sourceTree = SOURCE_ROOT; };
 		B4DEED31224708800026604C /* AeonColorsFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonColorsFonts.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				B4BF89F0226AA55C006F2A33 /* AeonTVMainMenuView.swift */,
 				B4B2D1F2226BD9A40050F14C /* AeonTVButton.swift */,
 				B4B2D1F4226BD9D20050F14C /* AeonTVDataView.swift */,
+				B4B2D1F6226C372E0050F14C /* AeonTVDetailsView.swift */,
 			);
 			path = "UI Elements";
 			sourceTree = "<group>";
@@ -726,6 +729,7 @@
 				B4B2D1F5226BD9D20050F14C /* AeonTVDataView.swift in Sources */,
 				44147C68225D6B6800A16736 /* AeonTankSettings.swift in Sources */,
 				B413ABBF224D7C8200E8BDD1 /* AeonCreatureNode.swift in Sources */,
+				B4B2D1F7226C372E0050F14C /* AeonTVDetailsView.swift in Sources */,
 				B4C60E7B2260139300DA36B4 /* AeonBlurredView.swift in Sources */,
 				B413ABD8224D7C8B00E8BDD1 /* SKTextureGradient.swift in Sources */,
 				B494EAA02263F19C00F3F693 /* AeonDataButton.swift in Sources */,
