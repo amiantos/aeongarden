@@ -67,11 +67,7 @@ class AeonViewController: UIViewController {
             mateArray.append(child)
         }
         let selected = mateArray.randomElement()!
-        if selected == scene!.selectedCreature {
-            scene!.resetCamera()
-        } else {
-            scene!.selectCreature(selected)
-        }
+        scene!.selectCreature(selected)
     }
 }
 
