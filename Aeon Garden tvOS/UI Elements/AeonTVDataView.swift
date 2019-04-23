@@ -6,7 +6,6 @@
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
 
-import SnapKit
 import UIKit
 
 class AeonTVDataView: UIView {
@@ -36,12 +35,22 @@ class AeonTVDataView: UIView {
     }
 
     private func setupView() {
-        addSubview(titleLabel)
+        dataLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(dataLabel)
+        dataLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        dataLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        dataLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
 
         dataLabel.font = UIFont.aeonDataFont
         dataLabel.backgroundColor = .aeonMediumRed
         dataLabel.textColor = .aeonBrightBrown
+
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(titleLabel)
+        titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: dataLabel.leadingAnchor, constant: -10).isActive = true
 
         titleLabel.font = UIFont.aeonDataTitleFont
         titleLabel.textColor = .aeonBrightYellow
@@ -51,19 +60,6 @@ class AeonTVDataView: UIView {
         titleLabel.layer.shadowOffset = CGSize(width: 0, height: 4)
         titleLabel.layer.shouldRasterize = true
         titleLabel.layer.rasterizationScale = UIScreen.main.scale
-
-        titleLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.right.equalTo(dataLabel.snp.left).offset(-10)
-        }
-
-        dataLabel.snp.makeConstraints { make in
-            make.right.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
 
         sizeToFit()
     }

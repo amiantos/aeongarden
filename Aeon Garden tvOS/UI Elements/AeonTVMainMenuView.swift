@@ -6,11 +6,24 @@
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
 
-import SnapKit
 import UIKit
 
+// MARK: - State
+private enum State {
+    case closed
+    case open
+}
+
+extension State {
+    var opposite: State {
+        switch self {
+        case .open: return .closed
+        case .closed: return .open
+        }
+    }
+}
+
 class AeonTVMainMenuView: UIView {
-    var showing: Bool = true
     let backgroundView = UIView()
     let titleLabel = UILabel()
 
@@ -26,34 +39,38 @@ class AeonTVMainMenuView: UIView {
     let loadTankButton = AeonTVButton()
     var stackView = UIStackView()
 
+    convenience init() {
+        self.init(frame: CGRect(x: 0, y: 0, width: 1250, height: 300))
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        setupView()
-        setupButtons()
-        setupDataLabels()
+        sharedInit()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        sharedInit()
+    }
 
+    private func sharedInit() {
         setupView()
         setupButtons()
         setupDataLabels()
     }
 
     func showMenuIfNeeded() {
-        if showing == false {
-            showMenu()
-            showing = true
-        }
+//        if showing == false {
+//            showMenu()
+//            showing = true
+//        }
     }
 
     func hideMenuIfNeeded() {
-        if showing == true {
-            hideMenu()
-            showing = false
-        }
+//        if showing == true {
+//            hideMenu()
+//            showing = false
+//        }
     }
 
     func showMenu() {
@@ -120,13 +137,18 @@ class AeonTVMainMenuView: UIView {
 
 extension AeonTVMainMenuView {
     fileprivate func setupView() {
-        titleLabel.textColor = .aeonBrightYellow
-        titleLabel.font = UIFont.aeonTitleFontLarge
-        titleLabel.text = "AEON GARDEN"
+
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(backgroundView)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(titleLabel)
+
+        backgroundView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor).isActive = true
+        backgroundView.widthAnchor.constraint(equalTo: titleLabel.widthAnchor).isActive = true
+        backgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: 120).isActive = true
+        backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120).isActive = true
 
         backgroundView.backgroundColor = .aeonMediumRed
-
-        addSubview(backgroundView)
         backgroundView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50).cgColor
         backgroundView.layer.shadowOpacity = 1
         backgroundView.layer.shadowRadius = 20
@@ -134,25 +156,19 @@ extension AeonTVMainMenuView {
         backgroundView.layer.shouldRasterize = true
         backgroundView.layer.rasterizationScale = UIScreen.main.scale
 
-        addSubview(titleLabel)
+        titleLabel.centerYAnchor.constraint(equalTo: backgroundView.topAnchor).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: -50).isActive = true
+
+        titleLabel.textColor = .aeonBrightYellow
+        titleLabel.font = UIFont.aeonTitleFontLarge
+        titleLabel.text = "AEON GARDEN"
+
         titleLabel.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         titleLabel.layer.shadowOpacity = 1
         titleLabel.layer.shadowRadius = 4
         titleLabel.layer.shadowOffset = CGSize(width: 0, height: 4)
         titleLabel.layer.shouldRasterize = true
         titleLabel.layer.rasterizationScale = UIScreen.main.scale
-
-        backgroundView.snp.makeConstraints { make in
-            make.height.equalTo(titleLabel.snp.height)
-            make.width.equalTo(titleLabel.snp.width)
-            make.top.equalToSuperview().offset(120)
-            make.left.equalToSuperview().offset(120)
-        }
-
-        titleLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.top)
-            make.left.equalTo(backgroundView.snp.left).offset(-50)
-        }
     }
 
     fileprivate func setupDataLabels() {
@@ -177,13 +193,12 @@ extension AeonTVMainMenuView {
         stackView.alignment = .fill
         stackView.spacing = 5
 
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.addSubview(stackView)
+        stackView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor, constant: 11).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 90).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -90).isActive = true
 
-        stackView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().offset(11)
-            make.left.equalToSuperview().offset(90)
-            make.right.equalToSuperview().offset(-90)
-        }
     }
 
     fileprivate func setupButtons() {
@@ -194,28 +209,14 @@ extension AeonTVMainMenuView {
 
         let buttons = [settingsButton, newTankButton, saveTankButton, loadTankButton]
         for button in buttons {
+            button.translatesAutoresizingMaskIntoConstraints = false
             backgroundView.addSubview(button)
+            button.centerYAnchor.constraint(equalTo: backgroundView.bottomAnchor).isActive = true
         }
-
-        newTankButton.snp.makeConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-            make.right.equalTo(backgroundView.snp.right).offset(20)
-        }
-
-        loadTankButton.snp.makeConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-            make.right.equalTo(newTankButton.snp.left).offset(-30)
-        }
-
-        saveTankButton.snp.makeConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-            make.right.equalTo(loadTankButton.snp.left).offset(-30)
-        }
-
-        settingsButton.snp.makeConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-            make.right.equalTo(saveTankButton.snp.left).offset(-30)
-        }
+        newTankButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: 20).isActive = true
+        loadTankButton.trailingAnchor.constraint(equalTo: newTankButton.leadingAnchor, constant: -30).isActive = true
+        saveTankButton.trailingAnchor.constraint(equalTo: loadTankButton.leadingAnchor, constant: -30).isActive = true
+        settingsButton.trailingAnchor.constraint(equalTo: saveTankButton.leadingAnchor, constant: -30).isActive = true
     }
 }
 

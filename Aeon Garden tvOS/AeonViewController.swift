@@ -7,7 +7,6 @@
 //
 
 import GameplayKit
-import SnapKit
 import SpriteKit
 import UIKit
 
@@ -15,7 +14,7 @@ class AeonViewController: UIViewController {
     var scene: AeonTankScene?
     var skView: SKView?
 
-    let mainMenu = AeonTVMainMenuView(frame: CGRect(x: 0, y: 0, width: 1920, height: 1080))
+    let mainMenu = AeonTVMainMenuView()
     let detailsView = AeonTVDetailsView(frame: CGRect(x: 0, y: 0, width: 1920, height: 1080))
 
     override func viewDidLoad() {
