@@ -16,7 +16,7 @@ class AeonViewController: UIViewController {
     var skView: SKView?
 
     let mainMenu = AeonTVMainMenuView(frame: CGRect(x: 0, y: 0, width: 1920, height: 1080))
-    let detailsView = AeonTVDetailsView(frame: CGRect(x: 0, y:0, width: 1920, height: 1080))
+    let detailsView = AeonTVDetailsView(frame: CGRect(x: 0, y: 0, width: 1920, height: 1080))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,6 @@ class AeonViewController: UIViewController {
         view.addSubview(detailsView)
 
         setNeedsFocusUpdate()
-
     }
 
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
@@ -45,8 +44,6 @@ class AeonViewController: UIViewController {
             return [mainMenu]
         }
     }
-
-
 
     fileprivate func setupTemporaryControls() {
         let selectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectRandomCreature))
@@ -74,11 +71,11 @@ class AeonViewController: UIViewController {
     }
 
     @objc func showMenu() {
-        self.mainMenu.showMenu()
+        mainMenu.showMenu()
     }
 
     @objc func hideMenu() {
-        self.mainMenu.hideMenu()
+        mainMenu.hideMenu()
     }
 }
 
@@ -105,15 +102,15 @@ extension AeonViewController: AeonTankDelegate {
 
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?) {
         if let creature = creature {
-            self.detailsView.showMenuIfNeeded()
-            self.mainMenu.hideMenuIfNeeded()
-            self.detailsView.titleLabel.text = creature.name?.localizedUppercase
-            self.detailsView.healthLabel.data = String(Int(creature.getCurrentHealth())).localizedUppercase
-            self.detailsView.feelingLabel.data = creature.getCurrentState().localizedUppercase
-            self.detailsView.ageLabel.data = creature.lifeTimeFormattedAsString().localizedUppercase
+            detailsView.showMenuIfNeeded()
+            mainMenu.hideMenuIfNeeded()
+            detailsView.titleLabel.text = creature.name?.localizedUppercase
+            detailsView.healthLabel.data = String(Int(creature.getCurrentHealth())).localizedUppercase
+            detailsView.feelingLabel.data = creature.getCurrentState().localizedUppercase
+            detailsView.ageLabel.data = creature.lifeTimeFormattedAsString().localizedUppercase
         } else {
-            self.detailsView.hideMenuIfNeeded()
-            self.mainMenu.showMenuIfNeeded()
+            detailsView.hideMenuIfNeeded()
+            mainMenu.showMenuIfNeeded()
         }
     }
 }

@@ -43,74 +43,74 @@ class AeonTVMainMenuView: UIView {
     }
 
     func showMenuIfNeeded() {
-        if self.showing == false {
+        if showing == false {
             showMenu()
-            self.showing = true
+            showing = true
         }
     }
 
     func hideMenuIfNeeded() {
-        if self.showing == true {
+        if showing == true {
             hideMenu()
-            self.showing = false
+            showing = false
         }
     }
 
     func showMenu() {
-        self.isHidden = false
-        self.newTankButton.snp.updateConstraints { (make) in
+        isHidden = false
+        newTankButton.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.bottom)
         }
-        self.saveTankButton.snp.updateConstraints { (make) in
+        saveTankButton.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.bottom)
         }
-        self.loadTankButton.snp.updateConstraints { (make) in
+        loadTankButton.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.bottom)
         }
-        self.settingsButton.snp.updateConstraints { (make) in
+        settingsButton.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.bottom)
         }
-        self.titleLabel.snp.updateConstraints { (make) in
+        titleLabel.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.top)
         }
-        self.backgroundView.snp.updateConstraints { (make) in
+        backgroundView.snp.updateConstraints { make in
             make.top.equalToSuperview().offset(120)
         }
-        self.setNeedsUpdateConstraints()
+        setNeedsUpdateConstraints()
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: {
             self.titleLabel.alpha = 1
             self.layoutIfNeeded()
 
-        }) { (finished) in
+        }) { _ in
             print("Finished")
         }
     }
 
     func hideMenu() {
-        self.newTankButton.snp.updateConstraints { (make) in
+        newTankButton.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.bottom).offset(45)
         }
-        self.loadTankButton.snp.updateConstraints { (make) in
+        loadTankButton.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.bottom).offset(60)
         }
-        self.saveTankButton.snp.updateConstraints { (make) in
+        saveTankButton.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.bottom).offset(50)
         }
-        self.settingsButton.snp.updateConstraints { (make) in
+        settingsButton.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.bottom).offset(35)
         }
-        self.titleLabel.snp.updateConstraints { (make) in
+        titleLabel.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.top).offset(-80)
         }
-        self.backgroundView.snp.updateConstraints { (make) in
+        backgroundView.snp.updateConstraints { make in
             make.top.equalToSuperview().offset(-400)
         }
-        self.setNeedsUpdateConstraints()
+        setNeedsUpdateConstraints()
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
             self.titleLabel.alpha = 0
             self.layoutIfNeeded()
 
-        }) { (finished) in
+        }) { finished in
             if finished {
                 self.isHidden = true
             }
@@ -219,11 +219,8 @@ extension AeonTVMainMenuView {
     }
 }
 
-
 extension UIView {
-
     func resizeToFitSubviews() {
-
         let subviewsRect = subviews.reduce(CGRect.zero) {
             $0.union($1.frame)
         }

@@ -43,70 +43,70 @@ class AeonTVDetailsView: UIView {
     }
 
     func showMenuIfNeeded() {
-        if self.showing == false {
+        if showing == false {
             showMenu()
-            self.showing = true
+            showing = true
         }
     }
 
     func hideMenuIfNeeded() {
-        if self.showing == true {
+        if showing == true {
             hideMenu()
-            self.showing = false
+            showing = false
         }
     }
 
     func showMenu() {
-        self.isHidden = false
-        self.renameButton.snp.updateConstraints { (make) in
+        isHidden = false
+        renameButton.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.bottom)
         }
-        self.favoriteButton.snp.updateConstraints { (make) in
+        favoriteButton.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.bottom)
         }
-        self.saveButton.snp.updateConstraints { (make) in
+        saveButton.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.bottom)
         }
-        self.titleLabel.snp.updateConstraints { (make) in
+        titleLabel.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.top)
         }
-        self.backgroundView.snp.updateConstraints { (make) in
+        backgroundView.snp.updateConstraints { make in
             make.bottom.equalToSuperview().offset(-120)
         }
-        self.setNeedsUpdateConstraints()
+        setNeedsUpdateConstraints()
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: {
             self.titleLabel.alpha = 1
             self.stackView.alpha = 1
             self.layoutIfNeeded()
 
-        }) { (finished) in
+        }) { _ in
             print("Finished")
         }
     }
 
     func hideMenu() {
-        self.renameButton.snp.updateConstraints { (make) in
+        renameButton.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.bottom).offset(-75)
         }
-        self.favoriteButton.snp.updateConstraints { (make) in
+        favoriteButton.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.bottom).offset(-60)
         }
-        self.saveButton.snp.updateConstraints { (make) in
+        saveButton.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.bottom).offset(-50)
         }
-        self.titleLabel.snp.updateConstraints { (make) in
+        titleLabel.snp.updateConstraints { make in
             make.centerY.equalTo(backgroundView.snp.top).offset(80)
         }
-        self.backgroundView.snp.updateConstraints { (make) in
+        backgroundView.snp.updateConstraints { make in
             make.bottom.equalToSuperview().offset(320)
         }
-        self.setNeedsUpdateConstraints()
+        setNeedsUpdateConstraints()
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
             self.titleLabel.alpha = 0
             self.stackView.alpha = 0
             self.layoutIfNeeded()
 
-        }) { (finished) in
+        }) { finished in
             if finished {
                 self.isHidden = true
             }
@@ -203,6 +203,5 @@ extension AeonTVDetailsView {
             make.centerY.equalTo(backgroundView.snp.bottom)
             make.right.equalTo(renameButton.snp.left).offset(-30)
         }
-
     }
 }
