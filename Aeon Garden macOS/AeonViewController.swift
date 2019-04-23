@@ -8,13 +8,9 @@
 
 import Cocoa
 import GameplayKit
-import SnapKit
 import SpriteKit
 
 class AeonViewController: NSViewController {
-    let population = NSView(frame: NSRect(x: 0, y: 0, width: 200, height: 200))
-    let populationLabel = NSTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 200))
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,32 +26,12 @@ class AeonViewController: NSViewController {
         skView.showsDrawCount = true
         skView.showsFPS = true
         skView.showsNodeCount = true
-
-        population.setValue(NSColor.windowFrameColor, forKey: "backgroundColor")
-
-        view.addSubview(population)
-        population.snp.makeConstraints { make in
-            make.width.equalTo(36)
-            make.height.equalTo(36)
-            make.topMargin.equalToSuperview().offset(36)
-            make.rightMargin.equalToSuperview().offset(-18)
-        }
-
-        populationLabel.textColor = .windowFrameTextColor
-        populationLabel.sizeToFit()
-        populationLabel.isBezeled = false
-        populationLabel.isEditable = false
-        population.addSubview(populationLabel)
-        populationLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        populationLabel.stringValue = "0"
     }
 }
 
 extension AeonViewController: AeonTankUIDelegate {
     func updatePopulation(_ population: Int) {
-        populationLabel.stringValue = "\(population)"
+        return
     }
 
     func updateFood(_: Int) {
