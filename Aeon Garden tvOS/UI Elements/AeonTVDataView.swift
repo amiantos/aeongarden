@@ -40,6 +40,7 @@ class AeonTVDataView: UIView {
         addSubview(dataLabel)
 
         dataLabel.font = UIFont.aeonDataFont
+        dataLabel.backgroundColor = .aeonMediumRed
         dataLabel.textColor = .aeonBrightBrown
 
         titleLabel.font = UIFont.aeonDataTitleFont

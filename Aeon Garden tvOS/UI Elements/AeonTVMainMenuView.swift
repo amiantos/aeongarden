@@ -78,7 +78,7 @@ class AeonTVMainMenuView: UIView {
         }
         self.setNeedsUpdateConstraints()
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: {
-            //self.titleLabel.alpha = 1
+            self.titleLabel.alpha = 1
             self.layoutIfNeeded()
 
         }) { (finished) in
@@ -88,7 +88,7 @@ class AeonTVMainMenuView: UIView {
 
     func hideMenu() {
         self.newTankButton.snp.updateConstraints { (make) in
-            make.centerY.equalTo(backgroundView.snp.bottom).offset(75)
+            make.centerY.equalTo(backgroundView.snp.bottom).offset(45)
         }
         self.loadTankButton.snp.updateConstraints { (make) in
             make.centerY.equalTo(backgroundView.snp.bottom).offset(60)
@@ -97,7 +97,7 @@ class AeonTVMainMenuView: UIView {
             make.centerY.equalTo(backgroundView.snp.bottom).offset(50)
         }
         self.settingsButton.snp.updateConstraints { (make) in
-            make.centerY.equalTo(backgroundView.snp.bottom).offset(40)
+            make.centerY.equalTo(backgroundView.snp.bottom).offset(35)
         }
         self.titleLabel.snp.updateConstraints { (make) in
             make.centerY.equalTo(backgroundView.snp.top).offset(-80)
@@ -107,7 +107,7 @@ class AeonTVMainMenuView: UIView {
         }
         self.setNeedsUpdateConstraints()
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
-            //self.titleLabel.alpha = 0
+            self.titleLabel.alpha = 0
             self.layoutIfNeeded()
 
         }) { (finished) in

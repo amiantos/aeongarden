@@ -17,6 +17,7 @@ class AeonTVDetailsView: UIView {
     let healthLabel = AeonTVDataView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
     let feelingLabel = AeonTVDataView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
     let ageLabel = AeonTVDataView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
+    var stackView = UIStackView()
 
     let settingsButton = AeonTVButton()
     let saveButton = AeonTVButton()
@@ -74,7 +75,8 @@ class AeonTVDetailsView: UIView {
         }
         self.setNeedsUpdateConstraints()
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: {
-            //self.titleLabel.alpha = 1
+            self.titleLabel.alpha = 1
+            self.stackView.alpha = 1
             self.layoutIfNeeded()
 
         }) { (finished) in
@@ -84,23 +86,24 @@ class AeonTVDetailsView: UIView {
 
     func hideMenu() {
         self.renameButton.snp.updateConstraints { (make) in
-            make.centerY.equalTo(backgroundView.snp.bottom).offset(75)
+            make.centerY.equalTo(backgroundView.snp.bottom).offset(-75)
         }
         self.favoriteButton.snp.updateConstraints { (make) in
-            make.centerY.equalTo(backgroundView.snp.bottom).offset(60)
+            make.centerY.equalTo(backgroundView.snp.bottom).offset(-60)
         }
         self.saveButton.snp.updateConstraints { (make) in
-            make.centerY.equalTo(backgroundView.snp.bottom).offset(50)
+            make.centerY.equalTo(backgroundView.snp.bottom).offset(-50)
         }
         self.titleLabel.snp.updateConstraints { (make) in
-            make.centerY.equalTo(backgroundView.snp.top).offset(-80)
+            make.centerY.equalTo(backgroundView.snp.top).offset(80)
         }
         self.backgroundView.snp.updateConstraints { (make) in
             make.bottom.equalToSuperview().offset(320)
         }
         self.setNeedsUpdateConstraints()
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
-            //self.titleLabel.alpha = 0
+            self.titleLabel.alpha = 0
+            self.stackView.alpha = 0
             self.layoutIfNeeded()
 
         }) { (finished) in
@@ -160,7 +163,7 @@ extension AeonTVDetailsView {
         ageLabel.title = "AGE"
         ageLabel.data = "0 SECONDS"
 
-        let stackView = UIStackView(arrangedSubviews: [healthLabel, feelingLabel, ageLabel])
+        stackView = UIStackView(arrangedSubviews: [healthLabel, feelingLabel, ageLabel])
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
         stackView.alignment = .fill

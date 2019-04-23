@@ -7,12 +7,12 @@
 		<key>Aeon Garden iOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>17</integer>
 		</dict>
 		<key>Aeon Garden macOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>18</integer>
 		</dict>
 		<key>Aeon Garden tvOS.xcscheme_^#shared#^_</key>
 		<dict>

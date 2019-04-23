@@ -30,6 +30,7 @@ class AeonTVButton: UIButton {
         layer.rasterizationScale = UIScreen.main.scale
 
         titleLabel?.font = UIFont.aeonButtonFont
+        titleLabel?.backgroundColor = .aeonDarkRed
         setTitleColor(.aeonBrightYellow, for: .normal)
 
         titleLabel?.snp.makeConstraints({ make in
