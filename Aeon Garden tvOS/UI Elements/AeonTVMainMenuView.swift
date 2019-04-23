@@ -10,6 +10,7 @@ import SnapKit
 import UIKit
 
 class AeonTVMainMenuView: UIView {
+    var showing: Bool = true
     let backgroundView = UIView()
     let titleLabel = UILabel()
 
@@ -41,6 +42,20 @@ class AeonTVMainMenuView: UIView {
         setupDataLabels()
     }
 
+    func showMenuIfNeeded() {
+        if self.showing == false {
+            showMenu()
+            self.showing = true
+        }
+    }
+
+    func hideMenuIfNeeded() {
+        if self.showing == true {
+            hideMenu()
+            self.showing = false
+        }
+    }
+
     func showMenu() {
         self.isHidden = false
         self.newTankButton.snp.updateConstraints { (make) in
@@ -63,7 +78,7 @@ class AeonTVMainMenuView: UIView {
         }
         self.setNeedsUpdateConstraints()
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: {
-            self.titleLabel.alpha = 1
+            //self.titleLabel.alpha = 1
             self.layoutIfNeeded()
 
         }) { (finished) in
@@ -92,7 +107,7 @@ class AeonTVMainMenuView: UIView {
         }
         self.setNeedsUpdateConstraints()
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
-            self.titleLabel.alpha = 0
+            //self.titleLabel.alpha = 0
             self.layoutIfNeeded()
 
         }) { (finished) in

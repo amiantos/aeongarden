@@ -46,9 +46,7 @@ class AeonViewController: UIViewController {
         }
     }
 
-    @objc func deselectCreature() {
-        scene!.resetCamera()
-    }
+
 
     fileprivate func setupTemporaryControls() {
         let selectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectRandomCreature))
@@ -66,8 +64,21 @@ class AeonViewController: UIViewController {
         for case let child as AeonCreatureNode in nodes {
             mateArray.append(child)
         }
-        let selected = mateArray.randomElement()!
-        scene!.selectCreature(selected)
+        if let selected = mateArray.randomElement() {
+            scene!.selectCreature(selected)
+        }
+    }
+
+    @objc func deselectCreature() {
+        scene!.resetCamera()
+    }
+
+    @objc func showMenu() {
+        self.mainMenu.showMenu()
+    }
+
+    @objc func hideMenu() {
+        self.mainMenu.hideMenu()
     }
 }
 
@@ -94,15 +105,15 @@ extension AeonViewController: AeonTankDelegate {
 
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?) {
         if let creature = creature {
-            self.detailsView.isHidden = false
-            self.mainMenu.isHidden = true
+            self.detailsView.showMenuIfNeeded()
+            self.mainMenu.hideMenuIfNeeded()
             self.detailsView.titleLabel.text = creature.name?.localizedUppercase
             self.detailsView.healthLabel.data = String(Int(creature.getCurrentHealth())).localizedUppercase
             self.detailsView.feelingLabel.data = creature.getCurrentState().localizedUppercase
             self.detailsView.ageLabel.data = creature.lifeTimeFormattedAsString().localizedUppercase
         } else {
-            self.detailsView.isHidden = true
-            self.mainMenu.isHidden = false
+            self.detailsView.hideMenuIfNeeded()
+            self.mainMenu.showMenuIfNeeded()
         }
     }
 }

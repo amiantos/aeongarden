@@ -103,8 +103,8 @@ class AeonTankScene: SKScene {
         setupCamera()
         setupBackgroundGradient()
         setupBackgroundAnimation()
-        createInitialCreatures()
-        createInitialBubbles()
+//        createInitialCreatures()
+//        createInitialBubbles()
     }
 
     override func didMove(to _: SKView) {

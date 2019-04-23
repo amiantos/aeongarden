@@ -10,6 +10,7 @@ import SnapKit
 import UIKit
 
 class AeonTVDetailsView: UIView {
+    var showing: Bool = true
     let backgroundView = UIView()
     let titleLabel = UILabel()
 
@@ -39,6 +40,75 @@ class AeonTVDetailsView: UIView {
         setupDataLabels()
         sizeToFit()
     }
+
+    func showMenuIfNeeded() {
+        if self.showing == false {
+            showMenu()
+            self.showing = true
+        }
+    }
+
+    func hideMenuIfNeeded() {
+        if self.showing == true {
+            hideMenu()
+            self.showing = false
+        }
+    }
+
+    func showMenu() {
+        self.isHidden = false
+        self.renameButton.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.bottom)
+        }
+        self.favoriteButton.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.bottom)
+        }
+        self.saveButton.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.bottom)
+        }
+        self.titleLabel.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.top)
+        }
+        self.backgroundView.snp.updateConstraints { (make) in
+            make.bottom.equalToSuperview().offset(-120)
+        }
+        self.setNeedsUpdateConstraints()
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: {
+            //self.titleLabel.alpha = 1
+            self.layoutIfNeeded()
+
+        }) { (finished) in
+            print("Finished")
+        }
+    }
+
+    func hideMenu() {
+        self.renameButton.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.bottom).offset(75)
+        }
+        self.favoriteButton.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.bottom).offset(60)
+        }
+        self.saveButton.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.bottom).offset(50)
+        }
+        self.titleLabel.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.top).offset(-80)
+        }
+        self.backgroundView.snp.updateConstraints { (make) in
+            make.bottom.equalToSuperview().offset(320)
+        }
+        self.setNeedsUpdateConstraints()
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
+            //self.titleLabel.alpha = 0
+            self.layoutIfNeeded()
+
+        }) { (finished) in
+            if finished {
+                self.isHidden = true
+            }
+        }
+    }
 }
 
 extension AeonTVDetailsView {
@@ -56,6 +126,7 @@ extension AeonTVDetailsView {
         backgroundView.layer.shouldRasterize = true
         backgroundView.layer.rasterizationScale = UIScreen.main.scale
 
+        titleLabel.text = "Bradley Robert Root"
         addSubview(titleLabel)
         titleLabel.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         titleLabel.layer.shadowOpacity = 1
@@ -75,6 +146,8 @@ extension AeonTVDetailsView {
             make.centerY.equalTo(backgroundView.snp.top)
             make.left.equalTo(backgroundView.snp.left).offset(-33)
         }
+
+        isHidden = true
     }
 
     fileprivate func setupDataLabels() {
