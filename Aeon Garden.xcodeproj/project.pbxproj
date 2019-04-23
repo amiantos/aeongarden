@@ -63,9 +63,6 @@
 		B413ABDC224D7C8C00E8BDD1 /* AeonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F672231E855009F0460 /* AeonUtils.swift */; };
 		B413ABDE224D7C8C00E8BDD1 /* SKTextureGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480388D223750DD005AF239 /* SKTextureGradient.swift */; };
 		B413ABDF224D7CC000E8BDD1 /* AeonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDABC1F80943500DEA908 /* AeonViewController.swift */; };
-		B413ABE0224D7CC000E8BDD1 /* AeonDataPillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A171192245B70F00890D32 /* AeonDataPillView.swift */; };
-		B413ABE1224D7CC000E8BDD1 /* AeonMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1711B2245B72800890D32 /* AeonMenuButton.swift */; };
-		B413ABE2224D7CC000E8BDD1 /* AeonMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED3322470B980026604C /* AeonMenuView.swift */; };
 		B413ABE3224D7D4F00E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */; };
 		B413ABE4224D7D4F00E8BDD1 /* AeonCreatureBubbleTrail.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonCreatureBubbleTrail.sks */; };
 		B413ABE6224D7D4F00E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */; };
@@ -113,8 +110,6 @@
 		44868F652231C7F5009F0460 /* AeonLimbNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonLimbNode.swift; sourceTree = "<group>"; };
 		44868F672231E855009F0460 /* AeonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonUtils.swift; sourceTree = "<group>"; };
 		44868F6A223346E3009F0460 /* AeonCreatureBrainStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonCreatureBrainStates.swift; sourceTree = "<group>"; };
-		44A171192245B70F00890D32 /* AeonDataPillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonDataPillView.swift; sourceTree = "<group>"; };
-		44A1711B2245B72800890D32 /* AeonMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonMenuButton.swift; sourceTree = "<group>"; };
 		55106F82B8367E59A3F6FC58 /* Pods_Aeon_Garden.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BB5FC94C7B5B26BD77940B9 /* Pods_Aeon_Garden_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DEDF779719125253E8C1592 /* Pods-Aeon Garden.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden/Pods-Aeon Garden.release.xcconfig"; sourceTree = "<group>"; };
@@ -160,7 +155,6 @@
 		B4BF89F0226AA55C006F2A33 /* AeonTVMainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTVMainMenuView.swift; sourceTree = "<group>"; };
 		B4C60E7A2260139300DA36B4 /* AeonBlurredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AeonBlurredView.swift; path = "Aeon Garden Shared/UIKit Elements/AeonBlurredView.swift"; sourceTree = SOURCE_ROOT; };
 		B4DEED31224708800026604C /* AeonColorsFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonColorsFonts.swift; sourceTree = "<group>"; };
-		B4DEED3322470B980026604C /* AeonMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonMenuView.swift; sourceTree = "<group>"; };
 		B4DEED37224806850026604C /* AeonNodeProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonNodeProtocols.swift; sourceTree = "<group>"; };
 		B4DEED39224817D80026604C /* AeonBubbleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonBubbleNode.swift; sourceTree = "<group>"; };
 		BBCAC8D12F956FA3F979ADA7 /* Pods-Aeon Garden tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden tvOS.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden tvOS/Pods-Aeon Garden tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -220,17 +214,6 @@
 			path = AeonCreatureNode;
 			sourceTree = "<group>";
 		};
-		44A1711D2245B73200890D32 /* UI Elements */ = {
-			isa = PBXGroup;
-			children = (
-				44A171192245B70F00890D32 /* AeonDataPillView.swift */,
-				44A1711B2245B72800890D32 /* AeonMenuButton.swift */,
-				B4DEED3322470B980026604C /* AeonMenuView.swift */,
-			);
-			name = "UI Elements";
-			path = "Aeon Garden iOS/UI Elements";
-			sourceTree = SOURCE_ROOT;
-		};
 		44D36650223B1D63006AB1C7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,7 +243,6 @@
 		B413AB76224D73C400E8BDD1 /* Aeon Garden iOS */ = {
 			isa = PBXGroup;
 			children = (
-				44A1711D2245B73200890D32 /* UI Elements */,
 				B413AB77224D73C400E8BDD1 /* AppDelegate.swift */,
 				B48DDABC1F80943500DEA908 /* AeonViewController.swift */,
 				B413AB7E224D73C400E8BDD1 /* LaunchScreen.storyboard */,
@@ -705,11 +687,8 @@
 				B413ABD2224D7C8A00E8BDD1 /* SKTextureGradient.swift in Sources */,
 				B413ABB5224D7C7100E8BDD1 /* AeonTankScene.swift in Sources */,
 				B413ABBA224D7C8100E8BDD1 /* AeonCreatureBrain.swift in Sources */,
-				B413ABE2224D7CC000E8BDD1 /* AeonMenuView.swift in Sources */,
 				B413ABBC224D7C8100E8BDD1 /* AeonFoodNode.swift in Sources */,
-				B413ABE0224D7CC000E8BDD1 /* AeonDataPillView.swift in Sources */,
 				B413ABBD224D7C8100E8BDD1 /* AeonNodeProtocols.swift in Sources */,
-				B413ABE1224D7CC000E8BDD1 /* AeonMenuButton.swift in Sources */,
 				B413ABBB224D7C8100E8BDD1 /* AeonCreatureBrainStates.swift in Sources */,
 				B413ABFC224FFD7D00E8BDD1 /* AeonSoundManager.swift in Sources */,
 				B413ABBE224D7C8100E8BDD1 /* AeonBubbleNode.swift in Sources */,
