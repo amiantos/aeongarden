@@ -45,11 +45,11 @@ class AeonViewController: UIViewController {
     }
 
     fileprivate func setupTemporaryControls() {
-        let selectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectRandomCreature))
+        let selectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleMainMenu))
         selectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.playPause.rawValue)]
         view.addGestureRecognizer(selectCreatureRecognizer)
 
-        let deselectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(deselectCreature))
+        let deselectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleMainMenu))
         deselectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
         view.addGestureRecognizer(deselectCreatureRecognizer)
     }
@@ -69,12 +69,8 @@ class AeonViewController: UIViewController {
         scene!.resetCamera()
     }
 
-    @objc func showMenu() {
-        mainMenu.showMenu()
-    }
-
-    @objc func hideMenu() {
-        mainMenu.hideMenu()
+    @objc func toggleMainMenu() {
+        mainMenu.toggle()
     }
 }
 
@@ -101,15 +97,15 @@ extension AeonViewController: AeonTankDelegate {
 
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?) {
         if let creature = creature {
-            detailsView.showMenuIfNeeded()
-            mainMenu.hideMenuIfNeeded()
+//            detailsView.showMenuIfNeeded()
+//            mainMenu.hideMenuIfNeeded()
             detailsView.titleLabel.text = creature.name?.localizedUppercase
             detailsView.healthLabel.data = String(Int(creature.getCurrentHealth())).localizedUppercase
             detailsView.feelingLabel.data = creature.getCurrentState().localizedUppercase
             detailsView.ageLabel.data = creature.lifeTimeFormattedAsString().localizedUppercase
         } else {
-            detailsView.hideMenuIfNeeded()
-            mainMenu.showMenuIfNeeded()
+//            detailsView.hideMenuIfNeeded()
+//            mainMenu.showMenuIfNeeded()
         }
     }
 }

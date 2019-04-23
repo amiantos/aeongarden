@@ -11,6 +11,20 @@
 
 import GameKit
 
+enum State {
+    case closed
+    case open
+}
+
+extension State {
+    var opposite: State {
+        switch self {
+        case .open: return .closed
+        case .closed: return .open
+        }
+    }
+}
+
 extension Array where Element: Equatable {
     // Remove first collection element that is equal to the given `object`:
     mutating func remove(object: Element) {

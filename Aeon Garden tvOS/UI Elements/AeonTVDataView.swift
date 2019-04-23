@@ -24,6 +24,12 @@ class AeonTVDataView: UIView {
         }
     }
 
+    convenience init(name: String, initialValue value: String) {
+        self.init(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
+        titleLabel.text = name
+        dataLabel.text = value
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -60,7 +66,5 @@ class AeonTVDataView: UIView {
         titleLabel.layer.shadowOffset = CGSize(width: 0, height: 4)
         titleLabel.layer.shouldRasterize = true
         titleLabel.layer.rasterizationScale = UIScreen.main.scale
-
-        sizeToFit()
     }
 }

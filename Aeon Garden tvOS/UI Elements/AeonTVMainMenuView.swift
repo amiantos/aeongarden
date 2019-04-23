@@ -8,30 +8,19 @@
 
 import UIKit
 
-// MARK: - State
-private enum State {
-    case closed
-    case open
-}
-
-extension State {
-    var opposite: State {
-        switch self {
-        case .open: return .closed
-        case .closed: return .open
-        }
-    }
-}
-
 class AeonTVMainMenuView: UIView {
+    private let slideOffset: CGFloat = -300
+
     let backgroundView = UIView()
     let titleLabel = UILabel()
 
-    let populationLabel = AeonTVDataView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
-    let foodLabel = AeonTVDataView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
-    let birthsLabel = AeonTVDataView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
-    let deathsLabel = AeonTVDataView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
-    let clockLabel = AeonTVDataView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
+    private var backgroundTopAnchor = NSLayoutConstraint()
+
+    let populationLabel = AeonTVDataView(name: "POPULATION", initialValue: "0")
+    let foodLabel = AeonTVDataView(name: "FOOD", initialValue: "0")
+    let birthsLabel = AeonTVDataView(name: "BIRTHS", initialValue: "0")
+    let deathsLabel = AeonTVDataView(name: "DEATHS", initialValue: "0")
+    let clockLabel = AeonTVDataView(name: "CLOCK", initialValue: "00:00:00")
 
     let settingsButton = AeonTVButton()
     let newTankButton = AeonTVButton()
@@ -59,83 +48,71 @@ class AeonTVMainMenuView: UIView {
         setupDataLabels()
     }
 
-    func showMenuIfNeeded() {
-//        if showing == false {
-//            showMenu()
-//            showing = true
-//        }
-    }
+    // MARK: - Animations
 
-    func hideMenuIfNeeded() {
-//        if showing == true {
-//            hideMenu()
-//            showing = false
-//        }
-    }
+    private var currentState: State = .open
+    private var runningAnimators = [UIViewPropertyAnimator]()
+    private var animationProgress = [CGFloat]()
 
-    func showMenu() {
-        isHidden = false
-        newTankButton.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-        }
-        saveTankButton.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-        }
-        loadTankButton.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-        }
-        settingsButton.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-        }
-        titleLabel.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.top)
-        }
-        backgroundView.snp.updateConstraints { make in
-            make.top.equalToSuperview().offset(120)
-        }
-        setNeedsUpdateConstraints()
-        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: {
-            self.titleLabel.alpha = 1
+    private func animateTransitionIfNeeded(to state: State, duration: TimeInterval) {
+        guard runningAnimators.isEmpty else { return }
+
+        let transitionAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
+            switch state {
+            case .open:
+                self.backgroundTopAnchor.constant = 120
+            case .closed:
+                self.backgroundTopAnchor.constant = self.slideOffset
+            }
             self.layoutIfNeeded()
-
-        }) { _ in
-            print("Finished")
         }
+
+        transitionAnimator.addCompletion { (position) in
+            switch position {
+            case .start:
+                self.currentState = state.opposite
+            case .end:
+                self.currentState = state
+            case .current:
+                ()
+            @unknown default:
+                fatalError()
+            }
+
+            switch self.currentState {
+            case .open:
+                self.backgroundTopAnchor.constant = 120
+            case .closed:
+                self.backgroundTopAnchor.constant = self.slideOffset
+            }
+
+            self.runningAnimators.removeAll()
+        }
+
+        transitionAnimator.startAnimation()
+        runningAnimators.append(transitionAnimator)
     }
 
-    func hideMenu() {
-        newTankButton.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom).offset(45)
-        }
-        loadTankButton.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom).offset(60)
-        }
-        saveTankButton.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom).offset(50)
-        }
-        settingsButton.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom).offset(35)
-        }
-        titleLabel.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.top).offset(-80)
-        }
-        backgroundView.snp.updateConstraints { make in
-            make.top.equalToSuperview().offset(-400)
-        }
-        setNeedsUpdateConstraints()
-        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
-            self.titleLabel.alpha = 0
-            self.layoutIfNeeded()
-
-        }) { finished in
-            if finished {
-                self.isHidden = true
+    func toggle() {
+        if !runningAnimators.isEmpty {
+            runningAnimators.forEach { $0.pauseAnimation() }
+            runningAnimators.forEach { $0.isReversed = !$0.isReversed }
+            runningAnimators.forEach { $0.continueAnimation(withTimingParameters: nil, durationFactor: 0) }
+        } else {
+            switch currentState {
+            case .open:
+                animateTransitionIfNeeded(to: .closed, duration: 1)
+            case .closed:
+                animateTransitionIfNeeded(to: .open, duration: 1)
             }
         }
     }
+
 }
 
+// MARK: - View Setup
 extension AeonTVMainMenuView {
+
     fileprivate func setupView() {
 
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -145,7 +122,8 @@ extension AeonTVMainMenuView {
 
         backgroundView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor).isActive = true
         backgroundView.widthAnchor.constraint(equalTo: titleLabel.widthAnchor).isActive = true
-        backgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: 120).isActive = true
+        backgroundTopAnchor = backgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: 120)
+        backgroundTopAnchor.isActive = true
         backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120).isActive = true
 
         backgroundView.backgroundColor = .aeonMediumRed
@@ -172,21 +150,6 @@ extension AeonTVMainMenuView {
     }
 
     fileprivate func setupDataLabels() {
-        populationLabel.title = "POPULATION"
-        populationLabel.data = "0"
-
-        foodLabel.title = "FOOD"
-        foodLabel.data = "0"
-
-        birthsLabel.title = "BIRTHS"
-        birthsLabel.data = "0"
-
-        deathsLabel.title = "DEATHS"
-        deathsLabel.data = "0"
-
-        clockLabel.title = "CLOCK"
-        clockLabel.data = "00:00:00"
-
         stackView = UIStackView(arrangedSubviews: [populationLabel, foodLabel, birthsLabel, deathsLabel, clockLabel])
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
@@ -217,21 +180,5 @@ extension AeonTVMainMenuView {
         loadTankButton.trailingAnchor.constraint(equalTo: newTankButton.leadingAnchor, constant: -30).isActive = true
         saveTankButton.trailingAnchor.constraint(equalTo: loadTankButton.leadingAnchor, constant: -30).isActive = true
         settingsButton.trailingAnchor.constraint(equalTo: saveTankButton.leadingAnchor, constant: -30).isActive = true
-    }
-}
-
-extension UIView {
-    func resizeToFitSubviews() {
-        let subviewsRect = subviews.reduce(CGRect.zero) {
-            $0.union($1.frame)
-        }
-
-        let fix = subviewsRect.origin
-        subviews.forEach {
-            $0.frame.offsetBy(dx: -fix.x, dy: -fix.y)
-        }
-
-        frame.offsetBy(dx: fix.x, dy: fix.y)
-        frame.size = subviewsRect.size
     }
 }

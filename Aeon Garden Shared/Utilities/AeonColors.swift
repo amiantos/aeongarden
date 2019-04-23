@@ -1,5 +1,5 @@
 //
-//  AeonColorsFonts.swift
+//  AeonColors.swift
 //  Aeon Garden
 //
 //  Created by Bradley Root on 3/23/19.
@@ -24,12 +24,4 @@ extension SKColor {
     static let aeonBrightBlue = SKColor(red: 0.02, green: 0.26, blue: 0.43, alpha: 1)
     static let aeonMediumBlue = SKColor(red: 0.01, green: 0.19, blue: 0.32, alpha: 1)
     static let aeonDarkBlue = SKColor(red: 0.01, green: 0.12, blue: 0.2, alpha: 1)
-}
-
-extension UIFont {
-    static let aeonDataTitleFont = UIFont(name: "HelveticaNeue-Bold", size: 24)
-    static let aeonDataFont = UIFont(name: "HelveticaNeue-Bold", size: 24)
-    static let aeonTitleFontLarge = UIFont(name: "HelveticaNeue-Bold", size: 144)
-    static let aeonTitleFontMedium = UIFont(name: "HelveticaNeue-Bold", size: 96)
-    static let aeonButtonFont = UIFont(name: "HelveticaNeue-Bold", size: 24)
 }
