@@ -23,6 +23,7 @@ class AeonTVMainMenuView: UIView {
     let newTankButton = AeonTVButton()
     let saveTankButton = AeonTVButton()
     let loadTankButton = AeonTVButton()
+    var stackView = UIStackView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,7 +31,6 @@ class AeonTVMainMenuView: UIView {
         setupView()
         setupButtons()
         setupDataLabels()
-        sizeToFit()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -39,7 +39,67 @@ class AeonTVMainMenuView: UIView {
         setupView()
         setupButtons()
         setupDataLabels()
-        sizeToFit()
+    }
+
+    func showMenu() {
+        self.isHidden = false
+        self.newTankButton.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.bottom)
+        }
+        self.saveTankButton.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.bottom)
+        }
+        self.loadTankButton.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.bottom)
+        }
+        self.settingsButton.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.bottom)
+        }
+        self.titleLabel.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.top)
+        }
+        self.backgroundView.snp.updateConstraints { (make) in
+            make.top.equalToSuperview().offset(120)
+        }
+        self.setNeedsUpdateConstraints()
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: {
+            self.titleLabel.alpha = 1
+            self.layoutIfNeeded()
+
+        }) { (finished) in
+            print("Finished")
+        }
+    }
+
+    func hideMenu() {
+        self.newTankButton.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.bottom).offset(75)
+        }
+        self.loadTankButton.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.bottom).offset(60)
+        }
+        self.saveTankButton.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.bottom).offset(50)
+        }
+        self.settingsButton.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.bottom).offset(40)
+        }
+        self.titleLabel.snp.updateConstraints { (make) in
+            make.centerY.equalTo(backgroundView.snp.top).offset(-80)
+        }
+        self.backgroundView.snp.updateConstraints { (make) in
+            make.top.equalToSuperview().offset(-400)
+        }
+        self.setNeedsUpdateConstraints()
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
+            self.titleLabel.alpha = 0
+            self.layoutIfNeeded()
+
+        }) { (finished) in
+            if finished {
+                self.isHidden = true
+            }
+        }
     }
 }
 
@@ -96,7 +156,7 @@ extension AeonTVMainMenuView {
         clockLabel.title = "CLOCK"
         clockLabel.data = "00:00:00"
 
-        let stackView = UIStackView(arrangedSubviews: [populationLabel, foodLabel, birthsLabel, deathsLabel, clockLabel])
+        stackView = UIStackView(arrangedSubviews: [populationLabel, foodLabel, birthsLabel, deathsLabel, clockLabel])
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
         stackView.alignment = .fill
@@ -141,5 +201,24 @@ extension AeonTVMainMenuView {
             make.centerY.equalTo(backgroundView.snp.bottom)
             make.right.equalTo(saveTankButton.snp.left).offset(-30)
         }
+    }
+}
+
+
+extension UIView {
+
+    func resizeToFitSubviews() {
+
+        let subviewsRect = subviews.reduce(CGRect.zero) {
+            $0.union($1.frame)
+        }
+
+        let fix = subviewsRect.origin
+        subviews.forEach {
+            $0.frame.offsetBy(dx: -fix.x, dy: -fix.y)
+        }
+
+        frame.offsetBy(dx: fix.x, dy: fix.y)
+        frame.size = subviewsRect.size
     }
 }
