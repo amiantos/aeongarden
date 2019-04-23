@@ -6,7 +6,6 @@
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
 
-import SnapKit
 import UIKit
 
 class AeonTVButton: UIButton {
@@ -43,24 +42,24 @@ class AeonTVButton: UIButton {
 
     override func didUpdateFocus(in _: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         coordinator.addCoordinatedAnimations({
+            let duration = UIView.inheritedAnimationDuration
             if self.isFocused {
-                UIView.animate(withDuration: 0.2, animations: {
+                UIView.animate(withDuration: 0.2 * duration, delay: 0, options: .curveEaseInOut, animations: {
                     self.liftButton()
-
                 }, completion: nil)
                 let animation = CABasicAnimation(keyPath: "shadowOpacity")
                 animation.fromValue = self.layer.shadowOpacity
                 animation.toValue = 0.4
-                animation.duration = 0.2
+                animation.duration = 0.2 * duration
                 self.layer.add(animation, forKey: animation.keyPath)
                 let animation2 = CABasicAnimation(keyPath: "borderWidth")
                 animation2.fromValue = self.layer.borderWidth
                 animation2.toValue = 5
-                animation2.duration = 0.2
+                animation2.duration = 0.2 * duration
                 self.layer.add(animation2, forKey: animation2.keyPath)
                 self.layer.borderWidth = 5
             } else {
-                UIView.animate(withDuration: 1, animations: {
+                UIView.animate(withDuration: 1 * duration, animations: {
                     self.restButton()
                 }, completion: nil)
                 let animation = CABasicAnimation(keyPath: "shadowOpacity")
