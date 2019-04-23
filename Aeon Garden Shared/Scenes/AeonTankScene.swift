@@ -19,7 +19,7 @@ enum CollisionTypes: UInt32 {
     case ball = 8
 }
 
-protocol AeonTankDelegate: class {
+protocol AeonTankUIDelegate: class {
     func updatePopulation(_ population: Int)
     func updateFood(_ food: Int)
     func updateBirths(_ births: Int)
@@ -59,7 +59,7 @@ class AeonTankScene: SKScene {
 
     private var cameraNode: SKCameraNode = SKCameraNode()
 
-    weak var tankDelegate: AeonTankDelegate?
+    weak var tankDelegate: AeonTankUIDelegate?
 
     var selectedCreature: AeonCreatureNode? {
         didSet {

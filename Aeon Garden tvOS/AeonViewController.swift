@@ -74,7 +74,7 @@ class AeonViewController: UIViewController {
     }
 }
 
-extension AeonViewController: AeonTankDelegate {
+extension AeonViewController: AeonTankUIDelegate {
     func updateClock(_ clock: String) {
         mainMenu.clockLabel.data = clock
     }
@@ -97,15 +97,10 @@ extension AeonViewController: AeonTankDelegate {
 
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?) {
         if let creature = creature {
-//            detailsView.showMenuIfNeeded()
-//            mainMenu.hideMenuIfNeeded()
             detailsView.titleLabel.text = creature.name?.localizedUppercase
             detailsView.healthLabel.data = String(Int(creature.getCurrentHealth())).localizedUppercase
             detailsView.feelingLabel.data = creature.getCurrentState().localizedUppercase
             detailsView.ageLabel.data = creature.lifeTimeFormattedAsString().localizedUppercase
-        } else {
-//            detailsView.hideMenuIfNeeded()
-//            mainMenu.showMenuIfNeeded()
         }
     }
 }

@@ -42,7 +42,7 @@ class AeonViewController: UIViewController {
     }
 }
 
-extension AeonViewController: AeonTankDelegate {
+extension AeonViewController: AeonTankUIDelegate {
     func updateSelectedCreatureDetails(_: AeonCreatureNode?) {
         return
     }

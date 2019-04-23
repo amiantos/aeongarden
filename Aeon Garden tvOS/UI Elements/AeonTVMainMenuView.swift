@@ -9,24 +9,6 @@
 import UIKit
 
 class AeonTVMainMenuView: UIView {
-    private let slideOffset: CGFloat = -300
-
-    let backgroundView = UIView()
-    let titleLabel = UILabel()
-
-    private var backgroundTopAnchor = NSLayoutConstraint()
-
-    let populationLabel = AeonTVDataView(name: "POPULATION", initialValue: "0")
-    let foodLabel = AeonTVDataView(name: "FOOD", initialValue: "0")
-    let birthsLabel = AeonTVDataView(name: "BIRTHS", initialValue: "0")
-    let deathsLabel = AeonTVDataView(name: "DEATHS", initialValue: "0")
-    let clockLabel = AeonTVDataView(name: "CLOCK", initialValue: "00:00:00")
-
-    let settingsButton = AeonTVButton()
-    let newTankButton = AeonTVButton()
-    let saveTankButton = AeonTVButton()
-    let loadTankButton = AeonTVButton()
-    var stackView = UIStackView()
 
     convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: 1250, height: 300))
@@ -48,7 +30,96 @@ class AeonTVMainMenuView: UIView {
         setupDataLabels()
     }
 
+    // MARK: - View Setup
+
+    private let backgroundView = UIView()
+    private let titleLabel = UILabel()
+
+    private var backgroundTopAnchor = NSLayoutConstraint()
+
+    let populationLabel = AeonTVDataView(name: "POPULATION", initialValue: "0")
+    let foodLabel = AeonTVDataView(name: "FOOD", initialValue: "0")
+    let birthsLabel = AeonTVDataView(name: "BIRTHS", initialValue: "0")
+    let deathsLabel = AeonTVDataView(name: "DEATHS", initialValue: "0")
+    let clockLabel = AeonTVDataView(name: "CLOCK", initialValue: "00:00:00")
+
+    private let settingsButton = AeonTVButton()
+    private let newTankButton = AeonTVButton()
+    private let saveTankButton = AeonTVButton()
+    private let loadTankButton = AeonTVButton()
+    private var stackView = UIStackView()
+
+    private func setupView() {
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(backgroundView)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(titleLabel)
+
+        backgroundView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor).isActive = true
+        backgroundView.widthAnchor.constraint(equalTo: titleLabel.widthAnchor).isActive = true
+        backgroundTopAnchor = backgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: 120)
+        backgroundTopAnchor.isActive = true
+        backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120).isActive = true
+
+        backgroundView.backgroundColor = .aeonMediumRed
+        backgroundView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50).cgColor
+        backgroundView.layer.shadowOpacity = 1
+        backgroundView.layer.shadowRadius = 20
+        backgroundView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        backgroundView.layer.shouldRasterize = true
+        backgroundView.layer.rasterizationScale = UIScreen.main.scale
+
+        titleLabel.centerYAnchor.constraint(equalTo: backgroundView.topAnchor).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: -50).isActive = true
+
+        titleLabel.textColor = .aeonBrightYellow
+        titleLabel.font = UIFont.aeonTitleFontLarge
+        titleLabel.text = "AEON GARDEN"
+
+        titleLabel.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        titleLabel.layer.shadowOpacity = 1
+        titleLabel.layer.shadowRadius = 4
+        titleLabel.layer.shadowOffset = CGSize(width: 0, height: 4)
+        titleLabel.layer.shouldRasterize = true
+        titleLabel.layer.rasterizationScale = UIScreen.main.scale
+    }
+
+    private func setupDataLabels() {
+        stackView = UIStackView(arrangedSubviews: [populationLabel, foodLabel, birthsLabel, deathsLabel, clockLabel])
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        stackView.alignment = .fill
+        stackView.spacing = 5
+
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.addSubview(stackView)
+        stackView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor, constant: 11).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 90).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -90).isActive = true
+
+    }
+
+    private func setupButtons() {
+        settingsButton.setTitle("SETTINGS", for: .normal)
+        newTankButton.setTitle("NEW TANK", for: .normal)
+        saveTankButton.setTitle("SAVE TANK", for: .normal)
+        loadTankButton.setTitle("LOAD TANK", for: .normal)
+
+        let buttons = [settingsButton, newTankButton, saveTankButton, loadTankButton]
+        for button in buttons {
+            button.translatesAutoresizingMaskIntoConstraints = false
+            backgroundView.addSubview(button)
+            button.centerYAnchor.constraint(equalTo: backgroundView.bottomAnchor).isActive = true
+        }
+        newTankButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: 20).isActive = true
+        loadTankButton.trailingAnchor.constraint(equalTo: newTankButton.leadingAnchor, constant: -30).isActive = true
+        saveTankButton.trailingAnchor.constraint(equalTo: loadTankButton.leadingAnchor, constant: -30).isActive = true
+        settingsButton.trailingAnchor.constraint(equalTo: saveTankButton.leadingAnchor, constant: -30).isActive = true
+    }
+
     // MARK: - Animations
+
+    private let slideOffset: CGFloat = -300
 
     private var currentState: State = .open
     private var runningAnimators = [UIViewPropertyAnimator]()
@@ -108,77 +179,4 @@ class AeonTVMainMenuView: UIView {
         }
     }
 
-}
-
-// MARK: - View Setup
-extension AeonTVMainMenuView {
-
-    fileprivate func setupView() {
-
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(backgroundView)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(titleLabel)
-
-        backgroundView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor).isActive = true
-        backgroundView.widthAnchor.constraint(equalTo: titleLabel.widthAnchor).isActive = true
-        backgroundTopAnchor = backgroundView.topAnchor.constraint(equalTo: self.topAnchor, constant: 120)
-        backgroundTopAnchor.isActive = true
-        backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 120).isActive = true
-
-        backgroundView.backgroundColor = .aeonMediumRed
-        backgroundView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50).cgColor
-        backgroundView.layer.shadowOpacity = 1
-        backgroundView.layer.shadowRadius = 20
-        backgroundView.layer.shadowOffset = CGSize(width: 0, height: 4)
-        backgroundView.layer.shouldRasterize = true
-        backgroundView.layer.rasterizationScale = UIScreen.main.scale
-
-        titleLabel.centerYAnchor.constraint(equalTo: backgroundView.topAnchor).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: -50).isActive = true
-
-        titleLabel.textColor = .aeonBrightYellow
-        titleLabel.font = UIFont.aeonTitleFontLarge
-        titleLabel.text = "AEON GARDEN"
-
-        titleLabel.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        titleLabel.layer.shadowOpacity = 1
-        titleLabel.layer.shadowRadius = 4
-        titleLabel.layer.shadowOffset = CGSize(width: 0, height: 4)
-        titleLabel.layer.shouldRasterize = true
-        titleLabel.layer.rasterizationScale = UIScreen.main.scale
-    }
-
-    fileprivate func setupDataLabels() {
-        stackView = UIStackView(arrangedSubviews: [populationLabel, foodLabel, birthsLabel, deathsLabel, clockLabel])
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-        stackView.alignment = .fill
-        stackView.spacing = 5
-
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundView.addSubview(stackView)
-        stackView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor, constant: 11).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 90).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -90).isActive = true
-
-    }
-
-    fileprivate func setupButtons() {
-        settingsButton.setTitle("SETTINGS", for: .normal)
-        newTankButton.setTitle("NEW TANK", for: .normal)
-        saveTankButton.setTitle("SAVE TANK", for: .normal)
-        loadTankButton.setTitle("LOAD TANK", for: .normal)
-
-        let buttons = [settingsButton, newTankButton, saveTankButton, loadTankButton]
-        for button in buttons {
-            button.translatesAutoresizingMaskIntoConstraints = false
-            backgroundView.addSubview(button)
-            button.centerYAnchor.constraint(equalTo: backgroundView.bottomAnchor).isActive = true
-        }
-        newTankButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: 20).isActive = true
-        loadTankButton.trailingAnchor.constraint(equalTo: newTankButton.leadingAnchor, constant: -30).isActive = true
-        saveTankButton.trailingAnchor.constraint(equalTo: loadTankButton.leadingAnchor, constant: -30).isActive = true
-        settingsButton.trailingAnchor.constraint(equalTo: saveTankButton.leadingAnchor, constant: -30).isActive = true
-    }
 }

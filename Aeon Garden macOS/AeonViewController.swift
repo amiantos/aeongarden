@@ -53,7 +53,7 @@ class AeonViewController: NSViewController {
     }
 }
 
-extension AeonViewController: AeonTankDelegate {
+extension AeonViewController: AeonTankUIDelegate {
     func updatePopulation(_ population: Int) {
         populationLabel.stringValue = "\(population)"
     }
