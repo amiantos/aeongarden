@@ -33,8 +33,8 @@ class AeonTVButton: UIButton {
         setTitleColor(.aeonBrightYellow, for: .normal)
 
         titleLabel?.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel?.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 35).isActive = true
-        titleLabel?.topAnchor.constraint(equalTo: self.topAnchor, constant: 15).isActive = true
+        titleLabel?.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 35).isActive = true
+        titleLabel?.topAnchor.constraint(equalTo: topAnchor, constant: 15).isActive = true
 
         sizeToFit()
     }

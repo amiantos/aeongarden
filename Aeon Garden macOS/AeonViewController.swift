@@ -30,7 +30,7 @@ class AeonViewController: NSViewController {
 }
 
 extension AeonViewController: AeonTankUIDelegate {
-    func updatePopulation(_ population: Int) {
+    func updatePopulation(_: Int) {
         return
     }
 

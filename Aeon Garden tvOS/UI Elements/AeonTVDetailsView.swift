@@ -9,7 +9,6 @@
 import UIKit
 
 class AeonTVDetailsView: UIView {
-
     convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: 1250, height: 300))
     }
@@ -55,9 +54,9 @@ class AeonTVDetailsView: UIView {
 
         backgroundView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, multiplier: 1.2).isActive = true
         backgroundView.widthAnchor.constraint(equalTo: titleLabel.widthAnchor).isActive = true
-        backgroundBottomAnchor = backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: slideOffset)
+        backgroundBottomAnchor = backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: slideOffset)
         backgroundBottomAnchor.isActive = true
-        backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120).isActive = true
+        backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -120).isActive = true
 
         backgroundView.backgroundColor = .aeonMediumRed
         backgroundView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50).cgColor
@@ -135,7 +134,7 @@ class AeonTVDetailsView: UIView {
             self.layoutIfNeeded()
         }
 
-        transitionAnimator.addCompletion { (position) in
+        transitionAnimator.addCompletion { position in
             switch position {
             case .start:
                 self.currentState = state.opposite
@@ -176,5 +175,4 @@ class AeonTVDetailsView: UIView {
             }
         }
     }
-
 }

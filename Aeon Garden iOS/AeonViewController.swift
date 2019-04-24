@@ -46,19 +46,19 @@ extension AeonViewController: AeonTankUIDelegate {
         return
     }
 
-    func updateBirths(_ births: Int) {
+    func updateBirths(_: Int) {
         return
     }
 
-    func updateDeaths(_ deaths: Int) {
+    func updateDeaths(_: Int) {
         return
     }
 
-    func updateFood(_ food: Int) {
+    func updateFood(_: Int) {
         return
     }
 
-    func updatePopulation(_ population: Int) {
+    func updatePopulation(_: Int) {
         return
     }
 }

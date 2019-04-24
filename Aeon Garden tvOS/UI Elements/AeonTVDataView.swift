@@ -43,9 +43,9 @@ class AeonTVDataView: UIView {
     private func setupView() {
         dataLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(dataLabel)
-        dataLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        dataLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        dataLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        dataLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        dataLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        dataLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 
         dataLabel.font = UIFont.aeonDataFont
         dataLabel.backgroundColor = .aeonMediumRed
@@ -53,9 +53,9 @@ class AeonTVDataView: UIView {
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleLabel)
-        titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: dataLabel.leadingAnchor, constant: -10).isActive = true
 
         titleLabel.font = UIFont.aeonDataTitleFont
