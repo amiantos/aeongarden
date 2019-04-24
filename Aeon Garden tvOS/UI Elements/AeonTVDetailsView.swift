@@ -35,6 +35,7 @@ class AeonTVDetailsView: UIView {
     let titleLabel = UILabel()
 
     private var backgroundBottomAnchor = NSLayoutConstraint()
+    private var titleCenterYAnchor = NSLayoutConstraint()
 
     let healthLabel = AeonTVDataView(name: "HEALTH", initialValue: "0")
     let feelingLabel = AeonTVDataView(name: "FEELING", initialValue: "NEWBORN")
@@ -67,7 +68,8 @@ class AeonTVDetailsView: UIView {
         backgroundView.layer.shouldRasterize = true
         backgroundView.layer.rasterizationScale = UIScreen.main.scale
 
-        titleLabel.centerYAnchor.constraint(equalTo: backgroundView.topAnchor).isActive = true
+        titleCenterYAnchor = titleLabel.centerYAnchor.constraint(equalTo: backgroundView.topAnchor)
+        titleCenterYAnchor.isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: -33).isActive = true
 
         titleLabel.textColor = .aeonBrightYellow
@@ -130,8 +132,10 @@ class AeonTVDetailsView: UIView {
             case .open:
                 self.isHidden = false
                 self.backgroundBottomAnchor.constant = -120
+                self.titleCenterYAnchor.constant = 0
             case .closed:
                 self.backgroundBottomAnchor.constant = self.slideOffset
+                self.titleCenterYAnchor.constant = self.slideOffset
             }
             self.layoutIfNeeded()
         }
@@ -151,8 +155,10 @@ class AeonTVDetailsView: UIView {
             switch self.currentState {
             case .open:
                 self.backgroundBottomAnchor.constant = -120
+                self.titleCenterYAnchor.constant = 0
             case .closed:
                 self.backgroundBottomAnchor.constant = self.slideOffset
+                self.titleCenterYAnchor.constant = self.slideOffset
                 self.isHidden = true
             }
 
