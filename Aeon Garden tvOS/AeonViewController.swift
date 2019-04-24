@@ -71,6 +71,9 @@ class AeonViewController: UIViewController {
 
     @objc func toggleMainMenu() {
         mainMenu.toggle()
+        detailsView.toggle()
+        setNeedsFocusUpdate()
+        updateFocusIfNeeded()
     }
 }
 

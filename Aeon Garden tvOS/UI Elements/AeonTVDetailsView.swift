@@ -10,118 +10,57 @@ import SnapKit
 import UIKit
 
 class AeonTVDetailsView: UIView {
-    var showing: Bool = true
-    let backgroundView = UIView()
-    let titleLabel = UILabel()
 
-    let healthLabel = AeonTVDataView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
-    let feelingLabel = AeonTVDataView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
-    let ageLabel = AeonTVDataView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
-    var stackView = UIStackView()
-
-    let settingsButton = AeonTVButton()
-    let saveButton = AeonTVButton()
-    let favoriteButton = AeonTVButton()
-    let renameButton = AeonTVButton()
+    convenience init() {
+        self.init(frame: CGRect(x: 0, y: 0, width: 1250, height: 300))
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        setupView()
-        setupButtons()
-        setupDataLabels()
-        sizeToFit()
+        sharedInit()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        sharedInit()
+    }
 
+    func sharedInit() {
         setupView()
         setupButtons()
         setupDataLabels()
-        sizeToFit()
     }
 
-    func showMenuIfNeeded() {
-        if showing == false {
-            showMenu()
-            showing = true
-        }
-    }
+    // MARK: - View Setup
 
-    func hideMenuIfNeeded() {
-        if showing == true {
-            hideMenu()
-            showing = false
-        }
-    }
+    private let backgroundView = UIView()
+    let titleLabel = UILabel()
 
-    func showMenu() {
-        isHidden = false
-        renameButton.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-        }
-        favoriteButton.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-        }
-        saveButton.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-        }
-        titleLabel.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.top)
-        }
-        backgroundView.snp.updateConstraints { make in
-            make.bottom.equalToSuperview().offset(-120)
-        }
-        setNeedsUpdateConstraints()
-        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: {
-            self.titleLabel.alpha = 1
-            self.stackView.alpha = 1
-            self.layoutIfNeeded()
+    private var backgroundBottomAnchor = NSLayoutConstraint()
 
-        }) { _ in
-            print("Finished")
-        }
-    }
+    let healthLabel = AeonTVDataView(name: "HEALTH", initialValue: "0")
+    let feelingLabel = AeonTVDataView(name: "FEELING", initialValue: "NEWBORN")
+    let ageLabel = AeonTVDataView(name: "AGE", initialValue: "0.0 MINUTES")
+    private var stackView = UIStackView()
 
-    func hideMenu() {
-        renameButton.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom).offset(-75)
-        }
-        favoriteButton.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom).offset(-60)
-        }
-        saveButton.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom).offset(-50)
-        }
-        titleLabel.snp.updateConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.top).offset(80)
-        }
-        backgroundView.snp.updateConstraints { make in
-            make.bottom.equalToSuperview().offset(320)
-        }
-        setNeedsUpdateConstraints()
-        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn, animations: {
-            self.titleLabel.alpha = 0
-            self.stackView.alpha = 0
-            self.layoutIfNeeded()
+    private let settingsButton = AeonTVButton()
+    private let saveButton = AeonTVButton()
+    private let favoriteButton = AeonTVButton()
+    private let renameButton = AeonTVButton()
 
-        }) { finished in
-            if finished {
-                self.isHidden = true
-            }
-        }
-    }
-}
+    private func setupView() {
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(backgroundView)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(titleLabel)
 
-extension AeonTVDetailsView {
-    fileprivate func setupView() {
-        titleLabel.textColor = .aeonBrightYellow
-        titleLabel.font = UIFont.aeonTitleFontMedium
+        backgroundView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, multiplier: 1.2).isActive = true
+        backgroundView.widthAnchor.constraint(equalTo: titleLabel.widthAnchor).isActive = true
+        backgroundBottomAnchor = backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: slideOffset)
+        backgroundBottomAnchor.isActive = true
+        backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -120).isActive = true
 
         backgroundView.backgroundColor = .aeonMediumRed
-
-        addSubview(backgroundView)
         backgroundView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50).cgColor
         backgroundView.layer.shadowOpacity = 1
         backgroundView.layer.shadowRadius = 20
@@ -129,79 +68,114 @@ extension AeonTVDetailsView {
         backgroundView.layer.shouldRasterize = true
         backgroundView.layer.rasterizationScale = UIScreen.main.scale
 
-        titleLabel.text = "Bradley Robert Root"
-        addSubview(titleLabel)
+        titleLabel.centerYAnchor.constraint(equalTo: backgroundView.topAnchor).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: -33).isActive = true
+
+        titleLabel.textColor = .aeonBrightYellow
+        titleLabel.font = UIFont.aeonTitleFontMedium
+        titleLabel.text = "Bradley Robert Root".uppercased()
+
         titleLabel.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         titleLabel.layer.shadowOpacity = 1
         titleLabel.layer.shadowRadius = 4
         titleLabel.layer.shadowOffset = CGSize(width: 0, height: 4)
         titleLabel.layer.shouldRasterize = true
         titleLabel.layer.rasterizationScale = UIScreen.main.scale
-
-        backgroundView.snp.makeConstraints { make in
-            make.height.equalTo(titleLabel.snp.height).multipliedBy(1.2)
-            make.width.equalTo(titleLabel.snp.width)
-            make.bottom.equalToSuperview().offset(-120)
-            make.right.equalToSuperview().offset(-120)
-        }
-
-        titleLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.top)
-            make.left.equalTo(backgroundView.snp.left).offset(-33)
-        }
-
-        isHidden = true
     }
 
-    fileprivate func setupDataLabels() {
-        healthLabel.title = "HEALTH"
-        healthLabel.data = "0"
-
-        feelingLabel.title = "FEELING"
-        feelingLabel.data = "NEWBORN"
-
-        ageLabel.title = "AGE"
-        ageLabel.data = "0 SECONDS"
-
+    private func setupDataLabels() {
         stackView = UIStackView(arrangedSubviews: [healthLabel, feelingLabel, ageLabel])
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
         stackView.alignment = .fill
         stackView.spacing = 30
 
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.addSubview(stackView)
-
-        stackView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().offset(5)
-            make.centerX.equalToSuperview()
-            make.left.greaterThanOrEqualToSuperview().offset(90)
-            make.right.lessThanOrEqualToSuperview().offset(-90)
-        }
+        stackView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor, constant: 5).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 90).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -90).isActive = true
     }
 
-    fileprivate func setupButtons() {
+    private func setupButtons() {
         saveButton.setTitle("SAVE", for: .normal)
         favoriteButton.setTitle("FAVORITE", for: .normal)
         renameButton.setTitle("RENAME", for: .normal)
 
         let buttons = [saveButton, favoriteButton, renameButton]
         for button in buttons {
+            button.translatesAutoresizingMaskIntoConstraints = false
             backgroundView.addSubview(button)
+            button.centerYAnchor.constraint(equalTo: backgroundView.bottomAnchor).isActive = true
         }
 
-        saveButton.snp.makeConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-            make.right.equalTo(backgroundView.snp.right).offset(20)
+        saveButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: 20).isActive = true
+        renameButton.trailingAnchor.constraint(equalTo: saveButton.leadingAnchor, constant: -30).isActive = true
+        favoriteButton.trailingAnchor.constraint(equalTo: renameButton.leadingAnchor, constant: -30).isActive = true
+    }
+
+    // MARK: - Animations
+
+    private let slideOffset: CGFloat = 300
+
+    private var currentState: State = .closed
+    private var runningAnimators = [UIViewPropertyAnimator]()
+    private var animationProgress = [CGFloat]()
+
+    private func animateTransitionIfNeeded(to state: State, duration: TimeInterval) {
+        guard runningAnimators.isEmpty else { return }
+
+        let transitionAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
+            switch state {
+            case .open:
+                self.isHidden = false
+                self.backgroundBottomAnchor.constant = -120
+            case .closed:
+                self.backgroundBottomAnchor.constant = self.slideOffset
+            }
+            self.layoutIfNeeded()
         }
 
-        renameButton.snp.makeConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-            make.right.equalTo(saveButton.snp.left).offset(-30)
+        transitionAnimator.addCompletion { (position) in
+            switch position {
+            case .start:
+                self.currentState = state.opposite
+            case .end:
+                self.currentState = state
+            case .current:
+                ()
+            @unknown default:
+                fatalError()
+            }
+
+            switch self.currentState {
+            case .open:
+                self.backgroundBottomAnchor.constant = -120
+            case .closed:
+                self.backgroundBottomAnchor.constant = self.slideOffset
+                self.isHidden = true
+            }
+
+            self.runningAnimators.removeAll()
         }
 
-        favoriteButton.snp.makeConstraints { make in
-            make.centerY.equalTo(backgroundView.snp.bottom)
-            make.right.equalTo(renameButton.snp.left).offset(-30)
+        transitionAnimator.startAnimation()
+        runningAnimators.append(transitionAnimator)
+    }
+
+    func toggle() {
+        if !runningAnimators.isEmpty {
+            runningAnimators.forEach { $0.pauseAnimation() }
+            runningAnimators.forEach { $0.isReversed = !$0.isReversed }
+            runningAnimators.forEach { $0.continueAnimation(withTimingParameters: nil, durationFactor: 0) }
+        } else {
+            switch currentState {
+            case .open:
+                animateTransitionIfNeeded(to: .closed, duration: 1)
+            case .closed:
+                animateTransitionIfNeeded(to: .open, duration: 1)
+            }
         }
     }
+
 }

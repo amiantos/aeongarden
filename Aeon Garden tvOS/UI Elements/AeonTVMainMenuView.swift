@@ -42,12 +42,12 @@ class AeonTVMainMenuView: UIView {
     let birthsLabel = AeonTVDataView(name: "BIRTHS", initialValue: "0")
     let deathsLabel = AeonTVDataView(name: "DEATHS", initialValue: "0")
     let clockLabel = AeonTVDataView(name: "CLOCK", initialValue: "00:00:00")
+    private var stackView = UIStackView()
 
     private let settingsButton = AeonTVButton()
     private let newTankButton = AeonTVButton()
     private let saveTankButton = AeonTVButton()
     private let loadTankButton = AeonTVButton()
-    private var stackView = UIStackView()
 
     private func setupView() {
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -131,6 +131,7 @@ class AeonTVMainMenuView: UIView {
         let transitionAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
             switch state {
             case .open:
+                self.isHidden = false
                 self.backgroundTopAnchor.constant = 120
             case .closed:
                 self.backgroundTopAnchor.constant = self.slideOffset
@@ -155,6 +156,7 @@ class AeonTVMainMenuView: UIView {
                 self.backgroundTopAnchor.constant = 120
             case .closed:
                 self.backgroundTopAnchor.constant = self.slideOffset
+                self.isHidden = true
             }
 
             self.runningAnimators.removeAll()
