@@ -6,7 +6,6 @@
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
 
-import SnapKit
 import UIKit
 
 class AeonTVDetailsView: UIView {

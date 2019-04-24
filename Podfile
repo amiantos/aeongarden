@@ -1,7 +1,6 @@
 def shared_pods
   pod 'SwiftLint'
   pod 'SwiftFormat/CLI'
-  pod 'SnapKit', '~> 4.0'
 end
 
 target 'Aeon Garden iOS' do
