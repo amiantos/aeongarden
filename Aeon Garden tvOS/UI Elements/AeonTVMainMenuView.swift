@@ -119,8 +119,8 @@ class AeonTVMainMenuView: UIView {
 
     private let slideOffset: CGFloat = -300
 
-    private var currentState: State = .open
-    private var runningAnimators = [UIViewPropertyAnimator]()
+    var currentState: State = .open
+    var runningAnimators = [UIViewPropertyAnimator]()
     private var animationProgress = [CGFloat]()
 
     private func animateTransitionIfNeeded(to state: State, duration: TimeInterval) {

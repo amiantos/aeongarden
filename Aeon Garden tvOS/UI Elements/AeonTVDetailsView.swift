@@ -47,6 +47,7 @@ class AeonTVDetailsView: UIView {
     private let renameButton = AeonTVButton()
 
     private func setupView() {
+        isHidden = true
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backgroundView)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -91,8 +92,9 @@ class AeonTVDetailsView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.addSubview(stackView)
         stackView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor, constant: 5).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 90).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -90).isActive = true
+        stackView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor).isActive = true
+        stackView.leadingAnchor.constraint(greaterThanOrEqualTo: backgroundView.leadingAnchor, constant: 90).isActive = true
+        stackView.trailingAnchor.constraint(lessThanOrEqualTo: backgroundView.trailingAnchor, constant: -90).isActive = true
     }
 
     private func setupButtons() {
@@ -116,8 +118,8 @@ class AeonTVDetailsView: UIView {
 
     private let slideOffset: CGFloat = 300
 
-    private var currentState: State = .closed
-    private var runningAnimators = [UIViewPropertyAnimator]()
+    var currentState: State = .closed
+    var runningAnimators = [UIViewPropertyAnimator]()
     private var animationProgress = [CGFloat]()
 
     private func animateTransitionIfNeeded(to state: State, duration: TimeInterval) {

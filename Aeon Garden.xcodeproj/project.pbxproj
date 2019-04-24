@@ -333,9 +333,9 @@
 			isa = PBXGroup;
 			children = (
 				B4BF89F0226AA55C006F2A33 /* AeonTVMainMenuView.swift */,
+				B4B2D1F6226C372E0050F14C /* AeonTVDetailsView.swift */,
 				B4B2D1F2226BD9A40050F14C /* AeonTVButton.swift */,
 				B4B2D1F4226BD9D20050F14C /* AeonTVDataView.swift */,
-				B4B2D1F6226C372E0050F14C /* AeonTVDetailsView.swift */,
 			);
 			path = "UI Elements";
 			sourceTree = "<group>";

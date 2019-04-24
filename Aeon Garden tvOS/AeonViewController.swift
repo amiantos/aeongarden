@@ -17,6 +17,16 @@ class AeonViewController: UIViewController {
     let mainMenu = AeonTVMainMenuView()
     let detailsView = AeonTVDetailsView(frame: CGRect(x: 0, y: 0, width: 1920, height: 1080))
 
+    weak var selectedCreature: AeonCreatureNode? {
+        didSet {
+            if selectedCreature != nil && oldValue == nil {
+                toggleMainMenu()
+            } else if selectedCreature == nil && oldValue != nil {
+                toggleMainMenu()
+            }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,11 +55,11 @@ class AeonViewController: UIViewController {
     }
 
     fileprivate func setupTemporaryControls() {
-        let selectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleMainMenu))
+        let selectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectRandomCreature))
         selectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.playPause.rawValue)]
         view.addGestureRecognizer(selectCreatureRecognizer)
 
-        let deselectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleMainMenu))
+        let deselectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(deselectCreature))
         deselectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
         view.addGestureRecognizer(deselectCreatureRecognizer)
     }
@@ -61,15 +71,17 @@ class AeonViewController: UIViewController {
             mateArray.append(child)
         }
         if let selected = mateArray.randomElement() {
+            selectedCreature = selected
             scene!.selectCreature(selected)
         }
     }
 
     @objc func deselectCreature() {
+        selectedCreature = nil
         scene!.resetCamera()
     }
 
-    @objc func toggleMainMenu() {
+    func toggleMainMenu() {
         mainMenu.toggle()
         detailsView.toggle()
         setNeedsFocusUpdate()
