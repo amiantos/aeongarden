@@ -54,7 +54,7 @@ class AeonTVMainMenuView: UIView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleLabel)
 
-        backgroundView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor).isActive = true
+        backgroundView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, multiplier: 0.95).isActive = true
         backgroundView.widthAnchor.constraint(equalTo: titleLabel.widthAnchor).isActive = true
         backgroundTopAnchor = backgroundView.topAnchor.constraint(equalTo: topAnchor, constant: 120)
         backgroundTopAnchor.isActive = true
