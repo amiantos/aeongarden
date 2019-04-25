@@ -35,7 +35,7 @@ class AeonTankScene: SKScene {
     public var birthCount: Int = 0
 
     private var foodPelletMax: Int = 20
-    private var creatureMinimum: Int = 20
+    private var creatureMinimum: Int = 10
 
     private var lastFoodTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
@@ -59,7 +59,11 @@ class AeonTankScene: SKScene {
 
     private var cameraNode: SKCameraNode = SKCameraNode()
 
-    weak var tankDelegate: AeonTankUIDelegate?
+    weak var tankDelegate: AeonTankUIDelegate? {
+        didSet {
+            tankDelegate?.updatePopulation(creatureNodes.count)
+        }
+    }
 
     var selectedCreature: AeonCreatureNode? {
         didSet {
@@ -103,8 +107,8 @@ class AeonTankScene: SKScene {
         setupCamera()
         setupBackgroundGradient()
         setupBackgroundAnimation()
-//        createInitialCreatures()
-//        createInitialBubbles()
+        createInitialCreatures()
+        createInitialBubbles()
     }
 
     override func didMove(to _: SKView) {
