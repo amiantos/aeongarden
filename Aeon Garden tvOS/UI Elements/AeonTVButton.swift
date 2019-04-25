@@ -39,6 +39,11 @@ class AeonTVButton: UIButton {
         sizeToFit()
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.shadowPath = UIBezierPath(rect: bounds).cgPath
+    }
+
     override func didUpdateFocus(in _: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         coordinator.addCoordinatedAnimations({
             let duration = UIView.inheritedAnimationDuration

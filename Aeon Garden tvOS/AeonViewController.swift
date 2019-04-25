@@ -40,7 +40,8 @@ class AeonViewController: UIViewController {
 
         setupTemporaryControls()
 
-        view.addSubview(mainMenu)
+        //view.addSubview(mainMenu)
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(detailsView)
 
         setNeedsFocusUpdate()
@@ -112,7 +113,7 @@ extension AeonViewController: AeonTankUIDelegate {
 
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?) {
         if let creature = creature {
-            detailsView.titleLabel.text = creature.name?.localizedUppercase
+            detailsView.title = creature.name?.localizedUppercase
             detailsView.healthLabel.data = String(Int(creature.getCurrentHealth())).localizedUppercase
             detailsView.feelingLabel.data = creature.getCurrentState().localizedUppercase
             detailsView.ageLabel.data = creature.lifeTimeFormattedAsString().localizedUppercase

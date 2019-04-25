@@ -61,6 +61,8 @@ class AeonTVMainMenuView: UIView {
         backgroundTopAnchor.isActive = true
         backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 120).isActive = true
 
+        backgroundView.isOpaque = true
+        backgroundView.layer.masksToBounds = false
         backgroundView.backgroundColor = .aeonMediumRed
         backgroundView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50).cgColor
         backgroundView.layer.shadowOpacity = 1
@@ -77,6 +79,9 @@ class AeonTVMainMenuView: UIView {
         titleLabel.font = UIFont.aeonTitleFontLarge
         titleLabel.text = "AEON GARDEN"
 
+        titleLabel.isOpaque = true
+        titleLabel.layer.masksToBounds = false
+        //titleLabel.layer.shadowPath = UIBezierPath(rect: titleLabel.bounds).cgPath
         titleLabel.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         titleLabel.layer.shadowOpacity = 1
         titleLabel.layer.shadowRadius = 4
@@ -117,6 +122,12 @@ class AeonTVMainMenuView: UIView {
         settingsButton.trailingAnchor.constraint(equalTo: saveTankButton.leadingAnchor, constant: -30).isActive = true
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        //titleLabel.layer.shadowPath = UIBezierPath(rect: titleLabel.bounds).cgPath
+        backgroundView.layer.shadowPath = UIBezierPath(rect: backgroundView.bounds).cgPath
+    }
+
     // MARK: - Animations
 
     private let slideOffset: CGFloat = -300
@@ -131,7 +142,6 @@ class AeonTVMainMenuView: UIView {
         let transitionAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
             switch state {
             case .open:
-                self.isHidden = false
                 self.backgroundTopAnchor.constant = 120
                 self.titleCenterYAnchor.constant = 0
             case .closed:
@@ -160,7 +170,6 @@ class AeonTVMainMenuView: UIView {
             case .closed:
                 self.backgroundTopAnchor.constant = self.slideOffset
                 self.titleCenterYAnchor.constant = self.slideOffset
-                self.isHidden = true
             }
 
             self.runningAnimators.removeAll()

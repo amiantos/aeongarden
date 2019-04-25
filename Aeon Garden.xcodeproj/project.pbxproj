@@ -219,8 +219,8 @@
 				B4364F791F8C78070002B2BB /* AeonNameGenerator */,
 				44868F672231E855009F0460 /* AeonUtils.swift */,
 				B4DEED31224708800026604C /* AeonColors.swift */,
-				B480388D223750DD005AF239 /* SKTextureGradient.swift */,
 				449FF756226FD92900704D7C /* AeonFonts.swift */,
+				B480388D223750DD005AF239 /* SKTextureGradient.swift */,
 			);
 			name = Utilities;
 			path = "Aeon Garden Shared/Utilities";

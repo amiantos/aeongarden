@@ -32,9 +32,50 @@ class AeonTVDetailsView: UIView {
     // MARK: - View Setup
 
     private let backgroundView = UIView()
-    let titleLabel = UILabel()
+    private let titleLabel = UILabel()
 
-    private var backgroundBottomAnchor = NSLayoutConstraint()
+    var title: String? = "BRADLEY ROBERT ROOT" {
+        didSet {
+            if self.title != oldValue {
+                let currentShadowPath = self.backgroundView.bounds
+                let newShadowPath = self.backgroundView.bounds
+                let animation = UIViewPropertyAnimator(duration: 1, curve: .easeInOut, animations: {
+                    self.backgroundWidthConstraint.constant = self.titleLabel.bounds.width + 66
+                    self.titleLabel.alpha = 1
+                    self.layoutIfNeeded()
+                })
+                animation.addCompletion { (position) in
+                    self.titleLabel.alpha = 1
+                    self.backgroundWidthConstraint.constant = self.titleLabel.bounds.width + 66
+                }
+
+                let fadeOutAnimation = UIViewPropertyAnimator(duration: 0.2, curve: .linear, animations: {
+                    self.titleLabel.alpha = 0
+                })
+                fadeOutAnimation.addCompletion { (position) in
+                    if position == .end {
+                        self.titleLabel.text = self.title
+                        self.layoutIfNeeded()
+                        animation.startAnimation()
+
+                        let shadowAnimation = CABasicAnimation(keyPath: "shadowPath")
+                        shadowAnimation.fromValue = currentShadowPath
+                        shadowAnimation.toValue = newShadowPath
+                        shadowAnimation.duration = 1
+                        shadowAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+                        shadowAnimation.isRemovedOnCompletion = true
+                        shadowAnimation.autoreverses = true
+                        self.backgroundView.layer.add(shadowAnimation, forKey: "shadowAnimation")
+                    }
+                }
+
+                fadeOutAnimation.startAnimation()
+            }
+        }
+    }
+
+    private var rightAnchorConstraint = NSLayoutConstraint()
+    private var backgroundWidthConstraint = NSLayoutConstraint()
     private var titleCenterYAnchor = NSLayoutConstraint()
 
     let healthLabel = AeonTVDataView(name: "HEALTH", initialValue: "0")
@@ -47,18 +88,27 @@ class AeonTVDetailsView: UIView {
     private let favoriteButton = AeonTVButton()
     private let renameButton = AeonTVButton()
 
+    var parentConstraintsCreated: Bool = false
+
     private func setupView() {
-        isHidden = true
+        translatesAutoresizingMaskIntoConstraints = false
+//        clipsToBounds = true
+//        backgroundColor = .white
+        contentMode = .right
+
+        heightAnchor.constraint(equalToConstant: 250).isActive = true
+        backgroundWidthConstraint = widthAnchor.constraint(greaterThanOrEqualToConstant: 1000)
+        backgroundWidthConstraint.isActive = true
+
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backgroundView)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(titleLabel)
+        backgroundView.addSubview(titleLabel)
 
-        backgroundView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, multiplier: 1.2).isActive = true
-        backgroundView.widthAnchor.constraint(equalTo: titleLabel.widthAnchor).isActive = true
-        backgroundBottomAnchor = backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: slideOffset)
-        backgroundBottomAnchor.isActive = true
-        backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -120).isActive = true
+        backgroundView.topAnchor.constraint(equalTo: topAnchor, constant: 55).isActive = true
+        backgroundView.rightAnchor.constraint(equalTo: rightAnchor, constant: -33).isActive = true
+        backgroundView.leftAnchor.constraint(equalTo: leftAnchor, constant: 33).isActive = true
+        backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30).isActive = true
 
         backgroundView.backgroundColor = .aeonMediumRed
         backgroundView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50).cgColor
@@ -68,13 +118,14 @@ class AeonTVDetailsView: UIView {
         backgroundView.layer.shouldRasterize = true
         backgroundView.layer.rasterizationScale = UIScreen.main.scale
 
-        titleCenterYAnchor = titleLabel.centerYAnchor.constraint(equalTo: backgroundView.topAnchor)
-        titleCenterYAnchor.isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: -33).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
 
+        titleLabel.clipsToBounds = false
+        titleLabel.contentMode = .left
+        titleLabel.text = "BRADLEY ROBERT ROOT"
         titleLabel.textColor = .aeonBrightYellow
         titleLabel.font = UIFont.aeonTitleFontMedium
-        titleLabel.text = "Bradley Robert Root".uppercased()
 
         titleLabel.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         titleLabel.layer.shadowOpacity = 1
@@ -92,11 +143,12 @@ class AeonTVDetailsView: UIView {
         stackView.spacing = 30
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundView.addSubview(stackView)
-        stackView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor, constant: 5).isActive = true
-        stackView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor).isActive = true
-        stackView.leadingAnchor.constraint(greaterThanOrEqualTo: backgroundView.leadingAnchor, constant: 90).isActive = true
-        stackView.trailingAnchor.constraint(lessThanOrEqualTo: backgroundView.trailingAnchor, constant: -90).isActive = true
+        addSubview(stackView)
+        stackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 700).isActive = true
+        stackView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 12).isActive = true
+        stackView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        stackView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 90).isActive = true
+        stackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -90).isActive = true
     }
 
     private func setupButtons() {
@@ -107,18 +159,34 @@ class AeonTVDetailsView: UIView {
         let buttons = [saveButton, favoriteButton, renameButton]
         for button in buttons {
             button.translatesAutoresizingMaskIntoConstraints = false
-            backgroundView.addSubview(button)
-            button.centerYAnchor.constraint(equalTo: backgroundView.bottomAnchor).isActive = true
+            addSubview(button)
+            button.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         }
 
-        saveButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: 20).isActive = true
+        saveButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
         renameButton.trailingAnchor.constraint(equalTo: saveButton.leadingAnchor, constant: -30).isActive = true
         favoriteButton.trailingAnchor.constraint(equalTo: renameButton.leadingAnchor, constant: -30).isActive = true
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        //backgroundView.layer.shadowPath = UIBezierPath(rect: backgroundView.bounds).cgPath
+
+        if let parent = superview, parentConstraintsCreated == false {
+            print("Creating Parent Constraints")
+            bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: -60).isActive = true
+//            rightAnchorConstraint = rightAnchor.constraint(equalTo: parent.rightAnchor, constant: -90)
+//            rightAnchorConstraint.priority = .required
+//            rightAnchorConstraint.isActive = true
+            centerXAnchor.constraint(equalTo: parent.centerXAnchor).isActive = true
+            leftAnchor.constraint(greaterThanOrEqualTo: parent.leftAnchor, constant: 90).isActive = true
+            parentConstraintsCreated = true
+        }
+    }
+
     // MARK: - Animations
 
-    private let slideOffset: CGFloat = 300
+    private let slideOffset: CGFloat = 20
 
     var currentState: State = .closed
     var runningAnimators = [UIViewPropertyAnimator]()
@@ -130,11 +198,10 @@ class AeonTVDetailsView: UIView {
         let transitionAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
             switch state {
             case .open:
-                self.isHidden = false
-                self.backgroundBottomAnchor.constant = -120
+                //self.bottomAnchorConstraint.constant = -120
                 self.titleCenterYAnchor.constant = 0
             case .closed:
-                self.backgroundBottomAnchor.constant = self.slideOffset
+                //self.bottomAnchorConstraint.constant = self.slideOffset
                 self.titleCenterYAnchor.constant = self.slideOffset
             }
             self.layoutIfNeeded()
@@ -154,12 +221,11 @@ class AeonTVDetailsView: UIView {
 
             switch self.currentState {
             case .open:
-                self.backgroundBottomAnchor.constant = -120
+                //self.bottomAnchorConstraint.constant = -120
                 self.titleCenterYAnchor.constant = 0
             case .closed:
-                self.backgroundBottomAnchor.constant = self.slideOffset
+                //self.bottomAnchorConstraint.constant = self.slideOffset
                 self.titleCenterYAnchor.constant = self.slideOffset
-                self.isHidden = true
             }
 
             self.runningAnimators.removeAll()

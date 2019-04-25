@@ -41,22 +41,25 @@ class AeonTVDataView: UIView {
     }
 
     private func setupView() {
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(titleLabel)
         dataLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(dataLabel)
+
+        // MARK: - Constraints
         dataLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         dataLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         dataLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 
-        dataLabel.font = UIFont.aeonDataFont
-        dataLabel.backgroundColor = .aeonMediumRed
-        dataLabel.textColor = .aeonBrightBrown
-
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(titleLabel)
         titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: dataLabel.leadingAnchor, constant: -10).isActive = true
+
+        // MARK: - Appearance
+        dataLabel.font = UIFont.aeonDataFont
+        dataLabel.backgroundColor = .aeonMediumRed
+        dataLabel.textColor = .aeonBrightBrown
 
         titleLabel.font = UIFont.aeonDataTitleFont
         titleLabel.textColor = .aeonBrightYellow
