@@ -96,7 +96,7 @@ class AeonTVDetailsView: UIView {
 //        backgroundColor = .white
         contentMode = .right
 
-        heightAnchor.constraint(equalToConstant: 250).isActive = true
+        heightAnchor.constraint(equalToConstant: 225).isActive = true
         backgroundWidthConstraint = widthAnchor.constraint(greaterThanOrEqualToConstant: 1000)
         backgroundWidthConstraint.isActive = true
 
@@ -105,7 +105,7 @@ class AeonTVDetailsView: UIView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.addSubview(titleLabel)
 
-        backgroundView.topAnchor.constraint(equalTo: topAnchor, constant: 55).isActive = true
+        backgroundView.topAnchor.constraint(equalTo: topAnchor, constant: 58).isActive = true
         backgroundView.rightAnchor.constraint(equalTo: rightAnchor, constant: -33).isActive = true
         backgroundView.leftAnchor.constraint(equalTo: leftAnchor, constant: 33).isActive = true
         backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30).isActive = true
@@ -145,12 +145,12 @@ class AeonTVDetailsView: UIView {
         stackView.spacing = 30
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(stackView)
+        backgroundView.addSubview(stackView)
         stackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 700).isActive = true
-        stackView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 12).isActive = true
-        stackView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        stackView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 110).isActive = true
-        stackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -110).isActive = true
+        stackView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor, constant: 0).isActive = true
+        stackView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor).isActive = true
+        stackView.leadingAnchor.constraint(greaterThanOrEqualTo: backgroundView.leadingAnchor, constant: 80).isActive = true
+        stackView.trailingAnchor.constraint(lessThanOrEqualTo: backgroundView.trailingAnchor, constant: -80).isActive = true
     }
 
     private func setupButtons() {
