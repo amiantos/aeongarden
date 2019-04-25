@@ -148,7 +148,7 @@ class AeonTVMainMenuView: UIView {
                 self.backgroundTopAnchor.constant = self.slideOffset
                 self.titleCenterYAnchor.constant = self.slideOffset
             }
-            self.layoutIfNeeded()
+            self.superview?.layoutIfNeeded()
         }
 
         transitionAnimator.addCompletion { position in

@@ -42,7 +42,7 @@ class AeonTVDetailsView: UIView {
                 let animation = UIViewPropertyAnimator(duration: 1, curve: .easeInOut, animations: {
                     self.backgroundWidthConstraint.constant = self.titleLabel.bounds.width + 66
                     self.titleLabel.alpha = 1
-                    self.layoutIfNeeded()
+                    self.superview?.layoutIfNeeded()
                 })
                 animation.addCompletion { (position) in
                     self.titleLabel.alpha = 1
@@ -55,7 +55,7 @@ class AeonTVDetailsView: UIView {
                 fadeOutAnimation.addCompletion { (position) in
                     if position == .end {
                         self.titleLabel.text = self.title
-                        self.layoutIfNeeded()
+                        self.superview?.layoutIfNeeded()
                         animation.startAnimation()
 
                         let shadowAnimation = CABasicAnimation(keyPath: "shadowPath")
@@ -74,7 +74,7 @@ class AeonTVDetailsView: UIView {
         }
     }
 
-    private var rightAnchorConstraint = NSLayoutConstraint()
+    private var bottomAnchorConstraint = NSLayoutConstraint()
     private var backgroundWidthConstraint = NSLayoutConstraint()
     private var titleCenterYAnchor = NSLayoutConstraint()
 
@@ -133,6 +133,8 @@ class AeonTVDetailsView: UIView {
         titleLabel.layer.shadowOffset = CGSize(width: 0, height: 4)
         titleLabel.layer.shouldRasterize = true
         titleLabel.layer.rasterizationScale = UIScreen.main.scale
+
+        titleLabel.alpha = 0
     }
 
     private func setupDataLabels() {
@@ -147,8 +149,8 @@ class AeonTVDetailsView: UIView {
         stackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 700).isActive = true
         stackView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 12).isActive = true
         stackView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        stackView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 90).isActive = true
-        stackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -90).isActive = true
+        stackView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 110).isActive = true
+        stackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -110).isActive = true
     }
 
     private func setupButtons() {
@@ -170,15 +172,12 @@ class AeonTVDetailsView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        //backgroundView.layer.shadowPath = UIBezierPath(rect: backgroundView.bounds).cgPath
 
         if let parent = superview, parentConstraintsCreated == false {
             print("Creating Parent Constraints")
-            bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: -60).isActive = true
-//            rightAnchorConstraint = rightAnchor.constraint(equalTo: parent.rightAnchor, constant: -90)
-//            rightAnchorConstraint.priority = .required
-//            rightAnchorConstraint.isActive = true
-            centerXAnchor.constraint(equalTo: parent.centerXAnchor).isActive = true
+            bottomAnchorConstraint = bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: self.slideOffset)
+            bottomAnchorConstraint.isActive = true
+            rightAnchor.constraint(equalTo: parent.rightAnchor, constant: -90).isActive = true
             leftAnchor.constraint(greaterThanOrEqualTo: parent.leftAnchor, constant: 90).isActive = true
             parentConstraintsCreated = true
         }
@@ -186,7 +185,7 @@ class AeonTVDetailsView: UIView {
 
     // MARK: - Animations
 
-    private let slideOffset: CGFloat = 20
+    private let slideOffset: CGFloat = 310
 
     var currentState: State = .closed
     var runningAnimators = [UIViewPropertyAnimator]()
@@ -198,13 +197,12 @@ class AeonTVDetailsView: UIView {
         let transitionAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
             switch state {
             case .open:
-                //self.bottomAnchorConstraint.constant = -120
-                self.titleCenterYAnchor.constant = 0
+                self.bottomAnchorConstraint.constant = -60
             case .closed:
-                //self.bottomAnchorConstraint.constant = self.slideOffset
-                self.titleCenterYAnchor.constant = self.slideOffset
+                self.bottomAnchorConstraint.constant = self.slideOffset
+                self.titleLabel.alpha = 0
             }
-            self.layoutIfNeeded()
+            self.superview?.layoutIfNeeded()
         }
 
         transitionAnimator.addCompletion { position in
@@ -221,11 +219,10 @@ class AeonTVDetailsView: UIView {
 
             switch self.currentState {
             case .open:
-                //self.bottomAnchorConstraint.constant = -120
-                self.titleCenterYAnchor.constant = 0
+                self.bottomAnchorConstraint.constant = -60
             case .closed:
-                //self.bottomAnchorConstraint.constant = self.slideOffset
-                self.titleCenterYAnchor.constant = self.slideOffset
+                self.bottomAnchorConstraint.constant = self.slideOffset
+                self.titleLabel.alpha = 0
             }
 
             self.runningAnimators.removeAll()

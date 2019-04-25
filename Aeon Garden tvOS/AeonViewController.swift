@@ -40,7 +40,7 @@ class AeonViewController: UIViewController {
 
         setupTemporaryControls()
 
-        //view.addSubview(mainMenu)
+        view.addSubview(mainMenu)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(detailsView)
 
