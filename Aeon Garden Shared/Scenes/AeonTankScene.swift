@@ -34,8 +34,8 @@ class AeonTankScene: SKScene {
     public var deathCount: Int = 0
     public var birthCount: Int = 0
 
-    private var foodPelletMax: Int = 20
-    private var creatureMinimum: Int = 10
+    private var foodPelletMax: Int = 50
+    private var creatureMinimum: Int = 50
 
     private var lastFoodTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
@@ -96,7 +96,7 @@ class AeonTankScene: SKScene {
             selectedCreature?.hideSelectionRing()
         }
         selectedCreature = creature
-        creature.displaySelectionRing(withColor: .aeonBrightYellow)
+//        creature.displaySelectionRing(withColor: .aeonBrightYellow)
         camera?.run(SKAction.scale(to: 0.4, duration: 1))
     }
 
