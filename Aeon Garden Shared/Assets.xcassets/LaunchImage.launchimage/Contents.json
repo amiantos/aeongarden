@@ -3,7 +3,7 @@
     {
       "orientation" : "landscape",
       "idiom" : "tv",
-      "filename" : "Simulator Screen Shot - Apple TV 4K - 2019-04-25 at 20.01.54.png",
+      "filename" : "LaunchImage2x.png",
       "extent" : "full-screen",
       "minimum-system-version" : "11.0",
       "scale" : "2x"
@@ -11,7 +11,7 @@
     {
       "orientation" : "landscape",
       "idiom" : "tv",
-      "filename" : "Simulator Screen Shot - Apple TV - 2019-04-25 at 20.02.22-1.png",
+      "filename" : "LaunchImage1x.png",
       "extent" : "full-screen",
       "minimum-system-version" : "9.0",
       "scale" : "1x"
