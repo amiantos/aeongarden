@@ -94,6 +94,27 @@
 		B413AC0F2259C55800E8BDD1 /* AeonSomething.sks in Resources */ = {isa = PBXBuildFile; fileRef = B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */; };
 		B4250BFF2272B16300551424 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
 		B4250C002272B16400551424 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
+		B429D72C2272C1480069D551 /* aeonBirthSound-G4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7252272C1450069D551 /* aeonBirthSound-G4.wav */; };
+		B429D72D2272C1480069D551 /* aeonBirthSound-G4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7252272C1450069D551 /* aeonBirthSound-G4.wav */; };
+		B429D72E2272C1480069D551 /* aeonBirthSound-G4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7252272C1450069D551 /* aeonBirthSound-G4.wav */; };
+		B429D72F2272C1480069D551 /* aeonMateSound-G3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7262272C1460069D551 /* aeonMateSound-G3.wav */; };
+		B429D7302272C1480069D551 /* aeonMateSound-G3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7262272C1460069D551 /* aeonMateSound-G3.wav */; };
+		B429D7312272C1480069D551 /* aeonMateSound-G3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7262272C1460069D551 /* aeonMateSound-G3.wav */; };
+		B429D7322272C1480069D551 /* aeonBirthSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7272272C1460069D551 /* aeonBirthSound.wav */; };
+		B429D7332272C1480069D551 /* aeonBirthSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7272272C1460069D551 /* aeonBirthSound.wav */; };
+		B429D7342272C1480069D551 /* aeonBirthSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7272272C1460069D551 /* aeonBirthSound.wav */; };
+		B429D7352272C1480069D551 /* aeonBirthSound-C4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7282272C1460069D551 /* aeonBirthSound-C4.wav */; };
+		B429D7362272C1480069D551 /* aeonBirthSound-C4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7282272C1460069D551 /* aeonBirthSound-C4.wav */; };
+		B429D7372272C1480069D551 /* aeonBirthSound-C4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7282272C1460069D551 /* aeonBirthSound-C4.wav */; };
+		B429D7382272C1480069D551 /* aeonMateSound-E3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7292272C1470069D551 /* aeonMateSound-E3.wav */; };
+		B429D7392272C1480069D551 /* aeonMateSound-E3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7292272C1470069D551 /* aeonMateSound-E3.wav */; };
+		B429D73A2272C1480069D551 /* aeonMateSound-E3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7292272C1470069D551 /* aeonMateSound-E3.wav */; };
+		B429D73B2272C1480069D551 /* aeonMateSound-C3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72A2272C1470069D551 /* aeonMateSound-C3.wav */; };
+		B429D73C2272C1480069D551 /* aeonMateSound-C3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72A2272C1470069D551 /* aeonMateSound-C3.wav */; };
+		B429D73D2272C1480069D551 /* aeonMateSound-C3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72A2272C1470069D551 /* aeonMateSound-C3.wav */; };
+		B429D73E2272C1480069D551 /* aeonBirthSound-E4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */; };
+		B429D73F2272C1480069D551 /* aeonBirthSound-E4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */; };
+		B429D7402272C1480069D551 /* aeonBirthSound-E4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */; };
 		B4B2D1F3226BD9A40050F14C /* AeonTVButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F2226BD9A40050F14C /* AeonTVButton.swift */; };
 		B4B2D1F5226BD9D20050F14C /* AeonTVDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F4226BD9D20050F14C /* AeonTVDataView.swift */; };
 		B4B2D1F7226C372E0050F14C /* AeonTVDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F6226C372E0050F14C /* AeonTVDetailsView.swift */; };
@@ -140,6 +161,13 @@
 		B413AC032259A3AF00E8BDD1 /* click_04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click_04.wav; sourceTree = "<group>"; };
 		B413AC072259A3E600E8BDD1 /* pad_confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pad_confirm.wav; sourceTree = "<group>"; };
 		B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonSomething.sks; sourceTree = "<group>"; };
+		B429D7252272C1450069D551 /* aeonBirthSound-G4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonBirthSound-G4.wav"; sourceTree = "<group>"; };
+		B429D7262272C1460069D551 /* aeonMateSound-G3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonMateSound-G3.wav"; sourceTree = "<group>"; };
+		B429D7272272C1460069D551 /* aeonBirthSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = aeonBirthSound.wav; sourceTree = "<group>"; };
+		B429D7282272C1460069D551 /* aeonBirthSound-C4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonBirthSound-C4.wav"; sourceTree = "<group>"; };
+		B429D7292272C1470069D551 /* aeonMateSound-E3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonMateSound-E3.wav"; sourceTree = "<group>"; };
+		B429D72A2272C1470069D551 /* aeonMateSound-C3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonMateSound-C3.wav"; sourceTree = "<group>"; };
+		B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonBirthSound-E4.wav"; sourceTree = "<group>"; };
 		B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonNameGenerator.swift; sourceTree = "<group>"; };
 		B4364F801F8C81C10002B2BB /* Surnames */ = {isa = PBXFileReference; lastKnownFileType = text; path = Surnames; sourceTree = "<group>"; };
 		B4364F821F8C86020002B2BB /* FirstNames */ = {isa = PBXFileReference; lastKnownFileType = text; path = FirstNames; sourceTree = "<group>"; };
@@ -276,6 +304,13 @@
 		B413ABFA224FFD3B00E8BDD1 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				B429D7282272C1460069D551 /* aeonBirthSound-C4.wav */,
+				B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */,
+				B429D7252272C1450069D551 /* aeonBirthSound-G4.wav */,
+				B429D7272272C1460069D551 /* aeonBirthSound.wav */,
+				B429D72A2272C1470069D551 /* aeonMateSound-C3.wav */,
+				B429D7292272C1470069D551 /* aeonMateSound-E3.wav */,
+				B429D7262272C1460069D551 /* aeonMateSound-G3.wav */,
 				B413ABF6224FFD3800E8BDD1 /* pop.wav */,
 				B413AC032259A3AF00E8BDD1 /* click_04.wav */,
 				B413ABFF22599F6C00E8BDD1 /* pop_drip.wav */,
@@ -488,13 +523,20 @@
 				B413ABE3224D7D4F00E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */,
 				B413ABE4224D7D4F00E8BDD1 /* AeonCreatureBubbleTrail.sks in Resources */,
 				B4250BFF2272B16300551424 /* Assets.xcassets in Resources */,
+				B429D7322272C1480069D551 /* aeonBirthSound.wav in Resources */,
 				B413ABF7224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABCE224D7C8A00E8BDD1 /* Surnames in Resources */,
+				B429D72F2272C1480069D551 /* aeonMateSound-G3.wav in Resources */,
 				B413AC0D2259C55800E8BDD1 /* AeonSomething.sks in Resources */,
+				B429D73B2272C1480069D551 /* aeonMateSound-C3.wav in Resources */,
+				B429D7382272C1480069D551 /* aeonMateSound-E3.wav in Resources */,
+				B429D73E2272C1480069D551 /* aeonBirthSound-E4.wav in Resources */,
 				B413AB80224D73C400E8BDD1 /* LaunchScreen.storyboard in Resources */,
 				B413AC082259A3E600E8BDD1 /* pad_confirm.wav in Resources */,
 				B413ABCF224D7C8A00E8BDD1 /* FirstNames in Resources */,
 				B413AC0022599F6D00E8BDD1 /* pop_drip.wav in Resources */,
+				B429D72C2272C1480069D551 /* aeonBirthSound-G4.wav in Resources */,
+				B429D7352272C1480069D551 /* aeonBirthSound-C4.wav in Resources */,
 				B413AC042259A3AF00E8BDD1 /* click_04.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,13 +548,20 @@
 				B413ABE6224D7D4F00E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */,
 				B413AB8E224D73C400E8BDD1 /* Main.storyboard in Resources */,
 				B413ABF8224FFD3800E8BDD1 /* pop.wav in Resources */,
+				B429D7332272C1480069D551 /* aeonBirthSound.wav in Resources */,
 				B413ABE7224D7D4F00E8BDD1 /* AeonCreatureBubbleTrail.sks in Resources */,
 				B413AC0E2259C55800E8BDD1 /* AeonSomething.sks in Resources */,
+				B429D7302272C1480069D551 /* aeonMateSound-G3.wav in Resources */,
 				B413ABD4224D7C8B00E8BDD1 /* Surnames in Resources */,
+				B429D73C2272C1480069D551 /* aeonMateSound-C3.wav in Resources */,
+				B429D7392272C1480069D551 /* aeonMateSound-E3.wav in Resources */,
+				B429D73F2272C1480069D551 /* aeonBirthSound-E4.wav in Resources */,
 				B413AC092259A3E600E8BDD1 /* pad_confirm.wav in Resources */,
 				B413ABD5224D7C8B00E8BDD1 /* FirstNames in Resources */,
 				B413AC0122599F6D00E8BDD1 /* pop_drip.wav in Resources */,
 				B413ABF3224D847B00E8BDD1 /* Assets.xcassets in Resources */,
+				B429D72D2272C1480069D551 /* aeonBirthSound-G4.wav in Resources */,
+				B429D7362272C1480069D551 /* aeonBirthSound-C4.wav in Resources */,
 				B413AC052259A3AF00E8BDD1 /* click_04.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -524,13 +573,20 @@
 				B413ABE9224D7D5000E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */,
 				B413AB9C224D73C400E8BDD1 /* Main.storyboard in Resources */,
 				B4250C002272B16400551424 /* Assets.xcassets in Resources */,
+				B429D7342272C1480069D551 /* aeonBirthSound.wav in Resources */,
 				B413ABF9224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABEA224D7D5000E8BDD1 /* AeonCreatureBubbleTrail.sks in Resources */,
+				B429D7312272C1480069D551 /* aeonMateSound-G3.wav in Resources */,
 				B413AC0F2259C55800E8BDD1 /* AeonSomething.sks in Resources */,
+				B429D73D2272C1480069D551 /* aeonMateSound-C3.wav in Resources */,
+				B429D73A2272C1480069D551 /* aeonMateSound-E3.wav in Resources */,
+				B429D7402272C1480069D551 /* aeonBirthSound-E4.wav in Resources */,
 				B413ABDA224D7C8C00E8BDD1 /* Surnames in Resources */,
 				B413AC0A2259A3E600E8BDD1 /* pad_confirm.wav in Resources */,
 				B413ABDB224D7C8C00E8BDD1 /* FirstNames in Resources */,
 				B413AC0222599F6D00E8BDD1 /* pop_drip.wav in Resources */,
+				B429D72E2272C1480069D551 /* aeonBirthSound-G4.wav in Resources */,
+				B429D7372272C1480069D551 /* aeonBirthSound-C4.wav in Resources */,
 				B413AC062259A3AF00E8BDD1 /* click_04.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

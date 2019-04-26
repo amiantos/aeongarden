@@ -16,13 +16,23 @@ enum AeonSound: String {
     case bubblePop = "pop.wav"
     case creatureEat = "pop_drip.wav"
     case creatureMate = "click_04.wav"
-    case creatureBorn = "pad_confirm.wav"
+    case creatureBorn = "aeonBirthSound.wav"
 }
 
 class AeonSoundManager {
     static let shared = AeonSoundManager()
 
     func play(_ sound: AeonSound, onNode node: SKNode) {
-        node.run(SKAction.playSoundFileNamed(sound.rawValue, waitForCompletion: false))
+        var soundPath: String = ""
+        if sound == .creatureBorn {
+            let sounds = ["aeonBirthSound-C4.wav", "aeonBirthSound-E4.wav", "aeonBirthSound-G4.wav"]
+            soundPath = sounds.randomElement()!
+        } else if sound == .creatureMate {
+            let sounds = ["aeonMateSound-C3.wav", "aeonMateSound-E3.wav", "aeonMateSound-G3.wav"]
+            soundPath = sounds.randomElement()!
+        } else {
+            soundPath = sound.rawValue
+        }
+        node.run(SKAction.playSoundFileNamed(soundPath, waitForCompletion: false))
     }
 }

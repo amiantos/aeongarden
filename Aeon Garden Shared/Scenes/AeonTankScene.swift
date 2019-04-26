@@ -97,7 +97,7 @@ class AeonTankScene: SKScene {
             selectedCreature?.hideSelectionRing()
         }
         selectedCreature = creature
-//        creature.displaySelectionRing(withColor: .aeonBrightYellow)
+        creature.displaySelectionRing(withColor: .aeonBrightYellow)
         camera?.run(SKAction.scale(to: 0.4, duration: 1))
     }
 
