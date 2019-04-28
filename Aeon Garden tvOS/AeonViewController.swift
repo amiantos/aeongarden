@@ -28,7 +28,6 @@ class AeonViewController: UIViewController {
     var scene: AeonTankScene?
     var skView: SKView?
 
-    let mainMenu = AeonTVMainMenuView()
     weak var selectedCreature: AeonCreatureNode? {
         didSet {
             if selectedCreature != nil && oldValue == nil {
@@ -52,8 +51,12 @@ class AeonViewController: UIViewController {
             case .main:
                 self.detailsBottomAnchorConstraint.constant = self.detailsHiddenOffset
                 self.detailsTitleLabel.alpha = 0
+                self.mainTopAnchorConstraint.constant = self.mainDefaultOffset
+                self.mainTitleLabel.alpha = 1
             case .details:
                 self.detailsBottomAnchorConstraint.constant = self.detailsDefaultOffset
+                self.mainTopAnchorConstraint.constant = self.mainHiddenOffset
+                self.mainTitleLabel.alpha = 0
             }
             self.view.layoutIfNeeded()
         }
@@ -74,8 +77,12 @@ class AeonViewController: UIViewController {
             case .main:
                 self.detailsBottomAnchorConstraint.constant = self.detailsHiddenOffset
                 self.detailsTitleLabel.alpha = 0
+                self.mainTopAnchorConstraint.constant = self.mainDefaultOffset
+                self.mainTitleLabel.alpha = 1
             case .details:
                 self.detailsBottomAnchorConstraint.constant = self.detailsDefaultOffset
+                self.mainTopAnchorConstraint.constant = self.mainHiddenOffset
+                self.mainTitleLabel.alpha = 0
             }
 
             self.runningAnimators.removeAll()
@@ -99,6 +106,106 @@ class AeonViewController: UIViewController {
             }
         }
     }
+
+    // MARK: - Main Menu View
+    let mainContainerView = UIView()
+    let mainBackgroundView = UIView()
+    let mainTitleLabel = UILabel()
+
+    var mainTopAnchorConstraint = NSLayoutConstraint()
+
+    let mainPopulationLabel = AeonTVDataView(name: "POPULATION", initialValue: "0")
+    let mainFoodLabel = AeonTVDataView(name: "FOOD", initialValue: "0")
+    let mainBirthsLabel = AeonTVDataView(name: "BIRTHS", initialValue: "0")
+    let mainDeathsLabel = AeonTVDataView(name: "DEATHS", initialValue: "0")
+    let mainClockLabel = AeonTVDataView(name: "CLOCK", initialValue: "00:00:00")
+    var mainStackView = UIStackView()
+
+    private let mainSettingsButton = AeonTVButton()
+    private let mainNewTankButton = AeonTVButton()
+    private let mainSaveTankButton = AeonTVButton()
+    private let mainLoadTankButton = AeonTVButton()
+
+    let mainHiddenOffset: CGFloat = -300
+    let mainDefaultOffset: CGFloat = 60
+
+    func setupMainMenuView() {
+        mainContainerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(mainContainerView)
+        mainContainerView.heightAnchor.constraint(equalToConstant: 280).isActive = true
+        mainContainerView.widthAnchor.constraint(equalToConstant: 1153).isActive = true
+
+        mainBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        mainContainerView.addSubview(mainBackgroundView)
+        mainTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        mainBackgroundView.addSubview(mainTitleLabel)
+
+        mainBackgroundView.topAnchor.constraint(equalTo: mainContainerView.topAnchor, constant: 86).isActive = true
+        mainBackgroundView.rightAnchor.constraint(equalTo: mainContainerView.rightAnchor, constant: -33).isActive = true
+        mainBackgroundView.leftAnchor.constraint(equalTo: mainContainerView.leftAnchor, constant: 50).isActive = true
+        mainBackgroundView.bottomAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: -30).isActive = true
+
+        mainBackgroundView.backgroundColor = .aeonMediumRed
+        mainBackgroundView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50).cgColor
+        mainBackgroundView.layer.shadowOpacity = 1
+        mainBackgroundView.layer.shadowRadius = 20
+        mainBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        mainBackgroundView.layer.shouldRasterize = true
+        mainBackgroundView.layer.rasterizationScale = UIScreen.main.scale
+
+        mainTitleLabel.topAnchor.constraint(equalTo: mainContainerView.topAnchor).isActive = true
+        mainTitleLabel.leftAnchor.constraint(equalTo: mainContainerView.leftAnchor).isActive = true
+
+        mainTitleLabel.clipsToBounds = false
+        mainTitleLabel.contentMode = .left
+        mainTitleLabel.text = "AEON GARDEN"
+        mainTitleLabel.textColor = .aeonBrightYellow
+        mainTitleLabel.font = UIFont.aeonTitleFontLarge
+
+        mainTitleLabel.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        mainTitleLabel.layer.shadowOpacity = 1
+        mainTitleLabel.layer.shadowRadius = 4
+        mainTitleLabel.layer.shadowOffset = CGSize(width: 0, height: 4)
+        mainTitleLabel.layer.shouldRasterize = true
+        mainTitleLabel.layer.rasterizationScale = UIScreen.main.scale
+
+        mainTopAnchorConstraint = mainContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: mainDefaultOffset)
+        mainTopAnchorConstraint.isActive = true
+        mainContainerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 90).isActive = true
+
+        // MARK: Main Menu Data Labels
+        mainStackView = UIStackView(arrangedSubviews: [mainPopulationLabel, mainFoodLabel, mainBirthsLabel, mainDeathsLabel, mainClockLabel])
+        mainStackView.axis = .horizontal
+        mainStackView.distribution = .equalSpacing
+        mainStackView.alignment = .fill
+        mainStackView.spacing = 30
+
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        mainBackgroundView.addSubview(mainStackView)
+        mainStackView.centerYAnchor.constraint(equalTo: mainBackgroundView.centerYAnchor, constant: 10).isActive = true
+        mainStackView.centerXAnchor.constraint(equalTo: mainContainerView.centerXAnchor).isActive = true
+        mainStackView.leadingAnchor.constraint(greaterThanOrEqualTo: mainContainerView.leadingAnchor, constant: 80).isActive = true
+        mainStackView.trailingAnchor.constraint(lessThanOrEqualTo: mainContainerView.trailingAnchor, constant: -80).isActive = true
+
+        // MARK: Main Menu Buttons
+        mainSettingsButton.setTitle("SETTINGS", for: .normal)
+        mainNewTankButton.setTitle("NEW TANK", for: .normal)
+        mainSaveTankButton.setTitle("SAVE TANK", for: .normal)
+        mainLoadTankButton.setTitle("LOAD TANK", for: .normal)
+
+        let mainButtons = [mainSettingsButton, mainNewTankButton, mainSaveTankButton, mainLoadTankButton]
+        for button in mainButtons {
+            button.translatesAutoresizingMaskIntoConstraints = false
+            mainContainerView.addSubview(button)
+            button.bottomAnchor.constraint(equalTo: mainContainerView.bottomAnchor).isActive = true
+        }
+
+        mainNewTankButton.trailingAnchor.constraint(equalTo: mainContainerView.trailingAnchor, constant: 20).isActive = true
+        mainLoadTankButton.trailingAnchor.constraint(equalTo: mainNewTankButton.leadingAnchor, constant: -30).isActive = true
+        mainSaveTankButton.trailingAnchor.constraint(equalTo: mainLoadTankButton.leadingAnchor, constant: -30).isActive = true
+        mainSettingsButton.trailingAnchor.constraint(equalTo: mainSaveTankButton.leadingAnchor, constant: -30).isActive = true
+    }
+
 
     // MARK: - Details View
     let detailsContainerView = UIView()
@@ -131,7 +238,8 @@ class AeonViewController: UIViewController {
         view.addSubview(detailsContainerView)
         detailsContainerView.heightAnchor.constraint(equalToConstant: 225).isActive = true
 
-        detailsBackgroundWidthConstraint = detailsContainerView.widthAnchor.constraint(greaterThanOrEqualToConstant: 1000)
+        detailsBackgroundWidthConstraint = detailsContainerView.widthAnchor.constraint(equalToConstant: 1000)
+        detailsBackgroundWidthConstraint.priority = .defaultLow
         detailsBackgroundWidthConstraint.isActive = true
 
         detailsBackgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -179,15 +287,15 @@ class AeonViewController: UIViewController {
         detailsStackView.axis = .horizontal
         detailsStackView.distribution = .equalSpacing
         detailsStackView.alignment = .fill
-        detailsStackView.spacing = 30
+        detailsStackView.spacing = 20
 
         detailsStackView.translatesAutoresizingMaskIntoConstraints = false
-        detailsBackgroundView.addSubview(detailsStackView)
+        detailsContainerView.addSubview(detailsStackView)
         detailsStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 700).isActive = true
         detailsStackView.centerYAnchor.constraint(equalTo: detailsBackgroundView.centerYAnchor).isActive = true
-        detailsStackView.centerXAnchor.constraint(equalTo: detailsBackgroundView.centerXAnchor).isActive = true
-        detailsStackView.leadingAnchor.constraint(greaterThanOrEqualTo: detailsBackgroundView.leadingAnchor, constant: 80).isActive = true
-        detailsStackView.trailingAnchor.constraint(lessThanOrEqualTo: detailsBackgroundView.trailingAnchor, constant: -80).isActive = true
+        detailsStackView.centerXAnchor.constraint(equalTo: detailsContainerView.centerXAnchor).isActive = true
+        detailsStackView.leadingAnchor.constraint(greaterThanOrEqualTo: detailsContainerView.leadingAnchor, constant: 120).isActive = true
+        detailsStackView.trailingAnchor.constraint(lessThanOrEqualTo: detailsContainerView.trailingAnchor, constant: -120).isActive = true
 
         // MARK: Details Buttons
         detailsSaveButton.setTitle("SAVE", for: .normal)
@@ -258,19 +366,18 @@ class AeonViewController: UIViewController {
 
         setupTemporaryControls()
 
-        view.addSubview(mainMenu)
         view.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(detailsView)
+        setupMainMenuView()
         setupDetailsView()
 
         setNeedsFocusUpdate()
     }
 
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
-        if scene!.selectedCreature != nil {
+        if currentState == .details {
             return [detailsContainerView]
         } else {
-            return [mainMenu]
+            return [mainContainerView]
         }
     }
 
@@ -302,8 +409,6 @@ class AeonViewController: UIViewController {
     }
 
     func toggleMainMenu() {
-//        mainMenu.toggle()
-////        detailsView.toggle()
         toggle()
         setNeedsFocusUpdate()
         updateFocusIfNeeded()
@@ -312,23 +417,23 @@ class AeonViewController: UIViewController {
 
 extension AeonViewController: AeonTankUIDelegate {
     func updateClock(_ clock: String) {
-        mainMenu.clockLabel.data = clock
+        mainClockLabel.data = clock
     }
 
     func updatePopulation(_ population: Int) {
-        mainMenu.populationLabel.data = String(population)
+        mainPopulationLabel.data = String(population)
     }
 
     func updateFood(_ food: Int) {
-        mainMenu.foodLabel.data = String(food)
+        mainFoodLabel.data = String(food)
     }
 
     func updateBirths(_ births: Int) {
-        mainMenu.birthsLabel.data = String(births)
+        mainBirthsLabel.data = String(births)
     }
 
     func updateDeaths(_ deaths: Int) {
-        mainMenu.deathsLabel.data = String(deaths)
+        mainDeathsLabel.data = String(deaths)
     }
 
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?) {

@@ -117,7 +117,6 @@
 		B429D7402272C1480069D551 /* aeonBirthSound-E4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */; };
 		B4B2D1F3226BD9A40050F14C /* AeonTVButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F2226BD9A40050F14C /* AeonTVButton.swift */; };
 		B4B2D1F5226BD9D20050F14C /* AeonTVDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F4226BD9D20050F14C /* AeonTVDataView.swift */; };
-		B4BF89F2226AA55C006F2A33 /* AeonTVMainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BF89F0226AA55C006F2A33 /* AeonTVMainMenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -178,7 +177,6 @@
 		B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonOceanSquareBubbles.sks; sourceTree = "<group>"; };
 		B4B2D1F2226BD9A40050F14C /* AeonTVButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTVButton.swift; sourceTree = "<group>"; };
 		B4B2D1F4226BD9D20050F14C /* AeonTVDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTVDataView.swift; sourceTree = "<group>"; };
-		B4BF89F0226AA55C006F2A33 /* AeonTVMainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTVMainMenuView.swift; sourceTree = "<group>"; };
 		B4DEED31224708800026604C /* AeonColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonColors.swift; sourceTree = "<group>"; };
 		B4DEED37224806850026604C /* AeonNodeProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonNodeProtocols.swift; sourceTree = "<group>"; };
 		B4DEED39224817D80026604C /* AeonBubbleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonBubbleNode.swift; sourceTree = "<group>"; };
@@ -365,7 +363,6 @@
 		B4B2D1F1226BD9250050F14C /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
-				B4BF89F0226AA55C006F2A33 /* AeonTVMainMenuView.swift */,
 				B4B2D1F2226BD9A40050F14C /* AeonTVButton.swift */,
 				B4B2D1F4226BD9D20050F14C /* AeonTVDataView.swift */,
 			);
@@ -696,7 +693,6 @@
 				B413ABBF224D7C8200E8BDD1 /* AeonCreatureNode.swift in Sources */,
 				B413ABD8224D7C8B00E8BDD1 /* SKTextureGradient.swift in Sources */,
 				B413ABB6224D7C7200E8BDD1 /* AeonTankScene.swift in Sources */,
-				B4BF89F2226AA55C006F2A33 /* AeonTVMainMenuView.swift in Sources */,
 				B413ABC1224D7C8200E8BDD1 /* AeonCreatureBrain.swift in Sources */,
 				B413ABC3224D7C8200E8BDD1 /* AeonFoodNode.swift in Sources */,
 				B413ABFD225002A300E8BDD1 /* AeonSoundManager.swift in Sources */,
