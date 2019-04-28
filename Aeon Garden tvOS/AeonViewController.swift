@@ -107,6 +107,15 @@ class AeonViewController: UIViewController {
         }
     }
 
+    func initialAnimation() {
+        let transitionAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1) {
+            self.mainTopAnchorConstraint.constant = self.mainDefaultOffset
+            self.mainTitleLabel.alpha = 1
+            self.view.layoutIfNeeded()
+        }
+        transitionAnimator.startAnimation()
+    }
+
     // MARK: - Main Menu View
     let mainContainerView = UIView()
     let mainBackgroundView = UIView()
@@ -169,7 +178,9 @@ class AeonViewController: UIViewController {
         mainTitleLabel.layer.shouldRasterize = true
         mainTitleLabel.layer.rasterizationScale = UIScreen.main.scale
 
-        mainTopAnchorConstraint = mainContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: mainDefaultOffset)
+        mainTitleLabel.alpha = 0
+
+        mainTopAnchorConstraint = mainContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: mainHiddenOffset)
         mainTopAnchorConstraint.isActive = true
         mainContainerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 90).isActive = true
 
@@ -413,6 +424,20 @@ class AeonViewController: UIViewController {
         setNeedsFocusUpdate()
         updateFocusIfNeeded()
     }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        mainBackgroundView.layer.shadowPath = UIBezierPath(rect: mainBackgroundView.bounds).cgPath
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        initialAnimation()
+        setNeedsFocusUpdate()
+        updateFocusIfNeeded()
+    }
+
 }
 
 extension AeonViewController: AeonTankUIDelegate {
