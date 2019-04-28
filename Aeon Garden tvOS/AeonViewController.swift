@@ -408,7 +408,11 @@ class AeonViewController: UIViewController {
         for case let child as AeonCreatureNode in nodes {
             mateArray.append(child)
         }
-        if let selected = mateArray.randomElement() {
+        if !mateArray.isEmpty {
+            var selected = mateArray.randomElement()!
+            while selected == selectedCreature {
+                selected = mateArray.randomElement()!
+            }
             selectedCreature = selected
             scene!.selectCreature(selected)
         }
