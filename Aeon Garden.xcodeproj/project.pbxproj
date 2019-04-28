@@ -10,6 +10,9 @@
 		44147C67225D6B6800A16736 /* AeonTankSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44147C66225D6B6700A16736 /* AeonTankSettings.swift */; };
 		44147C68225D6B6800A16736 /* AeonTankSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44147C66225D6B6700A16736 /* AeonTankSettings.swift */; };
 		44147C69225D6B6800A16736 /* AeonTankSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44147C66225D6B6700A16736 /* AeonTankSettings.swift */; };
+		449FF757226FD92900704D7C /* AeonFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449FF756226FD92900704D7C /* AeonFonts.swift */; };
+		449FF758226FD92900704D7C /* AeonFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449FF756226FD92900704D7C /* AeonFonts.swift */; };
+		449FF759226FD92900704D7C /* AeonFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449FF756226FD92900704D7C /* AeonFonts.swift */; };
 		82BF56C3256FB0182D5F3F18 /* Pods_Aeon_Garden_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FC0A83C46425083E854700 /* Pods_Aeon_Garden_macOS.framework */; };
 		8E7E158ACFE2903488CE6E7E /* Pods_Aeon_Garden_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A69E33689BDFD1DAC0725B2E /* Pods_Aeon_Garden_iOS.framework */; };
 		AF6124CCE6E6FF06CB0E4210 /* Pods_Aeon_Garden_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BB5FC94C7B5B26BD77940B9 /* Pods_Aeon_Garden_tvOS.framework */; };
@@ -49,13 +52,13 @@
 		B413ABCE224D7C8A00E8BDD1 /* Surnames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F801F8C81C10002B2BB /* Surnames */; };
 		B413ABCF224D7C8A00E8BDD1 /* FirstNames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F821F8C86020002B2BB /* FirstNames */; };
 		B413ABD0224D7C8A00E8BDD1 /* AeonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F672231E855009F0460 /* AeonUtils.swift */; };
-		B413ABD1224D7C8A00E8BDD1 /* AeonColorsFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED31224708800026604C /* AeonColorsFonts.swift */; };
+		B413ABD1224D7C8A00E8BDD1 /* AeonColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED31224708800026604C /* AeonColors.swift */; };
 		B413ABD2224D7C8A00E8BDD1 /* SKTextureGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480388D223750DD005AF239 /* SKTextureGradient.swift */; };
 		B413ABD3224D7C8B00E8BDD1 /* AeonNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */; };
 		B413ABD4224D7C8B00E8BDD1 /* Surnames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F801F8C81C10002B2BB /* Surnames */; };
 		B413ABD5224D7C8B00E8BDD1 /* FirstNames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F821F8C86020002B2BB /* FirstNames */; };
 		B413ABD6224D7C8B00E8BDD1 /* AeonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F672231E855009F0460 /* AeonUtils.swift */; };
-		B413ABD7224D7C8B00E8BDD1 /* AeonColorsFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED31224708800026604C /* AeonColorsFonts.swift */; };
+		B413ABD7224D7C8B00E8BDD1 /* AeonColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED31224708800026604C /* AeonColors.swift */; };
 		B413ABD8224D7C8B00E8BDD1 /* SKTextureGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480388D223750DD005AF239 /* SKTextureGradient.swift */; };
 		B413ABD9224D7C8C00E8BDD1 /* AeonNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */; };
 		B413ABDA224D7C8C00E8BDD1 /* Surnames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F801F8C81C10002B2BB /* Surnames */; };
@@ -63,19 +66,14 @@
 		B413ABDC224D7C8C00E8BDD1 /* AeonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F672231E855009F0460 /* AeonUtils.swift */; };
 		B413ABDE224D7C8C00E8BDD1 /* SKTextureGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480388D223750DD005AF239 /* SKTextureGradient.swift */; };
 		B413ABDF224D7CC000E8BDD1 /* AeonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDABC1F80943500DEA908 /* AeonViewController.swift */; };
-		B413ABE0224D7CC000E8BDD1 /* AeonDataPillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A171192245B70F00890D32 /* AeonDataPillView.swift */; };
-		B413ABE1224D7CC000E8BDD1 /* AeonMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1711B2245B72800890D32 /* AeonMenuButton.swift */; };
-		B413ABE2224D7CC000E8BDD1 /* AeonMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED3322470B980026604C /* AeonMenuView.swift */; };
 		B413ABE3224D7D4F00E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */; };
 		B413ABE4224D7D4F00E8BDD1 /* AeonCreatureBubbleTrail.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonCreatureBubbleTrail.sks */; };
 		B413ABE6224D7D4F00E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */; };
 		B413ABE7224D7D4F00E8BDD1 /* AeonCreatureBubbleTrail.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonCreatureBubbleTrail.sks */; };
 		B413ABE9224D7D5000E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */; };
 		B413ABEA224D7D5000E8BDD1 /* AeonCreatureBubbleTrail.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonCreatureBubbleTrail.sks */; };
-		B413ABEE224D7E1B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
-		B413ABF0224D7E1B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
 		B413ABF3224D847B00E8BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
-		B413ABF4224DC6A000E8BDD1 /* AeonColorsFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED31224708800026604C /* AeonColorsFonts.swift */; };
+		B413ABF4224DC6A000E8BDD1 /* AeonColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED31224708800026604C /* AeonColors.swift */; };
 		B413ABF7224FFD3800E8BDD1 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413ABF6224FFD3800E8BDD1 /* pop.wav */; };
 		B413ABF8224FFD3800E8BDD1 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413ABF6224FFD3800E8BDD1 /* pop.wav */; };
 		B413ABF9224FFD3800E8BDD1 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413ABF6224FFD3800E8BDD1 /* pop.wav */; };
@@ -94,13 +92,31 @@
 		B413AC0D2259C55800E8BDD1 /* AeonSomething.sks in Resources */ = {isa = PBXBuildFile; fileRef = B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */; };
 		B413AC0E2259C55800E8BDD1 /* AeonSomething.sks in Resources */ = {isa = PBXBuildFile; fileRef = B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */; };
 		B413AC0F2259C55800E8BDD1 /* AeonSomething.sks in Resources */ = {isa = PBXBuildFile; fileRef = B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */; };
-		B494EA9F2263F19C00F3F693 /* AeonDataButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B494EA9E2263F19C00F3F693 /* AeonDataButton.swift */; };
-		B494EAA02263F19C00F3F693 /* AeonDataButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B494EA9E2263F19C00F3F693 /* AeonDataButton.swift */; };
+		B4250BFF2272B16300551424 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
+		B4250C002272B16400551424 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
+		B429D72C2272C1480069D551 /* aeonBirthSound-G4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7252272C1450069D551 /* aeonBirthSound-G4.wav */; };
+		B429D72D2272C1480069D551 /* aeonBirthSound-G4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7252272C1450069D551 /* aeonBirthSound-G4.wav */; };
+		B429D72E2272C1480069D551 /* aeonBirthSound-G4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7252272C1450069D551 /* aeonBirthSound-G4.wav */; };
+		B429D72F2272C1480069D551 /* aeonMateSound-G3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7262272C1460069D551 /* aeonMateSound-G3.wav */; };
+		B429D7302272C1480069D551 /* aeonMateSound-G3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7262272C1460069D551 /* aeonMateSound-G3.wav */; };
+		B429D7312272C1480069D551 /* aeonMateSound-G3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7262272C1460069D551 /* aeonMateSound-G3.wav */; };
+		B429D7322272C1480069D551 /* aeonBirthSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7272272C1460069D551 /* aeonBirthSound.wav */; };
+		B429D7332272C1480069D551 /* aeonBirthSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7272272C1460069D551 /* aeonBirthSound.wav */; };
+		B429D7342272C1480069D551 /* aeonBirthSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7272272C1460069D551 /* aeonBirthSound.wav */; };
+		B429D7352272C1480069D551 /* aeonBirthSound-C4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7282272C1460069D551 /* aeonBirthSound-C4.wav */; };
+		B429D7362272C1480069D551 /* aeonBirthSound-C4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7282272C1460069D551 /* aeonBirthSound-C4.wav */; };
+		B429D7372272C1480069D551 /* aeonBirthSound-C4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7282272C1460069D551 /* aeonBirthSound-C4.wav */; };
+		B429D7382272C1480069D551 /* aeonMateSound-E3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7292272C1470069D551 /* aeonMateSound-E3.wav */; };
+		B429D7392272C1480069D551 /* aeonMateSound-E3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7292272C1470069D551 /* aeonMateSound-E3.wav */; };
+		B429D73A2272C1480069D551 /* aeonMateSound-E3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7292272C1470069D551 /* aeonMateSound-E3.wav */; };
+		B429D73B2272C1480069D551 /* aeonMateSound-C3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72A2272C1470069D551 /* aeonMateSound-C3.wav */; };
+		B429D73C2272C1480069D551 /* aeonMateSound-C3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72A2272C1470069D551 /* aeonMateSound-C3.wav */; };
+		B429D73D2272C1480069D551 /* aeonMateSound-C3.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72A2272C1470069D551 /* aeonMateSound-C3.wav */; };
+		B429D73E2272C1480069D551 /* aeonBirthSound-E4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */; };
+		B429D73F2272C1480069D551 /* aeonBirthSound-E4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */; };
+		B429D7402272C1480069D551 /* aeonBirthSound-E4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */; };
 		B4B2D1F3226BD9A40050F14C /* AeonTVButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F2226BD9A40050F14C /* AeonTVButton.swift */; };
 		B4B2D1F5226BD9D20050F14C /* AeonTVDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F4226BD9D20050F14C /* AeonTVDataView.swift */; };
-		B4B2D1F7226C372E0050F14C /* AeonTVDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F6226C372E0050F14C /* AeonTVDetailsView.swift */; };
-		B4BF89F2226AA55C006F2A33 /* AeonTVMainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BF89F0226AA55C006F2A33 /* AeonTVMainMenuView.swift */; };
-		B4C60E7B2260139300DA36B4 /* AeonBlurredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C60E7A2260139300DA36B4 /* AeonBlurredView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,8 +129,7 @@
 		44868F652231C7F5009F0460 /* AeonLimbNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonLimbNode.swift; sourceTree = "<group>"; };
 		44868F672231E855009F0460 /* AeonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonUtils.swift; sourceTree = "<group>"; };
 		44868F6A223346E3009F0460 /* AeonCreatureBrainStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonCreatureBrainStates.swift; sourceTree = "<group>"; };
-		44A171192245B70F00890D32 /* AeonDataPillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonDataPillView.swift; sourceTree = "<group>"; };
-		44A1711B2245B72800890D32 /* AeonMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonMenuButton.swift; sourceTree = "<group>"; };
+		449FF756226FD92900704D7C /* AeonFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonFonts.swift; sourceTree = "<group>"; };
 		55106F82B8367E59A3F6FC58 /* Pods_Aeon_Garden.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BB5FC94C7B5B26BD77940B9 /* Pods_Aeon_Garden_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DEDF779719125253E8C1592 /* Pods-Aeon Garden.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden/Pods-Aeon Garden.release.xcconfig"; sourceTree = "<group>"; };
@@ -144,6 +159,13 @@
 		B413AC032259A3AF00E8BDD1 /* click_04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click_04.wav; sourceTree = "<group>"; };
 		B413AC072259A3E600E8BDD1 /* pad_confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pad_confirm.wav; sourceTree = "<group>"; };
 		B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonSomething.sks; sourceTree = "<group>"; };
+		B429D7252272C1450069D551 /* aeonBirthSound-G4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonBirthSound-G4.wav"; sourceTree = "<group>"; };
+		B429D7262272C1460069D551 /* aeonMateSound-G3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonMateSound-G3.wav"; sourceTree = "<group>"; };
+		B429D7272272C1460069D551 /* aeonBirthSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = aeonBirthSound.wav; sourceTree = "<group>"; };
+		B429D7282272C1460069D551 /* aeonBirthSound-C4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonBirthSound-C4.wav"; sourceTree = "<group>"; };
+		B429D7292272C1470069D551 /* aeonMateSound-E3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonMateSound-E3.wav"; sourceTree = "<group>"; };
+		B429D72A2272C1470069D551 /* aeonMateSound-C3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonMateSound-C3.wav"; sourceTree = "<group>"; };
+		B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonBirthSound-E4.wav"; sourceTree = "<group>"; };
 		B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonNameGenerator.swift; sourceTree = "<group>"; };
 		B4364F801F8C81C10002B2BB /* Surnames */ = {isa = PBXFileReference; lastKnownFileType = text; path = Surnames; sourceTree = "<group>"; };
 		B4364F821F8C86020002B2BB /* FirstNames */ = {isa = PBXFileReference; lastKnownFileType = text; path = FirstNames; sourceTree = "<group>"; };
@@ -153,14 +175,9 @@
 		B48DDACD1F80B2B000DEA908 /* AeonCreatureNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonCreatureNode.swift; sourceTree = "<group>"; };
 		B48DDACF1F81A1DE00DEA908 /* AeonFoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonFoodNode.swift; sourceTree = "<group>"; };
 		B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonOceanSquareBubbles.sks; sourceTree = "<group>"; };
-		B494EA9E2263F19C00F3F693 /* AeonDataButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonDataButton.swift; sourceTree = "<group>"; };
 		B4B2D1F2226BD9A40050F14C /* AeonTVButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTVButton.swift; sourceTree = "<group>"; };
 		B4B2D1F4226BD9D20050F14C /* AeonTVDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTVDataView.swift; sourceTree = "<group>"; };
-		B4B2D1F6226C372E0050F14C /* AeonTVDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTVDetailsView.swift; sourceTree = "<group>"; };
-		B4BF89F0226AA55C006F2A33 /* AeonTVMainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTVMainMenuView.swift; sourceTree = "<group>"; };
-		B4C60E7A2260139300DA36B4 /* AeonBlurredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AeonBlurredView.swift; path = "Aeon Garden Shared/UIKit Elements/AeonBlurredView.swift"; sourceTree = SOURCE_ROOT; };
-		B4DEED31224708800026604C /* AeonColorsFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonColorsFonts.swift; sourceTree = "<group>"; };
-		B4DEED3322470B980026604C /* AeonMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonMenuView.swift; sourceTree = "<group>"; };
+		B4DEED31224708800026604C /* AeonColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonColors.swift; sourceTree = "<group>"; };
 		B4DEED37224806850026604C /* AeonNodeProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonNodeProtocols.swift; sourceTree = "<group>"; };
 		B4DEED39224817D80026604C /* AeonBubbleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonBubbleNode.swift; sourceTree = "<group>"; };
 		BBCAC8D12F956FA3F979ADA7 /* Pods-Aeon Garden tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden tvOS.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden tvOS/Pods-Aeon Garden tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -220,23 +237,13 @@
 			path = AeonCreatureNode;
 			sourceTree = "<group>";
 		};
-		44A1711D2245B73200890D32 /* UI Elements */ = {
-			isa = PBXGroup;
-			children = (
-				44A171192245B70F00890D32 /* AeonDataPillView.swift */,
-				44A1711B2245B72800890D32 /* AeonMenuButton.swift */,
-				B4DEED3322470B980026604C /* AeonMenuView.swift */,
-			);
-			name = "UI Elements";
-			path = "Aeon Garden iOS/UI Elements";
-			sourceTree = SOURCE_ROOT;
-		};
 		44D36650223B1D63006AB1C7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				B4364F791F8C78070002B2BB /* AeonNameGenerator */,
 				44868F672231E855009F0460 /* AeonUtils.swift */,
-				B4DEED31224708800026604C /* AeonColorsFonts.swift */,
+				B4DEED31224708800026604C /* AeonColors.swift */,
+				449FF756226FD92900704D7C /* AeonFonts.swift */,
 				B480388D223750DD005AF239 /* SKTextureGradient.swift */,
 			);
 			name = Utilities;
@@ -246,7 +253,6 @@
 		B413AB6C224D73C200E8BDD1 /* Aeon Garden Shared */ = {
 			isa = PBXGroup;
 			children = (
-				B494EA9D2263F05600F3F693 /* UIKit Elements */,
 				B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */,
 				B413ABFA224FFD3B00E8BDD1 /* Sound */,
 				B4364F7A1F8C78190002B2BB /* Particles */,
@@ -260,7 +266,6 @@
 		B413AB76224D73C400E8BDD1 /* Aeon Garden iOS */ = {
 			isa = PBXGroup;
 			children = (
-				44A1711D2245B73200890D32 /* UI Elements */,
 				B413AB77224D73C400E8BDD1 /* AppDelegate.swift */,
 				B48DDABC1F80943500DEA908 /* AeonViewController.swift */,
 				B413AB7E224D73C400E8BDD1 /* LaunchScreen.storyboard */,
@@ -295,6 +300,13 @@
 		B413ABFA224FFD3B00E8BDD1 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				B429D7282272C1460069D551 /* aeonBirthSound-C4.wav */,
+				B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */,
+				B429D7252272C1450069D551 /* aeonBirthSound-G4.wav */,
+				B429D7272272C1460069D551 /* aeonBirthSound.wav */,
+				B429D72A2272C1470069D551 /* aeonMateSound-C3.wav */,
+				B429D7292272C1470069D551 /* aeonMateSound-E3.wav */,
+				B429D7262272C1460069D551 /* aeonMateSound-G3.wav */,
 				B413ABF6224FFD3800E8BDD1 /* pop.wav */,
 				B413AC032259A3AF00E8BDD1 /* click_04.wav */,
 				B413ABFF22599F6C00E8BDD1 /* pop_drip.wav */,
@@ -348,22 +360,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B494EA9D2263F05600F3F693 /* UIKit Elements */ = {
-			isa = PBXGroup;
-			children = (
-				B4C60E7A2260139300DA36B4 /* AeonBlurredView.swift */,
-				B494EA9E2263F19C00F3F693 /* AeonDataButton.swift */,
-			);
-			path = "UIKit Elements";
-			sourceTree = "<group>";
-		};
 		B4B2D1F1226BD9250050F14C /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
-				B4BF89F0226AA55C006F2A33 /* AeonTVMainMenuView.swift */,
 				B4B2D1F2226BD9A40050F14C /* AeonTVButton.swift */,
 				B4B2D1F4226BD9D20050F14C /* AeonTVDataView.swift */,
-				B4B2D1F6226C372E0050F14C /* AeonTVDetailsView.swift */,
 			);
 			path = "UI Elements";
 			sourceTree = "<group>";
@@ -418,7 +419,6 @@
 				B413AB71224D73C400E8BDD1 /* Sources */,
 				B413AB72224D73C400E8BDD1 /* Frameworks */,
 				B413AB73224D73C400E8BDD1 /* Resources */,
-				E474D9030D5C7030406D7C4F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -437,7 +437,6 @@
 				B413AB82224D73C400E8BDD1 /* Sources */,
 				B413AB83224D73C400E8BDD1 /* Frameworks */,
 				B413AB84224D73C400E8BDD1 /* Resources */,
-				AE46B6BE94CCCE369CB32F84 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -456,7 +455,6 @@
 				B413AB90224D73C400E8BDD1 /* Sources */,
 				B413AB91224D73C400E8BDD1 /* Frameworks */,
 				B413AB92224D73C400E8BDD1 /* Resources */,
-				3461CE8E59B5AC2D393F25AF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -518,14 +516,21 @@
 			files = (
 				B413ABE3224D7D4F00E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */,
 				B413ABE4224D7D4F00E8BDD1 /* AeonCreatureBubbleTrail.sks in Resources */,
+				B4250BFF2272B16300551424 /* Assets.xcassets in Resources */,
+				B429D7322272C1480069D551 /* aeonBirthSound.wav in Resources */,
 				B413ABF7224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABCE224D7C8A00E8BDD1 /* Surnames in Resources */,
+				B429D72F2272C1480069D551 /* aeonMateSound-G3.wav in Resources */,
 				B413AC0D2259C55800E8BDD1 /* AeonSomething.sks in Resources */,
+				B429D73B2272C1480069D551 /* aeonMateSound-C3.wav in Resources */,
+				B429D7382272C1480069D551 /* aeonMateSound-E3.wav in Resources */,
+				B429D73E2272C1480069D551 /* aeonBirthSound-E4.wav in Resources */,
 				B413AB80224D73C400E8BDD1 /* LaunchScreen.storyboard in Resources */,
 				B413AC082259A3E600E8BDD1 /* pad_confirm.wav in Resources */,
 				B413ABCF224D7C8A00E8BDD1 /* FirstNames in Resources */,
 				B413AC0022599F6D00E8BDD1 /* pop_drip.wav in Resources */,
-				B413ABEE224D7E1B00E8BDD1 /* Assets.xcassets in Resources */,
+				B429D72C2272C1480069D551 /* aeonBirthSound-G4.wav in Resources */,
+				B429D7352272C1480069D551 /* aeonBirthSound-C4.wav in Resources */,
 				B413AC042259A3AF00E8BDD1 /* click_04.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -537,13 +542,20 @@
 				B413ABE6224D7D4F00E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */,
 				B413AB8E224D73C400E8BDD1 /* Main.storyboard in Resources */,
 				B413ABF8224FFD3800E8BDD1 /* pop.wav in Resources */,
+				B429D7332272C1480069D551 /* aeonBirthSound.wav in Resources */,
 				B413ABE7224D7D4F00E8BDD1 /* AeonCreatureBubbleTrail.sks in Resources */,
 				B413AC0E2259C55800E8BDD1 /* AeonSomething.sks in Resources */,
+				B429D7302272C1480069D551 /* aeonMateSound-G3.wav in Resources */,
 				B413ABD4224D7C8B00E8BDD1 /* Surnames in Resources */,
+				B429D73C2272C1480069D551 /* aeonMateSound-C3.wav in Resources */,
+				B429D7392272C1480069D551 /* aeonMateSound-E3.wav in Resources */,
+				B429D73F2272C1480069D551 /* aeonBirthSound-E4.wav in Resources */,
 				B413AC092259A3E600E8BDD1 /* pad_confirm.wav in Resources */,
 				B413ABD5224D7C8B00E8BDD1 /* FirstNames in Resources */,
 				B413AC0122599F6D00E8BDD1 /* pop_drip.wav in Resources */,
 				B413ABF3224D847B00E8BDD1 /* Assets.xcassets in Resources */,
+				B429D72D2272C1480069D551 /* aeonBirthSound-G4.wav in Resources */,
+				B429D7362272C1480069D551 /* aeonBirthSound-C4.wav in Resources */,
 				B413AC052259A3AF00E8BDD1 /* click_04.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -554,14 +566,21 @@
 			files = (
 				B413ABE9224D7D5000E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */,
 				B413AB9C224D73C400E8BDD1 /* Main.storyboard in Resources */,
+				B4250C002272B16400551424 /* Assets.xcassets in Resources */,
+				B429D7342272C1480069D551 /* aeonBirthSound.wav in Resources */,
 				B413ABF9224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABEA224D7D5000E8BDD1 /* AeonCreatureBubbleTrail.sks in Resources */,
+				B429D7312272C1480069D551 /* aeonMateSound-G3.wav in Resources */,
 				B413AC0F2259C55800E8BDD1 /* AeonSomething.sks in Resources */,
+				B429D73D2272C1480069D551 /* aeonMateSound-C3.wav in Resources */,
+				B429D73A2272C1480069D551 /* aeonMateSound-E3.wav in Resources */,
+				B429D7402272C1480069D551 /* aeonBirthSound-E4.wav in Resources */,
 				B413ABDA224D7C8C00E8BDD1 /* Surnames in Resources */,
 				B413AC0A2259A3E600E8BDD1 /* pad_confirm.wav in Resources */,
 				B413ABDB224D7C8C00E8BDD1 /* FirstNames in Resources */,
 				B413AC0222599F6D00E8BDD1 /* pop_drip.wav in Resources */,
-				B413ABF0224D7E1B00E8BDD1 /* Assets.xcassets in Resources */,
+				B429D72E2272C1480069D551 /* aeonBirthSound-G4.wav in Resources */,
+				B429D7372272C1480069D551 /* aeonBirthSound-C4.wav in Resources */,
 				B413AC062259A3AF00E8BDD1 /* click_04.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -589,42 +608,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3461CE8E59B5AC2D393F25AF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Aeon Garden macOS/Pods-Aeon Garden macOS-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SnapKit-macOS/SnapKit.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Aeon Garden macOS/Pods-Aeon Garden macOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AE46B6BE94CCCE369CB32F84 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Aeon Garden tvOS/Pods-Aeon Garden tvOS-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SnapKit-tvOS/SnapKit.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Aeon Garden tvOS/Pods-Aeon Garden tvOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D3764C1375C7211F95FE3A1D /* [CP] Check Pods Manifest.lock */ = {
@@ -671,24 +654,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E474D9030D5C7030406D7C4F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Aeon Garden iOS/Pods-Aeon Garden iOS-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SnapKit-iOS/SnapKit.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Aeon Garden iOS/Pods-Aeon Garden iOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -696,26 +661,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B413ABD1224D7C8A00E8BDD1 /* AeonColorsFonts.swift in Sources */,
+				B413ABD1224D7C8A00E8BDD1 /* AeonColors.swift in Sources */,
 				B413ABB9224D7C8100E8BDD1 /* AeonLimbNode.swift in Sources */,
 				B413ABCD224D7C8A00E8BDD1 /* AeonNameGenerator.swift in Sources */,
 				44147C67225D6B6800A16736 /* AeonTankSettings.swift in Sources */,
 				B413ABB8224D7C8100E8BDD1 /* AeonCreatureNode.swift in Sources */,
+				449FF757226FD92900704D7C /* AeonFonts.swift in Sources */,
 				B413ABDF224D7CC000E8BDD1 /* AeonViewController.swift in Sources */,
 				B413ABD2224D7C8A00E8BDD1 /* SKTextureGradient.swift in Sources */,
 				B413ABB5224D7C7100E8BDD1 /* AeonTankScene.swift in Sources */,
 				B413ABBA224D7C8100E8BDD1 /* AeonCreatureBrain.swift in Sources */,
-				B413ABE2224D7CC000E8BDD1 /* AeonMenuView.swift in Sources */,
 				B413ABBC224D7C8100E8BDD1 /* AeonFoodNode.swift in Sources */,
-				B413ABE0224D7CC000E8BDD1 /* AeonDataPillView.swift in Sources */,
 				B413ABBD224D7C8100E8BDD1 /* AeonNodeProtocols.swift in Sources */,
-				B413ABE1224D7CC000E8BDD1 /* AeonMenuButton.swift in Sources */,
 				B413ABBB224D7C8100E8BDD1 /* AeonCreatureBrainStates.swift in Sources */,
 				B413ABFC224FFD7D00E8BDD1 /* AeonSoundManager.swift in Sources */,
 				B413ABBE224D7C8100E8BDD1 /* AeonBubbleNode.swift in Sources */,
 				B413ABD0224D7C8A00E8BDD1 /* AeonUtils.swift in Sources */,
 				B413AB78224D73C400E8BDD1 /* AppDelegate.swift in Sources */,
-				B494EA9F2263F19C00F3F693 /* AeonDataButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -723,21 +685,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B413ABD7224D7C8B00E8BDD1 /* AeonColorsFonts.swift in Sources */,
+				B413ABD7224D7C8B00E8BDD1 /* AeonColors.swift in Sources */,
 				B413ABC0224D7C8200E8BDD1 /* AeonLimbNode.swift in Sources */,
 				B413ABD3224D7C8B00E8BDD1 /* AeonNameGenerator.swift in Sources */,
 				B4B2D1F5226BD9D20050F14C /* AeonTVDataView.swift in Sources */,
 				44147C68225D6B6800A16736 /* AeonTankSettings.swift in Sources */,
 				B413ABBF224D7C8200E8BDD1 /* AeonCreatureNode.swift in Sources */,
-				B4B2D1F7226C372E0050F14C /* AeonTVDetailsView.swift in Sources */,
-				B4C60E7B2260139300DA36B4 /* AeonBlurredView.swift in Sources */,
 				B413ABD8224D7C8B00E8BDD1 /* SKTextureGradient.swift in Sources */,
-				B494EAA02263F19C00F3F693 /* AeonDataButton.swift in Sources */,
 				B413ABB6224D7C7200E8BDD1 /* AeonTankScene.swift in Sources */,
-				B4BF89F2226AA55C006F2A33 /* AeonTVMainMenuView.swift in Sources */,
 				B413ABC1224D7C8200E8BDD1 /* AeonCreatureBrain.swift in Sources */,
 				B413ABC3224D7C8200E8BDD1 /* AeonFoodNode.swift in Sources */,
 				B413ABFD225002A300E8BDD1 /* AeonSoundManager.swift in Sources */,
+				449FF758226FD92900704D7C /* AeonFonts.swift in Sources */,
 				B413ABC4224D7C8200E8BDD1 /* AeonNodeProtocols.swift in Sources */,
 				B413AB8B224D73C400E8BDD1 /* AeonViewController.swift in Sources */,
 				B413ABC2224D7C8200E8BDD1 /* AeonCreatureBrainStates.swift in Sources */,
@@ -752,12 +711,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B413ABF4224DC6A000E8BDD1 /* AeonColorsFonts.swift in Sources */,
+				B413ABF4224DC6A000E8BDD1 /* AeonColors.swift in Sources */,
 				B413ABC7224D7C8300E8BDD1 /* AeonLimbNode.swift in Sources */,
 				B413ABD9224D7C8C00E8BDD1 /* AeonNameGenerator.swift in Sources */,
 				44147C69225D6B6800A16736 /* AeonTankSettings.swift in Sources */,
 				B413ABC6224D7C8300E8BDD1 /* AeonCreatureNode.swift in Sources */,
 				B413ABDE224D7C8C00E8BDD1 /* SKTextureGradient.swift in Sources */,
+				449FF759226FD92900704D7C /* AeonFonts.swift in Sources */,
 				B413ABB7224D7C7300E8BDD1 /* AeonTankScene.swift in Sources */,
 				B413ABC8224D7C8300E8BDD1 /* AeonCreatureBrain.swift in Sources */,
 				B413ABCA224D7C8300E8BDD1 /* AeonFoodNode.swift in Sources */,
@@ -849,8 +809,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E0627D97642BD8C1363D7935 /* Pods-Aeon Garden tvOS.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "tvOS LaunchImage";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "Brand Assets";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
@@ -871,8 +831,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BBCAC8D12F956FA3F979ADA7 /* Pods-Aeon Garden tvOS.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "tvOS LaunchImage";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "Brand Assets";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;

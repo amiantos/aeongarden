@@ -19,7 +19,7 @@ enum CollisionTypes: UInt32 {
     case ball = 8
 }
 
-protocol AeonTankDelegate: class {
+protocol AeonTankUIDelegate: class {
     func updatePopulation(_ population: Int)
     func updateFood(_ food: Int)
     func updateBirths(_ births: Int)
@@ -35,7 +35,8 @@ class AeonTankScene: SKScene {
     public var birthCount: Int = 0
 
     private var foodPelletMax: Int = 20
-    private var creatureMinimum: Int = 20
+    private var creatureMinimum: Int = 10
+    private var initialCreatures: Int = 20
 
     private var lastFoodTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
@@ -59,7 +60,11 @@ class AeonTankScene: SKScene {
 
     private var cameraNode: SKCameraNode = SKCameraNode()
 
-    weak var tankDelegate: AeonTankDelegate?
+    weak var tankDelegate: AeonTankUIDelegate? {
+        didSet {
+            tankDelegate?.updatePopulation(creatureNodes.count)
+        }
+    }
 
     var selectedCreature: AeonCreatureNode? {
         didSet {
@@ -229,7 +234,7 @@ extension AeonTankScene {
         var initialCreatureHue: CGFloat = 0
         let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(creatureMinimum))
 
-        while totalCreatures < creatureMinimum {
+        while totalCreatures < initialCreatures {
             addNewCreatureToScene(withPrimaryHue: initialCreatureHue)
             addFoodPelletToScene()
             totalCreatures += 1
@@ -291,7 +296,7 @@ extension AeonTankScene: SKPhysicsContactDelegate {
                 creatureB.mated()
                 AeonSoundManager.shared.play(.creatureMate, onNode: creatureA)
                 // Random chance to breed
-                if randomInteger(min: 0, max: 0) == 0 {
+                if randomInteger(min: 0, max: 6) == 0 {
                     birthCount += 1
                     let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
                     newCreature.position = creatureA.position
