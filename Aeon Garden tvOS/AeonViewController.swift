@@ -219,16 +219,11 @@ class AeonViewController: UIViewController {
 
 
     // MARK: - Details View
+    var disableDetailUpdates: Bool = false
     let detailsContainerView = UIView()
     let detailsBackgroundView = UIView()
     let detailsTitleLabel = UILabel()
-    var detailsTitle: String? = "BRADLEY ROBERT ROOT" {
-        didSet {
-            if self.detailsTitle != oldValue {
-                detailsTitleChanged()
-            }
-        }
-    }
+    var detailsTitle: String? = "BRADLEY ROBERT ROOT"
     var detailsBottomAnchorConstraint = NSLayoutConstraint()
     var detailsBackgroundWidthConstraint = NSLayoutConstraint()
 
@@ -328,22 +323,33 @@ class AeonViewController: UIViewController {
     func detailsTitleChanged() {
         let currentShadowPath = self.detailsBackgroundView.bounds
         let newShadowPath = self.detailsBackgroundView.bounds
+
         let animation = UIViewPropertyAnimator(duration: 1, curve: .easeInOut, animations: {
             self.detailsBackgroundWidthConstraint.constant = self.detailsTitleLabel.bounds.width + 66
             self.detailsTitleLabel.alpha = 1
+            self.detailsHealthLabel.dataLabel.alpha = 1
+            self.detailsFeelingLabel.dataLabel.alpha = 1
+            self.detailsAgeLabel.dataLabel.alpha = 1
             self.view.layoutIfNeeded()
         })
         animation.addCompletion { (position) in
             self.detailsTitleLabel.alpha = 1
+            self.detailsHealthLabel.dataLabel.alpha = 1
+            self.detailsFeelingLabel.dataLabel.alpha = 1
+            self.detailsAgeLabel.dataLabel.alpha = 1
             self.detailsBackgroundWidthConstraint.constant = self.detailsTitleLabel.bounds.width + 66
         }
 
         let fadeOutAnimation = UIViewPropertyAnimator(duration: 0.2, curve: .linear, animations: {
             self.detailsTitleLabel.alpha = 0
+            self.detailsHealthLabel.dataLabel.alpha = 0
+            self.detailsFeelingLabel.dataLabel.alpha = 0
+            self.detailsAgeLabel.dataLabel.alpha = 0
         })
         fadeOutAnimation.addCompletion { (position) in
             if position == .end {
-                self.detailsTitleLabel.text = self.detailsTitle
+                self.disableDetailUpdates = false
+                self.detailsTitleLabel.text = self.detailsTitle?.localizedUppercase
                 self.view.layoutIfNeeded()
                 animation.startAnimation()
 
@@ -461,8 +467,13 @@ extension AeonViewController: AeonTankUIDelegate {
     }
 
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?) {
-        if let creature = creature {
-            detailsTitle = creature.name?.localizedUppercase
+        if let creature = creature, !disableDetailUpdates {
+            if detailsTitle != creature.name {
+                disableDetailUpdates = true
+                detailsTitle = creature.name
+                detailsTitleChanged()
+                return
+            }
             detailsHealthLabel.data = String(Int(creature.getCurrentHealth())).localizedUppercase
             detailsFeelingLabel.data = creature.getCurrentState().localizedUppercase
             detailsAgeLabel.data = creature.lifeTimeFormattedAsString().localizedUppercase
