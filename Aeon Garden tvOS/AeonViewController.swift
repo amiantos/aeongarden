@@ -28,16 +28,6 @@ class AeonViewController: UIViewController {
     var scene: AeonTankScene?
     var skView: SKView?
 
-    weak var selectedCreature: AeonCreatureNode? {
-        didSet {
-            if selectedCreature != nil && oldValue == nil {
-                toggleMainMenu()
-            } else if selectedCreature == nil && oldValue != nil {
-                toggleMainMenu()
-            }
-        }
-    }
-
     // MARK: - Animations
     var currentState: UIState = .main
     var runningAnimators = [UIViewPropertyAnimator]()
@@ -86,31 +76,41 @@ class AeonViewController: UIViewController {
             }
 
             self.runningAnimators.removeAll()
+            self.setNeedsFocusUpdate()
+            self.updateFocusIfNeeded()
         }
 
         transitionAnimator.startAnimation()
         runningAnimators.append(transitionAnimator)
     }
 
-    func toggle() {
+    fileprivate func reverseRunningAnimator() {
+        runningAnimators.forEach { $0.pauseAnimation() }
+        runningAnimators.forEach { $0.isReversed = !$0.isReversed }
+        runningAnimators.forEach { $0.continueAnimation(withTimingParameters: nil, durationFactor: 0) }
+    }
+
+    func showDetailsIfNeeded() {
         if !runningAnimators.isEmpty {
-            runningAnimators.forEach { $0.pauseAnimation() }
-            runningAnimators.forEach { $0.isReversed = !$0.isReversed }
-            runningAnimators.forEach { $0.continueAnimation(withTimingParameters: nil, durationFactor: 0) }
+            reverseRunningAnimator()
         } else {
-            switch currentState {
-            case .main:
-                animateTransitionIfNeeded(to: .details, duration: 1)
-            case .details:
-                animateTransitionIfNeeded(to: .main, duration: 1)
-            }
+            animateTransitionIfNeeded(to: .details, duration: 1)
+        }
+    }
+
+    func hideDetailsIfNeeded() {
+        print("Trying to hide details")
+        if !runningAnimators.isEmpty {
+            reverseRunningAnimator()
+        } else {
+            animateTransitionIfNeeded(to: .main, duration: 1)
         }
     }
 
     func initialAnimation() {
-        let transitionAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1) {
-            self.mainTopAnchorConstraint.constant = self.mainDefaultOffset
-            self.mainTitleLabel.alpha = 1
+        self.mainTopAnchorConstraint.constant = self.mainDefaultOffset
+        self.mainTitleLabel.alpha = 1
+        let transitionAnimator = UIViewPropertyAnimator(duration: 2, dampingRatio: 1) {
             self.view.layoutIfNeeded()
         }
         transitionAnimator.startAnimation()
@@ -361,9 +361,6 @@ class AeonViewController: UIViewController {
         fadeOutAnimation.startAnimation()
     }
 
-
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -410,23 +407,16 @@ class AeonViewController: UIViewController {
         }
         if !mateArray.isEmpty {
             var selected = mateArray.randomElement()!
-            while selected == selectedCreature {
+            while selected == scene!.selectedCreature, mateArray.count > 1 {
                 selected = mateArray.randomElement()!
             }
-            selectedCreature = selected
             scene!.selectCreature(selected)
+            showDetailsIfNeeded()
         }
     }
 
     @objc func deselectCreature() {
-        selectedCreature = nil
-        scene!.resetCamera()
-    }
-
-    func toggleMainMenu() {
-        toggle()
-        setNeedsFocusUpdate()
-        updateFocusIfNeeded()
+        scene!.deselectCreature()
     }
 
     override func viewDidLayoutSubviews() {
@@ -445,6 +435,11 @@ class AeonViewController: UIViewController {
 }
 
 extension AeonViewController: AeonTankUIDelegate {
+    func creatureDeselected() {
+        print("Received deselected message from tank.")
+        selectRandomCreature()
+    }
+
     func updateClock(_ clock: String) {
         mainClockLabel.data = clock
     }

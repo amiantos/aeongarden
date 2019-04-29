@@ -26,6 +26,7 @@ protocol AeonTankUIDelegate: class {
     func updateDeaths(_ deaths: Int)
     func updateClock(_ clock: String)
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?)
+    func creatureDeselected()
 }
 
 class AeonTankScene: SKScene {
@@ -69,6 +70,7 @@ class AeonTankScene: SKScene {
     var selectedCreature: AeonCreatureNode? {
         didSet {
             if selectedCreature == nil {
+                tankDelegate?.creatureDeselected()
                 camera?.removeAllActions()
                 let zoomInAction = SKAction.scale(to: 1, duration: 1)
                 let cameraAction = SKAction.move(
@@ -99,6 +101,10 @@ class AeonTankScene: SKScene {
         selectedCreature = creature
         creature.displaySelectionRing(withColor: .aeonBrightYellow)
         camera?.run(SKAction.scale(to: 0.4, duration: 1))
+    }
+
+    func deselectCreature() {
+        selectedCreature = nil
     }
 
     // MARK: - Scene

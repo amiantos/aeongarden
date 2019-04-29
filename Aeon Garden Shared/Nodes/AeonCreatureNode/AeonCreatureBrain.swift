@@ -13,9 +13,9 @@ import GameplayKit
 
 enum Feeling: String {
     case hungry = "Hungry"
-    case horny = "Horny"
+    case horny = "Lonely"
     case bored = "Bored"
-    case dying = "Dying"
+    case dying = "Dead"
 }
 
 protocol AeonCreatureBrainDelegate: class {
@@ -57,7 +57,7 @@ class AeonCreatureBrain: Updatable {
         case randomMovement = "Bored"
         case locatingFood = "Hungry"
         case locatingLove = "Lonely"
-        case dead = "Dying"
+        case dead = "Dead"
     }
 
     internal var lastUpdateTime: TimeInterval = 0
