@@ -104,6 +104,7 @@ class AeonTankScene: SKScene {
     }
 
     func deselectCreature() {
+        selectedCreature?.hideSelectionRing()
         selectedCreature = nil
     }
 

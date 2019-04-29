@@ -443,7 +443,7 @@ class AeonViewController: UIViewController {
 extension AeonViewController: AeonTankUIDelegate {
     func creatureDeselected() {
         print("Received deselected message from tank.")
-        selectRandomCreature()
+        hideDetailsIfNeeded()
     }
 
     func updateClock(_ clock: String) {
