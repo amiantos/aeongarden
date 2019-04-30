@@ -31,6 +31,7 @@ class AeonViewController: UIViewController {
     // MARK: - Animations
     var currentState: UIState = .main
     var runningAnimators = [UIViewPropertyAnimator]()
+    var runningNameAnimators = [UIViewPropertyAnimator]()
     private var animationProgress = [CGFloat]()
 
     private func animateTransitionIfNeeded(to state: UIState, duration: TimeInterval) {
@@ -91,19 +92,28 @@ class AeonViewController: UIViewController {
     }
 
     func showDetailsIfNeeded() {
-        if !runningAnimators.isEmpty {
-            reverseRunningAnimator()
-        } else {
-            animateTransitionIfNeeded(to: .details, duration: 1)
-        }
+        removeAnimationsIfNeeded()
+        animateTransitionIfNeeded(to: .details, duration: 1)
     }
 
     func hideDetailsIfNeeded() {
-        print("Trying to hide details")
+        removeAnimationsIfNeeded()
+        animateTransitionIfNeeded(to: .main, duration: 1)
+    }
+
+    private func removeAnimationsIfNeeded() {
         if !runningAnimators.isEmpty {
-            reverseRunningAnimator()
-        } else {
-            animateTransitionIfNeeded(to: .main, duration: 1)
+            runningAnimators.forEach { $0.pauseAnimation() }
+            runningAnimators.forEach { $0.stopAnimation(true) }
+            runningAnimators.removeAll()
+        }
+    }
+
+    private func removeNameAnimationsIfNeeded() {
+        if !runningNameAnimators.isEmpty {
+            runningNameAnimators.forEach { $0.pauseAnimation() }
+            runningNameAnimators.forEach { $0.stopAnimation(true) }
+            runningNameAnimators.removeAll()
         }
     }
 
@@ -113,6 +123,7 @@ class AeonViewController: UIViewController {
         let transitionAnimator = UIViewPropertyAnimator(duration: 2, dampingRatio: 1) {
             self.view.layoutIfNeeded()
         }
+        runningAnimators.append(transitionAnimator)
         transitionAnimator.startAnimation()
     }
 
@@ -293,11 +304,11 @@ class AeonViewController: UIViewController {
         detailsStackView.axis = .horizontal
         detailsStackView.distribution = .equalSpacing
         detailsStackView.alignment = .fill
-        detailsStackView.spacing = 20
+        detailsStackView.spacing = 5
 
         detailsStackView.translatesAutoresizingMaskIntoConstraints = false
         detailsContainerView.addSubview(detailsStackView)
-        detailsStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 700).isActive = true
+        detailsStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 500).isActive = true
         detailsStackView.centerYAnchor.constraint(equalTo: detailsBackgroundView.centerYAnchor).isActive = true
         detailsStackView.centerXAnchor.constraint(equalTo: detailsContainerView.centerXAnchor).isActive = true
         detailsStackView.leadingAnchor.constraint(greaterThanOrEqualTo: detailsContainerView.leadingAnchor, constant: 120).isActive = true
@@ -321,6 +332,7 @@ class AeonViewController: UIViewController {
     }
 
     func detailsTitleChanged() {
+        removeNameAnimationsIfNeeded()
         let currentShadowPath = self.detailsBackgroundView.bounds
         let newShadowPath = self.detailsBackgroundView.bounds
 
@@ -351,6 +363,7 @@ class AeonViewController: UIViewController {
                 self.disableDetailUpdates = false
                 self.detailsTitleLabel.text = self.detailsTitle?.localizedUppercase
                 self.view.layoutIfNeeded()
+                self.runningNameAnimators.append(animation)
                 animation.startAnimation()
 
                 let shadowAnimation = CABasicAnimation(keyPath: "shadowPath")
@@ -363,7 +376,7 @@ class AeonViewController: UIViewController {
                 self.detailsBackgroundView.layer.add(shadowAnimation, forKey: "shadowAnimation")
             }
         }
-
+        runningNameAnimators.append(fadeOutAnimation)
         fadeOutAnimation.startAnimation()
     }
 
