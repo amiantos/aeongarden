@@ -73,7 +73,7 @@ class AeonCreatureBrain: Updatable {
             seekingLove,
             seekingFood,
             wandering,
-            dead,
+            dead
         ])
     }
 

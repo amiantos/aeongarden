@@ -194,7 +194,13 @@ class AeonViewController: UIViewController {
 
         // MARK: Main Menu Data Labels
 
-        mainStackView = UIStackView(arrangedSubviews: [mainPopulationLabel, mainFoodLabel, mainBirthsLabel, mainDeathsLabel, mainClockLabel])
+        mainStackView = UIStackView(arrangedSubviews: [
+            mainPopulationLabel,
+            mainFoodLabel,
+            mainBirthsLabel,
+            mainDeathsLabel,
+            mainClockLabel
+        ])
         mainStackView.axis = .horizontal
         mainStackView.distribution = .equalSpacing
         mainStackView.alignment = .fill

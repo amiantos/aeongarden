@@ -42,7 +42,7 @@ class AeonViewController: UIViewController {
 }
 
 extension AeonViewController: AeonTankUIDelegate {
-    func updateClock(_ clock: String) {
+    func updateClock(_: String) {
         return
     }
 
