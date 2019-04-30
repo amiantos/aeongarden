@@ -208,7 +208,8 @@ class AeonTankScene: SKScene {
                 if node == selectedCreature {
                     resetCamera()
                 } else {
-                    selectCreature(node as! AeonCreatureNode)
+                    guard let creature = node as? AeonCreatureNode else { return }
+                    selectCreature(creature)
                 }
             }
         }

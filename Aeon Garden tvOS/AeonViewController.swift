@@ -29,6 +29,7 @@ class AeonViewController: UIViewController {
     var skView: SKView?
 
     // MARK: - Animations
+
     var currentState: UIState = .main
     var runningAnimators = [UIViewPropertyAnimator]()
     var runningNameAnimators = [UIViewPropertyAnimator]()
@@ -85,18 +86,13 @@ class AeonViewController: UIViewController {
         runningAnimators.append(transitionAnimator)
     }
 
-    fileprivate func reverseRunningAnimator() {
-        runningAnimators.forEach { $0.pauseAnimation() }
-        runningAnimators.forEach { $0.isReversed = !$0.isReversed }
-        runningAnimators.forEach { $0.continueAnimation(withTimingParameters: nil, durationFactor: 0) }
-    }
-
     func showDetailsIfNeeded() {
         removeAnimationsIfNeeded()
         animateTransitionIfNeeded(to: .details, duration: 1)
     }
 
     func hideDetailsIfNeeded() {
+        removeNameAnimationsIfNeeded()
         removeAnimationsIfNeeded()
         animateTransitionIfNeeded(to: .main, duration: 1)
     }
@@ -118,8 +114,8 @@ class AeonViewController: UIViewController {
     }
 
     func initialAnimation() {
-        self.mainTopAnchorConstraint.constant = self.mainDefaultOffset
-        self.mainTitleLabel.alpha = 1
+        mainTopAnchorConstraint.constant = mainDefaultOffset
+        mainTitleLabel.alpha = 1
         let transitionAnimator = UIViewPropertyAnimator(duration: 2, dampingRatio: 1) {
             self.view.layoutIfNeeded()
         }
@@ -128,6 +124,7 @@ class AeonViewController: UIViewController {
     }
 
     // MARK: - Main Menu View
+
     let mainContainerView = UIView()
     let mainBackgroundView = UIView()
     let mainTitleLabel = UILabel()
@@ -196,6 +193,7 @@ class AeonViewController: UIViewController {
         mainContainerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 90).isActive = true
 
         // MARK: Main Menu Data Labels
+
         mainStackView = UIStackView(arrangedSubviews: [mainPopulationLabel, mainFoodLabel, mainBirthsLabel, mainDeathsLabel, mainClockLabel])
         mainStackView.axis = .horizontal
         mainStackView.distribution = .equalSpacing
@@ -210,6 +208,7 @@ class AeonViewController: UIViewController {
         mainStackView.trailingAnchor.constraint(lessThanOrEqualTo: mainContainerView.trailingAnchor, constant: -80).isActive = true
 
         // MARK: Main Menu Buttons
+
         mainSettingsButton.setTitle("SETTINGS", for: .normal)
         mainNewTankButton.setTitle("NEW TANK", for: .normal)
         mainSaveTankButton.setTitle("SAVE TANK", for: .normal)
@@ -228,8 +227,8 @@ class AeonViewController: UIViewController {
         mainSettingsButton.trailingAnchor.constraint(equalTo: mainSaveTankButton.leadingAnchor, constant: -30).isActive = true
     }
 
-
     // MARK: - Details View
+
     var disableDetailUpdates: Bool = false
     let detailsContainerView = UIView()
     let detailsBackgroundView = UIView()
@@ -300,6 +299,7 @@ class AeonViewController: UIViewController {
         detailsContainerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -90).isActive = true
 
         // MARK: Details Data Labels
+
         detailsStackView = UIStackView(arrangedSubviews: [detailsHealthLabel, detailsFeelingLabel, detailsAgeLabel])
         detailsStackView.axis = .horizontal
         detailsStackView.distribution = .equalSpacing
@@ -308,13 +308,14 @@ class AeonViewController: UIViewController {
 
         detailsStackView.translatesAutoresizingMaskIntoConstraints = false
         detailsContainerView.addSubview(detailsStackView)
-        detailsStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 500).isActive = true
+        detailsStackView.widthAnchor.constraint(equalToConstant: 700).isActive = true
         detailsStackView.centerYAnchor.constraint(equalTo: detailsBackgroundView.centerYAnchor).isActive = true
         detailsStackView.centerXAnchor.constraint(equalTo: detailsContainerView.centerXAnchor).isActive = true
         detailsStackView.leadingAnchor.constraint(greaterThanOrEqualTo: detailsContainerView.leadingAnchor, constant: 120).isActive = true
         detailsStackView.trailingAnchor.constraint(lessThanOrEqualTo: detailsContainerView.trailingAnchor, constant: -120).isActive = true
 
         // MARK: Details Buttons
+
         detailsSaveButton.setTitle("SAVE", for: .normal)
         detailsFavoriteButton.setTitle("FAVORITE", for: .normal)
         detailsRenameButton.setTitle("RENAME", for: .normal)
@@ -333,8 +334,8 @@ class AeonViewController: UIViewController {
 
     func detailsTitleChanged() {
         removeNameAnimationsIfNeeded()
-        let currentShadowPath = self.detailsBackgroundView.bounds
-        let newShadowPath = self.detailsBackgroundView.bounds
+        let currentShadowPath = detailsBackgroundView.bounds
+        let newShadowPath = detailsBackgroundView.bounds
 
         let animation = UIViewPropertyAnimator(duration: 1, curve: .easeInOut, animations: {
             self.detailsBackgroundWidthConstraint.constant = self.detailsTitleLabel.bounds.width + 66
@@ -344,7 +345,7 @@ class AeonViewController: UIViewController {
             self.detailsAgeLabel.dataLabel.alpha = 1
             self.view.layoutIfNeeded()
         })
-        animation.addCompletion { (position) in
+        animation.addCompletion { _ in
             self.detailsTitleLabel.alpha = 1
             self.detailsHealthLabel.dataLabel.alpha = 1
             self.detailsFeelingLabel.dataLabel.alpha = 1
@@ -358,7 +359,7 @@ class AeonViewController: UIViewController {
             self.detailsFeelingLabel.dataLabel.alpha = 0
             self.detailsAgeLabel.dataLabel.alpha = 0
         })
-        fadeOutAnimation.addCompletion { (position) in
+        fadeOutAnimation.addCompletion { position in
             if position == .end {
                 self.disableDetailUpdates = false
                 self.detailsTitleLabel.text = self.detailsTitle?.localizedUppercase
@@ -450,7 +451,6 @@ class AeonViewController: UIViewController {
         setNeedsFocusUpdate()
         updateFocusIfNeeded()
     }
-
 }
 
 extension AeonViewController: AeonTankUIDelegate {

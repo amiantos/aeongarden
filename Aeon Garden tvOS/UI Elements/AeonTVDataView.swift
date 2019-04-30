@@ -47,6 +47,7 @@ class AeonTVDataView: UIView {
         addSubview(dataLabel)
 
         // MARK: - Constraints
+
         dataLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         dataLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         dataLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
@@ -57,6 +58,7 @@ class AeonTVDataView: UIView {
         titleLabel.trailingAnchor.constraint(equalTo: dataLabel.leadingAnchor, constant: -10).isActive = true
 
         // MARK: - Appearance
+
         dataLabel.font = UIFont.aeonDataFont
         dataLabel.backgroundColor = .aeonMediumRed
         dataLabel.textColor = .aeonBrightBrown
