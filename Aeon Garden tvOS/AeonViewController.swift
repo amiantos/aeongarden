@@ -5,6 +5,9 @@
 //  Created by Bradley Root on 3/28/19.
 //  Copyright © 2019 Brad Root. All rights reserved.
 //
+//  This Source Code Form is subject to the terms of the Mozilla Public
+//  License, v. 2.0. If a copy of the MPL was not distributed with this
+//  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import GameplayKit
 import SpriteKit
@@ -50,12 +53,6 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         setNeedsFocusUpdate()
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        mainBackgroundView.layer.shadowPath = UIBezierPath(rect: mainBackgroundView.bounds).cgPath
-    }
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         initialAnimation()
@@ -66,9 +63,8 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
         if currentState == .details {
             return [detailsContainerView]
-        } else {
-            return [mainContainerView]
         }
+        return [mainContainerView]
     }
 
     // MARK: tvOS Controls
@@ -95,7 +91,6 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
                 selected = mateArray.randomElement()!
             }
             scene!.selectCreature(selected)
-            showDetailsIfNeeded()
         }
     }
 
@@ -104,11 +99,6 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     // MARK: - Tank Delegate
-
-    func creatureDeselected() {
-        print("Received deselected message from tank.")
-        hideDetailsIfNeeded()
-    }
 
     func updateClock(_ clock: String) {
         mainClockLabel.data = clock
@@ -130,19 +120,27 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         mainDeathsLabel.data = String(deaths)
     }
 
-    func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?) {
-        if let creature = creature {
-            if detailsTitle != creature.name {
-                disableDetailUpdates = true
-                detailsTitle = creature.name
-                detailsTitleChanged()
-                return
-            }
-            if !disableDetailUpdates {
-                detailsHealthLabel.data = String(Int(creature.getCurrentHealth())).localizedUppercase
-                detailsFeelingLabel.data = creature.getCurrentState().localizedUppercase
-                detailsAgeLabel.data = creature.lifeTimeFormattedAsString().localizedUppercase
-            }
+    func creatureSelected(_ creature: AeonCreatureNode) {
+        print("Received selected message from tank.")
+        showDetailsIfNeeded()
+    }
+
+    func creatureDeselected() {
+        print("Received deselected message from tank.")
+        hideDetailsIfNeeded()
+    }
+
+    func updateSelectedCreatureDetails(_ creature: AeonCreatureNode) {
+        if detailsTitle != creature.name {
+            disableDetailUpdates = true
+            detailsTitle = creature.name
+            detailsTitleChanged()
+            return
+        }
+        if !disableDetailUpdates {
+            detailsHealthLabel.data = String(Int(creature.getCurrentHealth())).localizedUppercase
+            detailsFeelingLabel.data = creature.getCurrentState().localizedUppercase
+            detailsAgeLabel.data = creature.lifeTimeFormattedAsString().localizedUppercase
         }
     }
 

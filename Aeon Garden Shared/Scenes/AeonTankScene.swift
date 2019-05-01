@@ -25,8 +25,9 @@ protocol AeonTankUIDelegate: class {
     func updateBirths(_ births: Int)
     func updateDeaths(_ deaths: Int)
     func updateClock(_ clock: String)
-    func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?)
+    func updateSelectedCreatureDetails(_ creature: AeonCreatureNode)
     func creatureDeselected()
+    func creatureSelected(_ creature: AeonCreatureNode)
 }
 
 class AeonTankScene: SKScene {
@@ -35,7 +36,7 @@ class AeonTankScene: SKScene {
     public var deathCount: Int = 0
     public var birthCount: Int = 0
 
-    private var foodPelletMax: Int = 20
+    private var foodPelletMax: Int = 0
     private var creatureMinimum: Int = 10
     private var initialCreatures: Int = 20
 
@@ -69,7 +70,9 @@ class AeonTankScene: SKScene {
 
     var selectedCreature: AeonCreatureNode? {
         didSet {
-            if selectedCreature == nil {
+            if let creature = selectedCreature {
+                tankDelegate?.creatureSelected(creature)
+            } else {
                 tankDelegate?.creatureDeselected()
                 camera?.removeAllActions()
                 let zoomInAction = SKAction.scale(to: 1, duration: 1)
@@ -146,8 +149,10 @@ class AeonTankScene: SKScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        followSelectedCreatureWithCamera()
-        tankDelegate?.updateSelectedCreatureDetails(selectedCreature)
+        if let creature = selectedCreature {
+            followSelectedCreatureWithCamera()
+            tankDelegate?.updateSelectedCreatureDetails(creature)
+        }
 
         if lastCreatureTime == 0 {
             lastFoodTime = currentTime
@@ -178,13 +183,9 @@ class AeonTankScene: SKScene {
             lastCreatureTime = currentTime
         }
 
-        var arrays: [Updatable] = []
-        arrays.append(contentsOf: creatureNodes)
-        arrays.append(contentsOf: foodNodes)
-        arrays.append(contentsOf: bubbleNodes)
-        for child in arrays {
-            child.update(currentTime)
-        }
+        creatureNodes.forEach { $0.update(currentTime) }
+        foodNodes.forEach { $0.update(currentTime) }
+        bubbleNodes.forEach { $0.update(currentTime) }
     }
 
     // MARK: - Per Frame Processes
