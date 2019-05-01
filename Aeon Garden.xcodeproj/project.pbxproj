@@ -20,7 +20,6 @@
 		B413AB80224D73C400E8BDD1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B413AB7E224D73C400E8BDD1 /* LaunchScreen.storyboard */; };
 		B413AB89224D73C400E8BDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB88224D73C400E8BDD1 /* AppDelegate.swift */; };
 		B413AB8B224D73C400E8BDD1 /* AeonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB8A224D73C400E8BDD1 /* AeonViewController.swift */; };
-		B413AB8E224D73C400E8BDD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B413AB8C224D73C400E8BDD1 /* Main.storyboard */; };
 		B413AB97224D73C400E8BDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB96224D73C400E8BDD1 /* AppDelegate.swift */; };
 		B413AB99224D73C400E8BDD1 /* AeonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB98224D73C400E8BDD1 /* AeonViewController.swift */; };
 		B413AB9C224D73C400E8BDD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B413AB9A224D73C400E8BDD1 /* Main.storyboard */; };
@@ -145,7 +144,6 @@
 		B413AB86224D73C400E8BDD1 /* Aeon Garden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Aeon Garden.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B413AB88224D73C400E8BDD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B413AB8A224D73C400E8BDD1 /* AeonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonViewController.swift; sourceTree = "<group>"; };
-		B413AB8D224D73C400E8BDD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B413AB8F224D73C400E8BDD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B413AB94224D73C400E8BDD1 /* Aeon Garden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Aeon Garden.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B413AB96224D73C400E8BDD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -280,7 +278,6 @@
 				B4B2D1F1226BD9250050F14C /* UI Elements */,
 				B413AB88224D73C400E8BDD1 /* AppDelegate.swift */,
 				B413AB8A224D73C400E8BDD1 /* AeonViewController.swift */,
-				B413AB8C224D73C400E8BDD1 /* Main.storyboard */,
 				B413AB8F224D73C400E8BDD1 /* Info.plist */,
 			);
 			path = "Aeon Garden tvOS";
@@ -540,7 +537,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B413ABE6224D7D4F00E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */,
-				B413AB8E224D73C400E8BDD1 /* Main.storyboard in Resources */,
 				B413ABF8224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B429D7332272C1480069D551 /* aeonBirthSound.wav in Resources */,
 				B413ABE7224D7D4F00E8BDD1 /* AeonCreatureBubbleTrail.sks in Resources */,
@@ -740,14 +736,6 @@
 				B413AB7F224D73C400E8BDD1 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		B413AB8C224D73C400E8BDD1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B413AB8D224D73C400E8BDD1 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		B413AB9A224D73C400E8BDD1 /* Main.storyboard */ = {

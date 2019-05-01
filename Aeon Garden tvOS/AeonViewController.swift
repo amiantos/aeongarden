@@ -36,6 +36,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view = SKView(frame: UIScreen.main.bounds)
         scene = AeonTankScene(size: view.bounds.size)
         scene?.tankDelegate = self
 
