@@ -149,12 +149,7 @@ class AeonTankScene: SKScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        if let creature = selectedCreature {
-            followSelectedCreatureWithCamera()
-            if (currentTime - lastBubbleTime) >= 1 {
-                tankDelegate?.updateSelectedCreatureDetails(creature)
-            }
-        }
+        followSelectedCreatureWithCamera()
 
         if lastCreatureTime == 0 {
             lastFoodTime = currentTime
@@ -174,7 +169,12 @@ class AeonTankScene: SKScene {
             let deltaTime = currentTime - lastBubbleTime
             let correctedDelta = deltaTime > 1 ? 1 : deltaTime
             tankTime += correctedDelta
+
+            // UI Updates (Kludge)
             tankDelegate?.updateClock(toTimestamp(timeInterval: tankTime))
+            if let creature = selectedCreature {
+                tankDelegate?.updateSelectedCreatureDetails(creature)
+            }
 
             lastBubbleTime = currentTime
         }
