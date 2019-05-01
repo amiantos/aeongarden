@@ -24,9 +24,127 @@ extension UIState {
     }
 }
 
-class AeonViewController: UIViewController {
+class AeonViewController: UIViewController, AeonTankUIDelegate {
     var scene: AeonTankScene?
     var skView: SKView?
+
+    // MARK: View Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        scene = AeonTankScene(size: view.bounds.size)
+        scene?.tankDelegate = self
+
+        // Present the scene
+        skView = view as? SKView
+        skView?.ignoresSiblingOrder = true
+        skView?.presentScene(scene)
+
+        setupTemporaryControls()
+
+        view.translatesAutoresizingMaskIntoConstraints = false
+        setupMainMenuView()
+        setupDetailsView()
+
+        setNeedsFocusUpdate()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        mainBackgroundView.layer.shadowPath = UIBezierPath(rect: mainBackgroundView.bounds).cgPath
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        initialAnimation()
+        setNeedsFocusUpdate()
+        updateFocusIfNeeded()
+    }
+
+    override var preferredFocusEnvironments: [UIFocusEnvironment] {
+        if currentState == .details {
+            return [detailsContainerView]
+        } else {
+            return [mainContainerView]
+        }
+    }
+
+    // MARK: tvOS Controls
+
+    fileprivate func setupTemporaryControls() {
+        let selectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectRandomCreature))
+        selectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.playPause.rawValue)]
+        view.addGestureRecognizer(selectCreatureRecognizer)
+
+        let deselectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(deselectCreature))
+        deselectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
+        view.addGestureRecognizer(deselectCreatureRecognizer)
+    }
+
+    @objc func selectRandomCreature() {
+        var mateArray: [AeonCreatureNode] = []
+        let nodes = scene!.children
+        for case let child as AeonCreatureNode in nodes {
+            mateArray.append(child)
+        }
+        if !mateArray.isEmpty {
+            var selected = mateArray.randomElement()!
+            while selected == scene!.selectedCreature, mateArray.count > 1 {
+                selected = mateArray.randomElement()!
+            }
+            scene!.selectCreature(selected)
+            showDetailsIfNeeded()
+        }
+    }
+
+    @objc func deselectCreature() {
+        scene!.deselectCreature()
+    }
+
+    // MARK: - Tank Delegate
+
+    func creatureDeselected() {
+        print("Received deselected message from tank.")
+        hideDetailsIfNeeded()
+    }
+
+    func updateClock(_ clock: String) {
+        mainClockLabel.data = clock
+    }
+
+    func updatePopulation(_ population: Int) {
+        mainPopulationLabel.data = String(population)
+    }
+
+    func updateFood(_ food: Int) {
+        mainFoodLabel.data = String(food)
+    }
+
+    func updateBirths(_ births: Int) {
+        mainBirthsLabel.data = String(births)
+    }
+
+    func updateDeaths(_ deaths: Int) {
+        mainDeathsLabel.data = String(deaths)
+    }
+
+    func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?) {
+        if let creature = creature {
+            if detailsTitle != creature.name {
+                disableDetailUpdates = true
+                detailsTitle = creature.name
+                detailsTitleChanged()
+                return
+            }
+            if !disableDetailUpdates {
+                detailsHealthLabel.data = String(Int(creature.getCurrentHealth())).localizedUppercase
+                detailsFeelingLabel.data = creature.getCurrentState().localizedUppercase
+                detailsAgeLabel.data = creature.lifeTimeFormattedAsString().localizedUppercase
+            }
+        }
+    }
 
     // MARK: - Animations
 
@@ -49,6 +167,7 @@ class AeonViewController: UIViewController {
                 self.detailsBottomAnchorConstraint.constant = self.detailsDefaultOffset
                 self.mainTopAnchorConstraint.constant = self.mainHiddenOffset
                 self.mainTitleLabel.alpha = 0
+                if self.runningNameAnimators.isEmpty { self.detailsTitleLabel.alpha = 1 }
             }
             self.view.layoutIfNeeded()
         }
@@ -75,6 +194,7 @@ class AeonViewController: UIViewController {
                 self.detailsBottomAnchorConstraint.constant = self.detailsDefaultOffset
                 self.mainTopAnchorConstraint.constant = self.mainHiddenOffset
                 self.mainTitleLabel.alpha = 0
+                if self.runningNameAnimators.isEmpty { self.detailsTitleLabel.alpha = 1 }
             }
 
             self.runningAnimators.removeAll()
@@ -84,6 +204,55 @@ class AeonViewController: UIViewController {
 
         transitionAnimator.startAnimation()
         runningAnimators.append(transitionAnimator)
+    }
+
+    func detailsTitleChanged() {
+        removeNameAnimationsIfNeeded()
+        let currentShadowPath = detailsBackgroundView.bounds
+        let newShadowPath = detailsBackgroundView.bounds
+
+        let animation = UIViewPropertyAnimator(duration: 1, curve: .easeInOut, animations: {
+            self.detailsBackgroundWidthConstraint.constant = self.detailsTitleLabel.bounds.width + 66
+            self.detailsTitleLabel.alpha = 1
+            self.detailsHealthLabel.dataLabel.alpha = 1
+            self.detailsFeelingLabel.dataLabel.alpha = 1
+            self.detailsAgeLabel.dataLabel.alpha = 1
+            self.view.layoutIfNeeded()
+        })
+        animation.addCompletion { _ in
+            self.detailsTitleLabel.alpha = 1
+            self.detailsHealthLabel.dataLabel.alpha = 1
+            self.detailsFeelingLabel.dataLabel.alpha = 1
+            self.detailsAgeLabel.dataLabel.alpha = 1
+            self.detailsBackgroundWidthConstraint.constant = self.detailsTitleLabel.bounds.width + 66
+        }
+
+        let fadeOutAnimation = UIViewPropertyAnimator(duration: 0.2, curve: .linear, animations: {
+            self.detailsTitleLabel.alpha = 0
+            self.detailsHealthLabel.dataLabel.alpha = 0
+            self.detailsFeelingLabel.dataLabel.alpha = 0
+            self.detailsAgeLabel.dataLabel.alpha = 0
+        })
+        fadeOutAnimation.addCompletion { position in
+            if position == .end {
+                self.disableDetailUpdates = false
+                self.detailsTitleLabel.text = self.detailsTitle?.localizedUppercase
+                self.view.layoutIfNeeded()
+                self.runningNameAnimators.append(animation)
+                animation.startAnimation()
+
+                let shadowAnimation = CABasicAnimation(keyPath: "shadowPath")
+                shadowAnimation.fromValue = currentShadowPath
+                shadowAnimation.toValue = newShadowPath
+                shadowAnimation.duration = 1
+                shadowAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+                shadowAnimation.isRemovedOnCompletion = true
+                shadowAnimation.autoreverses = true
+                self.detailsBackgroundView.layer.add(shadowAnimation, forKey: "shadowAnimation")
+            }
+        }
+        runningNameAnimators.append(fadeOutAnimation)
+        fadeOutAnimation.startAnimation()
     }
 
     func showDetailsIfNeeded() {
@@ -199,7 +368,7 @@ class AeonViewController: UIViewController {
             mainFoodLabel,
             mainBirthsLabel,
             mainDeathsLabel,
-            mainClockLabel
+            mainClockLabel,
         ])
         mainStackView.axis = .horizontal
         mainStackView.distribution = .equalSpacing
@@ -298,7 +467,7 @@ class AeonViewController: UIViewController {
         detailsTitleLabel.layer.shouldRasterize = true
         detailsTitleLabel.layer.rasterizationScale = UIScreen.main.scale
 
-        detailsTitleLabel.alpha = 1
+        detailsTitleLabel.alpha = 0
 
         detailsBottomAnchorConstraint = detailsContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: detailsHiddenOffset)
         detailsBottomAnchorConstraint.isActive = true
@@ -306,7 +475,9 @@ class AeonViewController: UIViewController {
 
         // MARK: Details Data Labels
 
-        detailsStackView = UIStackView(arrangedSubviews: [detailsHealthLabel, detailsFeelingLabel, detailsAgeLabel])
+        let detailsStackViews = [detailsHealthLabel, detailsFeelingLabel, detailsAgeLabel]
+        detailsStackViews.forEach { $0.dataLabel.alpha = 0 }
+        detailsStackView = UIStackView(arrangedSubviews: detailsStackViews)
         detailsStackView.axis = .horizontal
         detailsStackView.distribution = .equalSpacing
         detailsStackView.alignment = .fill
@@ -336,166 +507,5 @@ class AeonViewController: UIViewController {
         detailsSaveButton.trailingAnchor.constraint(equalTo: detailsContainerView.trailingAnchor, constant: 0).isActive = true
         detailsRenameButton.trailingAnchor.constraint(equalTo: detailsSaveButton.leadingAnchor, constant: -30).isActive = true
         detailsFavoriteButton.trailingAnchor.constraint(equalTo: detailsRenameButton.leadingAnchor, constant: -30).isActive = true
-    }
-
-    func detailsTitleChanged() {
-        removeNameAnimationsIfNeeded()
-        let currentShadowPath = detailsBackgroundView.bounds
-        let newShadowPath = detailsBackgroundView.bounds
-
-        let animation = UIViewPropertyAnimator(duration: 1, curve: .easeInOut, animations: {
-            self.detailsBackgroundWidthConstraint.constant = self.detailsTitleLabel.bounds.width + 66
-            self.detailsTitleLabel.alpha = 1
-            self.detailsHealthLabel.dataLabel.alpha = 1
-            self.detailsFeelingLabel.dataLabel.alpha = 1
-            self.detailsAgeLabel.dataLabel.alpha = 1
-            self.view.layoutIfNeeded()
-        })
-        animation.addCompletion { _ in
-            self.detailsTitleLabel.alpha = 1
-            self.detailsHealthLabel.dataLabel.alpha = 1
-            self.detailsFeelingLabel.dataLabel.alpha = 1
-            self.detailsAgeLabel.dataLabel.alpha = 1
-            self.detailsBackgroundWidthConstraint.constant = self.detailsTitleLabel.bounds.width + 66
-        }
-
-        let fadeOutAnimation = UIViewPropertyAnimator(duration: 0.2, curve: .linear, animations: {
-            self.detailsTitleLabel.alpha = 0
-            self.detailsHealthLabel.dataLabel.alpha = 0
-            self.detailsFeelingLabel.dataLabel.alpha = 0
-            self.detailsAgeLabel.dataLabel.alpha = 0
-        })
-        fadeOutAnimation.addCompletion { position in
-            if position == .end {
-                self.disableDetailUpdates = false
-                self.detailsTitleLabel.text = self.detailsTitle?.localizedUppercase
-                self.view.layoutIfNeeded()
-                self.runningNameAnimators.append(animation)
-                animation.startAnimation()
-
-                let shadowAnimation = CABasicAnimation(keyPath: "shadowPath")
-                shadowAnimation.fromValue = currentShadowPath
-                shadowAnimation.toValue = newShadowPath
-                shadowAnimation.duration = 1
-                shadowAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-                shadowAnimation.isRemovedOnCompletion = true
-                shadowAnimation.autoreverses = true
-                self.detailsBackgroundView.layer.add(shadowAnimation, forKey: "shadowAnimation")
-            }
-        }
-        runningNameAnimators.append(fadeOutAnimation)
-        fadeOutAnimation.startAnimation()
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        scene = AeonTankScene(size: view.bounds.size)
-        scene?.tankDelegate = self
-
-        // Present the scene
-        skView = view as? SKView
-        skView?.ignoresSiblingOrder = true
-        skView?.presentScene(scene)
-
-        setupTemporaryControls()
-
-        view.translatesAutoresizingMaskIntoConstraints = false
-        setupMainMenuView()
-        setupDetailsView()
-
-        setNeedsFocusUpdate()
-    }
-
-    override var preferredFocusEnvironments: [UIFocusEnvironment] {
-        if currentState == .details {
-            return [detailsContainerView]
-        } else {
-            return [mainContainerView]
-        }
-    }
-
-    fileprivate func setupTemporaryControls() {
-        let selectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectRandomCreature))
-        selectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.playPause.rawValue)]
-        view.addGestureRecognizer(selectCreatureRecognizer)
-
-        let deselectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(deselectCreature))
-        deselectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
-        view.addGestureRecognizer(deselectCreatureRecognizer)
-    }
-
-    @objc func selectRandomCreature() {
-        var mateArray: [AeonCreatureNode] = []
-        let nodes = scene!.children
-        for case let child as AeonCreatureNode in nodes {
-            mateArray.append(child)
-        }
-        if !mateArray.isEmpty {
-            var selected = mateArray.randomElement()!
-            while selected == scene!.selectedCreature, mateArray.count > 1 {
-                selected = mateArray.randomElement()!
-            }
-            scene!.selectCreature(selected)
-            showDetailsIfNeeded()
-        }
-    }
-
-    @objc func deselectCreature() {
-        scene!.deselectCreature()
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        mainBackgroundView.layer.shadowPath = UIBezierPath(rect: mainBackgroundView.bounds).cgPath
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        initialAnimation()
-        setNeedsFocusUpdate()
-        updateFocusIfNeeded()
-    }
-}
-
-extension AeonViewController: AeonTankUIDelegate {
-    func creatureDeselected() {
-        print("Received deselected message from tank.")
-        hideDetailsIfNeeded()
-    }
-
-    func updateClock(_ clock: String) {
-        mainClockLabel.data = clock
-    }
-
-    func updatePopulation(_ population: Int) {
-        mainPopulationLabel.data = String(population)
-    }
-
-    func updateFood(_ food: Int) {
-        mainFoodLabel.data = String(food)
-    }
-
-    func updateBirths(_ births: Int) {
-        mainBirthsLabel.data = String(births)
-    }
-
-    func updateDeaths(_ deaths: Int) {
-        mainDeathsLabel.data = String(deaths)
-    }
-
-    func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?) {
-        if let creature = creature, !disableDetailUpdates {
-            if detailsTitle != creature.name {
-                disableDetailUpdates = true
-                detailsTitle = creature.name
-                detailsTitleChanged()
-                return
-            }
-            detailsHealthLabel.data = String(Int(creature.getCurrentHealth())).localizedUppercase
-            detailsFeelingLabel.data = creature.getCurrentState().localizedUppercase
-            detailsAgeLabel.data = creature.lifeTimeFormattedAsString().localizedUppercase
-        }
     }
 }
