@@ -166,10 +166,12 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
                 self.detailsTitleLabel.alpha = 0
                 self.mainTopAnchorConstraint.constant = self.mainDefaultOffset
                 self.mainTitleLabel.alpha = 1
+                self.mainTitleLabelTopAnchorConstraint.constant = self.mainTitleLabelDefaultOffset
             case .details:
                 self.detailsBottomAnchorConstraint.constant = self.detailsDefaultOffset
                 self.mainTopAnchorConstraint.constant = self.mainHiddenOffset
                 self.mainTitleLabel.alpha = 0
+                self.mainTitleLabelTopAnchorConstraint.constant = self.mainTitleLabelHiddenOffset
                 if self.runningNameAnimators.isEmpty { self.detailsTitleLabel.alpha = 1 }
             }
             self.view.layoutIfNeeded()
@@ -193,10 +195,12 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
                 self.detailsTitleLabel.alpha = 0
                 self.mainTopAnchorConstraint.constant = self.mainDefaultOffset
                 self.mainTitleLabel.alpha = 1
+                self.mainTitleLabelTopAnchorConstraint.constant = self.mainTitleLabelDefaultOffset
             case .details:
                 self.detailsBottomAnchorConstraint.constant = self.detailsDefaultOffset
                 self.mainTopAnchorConstraint.constant = self.mainHiddenOffset
                 self.mainTitleLabel.alpha = 0
+                self.mainTitleLabelTopAnchorConstraint.constant = self.mainTitleLabelHiddenOffset
                 if self.runningNameAnimators.isEmpty { self.detailsTitleLabel.alpha = 1 }
             }
 
@@ -259,18 +263,14 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     func showDetailsIfNeeded() {
-        if currentState == .main {
-            removeAnimationsIfNeeded()
-            animateTransitionIfNeeded(to: .details, duration: 1)
-        }
+        removeAnimationsIfNeeded()
+        animateTransitionIfNeeded(to: .details, duration: 1)
     }
 
     func hideDetailsIfNeeded() {
-        if currentState == .details {
-            removeNameAnimationsIfNeeded()
-            removeAnimationsIfNeeded()
-            animateTransitionIfNeeded(to: .main, duration: 1)
-        }
+        removeNameAnimationsIfNeeded()
+        removeAnimationsIfNeeded()
+        animateTransitionIfNeeded(to: .main, duration: 1)
     }
 
     private func removeAnimationsIfNeeded() {
@@ -291,6 +291,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
 
     func initialAnimation() {
         mainTopAnchorConstraint.constant = mainDefaultOffset
+        mainTitleLabelTopAnchorConstraint.constant = mainTitleLabelDefaultOffset
         mainTitleLabel.alpha = 1
         let transitionAnimator = UIViewPropertyAnimator(duration: 2, dampingRatio: 1) {
             self.view.layoutIfNeeded()
@@ -306,6 +307,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     let mainTitleLabel = UILabel()
 
     var mainTopAnchorConstraint = NSLayoutConstraint()
+    var mainTitleLabelTopAnchorConstraint = NSLayoutConstraint()
 
     let mainPopulationLabel = AeonTVDataView(name: "POPULATION", initialValue: "0")
     let mainFoodLabel = AeonTVDataView(name: "FOOD", initialValue: "0")
@@ -321,6 +323,8 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
 
     let mainHiddenOffset: CGFloat = -300
     let mainDefaultOffset: CGFloat = 60
+    let mainTitleLabelDefaultOffset: CGFloat = 0
+    let mainTitleLabelHiddenOffset: CGFloat = -60
 
     func setupMainMenuView() {
         mainContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -346,7 +350,9 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         mainBackgroundView.layer.shouldRasterize = true
         mainBackgroundView.layer.rasterizationScale = UIScreen.main.scale
 
-        mainTitleLabel.topAnchor.constraint(equalTo: mainContainerView.topAnchor).isActive = true
+        mainTitleLabelTopAnchorConstraint = mainTitleLabel.topAnchor.constraint(
+            equalTo: mainContainerView.topAnchor, constant: mainTitleLabelHiddenOffset)
+        mainTitleLabelTopAnchorConstraint.isActive = true
         mainTitleLabel.leftAnchor.constraint(equalTo: mainContainerView.leftAnchor).isActive = true
 
         mainTitleLabel.clipsToBounds = false
