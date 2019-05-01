@@ -121,7 +121,6 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     func creatureSelected(_ creature: AeonCreatureNode) {
-        print("Received selected message from tank.")
         DispatchQueue.main.async {
             self.updateSelectedCreatureDetails(creature)
             self.showDetailsIfNeeded()
@@ -129,7 +128,6 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     func creatureDeselected() {
-        print("Received deselected message from tank.")
         DispatchQueue.main.async {
             self.hideDetailsIfNeeded()
         }
@@ -140,7 +138,6 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             disableDetailUpdates = true
             detailsTitle = creature.name
             detailsTitleChanged()
-            return
         }
         if !disableDetailUpdates {
             detailsHealthLabel.data = String(Int(creature.getCurrentHealth())).localizedUppercase
@@ -243,6 +240,10 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         fadeOutAnimation.addCompletion { position in
             if position == .end {
                 self.disableDetailUpdates = false
+                if let creature = self.scene?.selectedCreature {
+                    // sloppy kludge to get around 1 second UI updates on creature data
+                    self.updateSelectedCreatureDetails(creature)
+                }
                 self.detailsTitleLabel.text = self.detailsTitle?.localizedUppercase
                 self.view.layoutIfNeeded()
                 self.runningNameAnimators.append(animation)

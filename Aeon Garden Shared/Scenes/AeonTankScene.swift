@@ -36,7 +36,7 @@ class AeonTankScene: SKScene {
     public var deathCount: Int = 0
     public var birthCount: Int = 0
 
-    private var foodPelletMax: Int = 0
+    private var foodPelletMax: Int = 20
     private var creatureMinimum: Int = 10
     private var initialCreatures: Int = 20
 
@@ -118,12 +118,13 @@ class AeonTankScene: SKScene {
         setupCamera()
         setupBackgroundGradient()
         setupBackgroundAnimation()
-        createInitialCreatures()
-        createInitialBubbles()
     }
 
     override func didMove(to _: SKView) {
         physicsWorld.contactDelegate = self
+
+        createInitialCreatures()
+        createInitialBubbles()
     }
 
     override func addChild(_ node: SKNode) {
