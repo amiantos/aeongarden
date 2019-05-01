@@ -151,7 +151,9 @@ class AeonTankScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         if let creature = selectedCreature {
             followSelectedCreatureWithCamera()
-            tankDelegate?.updateSelectedCreatureDetails(creature)
+            if (currentTime - lastBubbleTime) >= 1 {
+                tankDelegate?.updateSelectedCreatureDetails(creature)
+            }
         }
 
         if lastCreatureTime == 0 {
