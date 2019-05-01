@@ -122,12 +122,17 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
 
     func creatureSelected(_ creature: AeonCreatureNode) {
         print("Received selected message from tank.")
-        showDetailsIfNeeded()
+        DispatchQueue.main.async {
+            self.updateSelectedCreatureDetails(creature)
+            self.showDetailsIfNeeded()
+        }
     }
 
     func creatureDeselected() {
         print("Received deselected message from tank.")
-        hideDetailsIfNeeded()
+        DispatchQueue.main.async {
+            self.hideDetailsIfNeeded()
+        }
     }
 
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode) {
@@ -254,14 +259,18 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     func showDetailsIfNeeded() {
-        removeAnimationsIfNeeded()
-        animateTransitionIfNeeded(to: .details, duration: 1)
+        if currentState == .main {
+            removeAnimationsIfNeeded()
+            animateTransitionIfNeeded(to: .details, duration: 1)
+        }
     }
 
     func hideDetailsIfNeeded() {
-        removeNameAnimationsIfNeeded()
-        removeAnimationsIfNeeded()
-        animateTransitionIfNeeded(to: .main, duration: 1)
+        if currentState == .details {
+            removeNameAnimationsIfNeeded()
+            removeAnimationsIfNeeded()
+            animateTransitionIfNeeded(to: .main, duration: 1)
+        }
     }
 
     private func removeAnimationsIfNeeded() {
