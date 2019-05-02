@@ -14,6 +14,10 @@ import UIKit
 
 struct UISettings {
     let mainTitleFont: UIFont
+    let mainBackgroundTopConstant: CGFloat
+    let mainBackgroundLeftConstant: CGFloat
+    let mainBackgroundBottomConstant: CGFloat
+    let mainBackgroundRightConstant: CGFloat
     let mainHeight: CGFloat
     let mainWidth: CGFloat
     let detailsTitleFont: UIFont
@@ -27,6 +31,10 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         #if os(tvOS)
         return UISettings(
             mainTitleFont: UIFont.aeonTitleFontLarge,
+            mainBackgroundTopConstant: 86,
+            mainBackgroundLeftConstant: 50,
+            mainBackgroundBottomConstant: -30,
+            mainBackgroundRightConstant: -33,
             mainHeight: 280,
             mainWidth: 1153,
             detailsTitleFont: UIFont.aeonTitleFontMedium,
@@ -35,8 +43,12 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         #elseif os(iOS)
         return UISettings(
             mainTitleFont: UIFont.aeonTitleFontMedium,
-            mainHeight: 280,
-            mainWidth: 780,
+            mainBackgroundTopConstant: 58,
+            mainBackgroundLeftConstant: 33,
+            mainBackgroundBottomConstant: -20,
+            mainBackgroundRightConstant: -15,
+            mainHeight: 200,
+            mainWidth: 770,
             detailsTitleFont: UIFont.aeonTitleFontSmall,
             detailsHeight: 225
         )
@@ -375,10 +387,10 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         mainTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         mainBackgroundView.addSubview(mainTitleLabel)
 
-        mainBackgroundView.topAnchor.constraint(equalTo: mainContainerView.topAnchor, constant: 86).isActive = true
-        mainBackgroundView.rightAnchor.constraint(equalTo: mainContainerView.rightAnchor, constant: -33).isActive = true
-        mainBackgroundView.leftAnchor.constraint(equalTo: mainContainerView.leftAnchor, constant: 50).isActive = true
-        mainBackgroundView.bottomAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: -30).isActive = true
+        mainBackgroundView.topAnchor.constraint(equalTo: mainContainerView.topAnchor, constant: uiSettings.mainBackgroundTopConstant).isActive = true
+        mainBackgroundView.rightAnchor.constraint(equalTo: mainContainerView.rightAnchor, constant: uiSettings.mainBackgroundRightConstant).isActive = true
+        mainBackgroundView.leftAnchor.constraint(equalTo: mainContainerView.leftAnchor, constant: uiSettings.mainBackgroundLeftConstant).isActive = true
+        mainBackgroundView.bottomAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: uiSettings.mainBackgroundBottomConstant).isActive = true
 
         mainBackgroundView.backgroundColor = .aeonMediumRed
         mainBackgroundView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50).cgColor
@@ -424,7 +436,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         mainStackView.axis = .horizontal
         mainStackView.distribution = .equalSpacing
         mainStackView.alignment = .fill
-        mainStackView.spacing = 30
+        mainStackView.spacing = 20
 
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainBackgroundView.addSubview(mainStackView)
