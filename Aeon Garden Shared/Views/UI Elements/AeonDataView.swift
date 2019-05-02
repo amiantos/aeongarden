@@ -35,11 +35,21 @@ class AeonDataView: UIView {
     }
 
     override init(frame: CGRect) {
+        #if os(iOS)
+        style = .ios
+        #elseif os(tvOS)
+        style = .tvos
+        #endif
         super.init(frame: frame)
         setupView()
     }
 
     required init?(coder aDecoder: NSCoder) {
+        #if os(iOS)
+        style = .ios
+        #elseif os(tvOS)
+        style = .tvos
+        #endif
         super.init(coder: aDecoder)
         setupView()
     }
@@ -63,11 +73,16 @@ class AeonDataView: UIView {
 
         // MARK: - Appearance
 
-        dataLabel.font = UIFont.aeonDataFontTV
+        if style == .tvos {
+            dataLabel.font = UIFont.aeonDataFontTV
+            titleLabel.font = UIFont.aeonDataTitleFontTV
+        } else {
+            dataLabel.font = UIFont.aeonDataFontiOS
+            titleLabel.font = UIFont.aeonDataTitleFontiOS
+        }
+
         dataLabel.backgroundColor = .aeonMediumRed
         dataLabel.textColor = .aeonBrightBrown
-
-        titleLabel.font = UIFont.aeonDataTitleFontTV
         titleLabel.textColor = .aeonBrightYellow
         titleLabel.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         titleLabel.layer.shadowOpacity = 1

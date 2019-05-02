@@ -14,9 +14,9 @@ import UIKit
 
 struct UISettings {
     let mainTitleFont: UIFont
-    let detailsTitleFont: UIFont
     let mainHeight: CGFloat
     let mainWidth: CGFloat
+    let detailsTitleFont: UIFont
     let detailsHeight: CGFloat
 }
 
@@ -27,17 +27,17 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         #if os(tvOS)
         return UISettings(
             mainTitleFont: UIFont.aeonTitleFontLarge,
-            detailsTitleFont: UIFont.aeonTitleFontMedium,
             mainHeight: 280,
             mainWidth: 1153,
+            detailsTitleFont: UIFont.aeonTitleFontMedium,
             detailsHeight: 225
         )
         #elseif os(iOS)
         return UISettings(
             mainTitleFont: UIFont.aeonTitleFontMedium,
-            detailsTitleFont: UIFont.aeonTitleFontSmall,
             mainHeight: 280,
             mainWidth: 780,
+            detailsTitleFont: UIFont.aeonTitleFontSmall,
             detailsHeight: 225
         )
         #endif

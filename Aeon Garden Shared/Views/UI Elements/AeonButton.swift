@@ -13,7 +13,14 @@ import UIKit
 
 class AeonButton: UIButton {
     let style: UIStyle
+
     override init(frame: CGRect) {
+        #if os(iOS)
+        style = .ios
+        #elseif os(tvOS)
+        style = .tvos
+        #endif
+
         super.init(frame: frame)
         setupView()
     }
@@ -41,8 +48,10 @@ class AeonButton: UIButton {
         setTitleColor(.aeonBrightYellow, for: .normal)
 
         titleLabel?.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel?.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 35).isActive = true
-        titleLabel?.topAnchor.constraint(equalTo: topAnchor, constant: 15).isActive = true
+        let leadingConstant: CGFloat = style == .tvos ? 35 : 20
+        titleLabel?.leadingAnchor.constraint(equalTo: leadingAnchor, constant: leadingConstant).isActive = true
+        let topConstant: CGFloat = style == .tvos ? 15 : 10
+        titleLabel?.topAnchor.constraint(equalTo: topAnchor, constant: topConstant).isActive = true
 
         sizeToFit()
     }
