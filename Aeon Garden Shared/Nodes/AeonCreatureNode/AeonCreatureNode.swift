@@ -271,6 +271,7 @@ class AeonCreatureNode: SKNode, Updatable {
 
         if let emitter = SKEmitterNode(fileNamed: "AeonCreatureBubbleTrail.sks") {
             emitter.name = "AeonCreatureBubbleTrail.sks"
+            emitter.isUserInteractionEnabled = false
             emitter.zPosition = 1
             emitter.targetNode = scene
             let scaleSequence = SKKeyframeSequence(

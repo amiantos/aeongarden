@@ -36,7 +36,7 @@ class AeonTankScene: SKScene {
     public var deathCount: Int = 0
     public var birthCount: Int = 0
 
-    private var foodPelletMax: Int = 20
+    private var foodPelletMax: Int = 30
     private var creatureMinimum: Int = 10
     private var initialCreatures: Int = 20
 
@@ -158,7 +158,7 @@ class AeonTankScene: SKScene {
             lastBubbleTime = currentTime
         }
 
-        if (currentTime - lastFoodTime) >= 3,
+        if (currentTime - lastFoodTime) >= 2,
             foodNodes.count < foodPelletMax {
             addFoodPelletToScene()
             lastFoodTime = currentTime
@@ -211,9 +211,11 @@ class AeonTankScene: SKScene {
             for node in nodes where node is AeonCreatureNode {
                 if node == selectedCreature {
                     resetCamera()
+                    return
                 } else {
                     guard let creature = node as? AeonCreatureNode else { return }
                     selectCreature(creature)
+                    return
                 }
             }
         }
