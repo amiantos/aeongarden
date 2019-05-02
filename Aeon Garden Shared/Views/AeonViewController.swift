@@ -31,11 +31,6 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         view.translatesAutoresizingMaskIntoConstraints = false
         setupMainMenuView()
         setupDetailsView()
-
-        #if os(tvOS)
-        setupTemporaryControls()
-        setNeedsFocusUpdate()
-        #endif
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -43,19 +38,11 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         initialAnimation()
 
         #if os(tvOS)
+        setupTemporaryControls()
         setNeedsFocusUpdate()
         updateFocusIfNeeded()
         #endif
     }
-
-    #if os(tvOS)
-    override var preferredFocusEnvironments: [UIFocusEnvironment] {
-        if currentState == .details {
-            return [detailsContainerView]
-        }
-        return [mainContainerView]
-    }
-    #endif
 
     #if os(iOS)
     override var shouldAutorotate: Bool {
@@ -79,6 +66,13 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     // MARK: tvOS Controls
 
     #if os(tvOS)
+    override var preferredFocusEnvironments: [UIFocusEnvironment] {
+        if currentState == .details {
+            return [detailsContainerView]
+        }
+        return [mainContainerView]
+    }
+
     fileprivate func setupTemporaryControls() {
         let selectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectRandomCreature))
         selectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.playPause.rawValue)]
