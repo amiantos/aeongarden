@@ -1,5 +1,5 @@
 //
-//  AeonTVDataView.swift
+//  AeonDataView.swift
 //  Aeon Garden tvOS
 //
 //  Created by Bradley Root on 4/20/19.
@@ -11,7 +11,7 @@
 
 import UIKit
 
-class AeonTVDataView: UIView {
+class AeonDataView: UIView {
     let titleLabel = UILabel()
     let dataLabel = UILabel()
 

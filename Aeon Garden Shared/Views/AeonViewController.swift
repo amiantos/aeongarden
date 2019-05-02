@@ -1,75 +1,84 @@
 //
 //  AeonViewController.swift
-//  Aeon Garden tvOS
+//  Aeon Garden
 //
-//  Created by Bradley Root on 3/28/19.
-//  Copyright © 2019 Brad Root. All rights reserved.
+//  Created by Bradley Root on 9/30/17.
+//  Copyright © 2017 Brad Root. All rights reserved.
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
 //  License, v. 2.0. If a copy of the MPL was not distributed with this
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import GameplayKit
 import SpriteKit
 import UIKit
-
-enum UIState {
-    case main
-    case details
-}
-
-extension UIState {
-    var opposite: UIState {
-        switch self {
-        case .main: return .details
-        case .details: return .main
-        }
-    }
-}
 
 class AeonViewController: UIViewController, AeonTankUIDelegate {
     var scene: AeonTankScene?
     var skView: SKView?
 
-    // MARK: View Lifecycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        UIApplication.shared.isIdleTimerDisabled = true
         view = SKView(frame: UIScreen.main.bounds)
         scene = AeonTankScene(size: view.bounds.size)
         scene?.tankDelegate = self
 
-        // Present the scene
         skView = view as? SKView
         skView?.ignoresSiblingOrder = true
-        skView?.presentScene(scene)
-
-        setupTemporaryControls()
+        skView!.presentScene(scene)
 
         view.translatesAutoresizingMaskIntoConstraints = false
         setupMainMenuView()
         setupDetailsView()
 
+        #if os(tvOS)
+        setupTemporaryControls()
         setNeedsFocusUpdate()
+        #endif
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         initialAnimation()
+
+        #if os(tvOS)
         setNeedsFocusUpdate()
         updateFocusIfNeeded()
+        #endif
     }
 
+    #if os(tvOS)
     override var preferredFocusEnvironments: [UIFocusEnvironment] {
         if currentState == .details {
             return [detailsContainerView]
         }
         return [mainContainerView]
     }
+    #endif
+
+    #if os(iOS)
+    override var shouldAutorotate: Bool {
+        return true
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Release any cached data, images, etc that aren't in use.
+    }
+
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
+    override var prefersHomeIndicatorAutoHidden: Bool {
+        return true
+    }
+    #endif
 
     // MARK: tvOS Controls
 
+    #if os(tvOS)
     fileprivate func setupTemporaryControls() {
         let selectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectRandomCreature))
         selectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.playPause.rawValue)]
@@ -98,6 +107,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     @objc func deselectCreature() {
         scene!.deselectCreature()
     }
+    #endif
 
     // MARK: - Tank Delegate
 
@@ -311,17 +321,17 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     var mainTopAnchorConstraint = NSLayoutConstraint()
     var mainTitleLabelTopAnchorConstraint = NSLayoutConstraint()
 
-    let mainPopulationLabel = AeonTVDataView(name: "POPULATION", initialValue: "0")
-    let mainFoodLabel = AeonTVDataView(name: "FOOD", initialValue: "0")
-    let mainBirthsLabel = AeonTVDataView(name: "BIRTHS", initialValue: "0")
-    let mainDeathsLabel = AeonTVDataView(name: "DEATHS", initialValue: "0")
-    let mainClockLabel = AeonTVDataView(name: "CLOCK", initialValue: "00:00:00")
+    let mainPopulationLabel = AeonDataView(name: "POPULATION", initialValue: "0")
+    let mainFoodLabel = AeonDataView(name: "FOOD", initialValue: "0")
+    let mainBirthsLabel = AeonDataView(name: "BIRTHS", initialValue: "0")
+    let mainDeathsLabel = AeonDataView(name: "DEATHS", initialValue: "0")
+    let mainClockLabel = AeonDataView(name: "CLOCK", initialValue: "00:00:00")
     var mainStackView = UIStackView()
 
-    private let mainSettingsButton = AeonTVButton()
-    private let mainNewTankButton = AeonTVButton()
-    private let mainSaveTankButton = AeonTVButton()
-    private let mainLoadTankButton = AeonTVButton()
+    private let mainSettingsButton = AeonButton()
+    private let mainNewTankButton = AeonButton()
+    private let mainSaveTankButton = AeonButton()
+    private let mainLoadTankButton = AeonButton()
 
     let mainHiddenOffset: CGFloat = -300
     let mainDefaultOffset: CGFloat = 60
@@ -384,7 +394,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             mainBirthsLabel,
             mainDeathsLabel,
             mainClockLabel,
-        ])
+            ])
         mainStackView.axis = .horizontal
         mainStackView.distribution = .equalSpacing
         mainStackView.alignment = .fill
@@ -427,14 +437,14 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     var detailsBottomAnchorConstraint = NSLayoutConstraint()
     var detailsBackgroundWidthConstraint = NSLayoutConstraint()
 
-    let detailsHealthLabel = AeonTVDataView(name: "HEALTH", initialValue: "0")
-    let detailsFeelingLabel = AeonTVDataView(name: "FEELING", initialValue: "NEWBORN")
-    let detailsAgeLabel = AeonTVDataView(name: "AGE", initialValue: "0.0 MINUTES")
+    let detailsHealthLabel = AeonDataView(name: "HEALTH", initialValue: "0")
+    let detailsFeelingLabel = AeonDataView(name: "FEELING", initialValue: "NEWBORN")
+    let detailsAgeLabel = AeonDataView(name: "AGE", initialValue: "0.0 MINUTES")
     var detailsStackView = UIStackView()
 
-    let detailsSaveButton = AeonTVButton()
-    let detailsFavoriteButton = AeonTVButton()
-    let detailsRenameButton = AeonTVButton()
+    let detailsSaveButton = AeonButton()
+    let detailsFavoriteButton = AeonButton()
+    let detailsRenameButton = AeonButton()
 
     let detailsHiddenOffset: CGFloat = 310
     let detailsDefaultOffset: CGFloat = -60

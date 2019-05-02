@@ -1,5 +1,5 @@
 //
-//  AeonTVButton.swift
+//  AeonButton.swift
 //  Aeon Garden tvOS
 //
 //  Created by Bradley Root on 4/20/19.
@@ -11,7 +11,7 @@
 
 import UIKit
 
-class AeonTVButton: UIButton {
+class AeonButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()

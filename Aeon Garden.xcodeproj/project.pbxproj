@@ -13,13 +13,16 @@
 		449FF757226FD92900704D7C /* AeonFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449FF756226FD92900704D7C /* AeonFonts.swift */; };
 		449FF758226FD92900704D7C /* AeonFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449FF756226FD92900704D7C /* AeonFonts.swift */; };
 		449FF759226FD92900704D7C /* AeonFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449FF756226FD92900704D7C /* AeonFonts.swift */; };
+		44D73684227A68FF006A25B6 /* AeonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F2226BD9A40050F14C /* AeonButton.swift */; };
+		44D73685227A6903006A25B6 /* AeonDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F4226BD9D20050F14C /* AeonDataView.swift */; };
+		44D73686227A6F6B006A25B6 /* AeonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDABC1F80943500DEA908 /* AeonViewController.swift */; };
+		44D73687227A7020006A25B6 /* AeonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDABC1F80943500DEA908 /* AeonViewController.swift */; };
 		82BF56C3256FB0182D5F3F18 /* Pods_Aeon_Garden_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FC0A83C46425083E854700 /* Pods_Aeon_Garden_macOS.framework */; };
 		8E7E158ACFE2903488CE6E7E /* Pods_Aeon_Garden_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A69E33689BDFD1DAC0725B2E /* Pods_Aeon_Garden_iOS.framework */; };
 		AF6124CCE6E6FF06CB0E4210 /* Pods_Aeon_Garden_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BB5FC94C7B5B26BD77940B9 /* Pods_Aeon_Garden_tvOS.framework */; };
 		B413AB78224D73C400E8BDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB77224D73C400E8BDD1 /* AppDelegate.swift */; };
 		B413AB80224D73C400E8BDD1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B413AB7E224D73C400E8BDD1 /* LaunchScreen.storyboard */; };
 		B413AB89224D73C400E8BDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB88224D73C400E8BDD1 /* AppDelegate.swift */; };
-		B413AB8B224D73C400E8BDD1 /* AeonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB8A224D73C400E8BDD1 /* AeonViewController.swift */; };
 		B413AB97224D73C400E8BDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB96224D73C400E8BDD1 /* AppDelegate.swift */; };
 		B413AB99224D73C400E8BDD1 /* AeonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB98224D73C400E8BDD1 /* AeonViewController.swift */; };
 		B413AB9C224D73C400E8BDD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B413AB9A224D73C400E8BDD1 /* Main.storyboard */; };
@@ -114,8 +117,8 @@
 		B429D73E2272C1480069D551 /* aeonBirthSound-E4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */; };
 		B429D73F2272C1480069D551 /* aeonBirthSound-E4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */; };
 		B429D7402272C1480069D551 /* aeonBirthSound-E4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */; };
-		B4B2D1F3226BD9A40050F14C /* AeonTVButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F2226BD9A40050F14C /* AeonTVButton.swift */; };
-		B4B2D1F5226BD9D20050F14C /* AeonTVDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F4226BD9D20050F14C /* AeonTVDataView.swift */; };
+		B4B2D1F3226BD9A40050F14C /* AeonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F2226BD9A40050F14C /* AeonButton.swift */; };
+		B4B2D1F5226BD9D20050F14C /* AeonDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F4226BD9D20050F14C /* AeonDataView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,7 +146,6 @@
 		B413AB81224D73C400E8BDD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B413AB86224D73C400E8BDD1 /* Aeon Garden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Aeon Garden.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B413AB88224D73C400E8BDD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B413AB8A224D73C400E8BDD1 /* AeonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonViewController.swift; sourceTree = "<group>"; };
 		B413AB8F224D73C400E8BDD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B413AB94224D73C400E8BDD1 /* Aeon Garden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Aeon Garden.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B413AB96224D73C400E8BDD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -173,8 +175,8 @@
 		B48DDACD1F80B2B000DEA908 /* AeonCreatureNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonCreatureNode.swift; sourceTree = "<group>"; };
 		B48DDACF1F81A1DE00DEA908 /* AeonFoodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonFoodNode.swift; sourceTree = "<group>"; };
 		B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonOceanSquareBubbles.sks; sourceTree = "<group>"; };
-		B4B2D1F2226BD9A40050F14C /* AeonTVButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTVButton.swift; sourceTree = "<group>"; };
-		B4B2D1F4226BD9D20050F14C /* AeonTVDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTVDataView.swift; sourceTree = "<group>"; };
+		B4B2D1F2226BD9A40050F14C /* AeonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonButton.swift; sourceTree = "<group>"; };
+		B4B2D1F4226BD9D20050F14C /* AeonDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonDataView.swift; sourceTree = "<group>"; };
 		B4DEED31224708800026604C /* AeonColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonColors.swift; sourceTree = "<group>"; };
 		B4DEED37224806850026604C /* AeonNodeProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonNodeProtocols.swift; sourceTree = "<group>"; };
 		B4DEED39224817D80026604C /* AeonBubbleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonBubbleNode.swift; sourceTree = "<group>"; };
@@ -248,6 +250,15 @@
 			path = "Aeon Garden Shared/Utilities";
 			sourceTree = SOURCE_ROOT;
 		};
+		44D73688227A7036006A25B6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B4B2D1F1226BD9250050F14C /* UI Elements */,
+				B48DDABC1F80943500DEA908 /* AeonViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		B413AB6C224D73C200E8BDD1 /* Aeon Garden Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,6 +268,7 @@
 				B4DEED362248065B0026604C /* Scenes */,
 				B4DEED3522470E400026604C /* Nodes */,
 				44D36650223B1D63006AB1C7 /* Utilities */,
+				44D73688227A7036006A25B6 /* Views */,
 			);
 			path = "Aeon Garden Shared";
 			sourceTree = SOURCE_ROOT;
@@ -265,7 +277,6 @@
 			isa = PBXGroup;
 			children = (
 				B413AB77224D73C400E8BDD1 /* AppDelegate.swift */,
-				B48DDABC1F80943500DEA908 /* AeonViewController.swift */,
 				B413AB7E224D73C400E8BDD1 /* LaunchScreen.storyboard */,
 				B413AB81224D73C400E8BDD1 /* Info.plist */,
 			);
@@ -275,9 +286,7 @@
 		B413AB87224D73C400E8BDD1 /* Aeon Garden tvOS */ = {
 			isa = PBXGroup;
 			children = (
-				B4B2D1F1226BD9250050F14C /* UI Elements */,
 				B413AB88224D73C400E8BDD1 /* AppDelegate.swift */,
-				B413AB8A224D73C400E8BDD1 /* AeonViewController.swift */,
 				B413AB8F224D73C400E8BDD1 /* Info.plist */,
 			);
 			path = "Aeon Garden tvOS";
@@ -360,8 +369,8 @@
 		B4B2D1F1226BD9250050F14C /* UI Elements */ = {
 			isa = PBXGroup;
 			children = (
-				B4B2D1F2226BD9A40050F14C /* AeonTVButton.swift */,
-				B4B2D1F4226BD9D20050F14C /* AeonTVDataView.swift */,
+				B4B2D1F2226BD9A40050F14C /* AeonButton.swift */,
+				B4B2D1F4226BD9D20050F14C /* AeonDataView.swift */,
 			);
 			path = "UI Elements";
 			sourceTree = "<group>";
@@ -661,8 +670,10 @@
 				B413ABB9224D7C8100E8BDD1 /* AeonLimbNode.swift in Sources */,
 				B413ABCD224D7C8A00E8BDD1 /* AeonNameGenerator.swift in Sources */,
 				44147C67225D6B6800A16736 /* AeonTankSettings.swift in Sources */,
+				44D73684227A68FF006A25B6 /* AeonButton.swift in Sources */,
 				B413ABB8224D7C8100E8BDD1 /* AeonCreatureNode.swift in Sources */,
 				449FF757226FD92900704D7C /* AeonFonts.swift in Sources */,
+				44D73685227A6903006A25B6 /* AeonDataView.swift in Sources */,
 				B413ABDF224D7CC000E8BDD1 /* AeonViewController.swift in Sources */,
 				B413ABD2224D7C8A00E8BDD1 /* SKTextureGradient.swift in Sources */,
 				B413ABB5224D7C7100E8BDD1 /* AeonTankScene.swift in Sources */,
@@ -684,7 +695,7 @@
 				B413ABD7224D7C8B00E8BDD1 /* AeonColors.swift in Sources */,
 				B413ABC0224D7C8200E8BDD1 /* AeonLimbNode.swift in Sources */,
 				B413ABD3224D7C8B00E8BDD1 /* AeonNameGenerator.swift in Sources */,
-				B4B2D1F5226BD9D20050F14C /* AeonTVDataView.swift in Sources */,
+				B4B2D1F5226BD9D20050F14C /* AeonDataView.swift in Sources */,
 				44147C68225D6B6800A16736 /* AeonTankSettings.swift in Sources */,
 				B413ABBF224D7C8200E8BDD1 /* AeonCreatureNode.swift in Sources */,
 				B413ABD8224D7C8B00E8BDD1 /* SKTextureGradient.swift in Sources */,
@@ -694,12 +705,12 @@
 				B413ABFD225002A300E8BDD1 /* AeonSoundManager.swift in Sources */,
 				449FF758226FD92900704D7C /* AeonFonts.swift in Sources */,
 				B413ABC4224D7C8200E8BDD1 /* AeonNodeProtocols.swift in Sources */,
-				B413AB8B224D73C400E8BDD1 /* AeonViewController.swift in Sources */,
 				B413ABC2224D7C8200E8BDD1 /* AeonCreatureBrainStates.swift in Sources */,
 				B413ABC5224D7C8200E8BDD1 /* AeonBubbleNode.swift in Sources */,
 				B413ABD6224D7C8B00E8BDD1 /* AeonUtils.swift in Sources */,
-				B4B2D1F3226BD9A40050F14C /* AeonTVButton.swift in Sources */,
+				B4B2D1F3226BD9A40050F14C /* AeonButton.swift in Sources */,
 				B413AB89224D73C400E8BDD1 /* AppDelegate.swift in Sources */,
+				44D73686227A6F6B006A25B6 /* AeonViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -724,6 +735,7 @@
 				B413ABCC224D7C8300E8BDD1 /* AeonBubbleNode.swift in Sources */,
 				B413ABDC224D7C8C00E8BDD1 /* AeonUtils.swift in Sources */,
 				B413AB97224D73C400E8BDD1 /* AppDelegate.swift in Sources */,
+				44D73687227A7020006A25B6 /* AeonViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

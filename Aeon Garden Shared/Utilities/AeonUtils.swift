@@ -25,6 +25,20 @@ extension State {
     }
 }
 
+enum UIState {
+    case main
+    case details
+}
+
+extension UIState {
+    var opposite: UIState {
+        switch self {
+        case .main: return .details
+        case .details: return .main
+        }
+    }
+}
+
 extension Array where Element: Equatable {
     // Remove first collection element that is equal to the given `object`:
     mutating func remove(object: Element) {
