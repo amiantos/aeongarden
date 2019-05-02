@@ -216,8 +216,10 @@ class AeonTankScene: SKScene {
         if !creatureLocationArray.isEmpty {
             let creature = creatureLocationArray[0].node
             let distance = creatureLocationArray[0].distance
-            if distance >= 50 {
+            if distance >= 50 && selectedCreature != nil {
                 resetCamera()
+            } else if distance >= 50 {
+                return
             } else if creature == selectedCreature {
                 resetCamera()
             } else {

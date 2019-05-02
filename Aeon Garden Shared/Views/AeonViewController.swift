@@ -81,7 +81,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             mainHeight: 190,
             mainWidth: 770,
 
-            detailsBottomConstantHidden: 310,
+            detailsBottomConstantHidden: 205,
             detailsBottomConstantDefault: -30,
             detailsRightOffset: -60,
             detailsTitleFont: UIFont.aeonTitleFontSmall,
