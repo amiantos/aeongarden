@@ -13,6 +13,9 @@ import SpriteKit
 import UIKit
 
 struct UISettings {
+    let mainTopConstantHidden: CGFloat
+    let mainTopConstantDefault: CGFloat
+    let mainLeftOffset: CGFloat
     let mainTitleFont: UIFont
     let mainBackgroundTopConstant: CGFloat
     let mainBackgroundLeftConstant: CGFloat
@@ -20,8 +23,19 @@ struct UISettings {
     let mainBackgroundRightConstant: CGFloat
     let mainHeight: CGFloat
     let mainWidth: CGFloat
+
+    let detailsBottomConstantHidden: CGFloat
+    let detailsBottomConstantDefault: CGFloat
+    let detailsRightOffset: CGFloat
     let detailsTitleFont: UIFont
+    let detailsBackgroundTopConstant: CGFloat
+    let detailsBackgroundLeftConstant: CGFloat
+    let detailsBackgroundBottomConstant: CGFloat
+    let detailsBackgroundRightConstant: CGFloat
     let detailsHeight: CGFloat
+    let detailsWidth: CGFloat
+    let detailsStackViewWidth: CGFloat
+    let detailsStackViewOffsets: CGFloat
 }
 
 class AeonViewController: UIViewController, AeonTankUIDelegate {
@@ -30,6 +44,9 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     let uiSettings: UISettings = {
         #if os(tvOS)
         return UISettings(
+            mainTopConstantHidden: -300,
+            mainTopConstantDefault: 60,
+            mainLeftOffset: 90,
             mainTitleFont: UIFont.aeonTitleFontLarge,
             mainBackgroundTopConstant: 86,
             mainBackgroundLeftConstant: 50,
@@ -37,20 +54,45 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             mainBackgroundRightConstant: -33,
             mainHeight: 280,
             mainWidth: 1153,
+
+            detailsBottomConstantHidden: 310,
+            detailsBottomConstantDefault: -60,
+            detailsRightOffset: -90,
             detailsTitleFont: UIFont.aeonTitleFontMedium,
-            detailsHeight: 225
+            detailsBackgroundTopConstant: 58,
+            detailsBackgroundLeftConstant: 33,
+            detailsBackgroundBottomConstant: -30,
+            detailsBackgroundRightConstant: -33,
+            detailsHeight: 225,
+            detailsWidth: 1000,
+            detailsStackViewWidth: 700,
+            detailsStackViewOffsets: 120
         )
         #elseif os(iOS)
         return UISettings(
+            mainTopConstantHidden: -270,
+            mainTopConstantDefault: 30,
+            mainLeftOffset: 60,
             mainTitleFont: UIFont.aeonTitleFontMedium,
             mainBackgroundTopConstant: 58,
             mainBackgroundLeftConstant: 33,
             mainBackgroundBottomConstant: -20,
             mainBackgroundRightConstant: -15,
-            mainHeight: 200,
+            mainHeight: 190,
             mainWidth: 770,
+
+            detailsBottomConstantHidden: 310,
+            detailsBottomConstantDefault: -30,
+            detailsRightOffset: -60,
             detailsTitleFont: UIFont.aeonTitleFontSmall,
-            detailsHeight: 225
+            detailsBackgroundTopConstant: 35,
+            detailsBackgroundLeftConstant: 20,
+            detailsBackgroundBottomConstant: -20,
+            detailsBackgroundRightConstant: -15,
+            detailsHeight: 150,
+            detailsWidth: 1000,
+            detailsStackViewWidth: 500,
+            detailsStackViewOffsets: 60
         )
         #endif
     }()
@@ -210,12 +252,12 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             case .main:
                 self.detailsBottomAnchorConstraint.constant = self.detailsHiddenOffset
                 self.detailsTitleLabel.alpha = 0
-                self.mainTopAnchorConstraint.constant = self.mainDefaultOffset
+                self.mainTopAnchorConstraint.constant = self.mainTopConstantDefault
                 self.mainTitleLabel.alpha = 1
                 self.mainTitleLabelTopAnchorConstraint.constant = self.mainTitleLabelDefaultOffset
             case .details:
                 self.detailsBottomAnchorConstraint.constant = self.detailsDefaultOffset
-                self.mainTopAnchorConstraint.constant = self.mainHiddenOffset
+                self.mainTopAnchorConstraint.constant = self.mainTopConstantHidden
                 self.mainTitleLabel.alpha = 0
                 self.mainTitleLabelTopAnchorConstraint.constant = self.mainTitleLabelHiddenOffset
                 if self.runningNameAnimators.isEmpty { self.detailsTitleLabel.alpha = 1 }
@@ -239,12 +281,12 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             case .main:
                 self.detailsBottomAnchorConstraint.constant = self.detailsHiddenOffset
                 self.detailsTitleLabel.alpha = 0
-                self.mainTopAnchorConstraint.constant = self.mainDefaultOffset
+                self.mainTopAnchorConstraint.constant = self.mainTopConstantDefault
                 self.mainTitleLabel.alpha = 1
                 self.mainTitleLabelTopAnchorConstraint.constant = self.mainTitleLabelDefaultOffset
             case .details:
                 self.detailsBottomAnchorConstraint.constant = self.detailsDefaultOffset
-                self.mainTopAnchorConstraint.constant = self.mainHiddenOffset
+                self.mainTopAnchorConstraint.constant = self.mainTopConstantHidden
                 self.mainTitleLabel.alpha = 0
                 self.mainTitleLabelTopAnchorConstraint.constant = self.mainTitleLabelHiddenOffset
                 if self.runningNameAnimators.isEmpty { self.detailsTitleLabel.alpha = 1 }
@@ -340,7 +382,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     func initialAnimation() {
-        mainTopAnchorConstraint.constant = mainDefaultOffset
+        mainTopAnchorConstraint.constant = mainTopConstantDefault
         mainTitleLabelTopAnchorConstraint.constant = mainTitleLabelDefaultOffset
         mainTitleLabel.alpha = 1
         let transitionAnimator = UIViewPropertyAnimator(duration: 2, dampingRatio: 1) {
@@ -371,8 +413,8 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     private let mainSaveTankButton = AeonButton()
     private let mainLoadTankButton = AeonButton()
 
-    let mainHiddenOffset: CGFloat = -300
-    let mainDefaultOffset: CGFloat = 60
+    var mainTopConstantHidden: CGFloat { return self.uiSettings.mainTopConstantHidden }
+    var mainTopConstantDefault: CGFloat { return self.uiSettings.mainTopConstantDefault }
     let mainTitleLabelDefaultOffset: CGFloat = 0
     let mainTitleLabelHiddenOffset: CGFloat = -60
 
@@ -381,6 +423,12 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         view.addSubview(mainContainerView)
         mainContainerView.heightAnchor.constraint(equalToConstant: uiSettings.mainHeight).isActive = true
         mainContainerView.widthAnchor.constraint(equalToConstant: uiSettings.mainWidth).isActive = true
+
+        mainTopAnchorConstraint = mainContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: mainTopConstantHidden)
+        mainTopAnchorConstraint.isActive = true
+        mainContainerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: uiSettings.mainLeftOffset).isActive = true
+
+        // Red Rectangle & Title
 
         mainBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         mainContainerView.addSubview(mainBackgroundView)
@@ -419,10 +467,6 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         mainTitleLabel.layer.rasterizationScale = UIScreen.main.scale
 
         mainTitleLabel.alpha = 0
-
-        mainTopAnchorConstraint = mainContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: mainHiddenOffset)
-        mainTopAnchorConstraint.isActive = true
-        mainContainerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 90).isActive = true
 
         // MARK: Main Menu Data Labels
 
@@ -484,15 +528,21 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     let detailsFavoriteButton = AeonButton()
     let detailsRenameButton = AeonButton()
 
-    let detailsHiddenOffset: CGFloat = 310
-    let detailsDefaultOffset: CGFloat = -60
+    var detailsHiddenOffset: CGFloat { return uiSettings.detailsBottomConstantHidden }
+    var detailsDefaultOffset: CGFloat { return uiSettings.detailsBottomConstantDefault }
 
     func setupDetailsView() {
         detailsContainerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(detailsContainerView)
         detailsContainerView.heightAnchor.constraint(equalToConstant: uiSettings.detailsHeight).isActive = true
 
-        detailsBackgroundWidthConstraint = detailsContainerView.widthAnchor.constraint(equalToConstant: 1000)
+        detailsBottomAnchorConstraint = detailsContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: detailsHiddenOffset)
+        detailsBottomAnchorConstraint.isActive = true
+        detailsContainerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: uiSettings.detailsRightOffset).isActive = true
+
+        // Red Rectangle
+
+        detailsBackgroundWidthConstraint = detailsContainerView.widthAnchor.constraint(equalToConstant: uiSettings.detailsWidth)
         detailsBackgroundWidthConstraint.priority = .defaultLow
         detailsBackgroundWidthConstraint.isActive = true
 
@@ -501,10 +551,10 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         detailsTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         detailsBackgroundView.addSubview(detailsTitleLabel)
 
-        detailsBackgroundView.topAnchor.constraint(equalTo: detailsContainerView.topAnchor, constant: 58).isActive = true
-        detailsBackgroundView.rightAnchor.constraint(equalTo: detailsContainerView.rightAnchor, constant: -33).isActive = true
-        detailsBackgroundView.leftAnchor.constraint(equalTo: detailsContainerView.leftAnchor, constant: 33).isActive = true
-        detailsBackgroundView.bottomAnchor.constraint(equalTo: detailsContainerView.bottomAnchor, constant: -30).isActive = true
+        detailsBackgroundView.topAnchor.constraint(equalTo: detailsContainerView.topAnchor, constant: uiSettings.detailsBackgroundTopConstant).isActive = true
+        detailsBackgroundView.rightAnchor.constraint(equalTo: detailsContainerView.rightAnchor, constant: uiSettings.detailsBackgroundRightConstant).isActive = true
+        detailsBackgroundView.leftAnchor.constraint(equalTo: detailsContainerView.leftAnchor, constant: uiSettings.detailsBackgroundLeftConstant).isActive = true
+        detailsBackgroundView.bottomAnchor.constraint(equalTo: detailsContainerView.bottomAnchor, constant: uiSettings.detailsBackgroundBottomConstant).isActive = true
 
         detailsBackgroundView.backgroundColor = .aeonMediumRed
         detailsBackgroundView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50).cgColor
@@ -532,10 +582,6 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
 
         detailsTitleLabel.alpha = 0
 
-        detailsBottomAnchorConstraint = detailsContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: detailsHiddenOffset)
-        detailsBottomAnchorConstraint.isActive = true
-        detailsContainerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -90).isActive = true
-
         // MARK: Details Data Labels
 
         let detailsStackViews = [detailsHealthLabel, detailsFeelingLabel, detailsAgeLabel]
@@ -544,15 +590,15 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         detailsStackView.axis = .horizontal
         detailsStackView.distribution = .equalSpacing
         detailsStackView.alignment = .fill
-        detailsStackView.spacing = 5
+        detailsStackView.spacing = 15
 
         detailsStackView.translatesAutoresizingMaskIntoConstraints = false
         detailsContainerView.addSubview(detailsStackView)
-        detailsStackView.widthAnchor.constraint(equalToConstant: 700).isActive = true
+        detailsStackView.widthAnchor.constraint(equalToConstant: uiSettings.detailsStackViewWidth).isActive = true
         detailsStackView.centerYAnchor.constraint(equalTo: detailsBackgroundView.centerYAnchor).isActive = true
         detailsStackView.centerXAnchor.constraint(equalTo: detailsContainerView.centerXAnchor).isActive = true
-        detailsStackView.leadingAnchor.constraint(greaterThanOrEqualTo: detailsContainerView.leadingAnchor, constant: 120).isActive = true
-        detailsStackView.trailingAnchor.constraint(lessThanOrEqualTo: detailsContainerView.trailingAnchor, constant: -120).isActive = true
+        detailsStackView.leadingAnchor.constraint(greaterThanOrEqualTo: detailsContainerView.leadingAnchor, constant: uiSettings.detailsStackViewOffsets).isActive = true
+        detailsStackView.trailingAnchor.constraint(lessThanOrEqualTo: detailsContainerView.trailingAnchor, constant: -uiSettings.detailsStackViewOffsets).isActive = true
 
         // MARK: Details Buttons
 
