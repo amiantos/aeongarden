@@ -30,7 +30,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             detailsTitleFont: UIFont.aeonTitleFontMedium,
             mainHeight: 280,
             mainWidth: 1153,
-            detailsHeight: 22
+            detailsHeight: 225
         )
         #elseif os(iOS)
         return UISettings(

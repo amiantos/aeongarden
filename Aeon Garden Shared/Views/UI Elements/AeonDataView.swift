@@ -12,6 +12,7 @@
 import UIKit
 
 class AeonDataView: UIView {
+    let style: UIStyle
     let titleLabel = UILabel()
     let dataLabel = UILabel()
 
@@ -62,11 +63,11 @@ class AeonDataView: UIView {
 
         // MARK: - Appearance
 
-        dataLabel.font = UIFont.aeonDataFont
+        dataLabel.font = UIFont.aeonDataFontTV
         dataLabel.backgroundColor = .aeonMediumRed
         dataLabel.textColor = .aeonBrightBrown
 
-        titleLabel.font = UIFont.aeonDataTitleFont
+        titleLabel.font = UIFont.aeonDataTitleFontTV
         titleLabel.textColor = .aeonBrightYellow
         titleLabel.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         titleLabel.layer.shadowOpacity = 1

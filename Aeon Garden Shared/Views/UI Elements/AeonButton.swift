@@ -12,6 +12,7 @@
 import UIKit
 
 class AeonButton: UIButton {
+    let style: UIStyle
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -31,7 +32,11 @@ class AeonButton: UIButton {
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.main.scale
 
-        titleLabel?.font = UIFont.aeonButtonFont
+        if style == .tvos {
+            titleLabel?.font = UIFont.aeonButtonFontTV
+        } else {
+            titleLabel?.font = UIFont.aeonButtonFontiOS
+        }
         titleLabel?.backgroundColor = .aeonDarkRed
         setTitleColor(.aeonBrightYellow, for: .normal)
 

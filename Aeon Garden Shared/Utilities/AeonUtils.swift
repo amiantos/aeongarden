@@ -25,6 +25,11 @@ extension State {
     }
 }
 
+enum UIStyle {
+    case tvos
+    case ios
+}
+
 enum UIState {
     case main
     case details
