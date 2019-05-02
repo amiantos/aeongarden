@@ -12,9 +12,10 @@
 import SpriteKit
 
 extension UIFont {
-    static let aeonDataTitleFont = UIFont(name: "HelveticaNeue-Bold", size: 24)
-    static let aeonDataFont = UIFont(name: "HelveticaNeue-Bold", size: 24)
-    static let aeonTitleFontLarge = UIFont(name: "HelveticaNeue-Bold", size: 144)
-    static let aeonTitleFontMedium = UIFont(name: "HelveticaNeue-Bold", size: 96)
-    static let aeonButtonFont = UIFont(name: "HelveticaNeue-Bold", size: 24)
+    static let aeonDataTitleFont = UIFont(name: "HelveticaNeue-Bold", size: 24)!
+    static let aeonDataFont = UIFont(name: "HelveticaNeue-Bold", size: 24)!
+    static let aeonTitleFontLarge = UIFont(name: "HelveticaNeue-Bold", size: 144)!
+    static let aeonTitleFontMedium = UIFont(name: "HelveticaNeue-Bold", size: 96)!
+    static let aeonTitleFontSmall = UIFont(name: "HelveticaNeue-Bold", size: 48)!
+    static let aeonButtonFont = UIFont(name: "HelveticaNeue-Bold", size: 24)!
 }

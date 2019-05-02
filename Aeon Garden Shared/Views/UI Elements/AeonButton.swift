@@ -47,6 +47,11 @@ class AeonButton: UIButton {
         layer.shadowPath = UIBezierPath(rect: bounds).cgPath
     }
 
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("Touch")
+        super.touchesBegan(touches, with: event)
+    }
+
     override func didUpdateFocus(in _: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         coordinator.addCoordinatedAnimations({
             let duration = UIView.inheritedAnimationDuration

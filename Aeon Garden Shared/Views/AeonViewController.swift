@@ -12,9 +12,36 @@
 import SpriteKit
 import UIKit
 
+struct UISettings {
+    let mainTitleFont: UIFont
+    let detailsTitleFont: UIFont
+    let mainHeight: CGFloat
+    let mainWidth: CGFloat
+    let detailsHeight: CGFloat
+}
+
 class AeonViewController: UIViewController, AeonTankUIDelegate {
     var scene: AeonTankScene?
     var skView: SKView?
+    let uiSettings: UISettings = {
+        #if os(tvOS)
+        return UISettings(
+            mainTitleFont: UIFont.aeonTitleFontLarge,
+            detailsTitleFont: UIFont.aeonTitleFontMedium,
+            mainHeight: 280,
+            mainWidth: 1153,
+            detailsHeight: 22
+        )
+        #elseif os(iOS)
+        return UISettings(
+            mainTitleFont: UIFont.aeonTitleFontMedium,
+            detailsTitleFont: UIFont.aeonTitleFontSmall,
+            mainHeight: 280,
+            mainWidth: 780,
+            detailsHeight: 225
+        )
+        #endif
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +50,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         view = SKView(frame: UIScreen.main.bounds)
         scene = AeonTankScene(size: view.bounds.size)
         scene?.tankDelegate = self
+        scene!.scaleMode = .aspectFill
 
         skView = view as? SKView
         skView?.ignoresSiblingOrder = true
@@ -46,7 +74,11 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
 
     #if os(iOS)
     override var shouldAutorotate: Bool {
-        return true
+        return false
+    }
+
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .landscapeLeft
     }
 
     override func didReceiveMemoryWarning() {
@@ -335,8 +367,8 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     func setupMainMenuView() {
         mainContainerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mainContainerView)
-        mainContainerView.heightAnchor.constraint(equalToConstant: 280).isActive = true
-        mainContainerView.widthAnchor.constraint(equalToConstant: 1153).isActive = true
+        mainContainerView.heightAnchor.constraint(equalToConstant: uiSettings.mainHeight).isActive = true
+        mainContainerView.widthAnchor.constraint(equalToConstant: uiSettings.mainWidth).isActive = true
 
         mainBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         mainContainerView.addSubview(mainBackgroundView)
@@ -365,7 +397,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         mainTitleLabel.contentMode = .left
         mainTitleLabel.text = "AEON GARDEN"
         mainTitleLabel.textColor = .aeonBrightYellow
-        mainTitleLabel.font = UIFont.aeonTitleFontLarge
+        mainTitleLabel.font = uiSettings.mainTitleFont
 
         mainTitleLabel.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         mainTitleLabel.layer.shadowOpacity = 1
@@ -446,7 +478,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     func setupDetailsView() {
         detailsContainerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(detailsContainerView)
-        detailsContainerView.heightAnchor.constraint(equalToConstant: 225).isActive = true
+        detailsContainerView.heightAnchor.constraint(equalToConstant: uiSettings.detailsHeight).isActive = true
 
         detailsBackgroundWidthConstraint = detailsContainerView.widthAnchor.constraint(equalToConstant: 1000)
         detailsBackgroundWidthConstraint.priority = .defaultLow
@@ -477,7 +509,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         detailsTitleLabel.contentMode = .left
         detailsTitleLabel.text = "BRADLEY ROBERT ROOT"
         detailsTitleLabel.textColor = .aeonBrightYellow
-        detailsTitleLabel.font = UIFont.aeonTitleFontMedium
+        detailsTitleLabel.font = uiSettings.detailsTitleFont
 
         detailsTitleLabel.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         detailsTitleLabel.layer.shadowOpacity = 1
