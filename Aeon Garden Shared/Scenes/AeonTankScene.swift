@@ -203,48 +203,48 @@ class AeonTankScene: SKScene {
     // MARK: - Touch Events
 
     #if os(iOS)
-    override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
-        for touch in touches { touchDown(atPoint: touch.location(in: self)) }
-        let touch = touches.first!
-        let touchPoint = touch.location(in: self)
+        override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
+            for touch in touches { touchDown(atPoint: touch.location(in: self)) }
+            let touch = touches.first!
+            let touchPoint = touch.location(in: self)
 
-        var creatureLocationArray = [(distance: CGFloat, node: AeonCreatureNode)]()
-        creatureNodes.forEach {
-            creatureLocationArray.append(($0.distance(point: touchPoint), $0))
-        }
-        creatureLocationArray.sort(by: { $0.distance < $1.distance })
-        if !creatureLocationArray.isEmpty {
-            let creature = creatureLocationArray[0].node
-            let distance = creatureLocationArray[0].distance
-            if distance >= 50 && selectedCreature != nil {
-                resetCamera()
-            } else if distance >= 50 {
-                return
-            } else if creature == selectedCreature {
-                resetCamera()
-            } else {
-                selectCreature(creature)
+            var creatureLocationArray = [(distance: CGFloat, node: AeonCreatureNode)]()
+            creatureNodes.forEach {
+                creatureLocationArray.append(($0.distance(point: touchPoint), $0))
+            }
+            creatureLocationArray.sort(by: { $0.distance < $1.distance })
+            if !creatureLocationArray.isEmpty {
+                let creature = creatureLocationArray[0].node
+                let distance = creatureLocationArray[0].distance
+                if distance >= 50, selectedCreature != nil {
+                    resetCamera()
+                } else if distance >= 50 {
+                    return
+                } else if creature == selectedCreature {
+                    resetCamera()
+                } else {
+                    selectCreature(creature)
+                }
             }
         }
-    }
 
-    func touchDown(atPoint _: CGPoint) {}
+        func touchDown(atPoint _: CGPoint) {}
 
-    func touchMoved(toPoint _: CGPoint) {}
+        func touchMoved(toPoint _: CGPoint) {}
 
-    func touchUp(atPoint _: CGPoint) {}
+        func touchUp(atPoint _: CGPoint) {}
 
-    override func touchesMoved(_ touches: Set<UITouch>, with _: UIEvent?) {
-        for touch in touches { touchMoved(toPoint: touch.location(in: self)) }
-    }
+        override func touchesMoved(_ touches: Set<UITouch>, with _: UIEvent?) {
+            for touch in touches { touchMoved(toPoint: touch.location(in: self)) }
+        }
 
-    override func touchesEnded(_ touches: Set<UITouch>, with _: UIEvent?) {
-        for touch in touches { touchUp(atPoint: touch.location(in: self)) }
-    }
+        override func touchesEnded(_ touches: Set<UITouch>, with _: UIEvent?) {
+            for touch in touches { touchUp(atPoint: touch.location(in: self)) }
+        }
 
-    override func touchesCancelled(_ touches: Set<UITouch>, with _: UIEvent?) {
-        for touch in touches { touchUp(atPoint: touch.location(in: self)) }
-    }
+        override func touchesCancelled(_ touches: Set<UITouch>, with _: UIEvent?) {
+            for touch in touches { touchUp(atPoint: touch.location(in: self)) }
+        }
     #endif
 }
 

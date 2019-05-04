@@ -117,6 +117,8 @@
 		B429D73E2272C1480069D551 /* aeonBirthSound-E4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */; };
 		B429D73F2272C1480069D551 /* aeonBirthSound-E4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */; };
 		B429D7402272C1480069D551 /* aeonBirthSound-E4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */; };
+		B42E6090227E19B8001EC013 /* AeonUISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42E608F227E19B8001EC013 /* AeonUISettings.swift */; };
+		B42E6091227E19B8001EC013 /* AeonUISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42E608F227E19B8001EC013 /* AeonUISettings.swift */; };
 		B4B2D1F3226BD9A40050F14C /* AeonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F2226BD9A40050F14C /* AeonButton.swift */; };
 		B4B2D1F5226BD9D20050F14C /* AeonDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F4226BD9D20050F14C /* AeonDataView.swift */; };
 /* End PBXBuildFile section */
@@ -166,6 +168,7 @@
 		B429D7292272C1470069D551 /* aeonMateSound-E3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonMateSound-E3.wav"; sourceTree = "<group>"; };
 		B429D72A2272C1470069D551 /* aeonMateSound-C3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonMateSound-C3.wav"; sourceTree = "<group>"; };
 		B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonBirthSound-E4.wav"; sourceTree = "<group>"; };
+		B42E608F227E19B8001EC013 /* AeonUISettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonUISettings.swift; sourceTree = "<group>"; };
 		B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonNameGenerator.swift; sourceTree = "<group>"; };
 		B4364F801F8C81C10002B2BB /* Surnames */ = {isa = PBXFileReference; lastKnownFileType = text; path = Surnames; sourceTree = "<group>"; };
 		B4364F821F8C86020002B2BB /* FirstNames */ = {isa = PBXFileReference; lastKnownFileType = text; path = FirstNames; sourceTree = "<group>"; };
@@ -255,6 +258,7 @@
 			children = (
 				B4B2D1F1226BD9250050F14C /* UI Elements */,
 				B48DDABC1F80943500DEA908 /* AeonViewController.swift */,
+				B42E608F227E19B8001EC013 /* AeonUISettings.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -675,6 +679,7 @@
 				449FF757226FD92900704D7C /* AeonFonts.swift in Sources */,
 				44D73685227A6903006A25B6 /* AeonDataView.swift in Sources */,
 				B413ABDF224D7CC000E8BDD1 /* AeonViewController.swift in Sources */,
+				B42E6090227E19B8001EC013 /* AeonUISettings.swift in Sources */,
 				B413ABD2224D7C8A00E8BDD1 /* SKTextureGradient.swift in Sources */,
 				B413ABB5224D7C7100E8BDD1 /* AeonTankScene.swift in Sources */,
 				B413ABBA224D7C8100E8BDD1 /* AeonCreatureBrain.swift in Sources */,
@@ -701,6 +706,7 @@
 				B413ABD8224D7C8B00E8BDD1 /* SKTextureGradient.swift in Sources */,
 				B413ABB6224D7C7200E8BDD1 /* AeonTankScene.swift in Sources */,
 				B413ABC1224D7C8200E8BDD1 /* AeonCreatureBrain.swift in Sources */,
+				B42E6091227E19B8001EC013 /* AeonUISettings.swift in Sources */,
 				B413ABC3224D7C8200E8BDD1 /* AeonFoodNode.swift in Sources */,
 				B413ABFD225002A300E8BDD1 /* AeonSoundManager.swift in Sources */,
 				449FF758226FD92900704D7C /* AeonFonts.swift in Sources */,

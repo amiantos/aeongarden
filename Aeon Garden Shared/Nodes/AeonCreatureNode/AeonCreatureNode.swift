@@ -397,7 +397,7 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
     func rateMate(_ mate: AeonCreatureNode) -> CGFloat {
         return min(
             abs(mate.primaryHue - primaryHue),
-            (360 - abs(mate.primaryHue - primaryHue))
+            360 - abs(mate.primaryHue - primaryHue)
         )
     }
 

@@ -16,94 +16,6 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     var scene: AeonTankScene?
     var skView: SKView?
 
-    // MARK: - Per-Platform UI Styling
-
-    let uiSettings: UISettings = {
-        #if os(tvOS)
-        return UISettings(
-            mainTopConstantHidden: -300,
-            mainTopConstantDefault: 60,
-            mainLeftOffset: 90,
-            mainTitleFont: UIFont.aeonTitleFontLarge,
-            mainBackgroundTopConstant: 86,
-            mainBackgroundLeftConstant: 50,
-            mainBackgroundBottomConstant: -30,
-            mainBackgroundRightConstant: -33,
-            mainHeight: 280,
-            mainWidth: 1153,
-
-            detailsBottomConstantHidden: 310,
-            detailsBottomConstantDefault: -60,
-            detailsRightOffset: -90,
-            detailsTitleFont: UIFont.aeonTitleFontMedium,
-            detailsBackgroundTopConstant: 58,
-            detailsBackgroundLeftConstant: 33,
-            detailsBackgroundBottomConstant: -30,
-            detailsBackgroundRightConstant: -33,
-            detailsHeight: 225,
-            detailsWidth: 1000,
-            detailsStackViewWidth: 700,
-            detailsStackViewOffsets: 120
-        )
-        #elseif os(iOS)
-        // TODO: These need refinement.
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            // iPad Layout
-            return UISettings(
-                mainTopConstantHidden: -270,
-                mainTopConstantDefault: 30,
-                mainLeftOffset: 60,
-                mainTitleFont: UIFont.aeonTitleFontMedium,
-                mainBackgroundTopConstant: 58,
-                mainBackgroundLeftConstant: 33,
-                mainBackgroundBottomConstant: -20,
-                mainBackgroundRightConstant: -15,
-                mainHeight: 190,
-                mainWidth: 770,
-
-                detailsBottomConstantHidden: 205,
-                detailsBottomConstantDefault: -30,
-                detailsRightOffset: -60,
-                detailsTitleFont: UIFont.aeonTitleFontSmall,
-                detailsBackgroundTopConstant: 35,
-                detailsBackgroundLeftConstant: 20,
-                detailsBackgroundBottomConstant: -20,
-                detailsBackgroundRightConstant: -15,
-                detailsHeight: 150,
-                detailsWidth: 1000,
-                detailsStackViewWidth: 500,
-                detailsStackViewOffsets: 60
-            )
-        }
-        // iPhone Layout
-        return UISettings(
-            mainTopConstantHidden: -140,
-            mainTopConstantDefault: 10,
-            mainLeftOffset: 20,
-            mainTitleFont: UIFont.aeonTitleFontSmall,
-            mainBackgroundTopConstant: 36,
-            mainBackgroundLeftConstant: 21,
-            mainBackgroundBottomConstant: -20,
-            mainBackgroundRightConstant: -15,
-            mainHeight: 130,
-            mainWidth: 485,
-
-            detailsBottomConstantHidden: 125,
-            detailsBottomConstantDefault: -20,
-            detailsRightOffset: -20,
-            detailsTitleFont: UIFont.aeonTitleFontExtraSmall,
-            detailsBackgroundTopConstant: 22,
-            detailsBackgroundLeftConstant: 12,
-            detailsBackgroundBottomConstant: -20,
-            detailsBackgroundRightConstant: -15,
-            detailsHeight: 100,
-            detailsWidth: 485,
-            detailsStackViewWidth: 300,
-            detailsStackViewOffsets: 60
-        )
-        #endif
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -127,69 +39,69 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         initialAnimation()
 
         #if os(tvOS)
-        setupTemporaryControls()
-        setNeedsFocusUpdate()
-        updateFocusIfNeeded()
+            setupTemporaryControls()
+            setNeedsFocusUpdate()
+            updateFocusIfNeeded()
         #endif
     }
 
     #if os(iOS)
-    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        return .landscapeLeft
-    }
+        override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+            return .landscapeLeft
+        }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
-    }
+        override func didReceiveMemoryWarning() {
+            super.didReceiveMemoryWarning()
+            // Release any cached data, images, etc that aren't in use.
+        }
 
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
+        override var prefersStatusBarHidden: Bool {
+            return true
+        }
 
-    override var prefersHomeIndicatorAutoHidden: Bool {
-        return true
-    }
+        override var prefersHomeIndicatorAutoHidden: Bool {
+            return true
+        }
     #endif
 
     // MARK: tvOS Controls
 
     #if os(tvOS)
-    override var preferredFocusEnvironments: [UIFocusEnvironment] {
-        if currentState == .details {
-            return [detailsContainerView]
-        }
-        return [mainContainerView]
-    }
-
-    fileprivate func setupTemporaryControls() {
-        let selectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectRandomCreature))
-        selectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.playPause.rawValue)]
-        view.addGestureRecognizer(selectCreatureRecognizer)
-
-        let deselectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(deselectCreature))
-        deselectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
-        view.addGestureRecognizer(deselectCreatureRecognizer)
-    }
-
-    @objc func selectRandomCreature() {
-        var mateArray: [AeonCreatureNode] = []
-        let nodes = scene!.children
-        for case let child as AeonCreatureNode in nodes {
-            mateArray.append(child)
-        }
-        if !mateArray.isEmpty {
-            var selected = mateArray.randomElement()!
-            while selected == scene!.selectedCreature, mateArray.count > 1 {
-                selected = mateArray.randomElement()!
+        override var preferredFocusEnvironments: [UIFocusEnvironment] {
+            if currentState == .details {
+                return [detailsContainerView]
             }
-            scene!.selectCreature(selected)
+            return [mainContainerView]
         }
-    }
 
-    @objc func deselectCreature() {
-        scene!.deselectCreature()
-    }
+        fileprivate func setupTemporaryControls() {
+            let selectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectRandomCreature))
+            selectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.playPause.rawValue)]
+            view.addGestureRecognizer(selectCreatureRecognizer)
+
+            let deselectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(deselectCreature))
+            deselectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
+            view.addGestureRecognizer(deselectCreatureRecognizer)
+        }
+
+        @objc func selectRandomCreature() {
+            var mateArray: [AeonCreatureNode] = []
+            let nodes = scene!.children
+            for case let child as AeonCreatureNode in nodes {
+                mateArray.append(child)
+            }
+            if !mateArray.isEmpty {
+                var selected = mateArray.randomElement()!
+                while selected == scene!.selectedCreature, mateArray.count > 1 {
+                    selected = mateArray.randomElement()!
+                }
+                scene!.selectCreature(selected)
+            }
+        }
+
+        @objc func deselectCreature() {
+            scene!.deselectCreature()
+        }
     #endif
 
     // MARK: - Tank Delegate
@@ -416,20 +328,20 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     private let mainSaveTankButton = AeonButton()
     private let mainLoadTankButton = AeonButton()
 
-    var mainTopConstantHidden: CGFloat { return self.uiSettings.mainTopConstantHidden }
-    var mainTopConstantDefault: CGFloat { return self.uiSettings.mainTopConstantDefault }
+    var mainTopConstantHidden: CGFloat { return UISettings.styles.mainTopConstantHidden }
+    var mainTopConstantDefault: CGFloat { return UISettings.styles.mainTopConstantDefault }
     let mainTitleLabelDefaultOffset: CGFloat = 0
     let mainTitleLabelHiddenOffset: CGFloat = -60
 
     func setupMainMenuView() {
         mainContainerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mainContainerView)
-        mainContainerView.heightAnchor.constraint(equalToConstant: uiSettings.mainHeight).isActive = true
-        mainContainerView.widthAnchor.constraint(equalToConstant: uiSettings.mainWidth).isActive = true
+        mainContainerView.heightAnchor.constraint(equalToConstant: UISettings.styles.mainHeight).isActive = true
+        mainContainerView.widthAnchor.constraint(equalToConstant: UISettings.styles.mainWidth).isActive = true
 
         mainTopAnchorConstraint = mainContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: mainTopConstantHidden)
         mainTopAnchorConstraint.isActive = true
-        mainContainerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: uiSettings.mainLeftOffset).isActive = true
+        mainContainerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: UISettings.styles.mainLeftOffset).isActive = true
 
         // Red Rectangle & Title
 
@@ -438,10 +350,10 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         mainTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         mainBackgroundView.addSubview(mainTitleLabel)
 
-        mainBackgroundView.topAnchor.constraint(equalTo: mainContainerView.topAnchor, constant: uiSettings.mainBackgroundTopConstant).isActive = true
-        mainBackgroundView.rightAnchor.constraint(equalTo: mainContainerView.rightAnchor, constant: uiSettings.mainBackgroundRightConstant).isActive = true
-        mainBackgroundView.leftAnchor.constraint(equalTo: mainContainerView.leftAnchor, constant: uiSettings.mainBackgroundLeftConstant).isActive = true
-        mainBackgroundView.bottomAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: uiSettings.mainBackgroundBottomConstant).isActive = true
+        mainBackgroundView.topAnchor.constraint(equalTo: mainContainerView.topAnchor, constant: UISettings.styles.mainBackgroundTopConstant).isActive = true
+        mainBackgroundView.rightAnchor.constraint(equalTo: mainContainerView.rightAnchor, constant: UISettings.styles.mainBackgroundRightConstant).isActive = true
+        mainBackgroundView.leftAnchor.constraint(equalTo: mainContainerView.leftAnchor, constant: UISettings.styles.mainBackgroundLeftConstant).isActive = true
+        mainBackgroundView.bottomAnchor.constraint(equalTo: mainContainerView.bottomAnchor, constant: UISettings.styles.mainBackgroundBottomConstant).isActive = true
 
         mainBackgroundView.backgroundColor = .aeonMediumRed
         mainBackgroundView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50).cgColor
@@ -452,7 +364,8 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         mainBackgroundView.layer.rasterizationScale = UIScreen.main.scale
 
         mainTitleLabelTopAnchorConstraint = mainTitleLabel.topAnchor.constraint(
-            equalTo: mainContainerView.topAnchor, constant: mainTitleLabelHiddenOffset)
+            equalTo: mainContainerView.topAnchor, constant: mainTitleLabelHiddenOffset
+        )
         mainTitleLabelTopAnchorConstraint.isActive = true
         mainTitleLabel.leftAnchor.constraint(equalTo: mainContainerView.leftAnchor).isActive = true
 
@@ -460,7 +373,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         mainTitleLabel.contentMode = .left
         mainTitleLabel.text = "AEON GARDEN"
         mainTitleLabel.textColor = .aeonBrightYellow
-        mainTitleLabel.font = uiSettings.mainTitleFont
+        mainTitleLabel.font = UISettings.styles.mainTitleFont
 
         mainTitleLabel.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         mainTitleLabel.layer.shadowOpacity = 1
@@ -479,7 +392,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             mainBirthsLabel,
             mainDeathsLabel,
             mainClockLabel,
-            ])
+        ])
         mainStackView.axis = .horizontal
         mainStackView.distribution = .equalSpacing
         mainStackView.alignment = .fill
@@ -507,9 +420,9 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         }
 
         mainNewTankButton.trailingAnchor.constraint(equalTo: mainContainerView.trailingAnchor, constant: 20).isActive = true
-        mainLoadTankButton.trailingAnchor.constraint(equalTo: mainNewTankButton.leadingAnchor, constant: -30).isActive = true
-        mainSaveTankButton.trailingAnchor.constraint(equalTo: mainLoadTankButton.leadingAnchor, constant: -30).isActive = true
-        mainSettingsButton.trailingAnchor.constraint(equalTo: mainSaveTankButton.leadingAnchor, constant: -30).isActive = true
+        mainLoadTankButton.trailingAnchor.constraint(equalTo: mainNewTankButton.leadingAnchor, constant: -UISettings.styles.buttonSpacing).isActive = true
+        mainSaveTankButton.trailingAnchor.constraint(equalTo: mainLoadTankButton.leadingAnchor, constant: -UISettings.styles.buttonSpacing).isActive = true
+        mainSettingsButton.trailingAnchor.constraint(equalTo: mainSaveTankButton.leadingAnchor, constant: -UISettings.styles.buttonSpacing).isActive = true
     }
 
     // MARK: - Details View
@@ -531,21 +444,21 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     let detailsFavoriteButton = AeonButton()
     let detailsRenameButton = AeonButton()
 
-    var detailsHiddenOffset: CGFloat { return uiSettings.detailsBottomConstantHidden }
-    var detailsDefaultOffset: CGFloat { return uiSettings.detailsBottomConstantDefault }
+    var detailsHiddenOffset: CGFloat { return UISettings.styles.detailsBottomConstantHidden }
+    var detailsDefaultOffset: CGFloat { return UISettings.styles.detailsBottomConstantDefault }
 
     func setupDetailsView() {
         detailsContainerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(detailsContainerView)
-        detailsContainerView.heightAnchor.constraint(equalToConstant: uiSettings.detailsHeight).isActive = true
+        detailsContainerView.heightAnchor.constraint(equalToConstant: UISettings.styles.detailsHeight).isActive = true
 
         detailsBottomAnchorConstraint = detailsContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: detailsHiddenOffset)
         detailsBottomAnchorConstraint.isActive = true
-        detailsContainerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: uiSettings.detailsRightOffset).isActive = true
+        detailsContainerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: UISettings.styles.detailsRightOffset).isActive = true
 
         // Red Rectangle
 
-        detailsBackgroundWidthConstraint = detailsContainerView.widthAnchor.constraint(equalToConstant: uiSettings.detailsWidth)
+        detailsBackgroundWidthConstraint = detailsContainerView.widthAnchor.constraint(equalToConstant: UISettings.styles.detailsWidth)
         detailsBackgroundWidthConstraint.priority = .defaultLow
         detailsBackgroundWidthConstraint.isActive = true
 
@@ -554,10 +467,10 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         detailsTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         detailsBackgroundView.addSubview(detailsTitleLabel)
 
-        detailsBackgroundView.topAnchor.constraint(equalTo: detailsContainerView.topAnchor, constant: uiSettings.detailsBackgroundTopConstant).isActive = true
-        detailsBackgroundView.rightAnchor.constraint(equalTo: detailsContainerView.rightAnchor, constant: uiSettings.detailsBackgroundRightConstant).isActive = true
-        detailsBackgroundView.leftAnchor.constraint(equalTo: detailsContainerView.leftAnchor, constant: uiSettings.detailsBackgroundLeftConstant).isActive = true
-        detailsBackgroundView.bottomAnchor.constraint(equalTo: detailsContainerView.bottomAnchor, constant: uiSettings.detailsBackgroundBottomConstant).isActive = true
+        detailsBackgroundView.topAnchor.constraint(equalTo: detailsContainerView.topAnchor, constant: UISettings.styles.detailsBackgroundTopConstant).isActive = true
+        detailsBackgroundView.rightAnchor.constraint(equalTo: detailsContainerView.rightAnchor, constant: UISettings.styles.detailsBackgroundRightConstant).isActive = true
+        detailsBackgroundView.leftAnchor.constraint(equalTo: detailsContainerView.leftAnchor, constant: UISettings.styles.detailsBackgroundLeftConstant).isActive = true
+        detailsBackgroundView.bottomAnchor.constraint(equalTo: detailsContainerView.bottomAnchor, constant: UISettings.styles.detailsBackgroundBottomConstant).isActive = true
 
         detailsBackgroundView.backgroundColor = .aeonMediumRed
         detailsBackgroundView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.50).cgColor
@@ -574,7 +487,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         detailsTitleLabel.contentMode = .left
         detailsTitleLabel.text = "BRADLEY ROBERT ROOT"
         detailsTitleLabel.textColor = .aeonBrightYellow
-        detailsTitleLabel.font = uiSettings.detailsTitleFont
+        detailsTitleLabel.font = UISettings.styles.detailsTitleFont
 
         detailsTitleLabel.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         detailsTitleLabel.layer.shadowOpacity = 1
@@ -597,11 +510,11 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
 
         detailsStackView.translatesAutoresizingMaskIntoConstraints = false
         detailsContainerView.addSubview(detailsStackView)
-        detailsStackView.widthAnchor.constraint(equalToConstant: uiSettings.detailsStackViewWidth).isActive = true
+        detailsStackView.widthAnchor.constraint(equalToConstant: UISettings.styles.detailsStackViewWidth).isActive = true
         detailsStackView.centerYAnchor.constraint(equalTo: detailsBackgroundView.centerYAnchor).isActive = true
         detailsStackView.centerXAnchor.constraint(equalTo: detailsContainerView.centerXAnchor).isActive = true
-        detailsStackView.leadingAnchor.constraint(greaterThanOrEqualTo: detailsContainerView.leadingAnchor, constant: uiSettings.detailsStackViewOffsets).isActive = true
-        detailsStackView.trailingAnchor.constraint(lessThanOrEqualTo: detailsContainerView.trailingAnchor, constant: -uiSettings.detailsStackViewOffsets).isActive = true
+        detailsStackView.leadingAnchor.constraint(greaterThanOrEqualTo: detailsContainerView.leadingAnchor, constant: UISettings.styles.detailsStackViewOffsets).isActive = true
+        detailsStackView.trailingAnchor.constraint(lessThanOrEqualTo: detailsContainerView.trailingAnchor, constant: -UISettings.styles.detailsStackViewOffsets).isActive = true
 
         // MARK: Details Buttons
 
@@ -617,7 +530,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         }
 
         detailsSaveButton.trailingAnchor.constraint(equalTo: detailsContainerView.trailingAnchor, constant: 0).isActive = true
-        detailsRenameButton.trailingAnchor.constraint(equalTo: detailsSaveButton.leadingAnchor, constant: -30).isActive = true
-        detailsFavoriteButton.trailingAnchor.constraint(equalTo: detailsRenameButton.leadingAnchor, constant: -30).isActive = true
+        detailsRenameButton.trailingAnchor.constraint(equalTo: detailsSaveButton.leadingAnchor, constant: -UISettings.styles.buttonSpacing).isActive = true
+        detailsFavoriteButton.trailingAnchor.constraint(equalTo: detailsRenameButton.leadingAnchor, constant: -UISettings.styles.buttonSpacing).isActive = true
     }
 }

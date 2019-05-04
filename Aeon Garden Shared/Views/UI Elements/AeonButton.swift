@@ -16,13 +16,13 @@ class AeonButton: UIButton {
 
     override init(frame: CGRect) {
         #if os(iOS)
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            style = .iPad
-        } else {
-            style = .iPhone
-        }
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                style = .iPad
+            } else {
+                style = .iPhone
+            }
         #elseif os(tvOS)
-        style = .tvOS
+            style = .tvOS
         #endif
 
         super.init(frame: frame)
