@@ -94,9 +94,9 @@ class UISettings {
                 mainBackgroundTopConstant: 36,
                 mainBackgroundLeftConstant: 21,
                 mainBackgroundBottomConstant: -20,
-                mainBackgroundRightConstant: -15,
-                mainStackViewCenterYConstant: 10,
-                mainHeight: 120,
+                mainBackgroundRightConstant: 0,
+                mainStackViewCenterYConstant: 5,
+                mainHeight: 125,
                 mainWidth: 485,
 
                 detailsBottomConstantHidden: 125,
@@ -111,7 +111,7 @@ class UISettings {
                 detailsHeight: 100,
                 detailsWidth: 485,
                 detailsStackViewWidth: 300,
-                detailsStackViewOffsets: 30,
+                detailsStackViewOffsets: 20,
 
                 buttonSpacing: 10,
 

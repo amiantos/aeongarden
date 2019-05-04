@@ -339,9 +339,9 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         mainContainerView.heightAnchor.constraint(equalToConstant: UISettings.styles.mainHeight).isActive = true
         mainContainerView.widthAnchor.constraint(equalToConstant: UISettings.styles.mainWidth).isActive = true
 
-        mainTopAnchorConstraint = mainContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: mainTopConstantHidden)
+        mainTopAnchorConstraint = mainContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: mainTopConstantHidden)
         mainTopAnchorConstraint.isActive = true
-        mainContainerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: UISettings.styles.mainLeftOffset).isActive = true
+        mainContainerView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: UISettings.styles.mainLeftOffset).isActive = true
 
         // Red Rectangle & Title
 
@@ -402,8 +402,8 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         mainBackgroundView.addSubview(mainStackView)
         mainStackView.centerYAnchor.constraint(equalTo: mainBackgroundView.centerYAnchor, constant: UISettings.styles.mainStackViewCenterYConstant).isActive = true
         mainStackView.centerXAnchor.constraint(equalTo: mainBackgroundView.centerXAnchor).isActive = true
-        mainStackView.leadingAnchor.constraint(greaterThanOrEqualTo: mainBackgroundView.leadingAnchor, constant: 30 + UISettings.styles.mainBackgroundLeftConstant).isActive = true
-        mainStackView.trailingAnchor.constraint(lessThanOrEqualTo: mainBackgroundView.trailingAnchor, constant: -30).isActive = true
+        mainStackView.leadingAnchor.constraint(greaterThanOrEqualTo: mainBackgroundView.leadingAnchor, constant: UISettings.styles.detailsStackViewOffsets).isActive = true
+        mainStackView.trailingAnchor.constraint(lessThanOrEqualTo: mainBackgroundView.trailingAnchor, constant: -UISettings.styles.detailsStackViewOffsets).isActive = true
 
         // MARK: Main Menu Buttons
 
@@ -452,9 +452,9 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         view.addSubview(detailsContainerView)
         detailsContainerView.heightAnchor.constraint(equalToConstant: UISettings.styles.detailsHeight).isActive = true
 
-        detailsBottomAnchorConstraint = detailsContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: detailsHiddenOffset)
+        detailsBottomAnchorConstraint = detailsContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: detailsHiddenOffset)
         detailsBottomAnchorConstraint.isActive = true
-        detailsContainerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: UISettings.styles.detailsRightOffset).isActive = true
+        detailsContainerView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: UISettings.styles.detailsRightOffset).isActive = true
 
         // Red Rectangle
 

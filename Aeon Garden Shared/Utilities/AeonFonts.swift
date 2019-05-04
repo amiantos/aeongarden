@@ -27,5 +27,5 @@ extension UIFont {
 
     static let aeonButtonFontTV = UIFont(name: "HelveticaNeue-Bold", size: 24)!
     static let aeonButtonFontiPad = UIFont(name: "HelveticaNeue-Bold", size: 16)!
-    static let aeonButtonFontiPhone = UIFont(name: "HelveticaNeue-Bold", size: 10)!
+    static let aeonButtonFontiPhone = UIFont(name: "HelveticaNeue-Bold", size: 12)!
 }
