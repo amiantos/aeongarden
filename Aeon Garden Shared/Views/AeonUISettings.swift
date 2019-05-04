@@ -12,7 +12,9 @@ import UIKit
 class UISettings {
     static var styles: UIStyling = {
         #if os(tvOS)
+
             // MARK: - tvOS Layout
+
             return UIStyling(
                 mainTopConstantHidden: -300,
                 mainTopConstantDefault: 60,
@@ -50,6 +52,7 @@ class UISettings {
         #elseif os(iOS)
             if UIDevice.current.userInterfaceIdiom == .pad {
                 // MARK: - iPad Layout
+
                 return UIStyling(
                     mainTopConstantHidden: -270,
                     mainTopConstantDefault: 30,
@@ -85,7 +88,9 @@ class UISettings {
                     cameraZoomScale: 0.5
                 )
             }
+
             // MARK: - iPhone Layout
+
             return UIStyling(
                 mainTopConstantHidden: -140,
                 mainTopConstantDefault: 10,
