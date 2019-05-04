@@ -103,7 +103,8 @@ class AeonTankScene: SKScene {
         }
         selectedCreature = creature
         creature.displaySelectionRing(withColor: .aeonBrightYellow)
-        camera?.run(SKAction.scale(to: UISettings.styles.cameraZoomScale, duration: 1))
+//        camera?.run(SKAction.scale(to: UISettings.styles.cameraZoomScale, duration: 1))
+        camera?.run(SKAction.scale(to: 0.4, duration: 1))
     }
 
     func deselectCreature() {
