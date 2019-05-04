@@ -395,15 +395,15 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         ])
         mainStackView.axis = .horizontal
         mainStackView.distribution = .equalSpacing
-        mainStackView.alignment = .fill
+        mainStackView.alignment = .center
         mainStackView.spacing = 20
 
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainBackgroundView.addSubview(mainStackView)
-        mainStackView.centerYAnchor.constraint(equalTo: mainBackgroundView.centerYAnchor, constant: 10).isActive = true
-        mainStackView.centerXAnchor.constraint(equalTo: mainContainerView.centerXAnchor).isActive = true
-        mainStackView.leadingAnchor.constraint(greaterThanOrEqualTo: mainContainerView.leadingAnchor, constant: 80).isActive = true
-        mainStackView.trailingAnchor.constraint(lessThanOrEqualTo: mainContainerView.trailingAnchor, constant: -80).isActive = true
+        mainStackView.centerYAnchor.constraint(equalTo: mainBackgroundView.centerYAnchor, constant: UISettings.styles.mainStackViewCenterYConstant).isActive = true
+        mainStackView.centerXAnchor.constraint(equalTo: mainBackgroundView.centerXAnchor).isActive = true
+        mainStackView.leadingAnchor.constraint(greaterThanOrEqualTo: mainBackgroundView.leadingAnchor, constant: 30 + UISettings.styles.mainBackgroundLeftConstant).isActive = true
+        mainStackView.trailingAnchor.constraint(lessThanOrEqualTo: mainBackgroundView.trailingAnchor, constant: -30).isActive = true
 
         // MARK: Main Menu Buttons
 
@@ -509,12 +509,12 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         detailsStackView.spacing = 15
 
         detailsStackView.translatesAutoresizingMaskIntoConstraints = false
-        detailsContainerView.addSubview(detailsStackView)
+        detailsBackgroundView.addSubview(detailsStackView)
         detailsStackView.widthAnchor.constraint(equalToConstant: UISettings.styles.detailsStackViewWidth).isActive = true
         detailsStackView.centerYAnchor.constraint(equalTo: detailsBackgroundView.centerYAnchor).isActive = true
-        detailsStackView.centerXAnchor.constraint(equalTo: detailsContainerView.centerXAnchor).isActive = true
-        detailsStackView.leadingAnchor.constraint(greaterThanOrEqualTo: detailsContainerView.leadingAnchor, constant: UISettings.styles.detailsStackViewOffsets).isActive = true
-        detailsStackView.trailingAnchor.constraint(lessThanOrEqualTo: detailsContainerView.trailingAnchor, constant: -UISettings.styles.detailsStackViewOffsets).isActive = true
+        detailsStackView.centerXAnchor.constraint(equalTo: detailsBackgroundView.centerXAnchor).isActive = true
+        detailsStackView.leadingAnchor.constraint(greaterThanOrEqualTo: detailsBackgroundView.leadingAnchor, constant: UISettings.styles.detailsStackViewOffsets).isActive = true
+        detailsStackView.trailingAnchor.constraint(lessThanOrEqualTo: detailsBackgroundView.trailingAnchor, constant: -UISettings.styles.detailsStackViewOffsets).isActive = true
 
         // MARK: Details Buttons
 

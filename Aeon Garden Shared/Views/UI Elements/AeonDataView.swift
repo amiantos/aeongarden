@@ -12,7 +12,6 @@
 import UIKit
 
 class AeonDataView: UIView {
-    let style: UIStyle
     let titleLabel = UILabel()
     let dataLabel = UILabel()
 
@@ -35,29 +34,11 @@ class AeonDataView: UIView {
     }
 
     override init(frame: CGRect) {
-        #if os(iOS)
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                style = .iPad
-            } else {
-                style = .iPhone
-            }
-        #elseif os(tvOS)
-            style = .tvOS
-        #endif
         super.init(frame: frame)
         setupView()
     }
 
     required init?(coder aDecoder: NSCoder) {
-        #if os(iOS)
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                style = .iPad
-            } else {
-                style = .iPhone
-            }
-        #elseif os(tvOS)
-            style = .tvOS
-        #endif
         super.init(coder: aDecoder)
         setupView()
     }
@@ -77,20 +58,12 @@ class AeonDataView: UIView {
         titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: dataLabel.leadingAnchor, constant: -10).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: dataLabel.leadingAnchor, constant: -UISettings.styles.dataLabelSpacing).isActive = true
 
         // MARK: - Appearance
 
-        if style == .tvOS {
-            dataLabel.font = UIFont.aeonDataFontTV
-            titleLabel.font = UIFont.aeonDataTitleFontTV
-        } else if style == .iPad {
-            dataLabel.font = UIFont.aeonDataFontiPad
-            titleLabel.font = UIFont.aeonDataTitleFontiPad
-        } else {
-            dataLabel.font = UIFont.aeonDataFontiPhone
-            titleLabel.font = UIFont.aeonDataTitleFontiPhone
-        }
+        dataLabel.font = UISettings.styles.dataLabelFont
+        titleLabel.font = UISettings.styles.dataLabelFont
 
         dataLabel.backgroundColor = .aeonMediumRed
         dataLabel.textColor = .aeonBrightBrown

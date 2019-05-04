@@ -22,6 +22,7 @@ class UISettings {
                 mainBackgroundLeftConstant: 50,
                 mainBackgroundBottomConstant: -30,
                 mainBackgroundRightConstant: -33,
+                mainStackViewCenterYConstant: 10,
                 mainHeight: 280,
                 mainWidth: 1153,
 
@@ -39,7 +40,12 @@ class UISettings {
                 detailsStackViewWidth: 700,
                 detailsStackViewOffsets: 120,
 
-                buttonSpacing: 30
+                buttonSpacing: 30,
+
+                dataLabelFont: UIFont.aeonDataFontTV,
+                dataLabelSpacing: 10,
+
+                cameraZoomScale: 0.4
             )
         #elseif os(iOS)
             if UIDevice.current.userInterfaceIdiom == .pad {
@@ -52,9 +58,10 @@ class UISettings {
                     mainBackgroundTopConstant: 58,
                     mainBackgroundLeftConstant: 33,
                     mainBackgroundBottomConstant: -20,
-                    mainBackgroundRightConstant: -15,
+                    mainBackgroundRightConstant: 0,
+                    mainStackViewCenterYConstant: 8,
                     mainHeight: 190,
-                    mainWidth: 770,
+                    mainWidth: 740,
 
                     detailsBottomConstantHidden: 205,
                     detailsBottomConstantDefault: -30,
@@ -68,9 +75,14 @@ class UISettings {
                     detailsHeight: 150,
                     detailsWidth: 500,
                     detailsStackViewWidth: 450,
-                    detailsStackViewOffsets: 70,
+                    detailsStackViewOffsets: 40,
 
-                    buttonSpacing: 15
+                    buttonSpacing: 15,
+
+                    dataLabelFont: UIFont.aeonDataFontiPad,
+                    dataLabelSpacing: 8,
+
+                    cameraZoomScale: 0.5
                 )
             }
             // MARK: - iPhone Layout
@@ -83,6 +95,7 @@ class UISettings {
                 mainBackgroundLeftConstant: 21,
                 mainBackgroundBottomConstant: -20,
                 mainBackgroundRightConstant: -15,
+                mainStackViewCenterYConstant: 10,
                 mainHeight: 120,
                 mainWidth: 485,
 
@@ -98,9 +111,14 @@ class UISettings {
                 detailsHeight: 100,
                 detailsWidth: 485,
                 detailsStackViewWidth: 300,
-                detailsStackViewOffsets: 60,
+                detailsStackViewOffsets: 30,
 
-                buttonSpacing: 10
+                buttonSpacing: 10,
+
+                dataLabelFont: UIFont.aeonDataFontiPhone,
+                dataLabelSpacing: 5,
+
+                cameraZoomScale: 0.6
             )
         #endif
     }()
@@ -115,6 +133,7 @@ struct UIStyling {
     let mainBackgroundLeftConstant: CGFloat
     let mainBackgroundBottomConstant: CGFloat
     let mainBackgroundRightConstant: CGFloat
+    let mainStackViewCenterYConstant: CGFloat
     let mainHeight: CGFloat
     let mainWidth: CGFloat
 
@@ -133,4 +152,9 @@ struct UIStyling {
     let detailsStackViewOffsets: CGFloat
 
     let buttonSpacing: CGFloat
+
+    let dataLabelFont: UIFont
+    let dataLabelSpacing: CGFloat
+
+    let cameraZoomScale: CGFloat
 }
