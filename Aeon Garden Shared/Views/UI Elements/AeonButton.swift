@@ -42,7 +42,7 @@ class AeonButton: UIButton {
         if style == .tvos {
             titleLabel?.font = UIFont.aeonButtonFontTV
         } else {
-            titleLabel?.font = UIFont.aeonButtonFontiOS
+            titleLabel?.font = UIFont.aeonButtonFontiPad
         }
         titleLabel?.backgroundColor = .aeonDarkRed
         setTitleColor(.aeonBrightYellow, for: .normal)

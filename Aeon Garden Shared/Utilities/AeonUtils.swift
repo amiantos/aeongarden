@@ -11,6 +11,32 @@
 
 import GameKit
 
+struct UISettings {
+    let mainTopConstantHidden: CGFloat
+    let mainTopConstantDefault: CGFloat
+    let mainLeftOffset: CGFloat
+    let mainTitleFont: UIFont
+    let mainBackgroundTopConstant: CGFloat
+    let mainBackgroundLeftConstant: CGFloat
+    let mainBackgroundBottomConstant: CGFloat
+    let mainBackgroundRightConstant: CGFloat
+    let mainHeight: CGFloat
+    let mainWidth: CGFloat
+
+    let detailsBottomConstantHidden: CGFloat
+    let detailsBottomConstantDefault: CGFloat
+    let detailsRightOffset: CGFloat
+    let detailsTitleFont: UIFont
+    let detailsBackgroundTopConstant: CGFloat
+    let detailsBackgroundLeftConstant: CGFloat
+    let detailsBackgroundBottomConstant: CGFloat
+    let detailsBackgroundRightConstant: CGFloat
+    let detailsHeight: CGFloat
+    let detailsWidth: CGFloat
+    let detailsStackViewWidth: CGFloat
+    let detailsStackViewOffsets: CGFloat
+}
+
 enum State {
     case closed
     case open

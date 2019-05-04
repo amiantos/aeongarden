@@ -77,8 +77,8 @@ class AeonDataView: UIView {
             dataLabel.font = UIFont.aeonDataFontTV
             titleLabel.font = UIFont.aeonDataTitleFontTV
         } else {
-            dataLabel.font = UIFont.aeonDataFontiOS
-            titleLabel.font = UIFont.aeonDataTitleFontiOS
+            dataLabel.font = UIFont.aeonDataFontiPad
+            titleLabel.font = UIFont.aeonDataTitleFontiPad
         }
 
         dataLabel.backgroundColor = .aeonMediumRed

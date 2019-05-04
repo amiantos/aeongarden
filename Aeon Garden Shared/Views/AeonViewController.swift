@@ -12,35 +12,12 @@
 import SpriteKit
 import UIKit
 
-struct UISettings {
-    let mainTopConstantHidden: CGFloat
-    let mainTopConstantDefault: CGFloat
-    let mainLeftOffset: CGFloat
-    let mainTitleFont: UIFont
-    let mainBackgroundTopConstant: CGFloat
-    let mainBackgroundLeftConstant: CGFloat
-    let mainBackgroundBottomConstant: CGFloat
-    let mainBackgroundRightConstant: CGFloat
-    let mainHeight: CGFloat
-    let mainWidth: CGFloat
-
-    let detailsBottomConstantHidden: CGFloat
-    let detailsBottomConstantDefault: CGFloat
-    let detailsRightOffset: CGFloat
-    let detailsTitleFont: UIFont
-    let detailsBackgroundTopConstant: CGFloat
-    let detailsBackgroundLeftConstant: CGFloat
-    let detailsBackgroundBottomConstant: CGFloat
-    let detailsBackgroundRightConstant: CGFloat
-    let detailsHeight: CGFloat
-    let detailsWidth: CGFloat
-    let detailsStackViewWidth: CGFloat
-    let detailsStackViewOffsets: CGFloat
-}
-
 class AeonViewController: UIViewController, AeonTankUIDelegate {
     var scene: AeonTankScene?
     var skView: SKView?
+
+    // MARK: - Per-Platform UI Styling
+
     let uiSettings: UISettings = {
         #if os(tvOS)
         return UISettings(
@@ -69,6 +46,36 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             detailsStackViewOffsets: 120
         )
         #elseif os(iOS)
+        // TODO: These need refinement.
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            // iPad Layout
+            return UISettings(
+                mainTopConstantHidden: -270,
+                mainTopConstantDefault: 30,
+                mainLeftOffset: 60,
+                mainTitleFont: UIFont.aeonTitleFontMedium,
+                mainBackgroundTopConstant: 58,
+                mainBackgroundLeftConstant: 33,
+                mainBackgroundBottomConstant: -20,
+                mainBackgroundRightConstant: -15,
+                mainHeight: 190,
+                mainWidth: 770,
+
+                detailsBottomConstantHidden: 205,
+                detailsBottomConstantDefault: -30,
+                detailsRightOffset: -60,
+                detailsTitleFont: UIFont.aeonTitleFontSmall,
+                detailsBackgroundTopConstant: 35,
+                detailsBackgroundLeftConstant: 20,
+                detailsBackgroundBottomConstant: -20,
+                detailsBackgroundRightConstant: -15,
+                detailsHeight: 150,
+                detailsWidth: 1000,
+                detailsStackViewWidth: 500,
+                detailsStackViewOffsets: 60
+            )
+        }
+        // iPhone Layout
         return UISettings(
             mainTopConstantHidden: -270,
             mainTopConstantDefault: 30,
@@ -127,10 +134,6 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     #if os(iOS)
-    override var shouldAutorotate: Bool {
-        return false
-    }
-
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         return .landscapeLeft
     }
