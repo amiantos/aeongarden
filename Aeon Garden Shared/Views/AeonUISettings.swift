@@ -16,21 +16,21 @@ class UISettings {
             // MARK: - tvOS Layout
 
             return UIStyling(
-                mainTopConstantHidden: -300,
-                mainTopConstantDefault: 60,
-                mainLeftOffset: 90,
+                mainTopConstantHidden: -370,
+                mainTopConstantDefault: 0,
+                mainLeftOffset: 0,
                 mainTitleFont: UIFont.aeonTitleFontLarge,
                 mainBackgroundTopConstant: 86,
                 mainBackgroundLeftConstant: 50,
                 mainBackgroundBottomConstant: -30,
                 mainBackgroundRightConstant: -33,
                 mainStackViewCenterYConstant: 10,
-                mainHeight: 280,
+                mainHeight: 300,
                 mainWidth: 1153,
 
                 detailsBottomConstantHidden: 310,
-                detailsBottomConstantDefault: -60,
-                detailsRightOffset: -90,
+                detailsBottomConstantDefault: 0,
+                detailsRightOffset: 0,
                 detailsTitleFont: UIFont.aeonTitleFontMedium,
                 detailsTitleExtraWidth: 66,
                 detailsBackgroundTopConstant: 58,
