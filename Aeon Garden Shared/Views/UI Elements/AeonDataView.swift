@@ -36,9 +36,13 @@ class AeonDataView: UIView {
 
     override init(frame: CGRect) {
         #if os(iOS)
-        style = .ios
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            style = .iPad
+        } else {
+            style = .iPhone
+        }
         #elseif os(tvOS)
-        style = .tvos
+        style = .tvOS
         #endif
         super.init(frame: frame)
         setupView()
@@ -46,9 +50,13 @@ class AeonDataView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         #if os(iOS)
-        style = .ios
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            style = .iPad
+        } else {
+            style = .iPhone
+        }
         #elseif os(tvOS)
-        style = .tvos
+        style = .tvOS
         #endif
         super.init(coder: aDecoder)
         setupView()
@@ -73,12 +81,15 @@ class AeonDataView: UIView {
 
         // MARK: - Appearance
 
-        if style == .tvos {
+        if style == .tvOS {
             dataLabel.font = UIFont.aeonDataFontTV
             titleLabel.font = UIFont.aeonDataTitleFontTV
-        } else {
+        } else if style == .iPad {
             dataLabel.font = UIFont.aeonDataFontiPad
             titleLabel.font = UIFont.aeonDataTitleFontiPad
+        } else {
+            dataLabel.font = UIFont.aeonDataFontiPhone
+            titleLabel.font = UIFont.aeonDataTitleFontiPhone
         }
 
         dataLabel.backgroundColor = .aeonMediumRed

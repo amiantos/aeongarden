@@ -52,8 +52,9 @@ extension State {
 }
 
 enum UIStyle {
-    case tvos
-    case ios
+    case tvOS
+    case iPad
+    case iPhone
 }
 
 enum UIState {
