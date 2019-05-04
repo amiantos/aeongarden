@@ -12,6 +12,7 @@ import UIKit
 class UISettings {
     static var styles: UIStyling = {
         #if os(tvOS)
+            // MARK: - tvOS Layout
             return UIStyling(
                 mainTopConstantHidden: -300,
                 mainTopConstantDefault: 60,
@@ -40,9 +41,8 @@ class UISettings {
                 buttonSpacing: 30
             )
         #elseif os(iOS)
-            // TODO: These need refinement.
             if UIDevice.current.userInterfaceIdiom == .pad {
-                // iPad Layout
+                // MARK: - iPad Layout
                 return UIStyling(
                     mainTopConstantHidden: -270,
                     mainTopConstantDefault: 30,
@@ -59,19 +59,19 @@ class UISettings {
                     detailsBottomConstantDefault: -30,
                     detailsRightOffset: -60,
                     detailsTitleFont: UIFont.aeonTitleFontSmall,
-                    detailsBackgroundTopConstant: 35,
+                    detailsBackgroundTopConstant: 36,
                     detailsBackgroundLeftConstant: 20,
                     detailsBackgroundBottomConstant: -20,
                     detailsBackgroundRightConstant: -15,
                     detailsHeight: 150,
-                    detailsWidth: 1000,
-                    detailsStackViewWidth: 500,
-                    detailsStackViewOffsets: 80,
+                    detailsWidth: 500,
+                    detailsStackViewWidth: 450,
+                    detailsStackViewOffsets: 70,
 
                     buttonSpacing: 15
                 )
             }
-            // iPhone Layout
+            // MARK: - iPhone Layout
             return UIStyling(
                 mainTopConstantHidden: -140,
                 mainTopConstantDefault: 10,
