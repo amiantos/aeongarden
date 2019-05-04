@@ -35,7 +35,7 @@ class AeonScreenSaverView: ScreenSaverView {
     override func startAnimation() {
         if self.spriteView == nil {
             let spriteView = GameView(frame: self.frame)
-            spriteView.ignoresSiblingOrder = true;
+            spriteView.ignoresSiblingOrder = false;
             spriteView.showsFPS = false;
             spriteView.showsNodeCount = false;
             let scene = AeonTankScene(size: frame.size)
