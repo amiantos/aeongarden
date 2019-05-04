@@ -12,19 +12,7 @@
 import UIKit
 
 class AeonButton: UIButton {
-    let style: UIStyle
-
     override init(frame: CGRect) {
-        #if os(iOS)
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                style = .iPad
-            } else {
-                style = .iPhone
-            }
-        #elseif os(tvOS)
-            style = .tvOS
-        #endif
-
         super.init(frame: frame)
         setupView()
     }
@@ -43,21 +31,13 @@ class AeonButton: UIButton {
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.main.scale
 
-        if style == .tvOS {
-            titleLabel?.font = UIFont.aeonButtonFontTV
-        } else if style == .iPad {
-            titleLabel?.font = UIFont.aeonButtonFontiPad
-        } else {
-            titleLabel?.font = UIFont.aeonButtonFontiPhone
-        }
+        titleLabel?.font = UISettings.styles.buttonFont
         titleLabel?.backgroundColor = .aeonDarkRed
         setTitleColor(.aeonBrightYellow, for: .normal)
 
         titleLabel?.translatesAutoresizingMaskIntoConstraints = false
-        let leadingConstant: CGFloat = style == .tvOS ? 35 : 20
-        titleLabel?.leadingAnchor.constraint(equalTo: leadingAnchor, constant: leadingConstant).isActive = true
-        let topConstant: CGFloat = style == .tvOS ? 15 : 10
-        titleLabel?.topAnchor.constraint(equalTo: topAnchor, constant: topConstant).isActive = true
+        titleLabel?.leftAnchor.constraint(equalTo: leftAnchor, constant: UISettings.styles.buttonLeftConstant).isActive = true
+        titleLabel?.topAnchor.constraint(equalTo: topAnchor, constant: UISettings.styles.buttonTopConstant).isActive = true
 
         sizeToFit()
     }

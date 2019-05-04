@@ -43,6 +43,9 @@ class UISettings {
                 detailsStackViewOffsets: 120,
 
                 buttonSpacing: 30,
+                buttonFont: UIFont.aeonButtonFontTV,
+                buttonTopConstant: 15,
+                buttonLeftConstant: 35,
 
                 dataLabelFont: UIFont.aeonDataFontTV,
                 dataLabelSpacing: 10,
@@ -81,6 +84,9 @@ class UISettings {
                     detailsStackViewOffsets: 40,
 
                     buttonSpacing: 15,
+                    buttonFont: UIFont.aeonButtonFontiPad,
+                    buttonTopConstant: 10,
+                    buttonLeftConstant: 20,
 
                     dataLabelFont: UIFont.aeonDataFontiPad,
                     dataLabelSpacing: 8,
@@ -119,6 +125,9 @@ class UISettings {
                 detailsStackViewOffsets: 20,
 
                 buttonSpacing: 10,
+                buttonFont: UIFont.aeonButtonFontiPhone,
+                buttonTopConstant: 10,
+                buttonLeftConstant: 20,
 
                 dataLabelFont: UIFont.aeonDataFontiPhone,
                 dataLabelSpacing: 5,
@@ -157,6 +166,9 @@ struct UIStyling {
     let detailsStackViewOffsets: CGFloat
 
     let buttonSpacing: CGFloat
+    let buttonFont: UIFont
+    let buttonTopConstant: CGFloat
+    let buttonLeftConstant: CGFloat
 
     let dataLabelFont: UIFont
     let dataLabelSpacing: CGFloat
