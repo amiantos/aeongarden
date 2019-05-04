@@ -222,7 +222,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         let newShadowPath = detailsBackgroundView.bounds
 
         let animation = UIViewPropertyAnimator(duration: 1, curve: .easeInOut, animations: {
-            self.detailsBackgroundWidthConstraint.constant = self.detailsTitleLabel.bounds.width + 66
+            self.detailsBackgroundWidthConstraint.constant = self.detailsTitleLabel.bounds.width + UISettings.styles.detailsTitleExtraWidth
             self.detailsTitleLabel.alpha = 1
             self.detailsHealthLabel.dataLabel.alpha = 1
             self.detailsFeelingLabel.dataLabel.alpha = 1
@@ -234,7 +234,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             self.detailsHealthLabel.dataLabel.alpha = 1
             self.detailsFeelingLabel.dataLabel.alpha = 1
             self.detailsAgeLabel.dataLabel.alpha = 1
-            self.detailsBackgroundWidthConstraint.constant = self.detailsTitleLabel.bounds.width + 66
+            self.detailsBackgroundWidthConstraint.constant = self.detailsTitleLabel.bounds.width + UISettings.styles.detailsTitleExtraWidth
         }
 
         let fadeOutAnimation = UIViewPropertyAnimator(duration: 0.2, curve: .linear, animations: {

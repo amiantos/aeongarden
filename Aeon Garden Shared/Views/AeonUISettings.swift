@@ -29,6 +29,7 @@ class UISettings {
                 detailsBottomConstantDefault: -60,
                 detailsRightOffset: -90,
                 detailsTitleFont: UIFont.aeonTitleFontMedium,
+                detailsTitleExtraWidth: 66,
                 detailsBackgroundTopConstant: 58,
                 detailsBackgroundLeftConstant: 33,
                 detailsBackgroundBottomConstant: -30,
@@ -59,6 +60,7 @@ class UISettings {
                     detailsBottomConstantDefault: -30,
                     detailsRightOffset: -60,
                     detailsTitleFont: UIFont.aeonTitleFontSmall,
+                    detailsTitleExtraWidth: 40,
                     detailsBackgroundTopConstant: 36,
                     detailsBackgroundLeftConstant: 20,
                     detailsBackgroundBottomConstant: -20,
@@ -88,6 +90,7 @@ class UISettings {
                 detailsBottomConstantDefault: -20,
                 detailsRightOffset: -20,
                 detailsTitleFont: UIFont.aeonTitleFontExtraSmall,
+                detailsTitleExtraWidth: 40,
                 detailsBackgroundTopConstant: 22,
                 detailsBackgroundLeftConstant: 12,
                 detailsBackgroundBottomConstant: -20,
@@ -119,6 +122,7 @@ struct UIStyling {
     let detailsBottomConstantDefault: CGFloat
     let detailsRightOffset: CGFloat
     let detailsTitleFont: UIFont
+    let detailsTitleExtraWidth: CGFloat
     let detailsBackgroundTopConstant: CGFloat
     let detailsBackgroundLeftConstant: CGFloat
     let detailsBackgroundBottomConstant: CGFloat
