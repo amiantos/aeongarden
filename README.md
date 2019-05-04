@@ -12,7 +12,9 @@ Like [Numu Tracker](https://www.github.com/numutracker/numutracker_ios), Aeon Ga
 
 ## Video & Screenshots
 
-Things are changing really quickly, so [this video](https://www.youtube.com/watch?v=z8q0lP9vdbY&feature=youtu.be) is already out of date. Recently my focus as shifted to the tvOS version of the app, here are some shots of what it looks like now:
+Screenshots of Aeon Garden look a little boring, so be sure to watch this **[YouTube Video](https://www.youtube.com/watch?v=QHfABigM2Ik)**.
+
+These screenshots are from the tvOS version.
 
 ![Aeon Garden Zoomed-Out View](/Design/Screenshots/tvos-zoomed-out.png?raw=true)
 
