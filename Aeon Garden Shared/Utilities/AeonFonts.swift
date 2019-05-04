@@ -12,9 +12,20 @@
 import SpriteKit
 
 extension UIFont {
-    static let aeonDataTitleFont = UIFont(name: "HelveticaNeue-Bold", size: 24)
-    static let aeonDataFont = UIFont(name: "HelveticaNeue-Bold", size: 24)
-    static let aeonTitleFontLarge = UIFont(name: "HelveticaNeue-Bold", size: 144)
-    static let aeonTitleFontMedium = UIFont(name: "HelveticaNeue-Bold", size: 96)
-    static let aeonButtonFont = UIFont(name: "HelveticaNeue-Bold", size: 24)
+    static let aeonDataTitleFontTV = UIFont(name: "HelveticaNeue-Bold", size: 24)!
+    static let aeonDataTitleFontiPad = UIFont(name: "HelveticaNeue-Bold", size: 16)!
+    static let aeonDataTitleFontiPhone = UIFont(name: "HelveticaNeue-Bold", size: 10)!
+
+    static let aeonDataFontTV = UIFont(name: "HelveticaNeue-Bold", size: 24)!
+    static let aeonDataFontiPad = UIFont(name: "HelveticaNeue-Bold", size: 16)!
+    static let aeonDataFontiPhone = UIFont(name: "HelveticaNeue-Bold", size: 10)!
+
+    static let aeonTitleFontLarge = UIFont(name: "HelveticaNeue-Bold", size: 144)!
+    static let aeonTitleFontMedium = UIFont(name: "HelveticaNeue-Bold", size: 96)!
+    static let aeonTitleFontSmall = UIFont(name: "HelveticaNeue-Bold", size: 60)!
+    static let aeonTitleFontExtraSmall = UIFont(name: "HelveticaNeue-Bold", size: 36)!
+
+    static let aeonButtonFontTV = UIFont(name: "HelveticaNeue-Bold", size: 24)!
+    static let aeonButtonFontiPad = UIFont(name: "HelveticaNeue-Bold", size: 16)!
+    static let aeonButtonFontiPhone = UIFont(name: "HelveticaNeue-Bold", size: 12)!
 }

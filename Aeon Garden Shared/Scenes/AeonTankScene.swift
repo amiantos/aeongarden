@@ -25,7 +25,9 @@ protocol AeonTankUIDelegate: class {
     func updateBirths(_ births: Int)
     func updateDeaths(_ deaths: Int)
     func updateClock(_ clock: String)
-    func updateSelectedCreatureDetails(_ creature: AeonCreatureNode?)
+    func updateSelectedCreatureDetails(_ creature: AeonCreatureNode)
+    func creatureDeselected()
+    func creatureSelected(_ creature: AeonCreatureNode)
 }
 
 class AeonTankScene: SKScene {
@@ -34,7 +36,7 @@ class AeonTankScene: SKScene {
     public var deathCount: Int = 0
     public var birthCount: Int = 0
 
-    private var foodPelletMax: Int = 20
+    private var foodPelletMax: Int = 30
     private var creatureMinimum: Int = 10
     private var initialCreatures: Int = 20
 
@@ -68,7 +70,10 @@ class AeonTankScene: SKScene {
 
     var selectedCreature: AeonCreatureNode? {
         didSet {
-            if selectedCreature == nil {
+            if let creature = selectedCreature {
+                tankDelegate?.creatureSelected(creature)
+            } else {
+                tankDelegate?.creatureDeselected()
                 camera?.removeAllActions()
                 let zoomInAction = SKAction.scale(to: 1, duration: 1)
                 let cameraAction = SKAction.move(
@@ -98,7 +103,12 @@ class AeonTankScene: SKScene {
         }
         selectedCreature = creature
         creature.displaySelectionRing(withColor: .aeonBrightYellow)
-        camera?.run(SKAction.scale(to: 0.4, duration: 1))
+        camera?.run(SKAction.scale(to: UISettings.styles.cameraZoomScale, duration: 1))
+    }
+
+    func deselectCreature() {
+        selectedCreature?.hideSelectionRing()
+        selectedCreature = nil
     }
 
     // MARK: - Scene
@@ -108,12 +118,13 @@ class AeonTankScene: SKScene {
         setupCamera()
         setupBackgroundGradient()
         setupBackgroundAnimation()
-        createInitialCreatures()
-        createInitialBubbles()
     }
 
     override func didMove(to _: SKView) {
         physicsWorld.contactDelegate = self
+
+        createInitialCreatures()
+        createInitialBubbles()
     }
 
     override func addChild(_ node: SKNode) {
@@ -140,7 +151,6 @@ class AeonTankScene: SKScene {
 
     override func update(_ currentTime: TimeInterval) {
         followSelectedCreatureWithCamera()
-        tankDelegate?.updateSelectedCreatureDetails(selectedCreature)
 
         if lastCreatureTime == 0 {
             lastFoodTime = currentTime
@@ -148,7 +158,7 @@ class AeonTankScene: SKScene {
             lastBubbleTime = currentTime
         }
 
-        if (currentTime - lastFoodTime) >= 3,
+        if (currentTime - lastFoodTime) >= 2,
             foodNodes.count < foodPelletMax {
             addFoodPelletToScene()
             lastFoodTime = currentTime
@@ -160,7 +170,12 @@ class AeonTankScene: SKScene {
             let deltaTime = currentTime - lastBubbleTime
             let correctedDelta = deltaTime > 1 ? 1 : deltaTime
             tankTime += correctedDelta
+
+            // UI Updates (Kludge)
             tankDelegate?.updateClock(toTimestamp(timeInterval: tankTime))
+            if let creature = selectedCreature {
+                tankDelegate?.updateSelectedCreatureDetails(creature)
+            }
 
             lastBubbleTime = currentTime
         }
@@ -171,13 +186,9 @@ class AeonTankScene: SKScene {
             lastCreatureTime = currentTime
         }
 
-        var arrays: [Updatable] = []
-        arrays.append(contentsOf: creatureNodes)
-        arrays.append(contentsOf: foodNodes)
-        arrays.append(contentsOf: bubbleNodes)
-        for child in arrays {
-            child.update(currentTime)
-        }
+        creatureNodes.forEach { $0.update(currentTime) }
+        foodNodes.forEach { $0.update(currentTime) }
+        bubbleNodes.forEach { $0.update(currentTime) }
     }
 
     // MARK: - Per Frame Processes
@@ -196,12 +207,23 @@ class AeonTankScene: SKScene {
             for touch in touches { touchDown(atPoint: touch.location(in: self)) }
             let touch = touches.first!
             let touchPoint = touch.location(in: self)
-            let nodes = self.nodes(at: touchPoint)
-            for node in nodes where node is AeonCreatureNode {
-                if node == selectedCreature {
+
+            var creatureLocationArray = [(distance: CGFloat, node: AeonCreatureNode)]()
+            creatureNodes.forEach {
+                creatureLocationArray.append(($0.distance(point: touchPoint), $0))
+            }
+            creatureLocationArray.sort(by: { $0.distance < $1.distance })
+            if !creatureLocationArray.isEmpty {
+                let creature = creatureLocationArray[0].node
+                let distance = creatureLocationArray[0].distance
+                if distance >= 50, selectedCreature != nil {
+                    resetCamera()
+                } else if distance >= 50 {
+                    return
+                } else if creature == selectedCreature {
                     resetCamera()
                 } else {
-                    selectCreature(node as! AeonCreatureNode)
+                    selectCreature(creature)
                 }
             }
         }

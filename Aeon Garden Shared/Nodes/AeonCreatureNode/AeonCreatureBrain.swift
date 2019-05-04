@@ -13,9 +13,9 @@ import GameplayKit
 
 enum Feeling: String {
     case hungry = "Hungry"
-    case horny = "Horny"
+    case horny = "Lonely"
     case bored = "Bored"
-    case dying = "Dying"
+    case dying = "Dead"
 }
 
 protocol AeonCreatureBrainDelegate: class {
@@ -57,7 +57,7 @@ class AeonCreatureBrain: Updatable {
         case randomMovement = "Bored"
         case locatingFood = "Hungry"
         case locatingLove = "Lonely"
-        case dead = "Dying"
+        case dead = "Dead"
     }
 
     internal var lastUpdateTime: TimeInterval = 0
@@ -114,16 +114,22 @@ class AeonCreatureBrain: Updatable {
             creatureDifferenceArray.append((mateRating, distance, child))
         }
 
-//        creatureDifferenceArray.sort(by: { $0.distance < $1.distance })
-//        let prefix = creatureDifferenceArray.count < 5 ? creatureDifferenceArray.count : 5
-//        creatureDifferenceArray = Array(creatureDifferenceArray.prefix(upTo: prefix))
-        creatureDifferenceArray.sort(by: { ($0.rating + $0.distance) < ($1.rating + $1.distance) })
+        creatureDifferenceArray.sort(by: {
+            let distance0 = $0.distance * 0.4
+            let distance1 = $1.distance * 0.4
+            let rating0 = $0.rating
+            let rating1 = $1.rating
+            return (rating0 + distance0) < (rating1 + distance1)
+
+        })
 
         if creatureDifferenceArray.count > 0 {
-            if creatureDifferenceArray[0].node != currentLoveTarget {
-                currentLoveTarget = creatureDifferenceArray[0].node
-                setCurrentTarget(node: currentLoveTarget!)
-            }
+            currentLoveTarget = creatureDifferenceArray[0].node
+        }
+        if let loveTarget = currentLoveTarget {
+            setCurrentTarget(node: loveTarget)
+        } else {
+            locatePlayTarget()
         }
     }
 

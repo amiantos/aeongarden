@@ -18,14 +18,14 @@ class AeonViewController: NSViewController {
         scene.tankDelegate = self
 
         // Present the scene
-        let skView = view as! SKView
-        skView.presentScene(scene)
+        let skView = view as? SKView
+        skView?.presentScene(scene)
 
-        skView.ignoresSiblingOrder = true
+        skView?.ignoresSiblingOrder = true
 
-        skView.showsDrawCount = true
-        skView.showsFPS = true
-        skView.showsNodeCount = true
+        skView?.showsDrawCount = true
+        skView?.showsFPS = true
+        skView?.showsNodeCount = true
     }
 }
 
