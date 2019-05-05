@@ -38,6 +38,7 @@ class AeonFoodNode: SKNode, Updatable {
         name = "aeonFood"
         zPosition = 1
 
+
         let foodBody = SKSpriteNode(imageNamed: "aeonFoodPellet")
         foodBody.size = CGSize(width: 23, height: 33)
         foodBody.zPosition = 1

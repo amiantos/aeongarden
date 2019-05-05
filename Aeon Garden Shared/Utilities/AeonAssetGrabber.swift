@@ -8,6 +8,13 @@
 
 import SpriteKit
 
+#if os(macOS)
+import Cocoa
+
+// Step 1: Typealias UIImage to NSImage
+typealias UIImage = NSImage
+#endif
+
 // For screensaver support, we need to manually grab files out of the bundle.
 // This creates a lot of hassle that wouldn't be necessary otherwise.
 
@@ -36,6 +43,12 @@ class AeonFileGrabber {
         guard let decodedEmitter = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(fileContents) as? SKEmitterNode else { return nil }
 
         return decodedEmitter
+    }
+
+    public func getSKTexture(named: String) -> SKTexture? {
+        guard let fileContents = getFileContents(named: named, ofType: "pdf") else { return nil }
+        guard let image = UIImage(data: fileContents) else { return nil }
+        return SKTexture(image: image)
     }
 
 }
