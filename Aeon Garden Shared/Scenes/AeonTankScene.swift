@@ -255,7 +255,7 @@ extension AeonTankScene {
     fileprivate func createInitialCreatures() {
         var totalCreatures: Int = 0
         var initialCreatureHue: CGFloat = 0
-        let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(creatureMinimum))
+        let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(initialCreatures))
 
         while totalCreatures < initialCreatures {
             addNewCreatureToScene(withPrimaryHue: initialCreatureHue)
