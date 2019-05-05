@@ -12,7 +12,7 @@
 import SpriteKit
 
 class AeonCreatureNode: SKNode, Updatable {
-    var selectionRing: SKSpriteNode = SKSpriteNode(imageNamed: "aeonSelectionRing")
+    var selectionRing: SKSpriteNode = SKSpriteNode()
 
     // MARK: - Creature Name
 
@@ -146,11 +146,14 @@ class AeonCreatureNode: SKNode, Updatable {
         physicsBody?.linearDamping = 0.5
         physicsBody?.angularDamping = 1
 
-        let underShadow = SKSpriteNode(imageNamed: "aeonBodyShadow")
+        let underShadow = SKSpriteNode()
+        underShadow.texture = AeonFileGrabber.shared.getSKTexture(named: "aeonBodyShadow")
         underShadow.size = CGSize(width: 40, height: 40)
         underShadow.setScale(1.2)
         underShadow.alpha = 0.2
         addChild(underShadow)
+
+        selectionRing.texture = AeonFileGrabber.shared.getSKTexture(named: "aeonSelectionRing")
 
         name = fullName
         zPosition = 2
@@ -269,7 +272,8 @@ class AeonCreatureNode: SKNode, Updatable {
 
         brain?.printThought("Lo! Consciousness", emoji: "👼")
 
-        if let emitter = SKEmitterNode(fileNamed: "AeonCreatureBubbleTrail.sks") {
+        if let emitter = AeonFileGrabber.shared.getSKEmitterNode(named: "AeonCreatureBubbleTrail") {
+            emitter.particleTexture = AeonFileGrabber.shared.getSKTexture(named: "aeonTriangle")
             emitter.name = "AeonCreatureBubbleTrail.sks"
             emitter.isUserInteractionEnabled = false
             emitter.zPosition = 1

@@ -46,8 +46,11 @@ class AeonFileGrabber {
     }
 
     public func getSKTexture(named: String) -> SKTexture? {
-        guard let fileContents = getFileContents(named: named, ofType: "pdf") else { return nil }
-        guard let image = UIImage(data: fileContents) else { return nil }
+        #if os(macOS)
+        guard let image = bundle.image(forResource: named) else { return nil }
+        #else
+        guard let image = UIImage(named: named, in: bundle, compatibleWith: nil) else { return nil }
+        #endif
         return SKTexture(image: image)
     }
 

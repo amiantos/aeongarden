@@ -431,6 +431,7 @@ extension AeonTankScene {
 //        }
 
         guard let emitter = AeonFileGrabber.shared.getSKEmitterNode(named: "AeonOceanSquareBubbles") else { return }
+        emitter.particleTexture = AeonFileGrabber.shared.getSKTexture(named: "aeonSquare")
         emitter.position = CGPoint(x: size.width / 2, y: size.height / 2)
         emitter.zPosition = -1
         emitter.particlePositionRange = CGVector(dx: size.width, dy: size.height)
