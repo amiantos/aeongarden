@@ -430,13 +430,54 @@ extension AeonTankScene {
 //            addChild(backgroundSmoke)
 //        }
 
-        if let backgroundSmoke2 = SKEmitterNode(fileNamed: "AeonOceanSquareBubbles.sks") {
-            backgroundSmoke2.position = CGPoint(x: size.width / 2, y: size.height / 2)
-            backgroundSmoke2.zPosition = -1
-            backgroundSmoke2.particlePositionRange = CGVector(dx: size.width, dy: size.height)
-            backgroundSmoke2.advanceSimulationTime(5)
-            backgroundSmoke2.name = "backgroundSparkle"
-            addChild(backgroundSmoke2)
+        guard let bundle = Bundle.init(identifier: "net.amiantos.Aeon-Garden") else { return }
+        NSLog("Found Bundle")
+        guard let filePath = bundle.path(forResource: "AeonOceanSquareBubbles", ofType: "sks") else { return }
+        NSLog("Found Particle Effect \(filePath)")
+        guard let fileContents = FileManager.default.contents(atPath: filePath) else { return }
+        NSLog("Loaded File Contents... \(fileContents)")
+        do {
+            let coder = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(fileContents)
+            NSLog("Created particle... \(coder)")
+            guard let particle2 = coder as? SKEmitterNode else { return }
+            particle2.position = CGPoint(x: size.width / 2, y: size.height / 2)
+            particle2.zPosition = -1
+            particle2.particlePositionRange = CGVector(dx: size.width, dy: size.height)
+            particle2.advanceSimulationTime(5)
+            particle2.name = "backgroundSparkle"
+            addChild(particle2)
+        } catch {
+            NSLog("Error: \(error.localizedDescription)")
         }
+
+//
+//        if let bundle = Bundle.init(identifier: "net.amiantos.Aeon-Garden") {
+//            NSLog("Found Bundle")
+//            if let file = bundle.path(forResource: "AeonOceanSquareBubbles", ofType: "sks") {
+//                NSLog("Found Particle Effect \(file)")
+//
+//                if let particle = try? NSKeyedUnarchiver(forReadingFrom: FileManager.default.contents(atPath: file)!) {
+//                    let particle2 = SKEmitterNode(coder: particle)!
+//                    particle2.position = CGPoint(x: size.width / 2, y: size.height / 2)
+//                    particle2.zPosition = -1
+//                    particle2.particlePositionRange = CGVector(dx: size.width, dy: size.height)
+//                    particle2.advanceSimulationTime(5)
+//                    particle2.name = "backgroundSparkle"
+//                    addChild(particle2)
+//
+//                }
+//
+//
+//            }
+//        }
+//
+//        if let backgroundSmoke2 = SKEmitterNode(fileNamed: "AeonOceanSquareBubbles.sks") {
+//            backgroundSmoke2.position = CGPoint(x: size.width / 2, y: size.height / 2)
+//            backgroundSmoke2.zPosition = -1
+//            backgroundSmoke2.particlePositionRange = CGVector(dx: size.width, dy: size.height)
+//            backgroundSmoke2.advanceSimulationTime(5)
+//            backgroundSmoke2.name = "backgroundSparkle"
+//            addChild(backgroundSmoke2)
+//        }
     }
 }
