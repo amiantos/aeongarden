@@ -11,34 +11,30 @@ import ScreenSaver
 import SpriteKit
 
 class AeonScreenSaverView: ScreenSaverView {
-
     var spriteView: GameView?
 
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
-        self.animationTimeInterval = 1.0
-
+        animationTimeInterval = 1.0
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.animationTimeInterval = 1.0
+        animationTimeInterval = 1.0
     }
 
     override var frame: NSRect {
-        didSet
-        {
+        didSet {
             self.spriteView?.frame = frame
         }
     }
 
     override func startAnimation() {
-
-        if self.spriteView == nil {
-            let spriteView = GameView(frame: self.frame)
-            spriteView.ignoresSiblingOrder = false;
-            spriteView.showsFPS = false;
-            spriteView.showsNodeCount = false;
+        if spriteView == nil {
+            let spriteView = GameView(frame: frame)
+            spriteView.ignoresSiblingOrder = false
+            spriteView.showsFPS = false
+            spriteView.showsNodeCount = false
             let scene = AeonTankScene(size: frame.size)
             self.spriteView = spriteView
             addSubview(spriteView)
@@ -46,5 +42,4 @@ class AeonScreenSaverView: ScreenSaverView {
         }
         super.startAnimation()
     }
-
 }

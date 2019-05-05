@@ -13,10 +13,8 @@ class GameView: SKView {
     override var acceptsFirstResponder: Bool { return false }
 
     override var frame: NSRect {
-        didSet
-        {
-            self.scene?.size = frame.size
+        didSet {
+            scene?.size = frame.size
         }
     }
-
 }

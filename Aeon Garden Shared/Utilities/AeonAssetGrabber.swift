@@ -9,24 +9,22 @@
 import SpriteKit
 
 #if os(macOS)
-import Cocoa
+    import Cocoa
 
-// Step 1: Typealias UIImage to NSImage
-typealias UIImage = NSImage
+    // Step 1: Typealias UIImage to NSImage
+    typealias UIImage = NSImage
 #endif
 
 // For screensaver support, we need to manually grab files out of the bundle.
 // This creates a lot of hassle that wouldn't be necessary otherwise.
 
-
 class AeonFileGrabber {
-
     let bundle: Bundle
 
     static let shared: AeonFileGrabber = AeonFileGrabber()
 
     init() {
-        guard let bundle = Bundle.init(identifier: "net.amiantos.Aeon-Garden") else { fatalError("Could not load main bundle.") }
+        guard let bundle = Bundle(identifier: "net.amiantos.Aeon-Garden") else { fatalError("Could not load main bundle.") }
         self.bundle = bundle
     }
 
@@ -47,11 +45,10 @@ class AeonFileGrabber {
 
     public func getSKTexture(named: String) -> SKTexture? {
         #if os(macOS)
-        guard let image = bundle.image(forResource: named) else { return nil }
+            guard let image = bundle.image(forResource: named) else { return nil }
         #else
-        guard let image = UIImage(named: named, in: bundle, compatibleWith: nil) else { return nil }
+            guard let image = UIImage(named: named, in: bundle, compatibleWith: nil) else { return nil }
         #endif
         return SKTexture(image: image)
     }
-
 }

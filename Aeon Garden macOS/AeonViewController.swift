@@ -30,11 +30,11 @@ class AeonViewController: NSViewController {
 }
 
 extension AeonViewController: AeonTankUIDelegate {
-    func updateClock(_ clock: String) {
+    func updateClock(_: String) {
         return
     }
 
-    func updateSelectedCreatureDetails(_ creature: AeonCreatureNode) {
+    func updateSelectedCreatureDetails(_: AeonCreatureNode) {
         return
     }
 
@@ -42,7 +42,7 @@ extension AeonViewController: AeonTankUIDelegate {
         return
     }
 
-    func creatureSelected(_ creature: AeonCreatureNode) {
+    func creatureSelected(_: AeonCreatureNode) {
         return
     }
 

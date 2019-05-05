@@ -438,6 +438,5 @@ extension AeonTankScene {
         emitter.advanceSimulationTime(5)
         emitter.name = "backgroundSparkle"
         addChild(emitter)
-
     }
 }
