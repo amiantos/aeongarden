@@ -103,7 +103,8 @@ class AeonTankScene: SKScene {
         }
         selectedCreature = creature
         creature.displaySelectionRing(withColor: .aeonBrightYellow)
-        camera?.run(SKAction.scale(to: UISettings.styles.cameraZoomScale, duration: 1))
+//        camera?.run(SKAction.scale(to: UISettings.styles.cameraZoomScale, duration: 1))
+        camera?.run(SKAction.scale(to: 0.4, duration: 1))
     }
 
     func deselectCreature() {
@@ -254,7 +255,7 @@ extension AeonTankScene {
     fileprivate func createInitialCreatures() {
         var totalCreatures: Int = 0
         var initialCreatureHue: CGFloat = 0
-        let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(creatureMinimum))
+        let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(initialCreatures))
 
         while totalCreatures < initialCreatures {
             addNewCreatureToScene(withPrimaryHue: initialCreatureHue)
@@ -429,13 +430,13 @@ extension AeonTankScene {
 //            addChild(backgroundSmoke)
 //        }
 
-        if let backgroundSmoke2 = SKEmitterNode(fileNamed: "AeonOceanSquareBubbles.sks") {
-            backgroundSmoke2.position = CGPoint(x: size.width / 2, y: size.height / 2)
-            backgroundSmoke2.zPosition = -1
-            backgroundSmoke2.particlePositionRange = CGVector(dx: size.width, dy: size.height)
-            backgroundSmoke2.advanceSimulationTime(5)
-            backgroundSmoke2.name = "backgroundSparkle"
-            addChild(backgroundSmoke2)
-        }
+        guard let emitter = AeonFileGrabber.shared.getSKEmitterNode(named: "AeonOceanSquareBubbles") else { return }
+        emitter.particleTexture = AeonFileGrabber.shared.getSKTexture(named: "aeonSquare")
+        emitter.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        emitter.zPosition = -1
+        emitter.particlePositionRange = CGVector(dx: size.width, dy: size.height)
+        emitter.advanceSimulationTime(5)
+        emitter.name = "backgroundSparkle"
+        addChild(emitter)
     }
 }

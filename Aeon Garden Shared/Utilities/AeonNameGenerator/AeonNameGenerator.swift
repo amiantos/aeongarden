@@ -15,17 +15,19 @@ class AeonNameGenerator {
     static let shared = AeonNameGenerator()
 
     func returnLastName() -> String {
-        let lastNames: [String] = "Surnames".contentsOrBlank().split(
-            separator: "\n", omittingEmptySubsequences: true
-        ).map(String.init)
-        return (lastNames[randomInteger(min: 0, max: lastNames.count - 1)])
+//        let lastNames: [String] = "Surnames".contentsOrBlank().split(
+//            separator: "\n", omittingEmptySubsequences: true
+//        ).map(String.init)
+//        return (lastNames[randomInteger(min: 0, max: lastNames.count - 1)])
+        return "Root"
     }
 
     func returnFirstName() -> String {
-        let firstNames: [String] = "FirstNames".contentsOrBlank().split(
-            separator: "\n", omittingEmptySubsequences: true
-        ).map(String.init)
-        return (firstNames[randomInteger(min: 0, max: firstNames.count - 1)])
+//        let firstNames: [String] = "FirstNames".contentsOrBlank().split(
+//            separator: "\n", omittingEmptySubsequences: true
+//        ).map(String.init)
+//        return (firstNames[randomInteger(min: 0, max: firstNames.count - 1)])
+        return "Brad"
     }
 }
 
