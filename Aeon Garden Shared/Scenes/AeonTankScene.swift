@@ -326,7 +326,7 @@ extension AeonTankScene: SKPhysicsContactDelegate {
                     addChild(newCreature)
                     newCreature.born()
                     AeonSoundManager.shared.play(.creatureBorn, onNode: newCreature)
-                    selectCreature(newCreature)
+//                    selectCreature(newCreature)
                 }
             } else {
                 // If one creature is pursuing the other, get wrecked
