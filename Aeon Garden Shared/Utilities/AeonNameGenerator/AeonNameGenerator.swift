@@ -15,25 +15,23 @@ class AeonNameGenerator {
     static let shared = AeonNameGenerator()
 
     func returnLastName() -> String {
-//        let lastNames: [String] = "Surnames".contentsOrBlank().split(
-//            separator: "\n", omittingEmptySubsequences: true
-//        ).map(String.init)
-//        return (lastNames[randomInteger(min: 0, max: lastNames.count - 1)])
-        return "Root"
+        let lastNames: [String] = "Surnames".contentsOrBlank().split(
+            separator: "\n", omittingEmptySubsequences: true
+        ).map(String.init)
+        return (lastNames[randomInteger(min: 0, max: lastNames.count - 1)])
     }
 
     func returnFirstName() -> String {
-//        let firstNames: [String] = "FirstNames".contentsOrBlank().split(
-//            separator: "\n", omittingEmptySubsequences: true
-//        ).map(String.init)
-//        return (firstNames[randomInteger(min: 0, max: firstNames.count - 1)])
-        return "Brad"
+        let firstNames: [String] = "FirstNames".contentsOrBlank().split(
+            separator: "\n", omittingEmptySubsequences: true
+        ).map(String.init)
+        return (firstNames[randomInteger(min: 0, max: firstNames.count - 1)])
     }
 }
 
 public extension String {
     func contentsOrBlank() -> String {
-        if let path = Bundle.main.path(forResource: self, ofType: nil) {
+        if let path = Bundle(identifier: "net.amiantos.Aeon-Garden")?.path(forResource: self, ofType: nil) {
             do {
                 let text = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
                 return text
