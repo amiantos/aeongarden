@@ -33,6 +33,7 @@ class AeonScreenSaverView: ScreenSaverView {
     }
 
     override func startAnimation() {
+
         if self.spriteView == nil {
             let spriteView = GameView(frame: self.frame)
             spriteView.ignoresSiblingOrder = false;
