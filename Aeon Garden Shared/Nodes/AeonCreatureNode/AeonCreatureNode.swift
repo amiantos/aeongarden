@@ -40,7 +40,7 @@ class AeonCreatureNode: SKNode, Updatable {
 
     // MARK: - Health
 
-    public private(set) var currentHealth: Float = Float(randomInteger(min: 50, max: 100)) {
+    public private(set) var currentHealth: Float = Float(randomInteger(min: 100, max: 200)) {
         didSet {
             if currentHealth <= 0 {
                 die()
