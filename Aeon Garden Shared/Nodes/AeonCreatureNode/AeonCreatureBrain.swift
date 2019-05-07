@@ -21,7 +21,7 @@ enum Feeling: String {
 protocol AeonCreatureBrainDelegate: class {
     func getFoodNodes() -> [AeonFoodNode]
     func getEligibleMates() -> [AeonCreatureNode]
-    func getEligiblePlayMates() -> [SKNode]
+    func getEligiblePlayMates() -> [AeonBubbleNode]
     func getCurrentHealth() -> Float
 
     func setCurrentTarget(node: SKNode?)
@@ -43,7 +43,7 @@ class AeonCreatureBrain: Updatable {
     public var currentState: State = State.living
     public weak var currentFoodTarget: AeonFoodNode?
     public weak var currentLoveTarget: AeonCreatureNode?
-    public weak var currentPlayTarget: SKNode?
+    public weak var currentPlayTarget: AeonBubbleNode?
     private var lifeState: Bool = true {
         didSet {
             if !lifeState {
@@ -139,33 +139,34 @@ class AeonCreatureBrain: Updatable {
         for child in nodes {
             var rating: CGFloat = 0
             if child == currentFoodTarget {
-                rating = getDistance(toNode: child) + (CGFloat(child.interestedCreatures) * 250) - 250.0
+                rating = getDistance(toNode: child) + (CGFloat(child.interestedParties) * 250) - 250.0
             } else {
-                rating = getDistance(toNode: child) + (CGFloat(child.interestedCreatures) * 250)
+                rating = getDistance(toNode: child) + (CGFloat(child.interestedParties) * 250)
             }
             foodArray.append((rating, child))
         }
         foodArray.sort(by: { $0.rating < $1.rating })
         if foodArray.count > 0 {
             if currentFoodTarget != foodArray[0].node {
-                currentFoodTarget?.interestedCreatures -= 1
+                currentFoodTarget?.untargeted()
                 currentFoodTarget = foodArray[0].node
-                currentFoodTarget?.interestedCreatures += 1
+                currentFoodTarget?.targeted()
                 setCurrentTarget(node: currentFoodTarget!)
             }
         }
     }
 
     public func locatePlayTarget() {
-        var ballArray = [(rating: CGFloat, node: SKNode)]()
+        var ballArray = [(rating: Int, node: SKNode)]()
         let nodes = getEligiblePlayMates()
         for child in nodes {
-            let distance = getDistance(toNode: child)
-            ballArray.append((distance, child))
+            ballArray.append((child.interestedParties, child))
         }
         ballArray.sort(by: { $0.rating < $1.rating })
-        if let playTarget = ballArray.first?.node {
+        if let playTarget = ballArray.first?.node as? AeonBubbleNode, playTarget != currentPlayTarget {
+            currentPlayTarget?.untargeted()
             currentPlayTarget = playTarget
+            currentPlayTarget?.targeted()
             setCurrentTarget(node: currentPlayTarget)
         }
     }
@@ -189,7 +190,7 @@ extension AeonCreatureBrain: AeonCreatureBrainDelegate {
         return delegate!.getCurrentHealth()
     }
 
-    func getEligiblePlayMates() -> [SKNode] {
+    func getEligiblePlayMates() -> [AeonBubbleNode] {
         return delegate!.getEligiblePlayMates()
     }
 

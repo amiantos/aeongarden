@@ -376,12 +376,12 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
         return mateArray
     }
 
-    func getEligiblePlayMates() -> [SKNode] {
-        var playMates: [SKNode] = []
+    func getEligiblePlayMates() -> [AeonBubbleNode] {
+        var playMates: [AeonBubbleNode] = []
         let nodes = getNodes()
         for child in nodes where
             child is AeonBubbleNode {
-            playMates.append(child)
+            playMates.append(child as! AeonBubbleNode)
         }
         return playMates
     }
