@@ -14,17 +14,24 @@ import Foundation
 class AeonNameGenerator {
     static let shared = AeonNameGenerator()
 
-    func returnLastName() -> String {
-        let lastNames: [String] = "Surnames".contentsOrBlank().split(
+    let firstNames: [String]
+    let lastNames: [String]
+
+    init() {
+        lastNames = "Surnames".contentsOrBlank().split(
             separator: "\n", omittingEmptySubsequences: true
         ).map(String.init)
+
+        firstNames = "FirstNames".contentsOrBlank().split(
+            separator: "\n", omittingEmptySubsequences: true
+        ).map(String.init)
+    }
+
+    func returnLastName() -> String {
         return (lastNames[randomInteger(min: 0, max: lastNames.count - 1)])
     }
 
     func returnFirstName() -> String {
-        let firstNames: [String] = "FirstNames".contentsOrBlank().split(
-            separator: "\n", omittingEmptySubsequences: true
-        ).map(String.init)
         return (firstNames[randomInteger(min: 0, max: firstNames.count - 1)])
     }
 }
