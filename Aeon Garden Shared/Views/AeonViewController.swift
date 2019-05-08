@@ -62,6 +62,8 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         override var prefersHomeIndicatorAutoHidden: Bool {
             return true
         }
+
+        
     #endif
 
     // MARK: tvOS Controls

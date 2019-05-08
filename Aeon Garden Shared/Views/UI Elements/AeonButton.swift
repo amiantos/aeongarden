@@ -110,7 +110,6 @@ class AeonButton: UIButton {
 
     override func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
         super.pressesEnded(presses, with: event)
-
         for press in presses where press.type == .select {
             UIView.animate(withDuration: 0.3, delay: 0, options: .beginFromCurrentState, animations: {
                 self.liftButton()
