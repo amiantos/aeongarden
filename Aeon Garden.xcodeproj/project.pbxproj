@@ -37,7 +37,6 @@
 		B409E59F227E3A3700546184 /* AeonTankSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44147C66225D6B6700A16736 /* AeonTankSettings.swift */; };
 		B409E5A0227E3A3A00546184 /* AeonOceanSquareBubbles.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */; };
 		B409E5A1227E3A3A00546184 /* AeonCreatureBubbleTrail.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonCreatureBubbleTrail.sks */; };
-		B409E5A2227E3A3A00546184 /* AeonSomething.sks in Resources */ = {isa = PBXBuildFile; fileRef = B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */; };
 		B409E5A3227E3A3E00546184 /* aeonBirthSound-C4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7282272C1460069D551 /* aeonBirthSound-C4.wav */; };
 		B409E5A4227E3A3E00546184 /* aeonBirthSound-E4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D72B2272C1470069D551 /* aeonBirthSound-E4.wav */; };
 		B409E5A5227E3A3E00546184 /* aeonBirthSound-G4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7252272C1450069D551 /* aeonBirthSound-G4.wav */; };
@@ -52,7 +51,6 @@
 		B409E5AE227E3A3E00546184 /* AeonSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413ABFB224FFD7D00E8BDD1 /* AeonSoundManager.swift */; };
 		B409E5AF227E3A4000546184 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
 		B413AB78224D73C400E8BDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB77224D73C400E8BDD1 /* AppDelegate.swift */; };
-		B413AB80224D73C400E8BDD1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B413AB7E224D73C400E8BDD1 /* LaunchScreen.storyboard */; };
 		B413AB89224D73C400E8BDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB88224D73C400E8BDD1 /* AppDelegate.swift */; };
 		B413AB97224D73C400E8BDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB96224D73C400E8BDD1 /* AppDelegate.swift */; };
 		B413AB99224D73C400E8BDD1 /* AeonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B413AB98224D73C400E8BDD1 /* AeonViewController.swift */; };
@@ -122,9 +120,6 @@
 		B413AC082259A3E600E8BDD1 /* pad_confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413AC072259A3E600E8BDD1 /* pad_confirm.wav */; };
 		B413AC092259A3E600E8BDD1 /* pad_confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413AC072259A3E600E8BDD1 /* pad_confirm.wav */; };
 		B413AC0A2259A3E600E8BDD1 /* pad_confirm.wav in Resources */ = {isa = PBXBuildFile; fileRef = B413AC072259A3E600E8BDD1 /* pad_confirm.wav */; };
-		B413AC0D2259C55800E8BDD1 /* AeonSomething.sks in Resources */ = {isa = PBXBuildFile; fileRef = B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */; };
-		B413AC0E2259C55800E8BDD1 /* AeonSomething.sks in Resources */ = {isa = PBXBuildFile; fileRef = B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */; };
-		B413AC0F2259C55800E8BDD1 /* AeonSomething.sks in Resources */ = {isa = PBXBuildFile; fileRef = B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */; };
 		B4250BFF2272B16300551424 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
 		B4250C002272B16400551424 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */; };
 		B429D72C2272C1480069D551 /* aeonBirthSound-G4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7252272C1450069D551 /* aeonBirthSound-G4.wav */; };
@@ -183,7 +178,6 @@
 		B409E54E227E32FD00546184 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		B413AB75224D73C400E8BDD1 /* Aeon Garden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Aeon Garden.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B413AB77224D73C400E8BDD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B413AB7F224D73C400E8BDD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B413AB81224D73C400E8BDD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B413AB86224D73C400E8BDD1 /* Aeon Garden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Aeon Garden.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B413AB88224D73C400E8BDD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -199,7 +193,6 @@
 		B413ABFF22599F6C00E8BDD1 /* pop_drip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop_drip.wav; sourceTree = "<group>"; };
 		B413AC032259A3AF00E8BDD1 /* click_04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click_04.wav; sourceTree = "<group>"; };
 		B413AC072259A3E600E8BDD1 /* pad_confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pad_confirm.wav; sourceTree = "<group>"; };
-		B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonSomething.sks; sourceTree = "<group>"; };
 		B429D7252272C1450069D551 /* aeonBirthSound-G4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonBirthSound-G4.wav"; sourceTree = "<group>"; };
 		B429D7262272C1460069D551 /* aeonMateSound-G3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "aeonMateSound-G3.wav"; sourceTree = "<group>"; };
 		B429D7272272C1460069D551 /* aeonBirthSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = aeonBirthSound.wav; sourceTree = "<group>"; };
@@ -339,7 +332,6 @@
 			isa = PBXGroup;
 			children = (
 				B413AB77224D73C400E8BDD1 /* AppDelegate.swift */,
-				B413AB7E224D73C400E8BDD1 /* LaunchScreen.storyboard */,
 				B413AB81224D73C400E8BDD1 /* Info.plist */,
 			);
 			path = "Aeon Garden iOS";
@@ -399,7 +391,6 @@
 			children = (
 				B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */,
 				4419E9F02241A557007FE456 /* AeonCreatureBubbleTrail.sks */,
-				B413AC0B2259C55800E8BDD1 /* AeonSomething.sks */,
 			);
 			name = Particles;
 			path = "Aeon Garden Shared/Particles";
@@ -622,7 +613,6 @@
 				B409E592227E3A2000546184 /* FirstNames in Resources */,
 				B409E5A9227E3A3E00546184 /* aeonMateSound-G3.wav in Resources */,
 				B409E5AB227E3A3E00546184 /* click_04.wav in Resources */,
-				B409E5A2227E3A3A00546184 /* AeonSomething.sks in Resources */,
 				B409E591227E3A2000546184 /* Surnames in Resources */,
 				B409E5AF227E3A4000546184 /* Assets.xcassets in Resources */,
 				B409E5AC227E3A3E00546184 /* pop_drip.wav in Resources */,
@@ -649,11 +639,9 @@
 				B413ABF7224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABCE224D7C8A00E8BDD1 /* Surnames in Resources */,
 				B429D72F2272C1480069D551 /* aeonMateSound-G3.wav in Resources */,
-				B413AC0D2259C55800E8BDD1 /* AeonSomething.sks in Resources */,
 				B429D73B2272C1480069D551 /* aeonMateSound-C3.wav in Resources */,
 				B429D7382272C1480069D551 /* aeonMateSound-E3.wav in Resources */,
 				B429D73E2272C1480069D551 /* aeonBirthSound-E4.wav in Resources */,
-				B413AB80224D73C400E8BDD1 /* LaunchScreen.storyboard in Resources */,
 				B413AC082259A3E600E8BDD1 /* pad_confirm.wav in Resources */,
 				B413ABCF224D7C8A00E8BDD1 /* FirstNames in Resources */,
 				B413AC0022599F6D00E8BDD1 /* pop_drip.wav in Resources */,
@@ -671,7 +659,6 @@
 				B413ABF8224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B429D7332272C1480069D551 /* aeonBirthSound.wav in Resources */,
 				B413ABE7224D7D4F00E8BDD1 /* AeonCreatureBubbleTrail.sks in Resources */,
-				B413AC0E2259C55800E8BDD1 /* AeonSomething.sks in Resources */,
 				B429D7302272C1480069D551 /* aeonMateSound-G3.wav in Resources */,
 				B413ABD4224D7C8B00E8BDD1 /* Surnames in Resources */,
 				B429D73C2272C1480069D551 /* aeonMateSound-C3.wav in Resources */,
@@ -698,7 +685,6 @@
 				B413ABF9224FFD3800E8BDD1 /* pop.wav in Resources */,
 				B413ABEA224D7D5000E8BDD1 /* AeonCreatureBubbleTrail.sks in Resources */,
 				B429D7312272C1480069D551 /* aeonMateSound-G3.wav in Resources */,
-				B413AC0F2259C55800E8BDD1 /* AeonSomething.sks in Resources */,
 				B429D73D2272C1480069D551 /* aeonMateSound-C3.wav in Resources */,
 				B429D73A2272C1480069D551 /* aeonMateSound-E3.wav in Resources */,
 				B429D7402272C1480069D551 /* aeonBirthSound-E4.wav in Resources */,
@@ -891,14 +877,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B413AB7E224D73C400E8BDD1 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B413AB7F224D73C400E8BDD1 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 		B413AB9A224D73C400E8BDD1 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -961,6 +939,7 @@
 			baseConfigurationReference = 9DA5FBDDF894B044FA1831F3 /* Pods-Aeon Garden iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = iOSLaunchImage;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -983,6 +962,7 @@
 			baseConfigurationReference = 36FD16856D813C5EFD6431ED /* Pods-Aeon Garden iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = iOSLaunchImage;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;

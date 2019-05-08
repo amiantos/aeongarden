@@ -117,7 +117,6 @@ class AeonTankScene: SKScene {
     override func sceneDidLoad() {
         setupFrame()
         setupCamera()
-        setupBackgroundGradient()
         setupBackgroundAnimation()
     }
 
@@ -374,7 +373,7 @@ extension AeonTankScene {
     fileprivate func setupFrame() {
         size.width = frame.size.width * 2
         size.height = frame.size.height * 2
-        backgroundColor = .aeonTankBgColor
+        backgroundColor = .aeonDarkBlue
 
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsBody?.categoryBitMask = CollisionTypes.edge.rawValue
@@ -390,46 +389,7 @@ extension AeonTankScene {
 //        audioEngine.mainMixerNode.outputVolume = 0.2
     }
 
-    fileprivate func setupBackgroundGradient() {
-//        let topColor = CIColor(color: UIColor(red: 0.0078, green: 0.0235, blue: 0.0275, alpha: 1.0)) /* #020607 */
-//        let bottomColor = CIColor(color: UIColor(red: 0.1529, green: 0.4275, blue: 0.5373, alpha: 1.0)) /* #276d89 */
-//
-//        let textureSize = CGSize(width: frame.width * 2, height: frame.height * 3)
-//        let texture = SKTexture(
-//            size: CGSize(width: frame.width * 2, height: frame.height * 3),
-//            color1: topColor,
-//            color2: bottomColor,
-//            direction: GradientDirection.upward
-//        )
-//        texture.filteringMode = .linear
-//        let sprite = SKSpriteNode(texture: texture)
-//        sprite.position = CGPoint(x: frame.midX, y: frame.midY)
-//        sprite.size = textureSize
-//        sprite.zPosition = -3
-//        addChild(sprite)
-//
-//        let moveUpAction = SKAction.moveBy(x: 0, y: frame.height, duration: 60)
-//        let moveDownAction = SKAction.moveBy(x: 0, y: -frame.height, duration: 60)
-//        let moveActionGroup = SKAction.sequence([moveUpAction, moveDownAction, moveDownAction, moveUpAction])
-//        moveActionGroup.timingMode = .easeInEaseOut
-//        sprite.run(SKAction.repeatForever(moveActionGroup))
-    }
-
     fileprivate func setupBackgroundAnimation() {
-//        if let backgroundSmoke = SKEmitterNode(fileNamed: "AeonSomething.sks") {
-//            backgroundSmoke.position = CGPoint(x: size.width / 2, y: size.height / 2)
-//            backgroundSmoke.zPosition = -2
-//            backgroundSmoke.particlePositionRange = CGVector(dx: size.width, dy: size.height)
-//            let alphaSequence = SKKeyframeSequence(
-//                keyframeValues: [0, 0.2, 0.3, 0.2, 0.15, 0],
-//                times: [0, 0.25, 0.5, 0.75, 0.9, 1]
-//            )
-//            backgroundSmoke.particleAlphaSequence = alphaSequence
-//            // backgroundSmoke.advanceSimulationTime(5)
-//            backgroundSmoke.name = "backgroundShadow"
-//            addChild(backgroundSmoke)
-//        }
-
         guard let emitter = AeonFileGrabber.shared.getSKEmitterNode(named: "AeonOceanSquareBubbles") else { return }
         emitter.particleTexture = AeonFileGrabber.shared.getSKTexture(named: "aeonSquare")
         emitter.position = CGPoint(x: size.width / 2, y: size.height / 2)

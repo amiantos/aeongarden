@@ -12,16 +12,23 @@
 import SpriteKit
 
 extension SKColor {
-    static let aeonUIBackgroundLight = SKColor(hue: 0.5861, saturation: 0.07, brightness: 0.93, alpha: 0.7)
-    static let aeonUIBackgroundDark = SKColor(hue: 0.5861, saturation: 0.24, brightness: 0.89, alpha: 0.7)
-    static let aeonTintColor = SKColor(hue: 0.5778, saturation: 0.62, brightness: 0.39, alpha: 1.0)
-    static let aeonTankBgColor = SKColor(hue: 205 / 360, saturation: 100 / 100, brightness: 20 / 100, alpha: 1.0) /* #001d33 */
+    static let aeonBrightBlue = SKColor(red: 6/255.0, green: 66/255.0, blue: 110/255.0, alpha: 1.00)
+    static let aeonMediumBlue = SKColor(red: 3/255.0, green: 49/255.0, blue: 82/255.0, alpha: 1.00)
+    static let aeonDarkBlue = SKColor(red: 2/255.0, green: 30/255.0, blue: 50/255.0, alpha: 1.00)
+    static let aeonDarkerBlue = SKColor(red: 0/255.0, green: 5/255.0, blue: 9/255.0, alpha: 1.00)
 
-    static let aeonDarkRed = SKColor(red: 0.31, green: 0.09, blue: 0, alpha: 1)
-    static let aeonMediumRed = SKColor(red: 0.51, green: 0.14, blue: 0, alpha: 1)
-    static let aeonBrightYellow = SKColor(red: 0.68, green: 0.51, blue: 0, alpha: 1)
-    static let aeonBrightBrown = SKColor(red: 0.68, green: 0.38, blue: 0.09, alpha: 1)
-    static let aeonBrightBlue = SKColor(red: 0.02, green: 0.26, blue: 0.43, alpha: 1)
-    static let aeonMediumBlue = SKColor(red: 0.01, green: 0.19, blue: 0.32, alpha: 1)
-    static let aeonDarkBlue = SKColor(red: 0.01, green: 0.12, blue: 0.2, alpha: 1)
+    static let aeonBrightYellow = SKColor(red: 174/255.0, green: 129/255.0, blue: 0/255.0, alpha: 1.00)
+    static let aeonMediumYellow = SKColor(red: 128/255.0, green: 95/255.0, blue: 17/255.0, alpha: 1.00)
+    static let aeonDarkYellow = SKColor(red: 80/255.0, green: 58/255.0, blue: 7/255.0, alpha: 1.00)
+    static let aeonDarkerYellow = SKColor(red: 14/255.0, green: 11/255.0, blue: 1/255.0, alpha: 1.00)
+
+    static let aeonBrightBrown = SKColor(red: 173/255.0, green: 98/255.0, blue: 22/255.0, alpha: 1.00)
+    static let aeonMediumBrown = SKColor(red: 128/255.0, green: 73/255.0, blue: 14/255.0, alpha: 1.00)
+    static let aeonDarkBrown = SKColor(red: 79/255.0, green: 45/255.0, blue: 6/255.0, alpha: 1.00)
+    static let aeonDarkerBrown = SKColor(red: 14/255.0, green: 8/255.0, blue: 0/255.0, alpha: 1.00)
+
+    static let aeonBrightRed = SKColor(red: 172/255.0, green: 48/255.0, blue: 17/255.0, alpha: 1.00)
+    static let aeonMediumRed = SKColor(red: 129/255.0, green: 35/255.0, blue: 0/255.0, alpha: 1.00)
+    static let aeonDarkRed = SKColor(red: 80/255.0, green: 22/255.0, blue: 0/255.0, alpha: 1.00)
+    static let aeonDarkerRed = SKColor(red: 14/255.0, green: 4/255.0, blue: 0/255.0, alpha: 1.00)
 }
