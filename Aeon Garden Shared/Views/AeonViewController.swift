@@ -418,6 +418,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             button.translatesAutoresizingMaskIntoConstraints = false
             mainContainerView.addSubview(button)
             button.bottomAnchor.constraint(equalTo: mainContainerView.bottomAnchor).isActive = true
+            button.layoutSubviews()
         }
 
         mainNewTankButton.trailingAnchor.constraint(equalTo: mainContainerView.trailingAnchor, constant: 20).isActive = true
@@ -528,6 +529,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             button.translatesAutoresizingMaskIntoConstraints = false
             detailsContainerView.addSubview(button)
             button.bottomAnchor.constraint(equalTo: detailsContainerView.bottomAnchor).isActive = true
+            button.layoutSubviews()
         }
 
         detailsSaveButton.trailingAnchor.constraint(equalTo: detailsContainerView.trailingAnchor, constant: 0).isActive = true
