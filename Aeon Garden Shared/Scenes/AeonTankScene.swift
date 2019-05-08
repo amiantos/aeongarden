@@ -43,7 +43,7 @@ class AeonTankScene: SKScene {
     public var birthCount: Int = 0
 
     private var foodMaxAmount: Int = 30
-    private var foodHealthRestorationBaseValue: Int = 120
+    private var foodHealthRestorationBaseValue: CGFloat = 120
     private var foodSpawnRate: Int = 2
 
     private var creatureMinimumAmount: Int = 10
@@ -353,16 +353,16 @@ extension AeonTankScene: SKPhysicsContactDelegate {
             contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyB.node as? AeonCreatureNode,
                 let food = contact.bodyA.node as? AeonFoodNode,
-                creature.currentTarget == food {
-                creature.fed()
+                creature.getCurrentState() == "Hungry" {
+                creature.fed(restorationAmount: foodHealthRestorationBaseValue)
                 food.eaten(animateTo: creature.position)
             }
         } else if contact.bodyB.categoryBitMask == CollisionTypes.food.rawValue,
             contact.bodyA.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyA.node as? AeonCreatureNode,
                 let food = contact.bodyB.node as? AeonFoodNode,
-                creature.currentTarget == food {
-                creature.fed()
+                creature.getCurrentState() == "Hungry" {
+                creature.fed(restorationAmount: foodHealthRestorationBaseValue * randomCGFloat(min: 0.5, max: 1.5))
                 food.eaten(animateTo: creature.position)
             }
         }

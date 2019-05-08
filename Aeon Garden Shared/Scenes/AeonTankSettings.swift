@@ -14,7 +14,7 @@ import SpriteKit
 
 struct AeonTankSettings {
     let foodMaxAmount: Int
-    let foodHealthRestorationBaseValue: Int
+    let foodHealthRestorationBaseValue: CGFloat
     let foodSpawnRate: Int
 
     let creatureInitialAmount: Int

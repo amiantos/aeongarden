@@ -40,7 +40,7 @@ class AeonCreatureNode: SKNode, Updatable {
 
     // MARK: - Health
 
-    public private(set) var currentHealth: Float = Float(randomInteger(min: 100, max: 200)) {
+    public private(set) var currentHealth: CGFloat = randomCGFloat(min: 100, max: 200) {
         didSet {
             if currentHealth <= 0 {
                 die()
@@ -48,7 +48,7 @@ class AeonCreatureNode: SKNode, Updatable {
         }
     }
 
-    public var lifeTime: Float = 0
+    public var lifeTime: CGFloat = 0
 
     // MARK: - Brain
 
@@ -252,8 +252,8 @@ class AeonCreatureNode: SKNode, Updatable {
         let deltaTime = currentTime - lastUpdateTime
         let correctedDeltaTime = deltaTime > 1 ? 1 : deltaTime
         if correctedDeltaTime >= 1, currentHealth > 0 {
-            currentHealth -= Float(correctedDeltaTime)
-            lifeTime += Float(correctedDeltaTime)
+            currentHealth -= CGFloat(correctedDeltaTime)
+            lifeTime += CGFloat(correctedDeltaTime)
             lastUpdateTime = currentTime
         }
         brain?.update(currentTime)
@@ -327,11 +327,11 @@ class AeonCreatureNode: SKNode, Updatable {
         scaleAnimation()
     }
 
-    func fed() {
-        currentHealth += Float(randomCGFloat(min: 80, max: 160))
+    func fed(restorationAmount: CGFloat) {
+        currentHealth += restorationAmount
         printThought("Yum!", emoji: "🍽")
         AeonSoundManager.shared.play(.creatureEat, onNode: self)
-        brain?.fed()
+        brain?.fed(restorationAmount: restorationAmount)
 
         scaleAnimation()
     }
@@ -351,7 +351,7 @@ class AeonCreatureNode: SKNode, Updatable {
 // MARK: - Brain Delegate
 
 extension AeonCreatureNode: AeonCreatureBrainDelegate {
-    func getCurrentHealth() -> Float {
+    func getCurrentHealth() -> CGFloat {
         return currentHealth
     }
 

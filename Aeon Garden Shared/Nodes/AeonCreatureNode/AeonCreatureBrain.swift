@@ -22,7 +22,7 @@ protocol AeonCreatureBrainDelegate: class {
     func getFoodNodes() -> [AeonFoodNode]
     func getEligibleMates() -> [AeonCreatureNode]
     func getEligiblePlayMates() -> [AeonBubbleNode]
-    func getCurrentHealth() -> Float
+    func getCurrentHealth() -> CGFloat
 
     func setCurrentTarget(node: SKNode?)
     func getDistance(toNode node: SKNode) -> CGFloat
@@ -30,7 +30,7 @@ protocol AeonCreatureBrainDelegate: class {
 
     func die()
     func mated()
-    func fed()
+    func fed(restorationAmount: CGFloat)
 
     func printThought(_ message: String, emoji: String?)
 }
@@ -178,7 +178,7 @@ extension AeonCreatureBrain: AeonCreatureBrainDelegate {
         stateMachine?.enter(WanderingState.self)
     }
 
-    func fed() {
+    func fed(restorationAmount: CGFloat) {
         currentFoodTarget = nil
     }
 
@@ -186,7 +186,7 @@ extension AeonCreatureBrain: AeonCreatureBrainDelegate {
         stateMachine?.enter(DeadState.self)
     }
 
-    func getCurrentHealth() -> Float {
+    func getCurrentHealth() -> CGFloat {
         return delegate!.getCurrentHealth()
     }
 
