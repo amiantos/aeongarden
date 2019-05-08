@@ -28,6 +28,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
                 creatureInitialAmount: 20,
                 creatureMinimumAmount: 5,
                 creatureSpawnRate: 5,
+                creatureBirthSuccessRate: 0.17,
                 backgroundColor: .aeonDarkBlue,
                 backgroundParticleBirthrate: 40,
                 backgroundParticleLifetime: 30
@@ -40,6 +41,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
                 creatureInitialAmount: 10,
                 creatureMinimumAmount: 5,
                 creatureSpawnRate: 5,
+                creatureBirthSuccessRate: 0.17,
                 backgroundColor: .aeonDarkBlue,
                 backgroundParticleBirthrate: 30,
                 backgroundParticleLifetime: 20
@@ -52,6 +54,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
                 creatureInitialAmount: 30,
                 creatureMinimumAmount: 5,
                 creatureSpawnRate: 5,
+                creatureBirthSuccessRate: 0.17,
                 backgroundColor: .aeonDarkBlue,
                 backgroundParticleBirthrate: 60,
                 backgroundParticleLifetime: 50

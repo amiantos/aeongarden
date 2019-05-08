@@ -38,6 +38,7 @@ class AeonScreenSaverView: ScreenSaverView {
                 creatureInitialAmount: 50,
                 creatureMinimumAmount: 5,
                 creatureSpawnRate: 5,
+                creatureBirthSuccessRate: 1,
                 backgroundColor: .aeonDarkBlue,
                 backgroundParticleBirthrate: 80,
                 backgroundParticleLifetime: 60

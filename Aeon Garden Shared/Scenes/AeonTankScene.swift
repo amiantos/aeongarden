@@ -49,6 +49,7 @@ class AeonTankScene: SKScene {
     private var creatureMinimumAmount: Int = 10
     private var creatureInitialAmount: Int = 20
     private var creatureSpawnRate: Int = 5
+    private var creatureBirthSuccessRate: CGFloat = 0.17
 
     private var backgroundParticleBirthrate: Int = 40
     private var backgroundParticleLifetime: Int = 30
@@ -322,6 +323,8 @@ extension AeonTankScene {
 
 extension AeonTankScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
+
+        // MARK: - Mating
         if let creatureA = contact.bodyA.node as? AeonCreatureNode,
             let creatureB = contact.bodyB.node as? AeonCreatureNode {
             if creatureA.currentTarget == creatureB, creatureB.currentTarget == creatureA {
@@ -330,7 +333,7 @@ extension AeonTankScene: SKPhysicsContactDelegate {
                 creatureB.mated()
                 AeonSoundManager.shared.play(.creatureMate, onNode: creatureA)
                 // Random chance to breed
-                if randomInteger(min: 0, max: 6) == 0 {
+                if randomCGFloat(min: 0, max: 1) <= creatureBirthSuccessRate {
                     birthCount += 1
                     let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
                     newCreature.position = creatureA.position
@@ -349,6 +352,7 @@ extension AeonTankScene: SKPhysicsContactDelegate {
             }
         }
 
+        // MARK: - Eating
         if contact.bodyA.categoryBitMask == CollisionTypes.food.rawValue,
             contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyB.node as? AeonCreatureNode,
@@ -367,6 +371,7 @@ extension AeonTankScene: SKPhysicsContactDelegate {
             }
         }
 
+        // MARK: - Bubble Collisions
         if contact.bodyA.categoryBitMask == CollisionTypes.ball.rawValue,
             let ball = contact.bodyA.node as? AeonBubbleNode {
             ball.dieQuick()
@@ -391,6 +396,7 @@ extension AeonTankScene {
         creatureInitialAmount = settings.creatureInitialAmount
         creatureMinimumAmount = settings.creatureMinimumAmount
         creatureSpawnRate = settings.creatureSpawnRate
+        creatureBirthSuccessRate = settings.creatureBirthSuccessRate
 
         backgroundColor = settings.backgroundColor
         backgroundParticleBirthrate = settings.backgroundParticleBirthrate

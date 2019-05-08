@@ -20,6 +20,7 @@ struct AeonTankSettings {
     let creatureInitialAmount: Int
     let creatureMinimumAmount: Int
     let creatureSpawnRate: Int
+    let creatureBirthSuccessRate: CGFloat
 
     let backgroundColor: SKColor
     let backgroundParticleBirthrate: Int
