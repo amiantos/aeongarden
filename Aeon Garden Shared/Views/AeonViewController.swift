@@ -63,7 +63,6 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             return true
         }
 
-        
     #endif
 
     // MARK: tvOS Controls
