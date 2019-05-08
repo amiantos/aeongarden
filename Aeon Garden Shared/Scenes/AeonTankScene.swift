@@ -19,7 +19,7 @@ enum CollisionTypes: UInt32 {
     case ball = 8
 }
 
-protocol AeonTankUIDelegate: class {
+protocol AeonTankUIDelegate: AnyObject {
     func updatePopulation(_ population: Int)
     func updateFood(_ food: Int)
     func updateBirths(_ births: Int)
@@ -323,8 +323,8 @@ extension AeonTankScene {
 
 extension AeonTankScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
-
         // MARK: - Mating
+
         if let creatureA = contact.bodyA.node as? AeonCreatureNode,
             let creatureB = contact.bodyB.node as? AeonCreatureNode {
             if creatureA.currentTarget == creatureB, creatureB.currentTarget == creatureA {
@@ -353,6 +353,7 @@ extension AeonTankScene: SKPhysicsContactDelegate {
         }
 
         // MARK: - Eating
+
         if contact.bodyA.categoryBitMask == CollisionTypes.food.rawValue,
             contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyB.node as? AeonCreatureNode,
@@ -372,6 +373,7 @@ extension AeonTankScene: SKPhysicsContactDelegate {
         }
 
         // MARK: - Bubble Collisions
+
         if contact.bodyA.categoryBitMask == CollisionTypes.ball.rawValue,
             let ball = contact.bodyA.node as? AeonBubbleNode {
             ball.dieQuick()

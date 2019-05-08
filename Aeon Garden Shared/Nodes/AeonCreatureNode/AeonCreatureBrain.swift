@@ -18,7 +18,7 @@ enum Feeling: String {
     case dying = "Dead"
 }
 
-protocol AeonCreatureBrainDelegate: class {
+protocol AeonCreatureBrainDelegate: AnyObject {
     func getFoodNodes() -> [AeonFoodNode]
     func getEligibleMates() -> [AeonCreatureNode]
     func getEligiblePlayMates() -> [AeonBubbleNode]
@@ -178,7 +178,7 @@ extension AeonCreatureBrain: AeonCreatureBrainDelegate {
         stateMachine?.enter(WanderingState.self)
     }
 
-    func fed(restorationAmount: CGFloat) {
+    func fed(restorationAmount _: CGFloat) {
         currentFoodTarget = nil
     }
 
