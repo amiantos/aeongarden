@@ -15,9 +15,9 @@
 		44D73684227A68FF006A25B6 /* AeonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F2226BD9A40050F14C /* AeonButton.swift */; };
 		44D73685227A6903006A25B6 /* AeonDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B2D1F4226BD9D20050F14C /* AeonDataView.swift */; };
 		44D73686227A6F6B006A25B6 /* AeonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDABC1F80943500DEA908 /* AeonViewController.swift */; };
-		44E533E322839E54008040D3 /* AeonGarden.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 44E533E022839E54008040D3 /* AeonGarden.xcdatamodeld */; };
-		44E533E422839E54008040D3 /* AeonGarden.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 44E533E022839E54008040D3 /* AeonGarden.xcdatamodeld */; };
-		44E533E522839E54008040D3 /* AeonGarden.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 44E533E022839E54008040D3 /* AeonGarden.xcdatamodeld */; };
+		44E533E82283A005008040D3 /* AeonGarden.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 44E533E62283A005008040D3 /* AeonGarden.xcdatamodeld */; };
+		44E533E92283A005008040D3 /* AeonGarden.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 44E533E62283A005008040D3 /* AeonGarden.xcdatamodeld */; };
+		44E533EA2283A005008040D3 /* AeonGarden.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 44E533E62283A005008040D3 /* AeonGarden.xcdatamodeld */; };
 		44EC7E2C2282591A00F2BA3E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44EC7E2B2282591A00F2BA3E /* Launch Screen.storyboard */; };
 		82BF56C3256FB0182D5F3F18 /* Pods_Aeon_Garden_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FC0A83C46425083E854700 /* Pods_Aeon_Garden_macOS.framework */; };
 		8E7E158ACFE2903488CE6E7E /* Pods_Aeon_Garden_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A69E33689BDFD1DAC0725B2E /* Pods_Aeon_Garden_iOS.framework */; };
@@ -168,8 +168,7 @@
 		44868F672231E855009F0460 /* AeonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonUtils.swift; sourceTree = "<group>"; };
 		44868F6A223346E3009F0460 /* AeonCreatureBrainStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonCreatureBrainStates.swift; sourceTree = "<group>"; };
 		449FF756226FD92900704D7C /* AeonFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonFonts.swift; sourceTree = "<group>"; };
-		44E533E122839E54008040D3 /* AeonGarden.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AeonGarden.xcdatamodel; sourceTree = "<group>"; };
-		44E533E222839E54008040D3 /* AeonDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AeonDataModel.xcdatamodel; sourceTree = "<group>"; };
+		44E533E72283A005008040D3 /* AeonGarden.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AeonGarden.xcdatamodel; sourceTree = "<group>"; };
 		44EC7E2B2282591A00F2BA3E /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		55106F82B8367E59A3F6FC58 /* Pods_Aeon_Garden.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BB5FC94C7B5B26BD77940B9 /* Pods_Aeon_Garden_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -314,7 +313,7 @@
 		44E5339922839C33008040D3 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				44E533E022839E54008040D3 /* AeonGarden.xcdatamodeld */,
+				44E533E62283A005008040D3 /* AeonGarden.xcdatamodeld */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -821,7 +820,7 @@
 				B413ABCD224D7C8A00E8BDD1 /* AeonNameGenerator.swift in Sources */,
 				44147C67225D6B6800A16736 /* AeonTankSettings.swift in Sources */,
 				44D73684227A68FF006A25B6 /* AeonButton.swift in Sources */,
-				44E533E322839E54008040D3 /* AeonGarden.xcdatamodeld in Sources */,
+				44E533E82283A005008040D3 /* AeonGarden.xcdatamodeld in Sources */,
 				B413ABB8224D7C8100E8BDD1 /* AeonCreatureNode.swift in Sources */,
 				449FF757226FD92900704D7C /* AeonFonts.swift in Sources */,
 				44D73685227A6903006A25B6 /* AeonDataView.swift in Sources */,
@@ -850,7 +849,7 @@
 				B413ABD3224D7C8B00E8BDD1 /* AeonNameGenerator.swift in Sources */,
 				B4B2D1F5226BD9D20050F14C /* AeonDataView.swift in Sources */,
 				44147C68225D6B6800A16736 /* AeonTankSettings.swift in Sources */,
-				44E533E422839E54008040D3 /* AeonGarden.xcdatamodeld in Sources */,
+				44E533E92283A005008040D3 /* AeonGarden.xcdatamodeld in Sources */,
 				B413ABBF224D7C8200E8BDD1 /* AeonCreatureNode.swift in Sources */,
 				B413ABD8224D7C8B00E8BDD1 /* SKTextureGradient.swift in Sources */,
 				B413ABB6224D7C7200E8BDD1 /* AeonTankScene.swift in Sources */,
@@ -879,7 +878,7 @@
 				B413ABD9224D7C8C00E8BDD1 /* AeonNameGenerator.swift in Sources */,
 				44147C69225D6B6800A16736 /* AeonTankSettings.swift in Sources */,
 				B413ABC6224D7C8300E8BDD1 /* AeonCreatureNode.swift in Sources */,
-				44E533E522839E54008040D3 /* AeonGarden.xcdatamodeld in Sources */,
+				44E533EA2283A005008040D3 /* AeonGarden.xcdatamodeld in Sources */,
 				B413ABDE224D7C8C00E8BDD1 /* SKTextureGradient.swift in Sources */,
 				B413ABB7224D7C7300E8BDD1 /* AeonTankScene.swift in Sources */,
 				B413ABC8224D7C8300E8BDD1 /* AeonCreatureBrain.swift in Sources */,
@@ -1250,13 +1249,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		44E533E022839E54008040D3 /* AeonGarden.xcdatamodeld */ = {
+		44E533E62283A005008040D3 /* AeonGarden.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				44E533E122839E54008040D3 /* AeonGarden.xcdatamodel */,
-				44E533E222839E54008040D3 /* AeonDataModel.xcdatamodel */,
+				44E533E72283A005008040D3 /* AeonGarden.xcdatamodel */,
 			);
-			currentVersion = 44E533E122839E54008040D3 /* AeonGarden.xcdatamodel */;
+			currentVersion = 44E533E72283A005008040D3 /* AeonGarden.xcdatamodel */;
 			path = AeonGarden.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
