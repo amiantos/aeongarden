@@ -1,0 +1,37 @@
+version: '3'
+services:
+  api:
+    build: .
+    environment:
+      - DB_URI=postgresql://aeon:aeon@postgres/aeon
+    command: /opt/app/run_devserver.sh
+    volumes:
+      - ./:/opt/app
+    ports:
+      - "80:80"
+    networks:
+      - aeon_net
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:10.4
+    volumes:
+      - aeon_pgdata:/var/lib/postgresql/data/pgdata
+    environment:
+      - POSTGRES_USER=aeon
+      - POSTGRES_DB=aeon
+      - POSTGRES_PASSWORD=aeon
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    networks:
+      - aeon_net
+
+volumes:
+  aeon_pgdata:
+    driver: local
+
+networks:
+  aeon_net:
+    driver: bridge
