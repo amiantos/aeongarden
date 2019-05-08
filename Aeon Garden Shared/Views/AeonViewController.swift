@@ -15,15 +15,49 @@ import UIKit
 class AeonViewController: UIViewController, AeonTankUIDelegate {
     var scene: AeonTankScene?
     var skView: SKView?
+    var tankSettings: AeonTankSettings?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            tankSettings = AeonTankSettings(
+                foodMaxAmount: 20,
+                foodHealthRestorationBaseValue: 120,
+                foodSpawnRate: 2,
+                creatureInitialAmount: 20,
+                creatureMinimumAmount: 5,
+                creatureSpawnRate: 5,
+                tankBackgroundColor: .aeonDarkBlue
+            )
+        } else if UIDevice.current.userInterfaceIdiom == .phone {
+            tankSettings = AeonTankSettings(
+                foodMaxAmount: 10,
+                foodHealthRestorationBaseValue: 120,
+                foodSpawnRate: 2,
+                creatureInitialAmount: 10,
+                creatureMinimumAmount: 5,
+                creatureSpawnRate: 5,
+                tankBackgroundColor: .aeonDarkBlue
+            )
+        } else if UIDevice.current.userInterfaceIdiom == .tv {
+            tankSettings = AeonTankSettings(
+                foodMaxAmount: 30,
+                foodHealthRestorationBaseValue: 120,
+                foodSpawnRate: 2,
+                creatureInitialAmount: 30,
+                creatureMinimumAmount: 5,
+                creatureSpawnRate: 5,
+                tankBackgroundColor: .aeonDarkBlue
+            )
+        }
 
         UIApplication.shared.isIdleTimerDisabled = true
         view = SKView(frame: UIScreen.main.bounds)
         scene = AeonTankScene(size: view.bounds.size)
         scene?.tankDelegate = self
         scene!.scaleMode = .aspectFill
+        scene?.tankSettings = tankSettings
 
         skView = view as? SKView
         skView?.ignoresSiblingOrder = true

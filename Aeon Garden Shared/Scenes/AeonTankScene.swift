@@ -31,14 +31,27 @@ protocol AeonTankUIDelegate: class {
 }
 
 class AeonTankScene: SKScene {
+    public var tankSettings: AeonTankSettings? {
+        didSet {
+            setupTankSettings()
+        }
+    }
+    private var tankBackgroundColor: SKColor = .aeonDarkBlue
+
     public var tankTime: TimeInterval = 0
 
     public var deathCount: Int = 0
     public var birthCount: Int = 0
 
-    private var foodPelletMax: Int = 30
-    private var creatureMinimum: Int = 10
-    private var initialCreatures: Int = 20
+    private var foodMaxAmount: Int = 30
+    private var foodHealthRestorationBaseValue: Int = 120
+    private var foodSpawnRate: Int = 2
+
+    private var creatureMinimumAmount: Int = 10
+    private var creatureInitialAmount: Int = 20
+    private var creatureSpawnRate: Int = 5
+
+
 
     private var lastFoodTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
@@ -122,7 +135,6 @@ class AeonTankScene: SKScene {
 
     override func didMove(to _: SKView) {
         physicsWorld.contactDelegate = self
-
         createInitialCreatures()
         createInitialBubbles()
     }
@@ -159,7 +171,7 @@ class AeonTankScene: SKScene {
         }
 
         if (currentTime - lastFoodTime) >= 2,
-            foodNodes.count < foodPelletMax {
+            foodNodes.count < foodMaxAmount {
             addFoodPelletToScene()
             lastFoodTime = currentTime
         }
@@ -181,7 +193,7 @@ class AeonTankScene: SKScene {
         }
 
         if (currentTime - lastCreatureTime) >= 5,
-            creatureNodes.count < creatureMinimum {
+            creatureNodes.count < creatureMinimumAmount {
             addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 0, max: 360))
             lastCreatureTime = currentTime
         }
@@ -254,9 +266,9 @@ extension AeonTankScene {
     fileprivate func createInitialCreatures() {
         var totalCreatures: Int = 0
         var initialCreatureHue: CGFloat = 0
-        let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(initialCreatures))
+        let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(creatureInitialAmount))
 
-        while totalCreatures < initialCreatures {
+        while totalCreatures < creatureInitialAmount {
             addNewCreatureToScene(withPrimaryHue: initialCreatureHue)
             addFoodPelletToScene()
             totalCreatures += 1
@@ -367,13 +379,27 @@ extension AeonTankScene: SKPhysicsContactDelegate {
     }
 }
 
-// MARK: - Scene UI Setup
+// MARK: - Scene Setup
 
 extension AeonTankScene {
+    fileprivate func setupTankSettings() {
+        guard let settings = tankSettings else { return }
+        foodMaxAmount = settings.foodMaxAmount
+        foodHealthRestorationBaseValue = settings.foodHealthRestorationBaseValue
+        foodSpawnRate = settings.foodSpawnRate
+
+        creatureInitialAmount = settings.creatureInitialAmount
+        creatureMinimumAmount = settings.creatureMinimumAmount
+        creatureSpawnRate = settings.creatureSpawnRate
+
+        tankBackgroundColor = settings.tankBackgroundColor
+        backgroundColor = tankBackgroundColor
+    }
+
     fileprivate func setupFrame() {
         size.width = frame.size.width * 2
         size.height = frame.size.height * 2
-        backgroundColor = .aeonDarkBlue
+        backgroundColor = tankBackgroundColor
 
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsBody?.categoryBitMask = CollisionTypes.edge.rawValue

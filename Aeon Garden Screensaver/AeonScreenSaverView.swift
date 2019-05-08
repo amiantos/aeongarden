@@ -31,11 +31,21 @@ class AeonScreenSaverView: ScreenSaverView {
 
     override func startAnimation() {
         if spriteView == nil {
+            let tankSettings = AeonTankSettings(
+                foodMaxAmount: 40,
+                foodHealthRestorationBaseValue: 120,
+                foodSpawnRate: 2,
+                creatureInitialAmount: 50,
+                creatureMinimumAmount: 5,
+                creatureSpawnRate: 5,
+                tankBackgroundColor: .aeonDarkBlue
+            )
             let spriteView = GameView(frame: frame)
             spriteView.ignoresSiblingOrder = false
             spriteView.showsFPS = false
             spriteView.showsNodeCount = false
             let scene = AeonTankScene(size: frame.size)
+            scene.tankSettings = tankSettings
             self.spriteView = spriteView
             addSubview(spriteView)
             spriteView.presentScene(scene)
