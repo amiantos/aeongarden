@@ -21,5 +21,7 @@ struct AeonTankSettings {
     let creatureMinimumAmount: Int
     let creatureSpawnRate: Int
 
-    let tankBackgroundColor: SKColor
+    let backgroundColor: SKColor
+    let backgroundParticleBirthrate: Int
+    let backgroundParticleLifetime: Int
 }

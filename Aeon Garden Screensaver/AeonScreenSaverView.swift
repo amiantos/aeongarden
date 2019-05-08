@@ -38,7 +38,9 @@ class AeonScreenSaverView: ScreenSaverView {
                 creatureInitialAmount: 50,
                 creatureMinimumAmount: 5,
                 creatureSpawnRate: 5,
-                tankBackgroundColor: .aeonDarkBlue
+                backgroundColor: .aeonDarkBlue,
+                backgroundParticleBirthrate: 80,
+                backgroundParticleLifetime: 60
             )
             let spriteView = GameView(frame: frame)
             spriteView.ignoresSiblingOrder = false

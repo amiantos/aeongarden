@@ -36,7 +36,6 @@ class AeonTankScene: SKScene {
             setupTankSettings()
         }
     }
-    private var tankBackgroundColor: SKColor = .aeonDarkBlue
 
     public var tankTime: TimeInterval = 0
 
@@ -51,7 +50,8 @@ class AeonTankScene: SKScene {
     private var creatureInitialAmount: Int = 20
     private var creatureSpawnRate: Int = 5
 
-
+    private var backgroundParticleBirthrate: Int = 40
+    private var backgroundParticleLifetime: Int = 30
 
     private var lastFoodTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
@@ -392,14 +392,15 @@ extension AeonTankScene {
         creatureMinimumAmount = settings.creatureMinimumAmount
         creatureSpawnRate = settings.creatureSpawnRate
 
-        tankBackgroundColor = settings.tankBackgroundColor
-        backgroundColor = tankBackgroundColor
+        backgroundColor = settings.backgroundColor
+        backgroundParticleBirthrate = settings.backgroundParticleBirthrate
+        backgroundParticleLifetime = settings.backgroundParticleLifetime
     }
 
     fileprivate func setupFrame() {
         size.width = frame.size.width * 2
         size.height = frame.size.height * 2
-        backgroundColor = tankBackgroundColor
+        backgroundColor = .aeonDarkBlue
 
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsBody?.categoryBitMask = CollisionTypes.edge.rawValue
