@@ -1,10 +1,10 @@
 # Aeon Garden
 
-Aeon Garden is an attempt create a cool little artificial life "fish tank" using SpriteKit that'll run on macOS, iOS, and tvOS.
+Aeon Garden is a stylish, simple artificial life simulation. Creatures are born, eat, mate, and die in a virtual tank; their attributes can be passed on to their offspring, and mutations occur along the way, so every tank will evolve differently. Aeon Garden is meant to be a passive experience, something you leave on in the background while you're doing other things.
 
-The creatures generated are meant to swim around, hunt for food, and mate. Their attributes can be passed on to offspring, so families will develop who have similar colors, shapes, and abilities.
+Aeon Garden is cross platform (on Apple devices), featuring apps for iOS, tvOS, macOS, and a screensaver. Favorite creatures and saved tanks will sync across devices and be available for use in the screensaver.
 
-There is no scientific basis for anything about this app, and it's does not use machine learning. It's meant to be a simple virtual tank full of little creatures, not a rigorous exploration of natural selection or evolution.
+**Please Note:** This project is actively under construction! If you'd like to contribute, please contact me @[amiantos](http://www.twitter.com/amiantos) on Twitter or some other way.
 
 ## Why?
 
@@ -20,15 +20,20 @@ These screenshots are from the tvOS version.
 
 ![Aeon Garden Zoomed View](/Design/Screenshots/tvos-zoomed-in.png?raw=true)
 
-## Goals / What Aeon Is and Isn't
+## Contents
 
-* Aeon Garden is meant to be a desktop toy (like running idly on an iPad on your desk) or as a screensaver on your Mac. It's not meant to be a "game".
-* Aeon Garden should not just be pleasant to look at, but also pleasant to listen to. I haven't decided yet what this means, but I'd like it to essentially be an ambient music / sound generator. The ultimate goal would be for you to want to leave on the sounds, and maybe sleep to the sound of your tank running.
-* Aeon Garden should encourage people to learn to program in some way, and ease them into it. For example, the save system will utilize JSON files saved to the user's iCloud folder if available, so that you can open them up on your device and "hack" your creatures to change them at will. After a user is comfortable modifying JSON files, they might want to checkout the repo from GitHub and do more direct "hacking" by modifying the source code. There will be hints in the app and articles on the website about how to do this, for extra encouragement.
+### App
+This folder contains the Xcode workspace for the app.
 
-# To Install
+### Server
+This folder contains a simple Flask API for handling sync and storage.
+
+### Website
+This folder contains a GatsbyJS website for Aeon Garden.
+
+# To Run Locally
 
 1. `git clone https://github.com/amiantos/aeongarden.git`
-2. Open `Aeon Garden.xcworkspace`
+2. Open `App\Aeon Garden.xcworkspace`
 3. Pick a target
-3. Run
+3. Build!
