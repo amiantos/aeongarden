@@ -18,11 +18,11 @@ enum Feeling: String {
     case dying = "Dead"
 }
 
-protocol AeonCreatureBrainDelegate: class {
+protocol AeonCreatureBrainDelegate: AnyObject {
     func getFoodNodes() -> [AeonFoodNode]
     func getEligibleMates() -> [AeonCreatureNode]
-    func getEligiblePlayMates() -> [SKNode]
-    func getCurrentHealth() -> Float
+    func getEligiblePlayMates() -> [AeonBubbleNode]
+    func getCurrentHealth() -> CGFloat
 
     func setCurrentTarget(node: SKNode?)
     func getDistance(toNode node: SKNode) -> CGFloat
@@ -30,7 +30,7 @@ protocol AeonCreatureBrainDelegate: class {
 
     func die()
     func mated()
-    func fed()
+    func fed(restorationAmount: CGFloat)
 
     func printThought(_ message: String, emoji: String?)
 }
@@ -43,7 +43,7 @@ class AeonCreatureBrain: Updatable {
     public var currentState: State = State.living
     public weak var currentFoodTarget: AeonFoodNode?
     public weak var currentLoveTarget: AeonCreatureNode?
-    public weak var currentPlayTarget: SKNode?
+    public weak var currentPlayTarget: AeonBubbleNode?
     private var lifeState: Bool = true {
         didSet {
             if !lifeState {
@@ -88,11 +88,11 @@ class AeonCreatureBrain: Updatable {
         let deltaTime = currentTime - lastUpdateTime
         if deltaTime >= 1 {
             let currentHealth = getCurrentHealth()
-            if currentHealth >= 300 {
+            if currentHealth >= 600 {
                 currentFeeling = .horny
-            } else if currentHealth <= 100 {
+            } else if currentHealth <= 200 {
                 currentFeeling = .hungry
-            } else if currentHealth <= 200,
+            } else if currentHealth <= 400,
                 currentFeeling == .horny {
                 currentFeeling = .bored
             }
@@ -139,33 +139,34 @@ class AeonCreatureBrain: Updatable {
         for child in nodes {
             var rating: CGFloat = 0
             if child == currentFoodTarget {
-                rating = getDistance(toNode: child) + (CGFloat(child.interestedCreatures) * 250) - 250.0
+                rating = getDistance(toNode: child) + (CGFloat(child.interestedParties) * 250) - 250.0
             } else {
-                rating = getDistance(toNode: child) + (CGFloat(child.interestedCreatures) * 250)
+                rating = getDistance(toNode: child) + (CGFloat(child.interestedParties) * 250)
             }
             foodArray.append((rating, child))
         }
         foodArray.sort(by: { $0.rating < $1.rating })
         if foodArray.count > 0 {
             if currentFoodTarget != foodArray[0].node {
-                currentFoodTarget?.interestedCreatures -= 1
+                currentFoodTarget?.untargeted()
                 currentFoodTarget = foodArray[0].node
-                currentFoodTarget?.interestedCreatures += 1
+                currentFoodTarget?.targeted()
                 setCurrentTarget(node: currentFoodTarget!)
             }
         }
     }
 
     public func locatePlayTarget() {
-        var ballArray = [(rating: CGFloat, node: SKNode)]()
+        var ballArray = [(rating: Int, node: SKNode)]()
         let nodes = getEligiblePlayMates()
         for child in nodes {
-            let distance = getDistance(toNode: child)
-            ballArray.append((distance, child))
+            ballArray.append((child.interestedParties, child))
         }
         ballArray.sort(by: { $0.rating < $1.rating })
-        if let playTarget = ballArray.first?.node {
+        if let playTarget = ballArray.first?.node as? AeonBubbleNode, playTarget != currentPlayTarget {
+            currentPlayTarget?.untargeted()
             currentPlayTarget = playTarget
+            currentPlayTarget?.targeted()
             setCurrentTarget(node: currentPlayTarget)
         }
     }
@@ -177,7 +178,7 @@ extension AeonCreatureBrain: AeonCreatureBrainDelegate {
         stateMachine?.enter(WanderingState.self)
     }
 
-    func fed() {
+    func fed(restorationAmount _: CGFloat) {
         currentFoodTarget = nil
     }
 
@@ -185,11 +186,11 @@ extension AeonCreatureBrain: AeonCreatureBrainDelegate {
         stateMachine?.enter(DeadState.self)
     }
 
-    func getCurrentHealth() -> Float {
+    func getCurrentHealth() -> CGFloat {
         return delegate!.getCurrentHealth()
     }
 
-    func getEligiblePlayMates() -> [SKNode] {
+    func getEligiblePlayMates() -> [AeonBubbleNode] {
         return delegate!.getEligiblePlayMates()
     }
 

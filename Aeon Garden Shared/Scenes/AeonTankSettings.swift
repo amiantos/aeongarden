@@ -10,13 +10,19 @@
 //  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import Foundation
+import SpriteKit
 
 struct AeonTankSettings {
-    var foodMaxAmount: Int
-    var foodHealthRestorationValue: Int
-    var foodSpawnRate: Int
+    let foodMaxAmount: Int
+    let foodHealthRestorationBaseValue: CGFloat
+    let foodSpawnRate: Int
 
-    var creatureInitialAmount: Int
-    var creatureMinimumAmount: Int
-    var creatureSpawnRate: Int
+    let creatureInitialAmount: Int
+    let creatureMinimumAmount: Int
+    let creatureSpawnRate: Int
+    let creatureBirthSuccessRate: CGFloat
+
+    let backgroundColor: SKColor
+    let backgroundParticleBirthrate: Int
+    let backgroundParticleLifetime: Int
 }

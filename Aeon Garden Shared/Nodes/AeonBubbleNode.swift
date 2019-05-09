@@ -8,7 +8,9 @@
 
 import SpriteKit
 
-class AeonBubbleNode: SKNode, Updatable {
+class AeonBubbleNode: SKNode, Updatable, Targetable {
+    var interestedParties: Int = 0
+
     private var maxLifeTime: Float = 25
     private var lifeTime: Float = 0 {
         didSet {
@@ -93,5 +95,13 @@ class AeonBubbleNode: SKNode, Updatable {
                 scene.removeChild(self)
             }
         })
+    }
+
+    func targeted() {
+        interestedParties += 1
+    }
+
+    func untargeted() {
+        interestedParties -= 1
     }
 }

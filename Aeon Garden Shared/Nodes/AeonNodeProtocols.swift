@@ -23,3 +23,9 @@ protocol Selectable {
     func displaySelectionRing(withColor color: SKColor)
     func hideSelectionRing()
 }
+
+protocol Targetable {
+    var interestedParties: Int { get set }
+    func targeted()
+    func untargeted()
+}

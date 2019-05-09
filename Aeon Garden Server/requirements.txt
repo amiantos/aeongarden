@@ -1,0 +1,15 @@
+boto3
+Flask
+Flask-Bcrypt
+Flask-HTTPAuth
+Flask-Migrate
+Flask-SQLAlchemy
+SQLAlchemy-Utils
+psycopg2-binary
+python-dotenv
+requests
+pytest
+uWSGI
+factory-boy
+pytz
+pytest-cov

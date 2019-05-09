@@ -19,7 +19,7 @@ enum CollisionTypes: UInt32 {
     case ball = 8
 }
 
-protocol AeonTankUIDelegate: class {
+protocol AeonTankUIDelegate: AnyObject {
     func updatePopulation(_ population: Int)
     func updateFood(_ food: Int)
     func updateBirths(_ births: Int)
@@ -31,14 +31,28 @@ protocol AeonTankUIDelegate: class {
 }
 
 class AeonTankScene: SKScene {
+    public var tankSettings: AeonTankSettings? {
+        didSet {
+            setupTankSettings()
+        }
+    }
+
     public var tankTime: TimeInterval = 0
 
     public var deathCount: Int = 0
     public var birthCount: Int = 0
 
-    private var foodPelletMax: Int = 30
-    private var creatureMinimum: Int = 10
-    private var initialCreatures: Int = 20
+    private var foodMaxAmount: Int = 30
+    private var foodHealthRestorationBaseValue: CGFloat = 120
+    private var foodSpawnRate: Int = 2
+
+    private var creatureMinimumAmount: Int = 10
+    private var creatureInitialAmount: Int = 20
+    private var creatureSpawnRate: Int = 5
+    private var creatureBirthSuccessRate: CGFloat = 0.17
+
+    private var backgroundParticleBirthrate: Int = 40
+    private var backgroundParticleLifetime: Int = 30
 
     private var lastFoodTime: TimeInterval = 0
     private var lastCreatureTime: TimeInterval = 0
@@ -117,13 +131,11 @@ class AeonTankScene: SKScene {
     override func sceneDidLoad() {
         setupFrame()
         setupCamera()
-        setupBackgroundGradient()
         setupBackgroundAnimation()
     }
 
     override func didMove(to _: SKView) {
         physicsWorld.contactDelegate = self
-
         createInitialCreatures()
         createInitialBubbles()
     }
@@ -160,7 +172,7 @@ class AeonTankScene: SKScene {
         }
 
         if (currentTime - lastFoodTime) >= 2,
-            foodNodes.count < foodPelletMax {
+            foodNodes.count < foodMaxAmount {
             addFoodPelletToScene()
             lastFoodTime = currentTime
         }
@@ -182,7 +194,7 @@ class AeonTankScene: SKScene {
         }
 
         if (currentTime - lastCreatureTime) >= 5,
-            creatureNodes.count < creatureMinimum {
+            creatureNodes.count < creatureMinimumAmount {
             addNewCreatureToScene(withPrimaryHue: randomCGFloat(min: 0, max: 360))
             lastCreatureTime = currentTime
         }
@@ -255,9 +267,9 @@ extension AeonTankScene {
     fileprivate func createInitialCreatures() {
         var totalCreatures: Int = 0
         var initialCreatureHue: CGFloat = 0
-        let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(initialCreatures))
+        let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(creatureInitialAmount))
 
-        while totalCreatures < initialCreatures {
+        while totalCreatures < creatureInitialAmount {
             addNewCreatureToScene(withPrimaryHue: initialCreatureHue)
             addFoodPelletToScene()
             totalCreatures += 1
@@ -311,6 +323,8 @@ extension AeonTankScene {
 
 extension AeonTankScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
+        // MARK: - Mating
+
         if let creatureA = contact.bodyA.node as? AeonCreatureNode,
             let creatureB = contact.bodyB.node as? AeonCreatureNode {
             if creatureA.currentTarget == creatureB, creatureB.currentTarget == creatureA {
@@ -319,7 +333,7 @@ extension AeonTankScene: SKPhysicsContactDelegate {
                 creatureB.mated()
                 AeonSoundManager.shared.play(.creatureMate, onNode: creatureA)
                 // Random chance to breed
-                if randomInteger(min: 0, max: 6) == 0 {
+                if randomCGFloat(min: 0, max: 1) <= creatureBirthSuccessRate {
                     birthCount += 1
                     let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
                     newCreature.position = creatureA.position
@@ -338,23 +352,27 @@ extension AeonTankScene: SKPhysicsContactDelegate {
             }
         }
 
+        // MARK: - Eating
+
         if contact.bodyA.categoryBitMask == CollisionTypes.food.rawValue,
             contact.bodyB.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyB.node as? AeonCreatureNode,
                 let food = contact.bodyA.node as? AeonFoodNode,
-                creature.currentTarget == food {
-                creature.fed()
+                creature.getCurrentState() == "Hungry" {
+                creature.fed(restorationAmount: foodHealthRestorationBaseValue)
                 food.eaten(animateTo: creature.position)
             }
         } else if contact.bodyB.categoryBitMask == CollisionTypes.food.rawValue,
             contact.bodyA.categoryBitMask == CollisionTypes.creature.rawValue {
             if let creature = contact.bodyA.node as? AeonCreatureNode,
                 let food = contact.bodyB.node as? AeonFoodNode,
-                creature.currentTarget == food {
-                creature.fed()
+                creature.getCurrentState() == "Hungry" {
+                creature.fed(restorationAmount: foodHealthRestorationBaseValue * randomCGFloat(min: 0.5, max: 1.5))
                 food.eaten(animateTo: creature.position)
             }
         }
+
+        // MARK: - Bubble Collisions
 
         if contact.bodyA.categoryBitMask == CollisionTypes.ball.rawValue,
             let ball = contact.bodyA.node as? AeonBubbleNode {
@@ -368,13 +386,29 @@ extension AeonTankScene: SKPhysicsContactDelegate {
     }
 }
 
-// MARK: - Scene UI Setup
+// MARK: - Scene Setup
 
 extension AeonTankScene {
+    fileprivate func setupTankSettings() {
+        guard let settings = tankSettings else { return }
+        foodMaxAmount = settings.foodMaxAmount
+        foodHealthRestorationBaseValue = settings.foodHealthRestorationBaseValue
+        foodSpawnRate = settings.foodSpawnRate
+
+        creatureInitialAmount = settings.creatureInitialAmount
+        creatureMinimumAmount = settings.creatureMinimumAmount
+        creatureSpawnRate = settings.creatureSpawnRate
+        creatureBirthSuccessRate = settings.creatureBirthSuccessRate
+
+        backgroundColor = settings.backgroundColor
+        backgroundParticleBirthrate = settings.backgroundParticleBirthrate
+        backgroundParticleLifetime = settings.backgroundParticleLifetime
+    }
+
     fileprivate func setupFrame() {
         size.width = frame.size.width * 2
         size.height = frame.size.height * 2
-        backgroundColor = .aeonTankBgColor
+        backgroundColor = .aeonDarkBlue
 
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsBody?.categoryBitMask = CollisionTypes.edge.rawValue
@@ -390,46 +424,7 @@ extension AeonTankScene {
 //        audioEngine.mainMixerNode.outputVolume = 0.2
     }
 
-    fileprivate func setupBackgroundGradient() {
-//        let topColor = CIColor(color: UIColor(red: 0.0078, green: 0.0235, blue: 0.0275, alpha: 1.0)) /* #020607 */
-//        let bottomColor = CIColor(color: UIColor(red: 0.1529, green: 0.4275, blue: 0.5373, alpha: 1.0)) /* #276d89 */
-//
-//        let textureSize = CGSize(width: frame.width * 2, height: frame.height * 3)
-//        let texture = SKTexture(
-//            size: CGSize(width: frame.width * 2, height: frame.height * 3),
-//            color1: topColor,
-//            color2: bottomColor,
-//            direction: GradientDirection.upward
-//        )
-//        texture.filteringMode = .linear
-//        let sprite = SKSpriteNode(texture: texture)
-//        sprite.position = CGPoint(x: frame.midX, y: frame.midY)
-//        sprite.size = textureSize
-//        sprite.zPosition = -3
-//        addChild(sprite)
-//
-//        let moveUpAction = SKAction.moveBy(x: 0, y: frame.height, duration: 60)
-//        let moveDownAction = SKAction.moveBy(x: 0, y: -frame.height, duration: 60)
-//        let moveActionGroup = SKAction.sequence([moveUpAction, moveDownAction, moveDownAction, moveUpAction])
-//        moveActionGroup.timingMode = .easeInEaseOut
-//        sprite.run(SKAction.repeatForever(moveActionGroup))
-    }
-
     fileprivate func setupBackgroundAnimation() {
-//        if let backgroundSmoke = SKEmitterNode(fileNamed: "AeonSomething.sks") {
-//            backgroundSmoke.position = CGPoint(x: size.width / 2, y: size.height / 2)
-//            backgroundSmoke.zPosition = -2
-//            backgroundSmoke.particlePositionRange = CGVector(dx: size.width, dy: size.height)
-//            let alphaSequence = SKKeyframeSequence(
-//                keyframeValues: [0, 0.2, 0.3, 0.2, 0.15, 0],
-//                times: [0, 0.25, 0.5, 0.75, 0.9, 1]
-//            )
-//            backgroundSmoke.particleAlphaSequence = alphaSequence
-//            // backgroundSmoke.advanceSimulationTime(5)
-//            backgroundSmoke.name = "backgroundShadow"
-//            addChild(backgroundSmoke)
-//        }
-
         guard let emitter = AeonFileGrabber.shared.getSKEmitterNode(named: "AeonOceanSquareBubbles") else { return }
         emitter.particleTexture = AeonFileGrabber.shared.getSKTexture(named: "aeonSquare")
         emitter.position = CGPoint(x: size.width / 2, y: size.height / 2)

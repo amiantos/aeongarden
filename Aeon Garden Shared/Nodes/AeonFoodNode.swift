@@ -11,7 +11,9 @@
 
 import SpriteKit
 
-class AeonFoodNode: SKNode, Updatable {
+class AeonFoodNode: SKNode, Updatable, Targetable {
+    public var interestedParties: Int = 0
+
     private var maxLifeTime: Float = 120
     private var lifeTime: Float = 0 {
         didSet {
@@ -21,7 +23,6 @@ class AeonFoodNode: SKNode, Updatable {
         }
     }
 
-    public var interestedCreatures: Int = 0
     internal var lastUpdateTime: TimeInterval = 0
 
     override init() {
@@ -106,6 +107,14 @@ class AeonFoodNode: SKNode, Updatable {
             lifeTime += Float(correctedDeltaTime)
             lastUpdateTime = currentTime
         }
+    }
+
+    func targeted() {
+        interestedParties += 1
+    }
+
+    func untargeted() {
+        interestedParties -= 1
     }
 
     required init?(coder _: NSCoder) {

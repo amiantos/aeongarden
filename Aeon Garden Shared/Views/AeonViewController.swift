@@ -15,15 +15,58 @@ import UIKit
 class AeonViewController: UIViewController, AeonTankUIDelegate {
     var scene: AeonTankScene?
     var skView: SKView?
+    var tankSettings: AeonTankSettings?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            tankSettings = AeonTankSettings(
+                foodMaxAmount: 20,
+                foodHealthRestorationBaseValue: 120,
+                foodSpawnRate: 2,
+                creatureInitialAmount: 20,
+                creatureMinimumAmount: 5,
+                creatureSpawnRate: 5,
+                creatureBirthSuccessRate: 0.17,
+                backgroundColor: .aeonDarkBlue,
+                backgroundParticleBirthrate: 40,
+                backgroundParticleLifetime: 30
+            )
+        } else if UIDevice.current.userInterfaceIdiom == .phone {
+            tankSettings = AeonTankSettings(
+                foodMaxAmount: 10,
+                foodHealthRestorationBaseValue: 120,
+                foodSpawnRate: 2,
+                creatureInitialAmount: 10,
+                creatureMinimumAmount: 5,
+                creatureSpawnRate: 5,
+                creatureBirthSuccessRate: 0.17,
+                backgroundColor: .aeonDarkBlue,
+                backgroundParticleBirthrate: 30,
+                backgroundParticleLifetime: 20
+            )
+        } else if UIDevice.current.userInterfaceIdiom == .tv {
+            tankSettings = AeonTankSettings(
+                foodMaxAmount: 30,
+                foodHealthRestorationBaseValue: 120,
+                foodSpawnRate: 2,
+                creatureInitialAmount: 30,
+                creatureMinimumAmount: 5,
+                creatureSpawnRate: 5,
+                creatureBirthSuccessRate: 0.17,
+                backgroundColor: .aeonDarkBlue,
+                backgroundParticleBirthrate: 60,
+                backgroundParticleLifetime: 50
+            )
+        }
 
         UIApplication.shared.isIdleTimerDisabled = true
         view = SKView(frame: UIScreen.main.bounds)
         scene = AeonTankScene(size: view.bounds.size)
         scene?.tankDelegate = self
         scene!.scaleMode = .aspectFill
+        scene?.tankSettings = tankSettings
 
         skView = view as? SKView
         skView?.ignoresSiblingOrder = true
@@ -62,6 +105,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         override var prefersHomeIndicatorAutoHidden: Bool {
             return true
         }
+
     #endif
 
     // MARK: tvOS Controls
@@ -417,6 +461,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             button.translatesAutoresizingMaskIntoConstraints = false
             mainContainerView.addSubview(button)
             button.bottomAnchor.constraint(equalTo: mainContainerView.bottomAnchor).isActive = true
+            button.layoutSubviews()
         }
 
         mainNewTankButton.trailingAnchor.constraint(equalTo: mainContainerView.trailingAnchor, constant: 20).isActive = true
@@ -527,6 +572,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             button.translatesAutoresizingMaskIntoConstraints = false
             detailsContainerView.addSubview(button)
             button.bottomAnchor.constraint(equalTo: detailsContainerView.bottomAnchor).isActive = true
+            button.layoutSubviews()
         }
 
         detailsSaveButton.trailingAnchor.constraint(equalTo: detailsContainerView.trailingAnchor, constant: 0).isActive = true
