@@ -39,7 +39,7 @@ class AeonFoodNode: SKNode, Updatable, Targetable {
         name = "aeonFood"
         zPosition = 1
 
-        let foodBody = SKSpriteNode(texture: AeonFileGrabber.shared.getSKTexture(named: "aeonFoodPellet"))
+        let foodBody = SKSpriteNode(texture: foodTexture)
         foodBody.size = CGSize(width: 23, height: 33)
         foodBody.zPosition = 1
         foodBody.name = "AeonFoodSprite"

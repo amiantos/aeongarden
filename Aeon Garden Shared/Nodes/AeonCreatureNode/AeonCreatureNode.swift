@@ -12,27 +12,31 @@
 import SpriteKit
 
 class AeonCreatureNode: SKNode, Updatable {
-    var selectionRing: SKSpriteNode = SKSpriteNode(texture: AeonFileGrabber.shared.getSKTexture(named: "aeonSelectionRing"))
+    let uuid: UUID
 
-    // MARK: - Creature Name
+    var selectionRing: SKSpriteNode = SKSpriteNode(texture: selectionTexture)
+
+    // MARK: - Creature Details
 
     public let firstName: String
     public var lastName: String
     public var fullName: String
 
-    public var parentNames: [String] = []
-
     // MARK: - Inheritable Traits
 
-    private var limbOne: AeonLimbNode
-    private var limbTwo: AeonLimbNode
-    private var limbThree: AeonLimbNode
-    private var limbFour: AeonLimbNode
+    public var limbOne: AeonLimbNode
+    public var limbTwo: AeonLimbNode
+    public var limbThree: AeonLimbNode
+    public var limbFour: AeonLimbNode
 
     public var movementSpeed: CGFloat = 1
     public var turnSpeed: CGFloat = 650
     public var sizeModififer: CGFloat = 1
     public let primaryHue: CGFloat
+
+    // MARK: - User Settings
+
+    public var isFavorite: Bool = false
 
     // MARK: - Current Focus
 
@@ -61,6 +65,58 @@ class AeonCreatureNode: SKNode, Updatable {
         fatalError("init(coder:) has not been implemented")
     }
 
+    init(with creatureStruct: Creature) {
+        firstName = creatureStruct.firstName
+        lastName = creatureStruct.lastName
+        fullName = "\(firstName) \(lastName)"
+
+        limbOne = AeonLimbNode(with: creatureStruct.limbs[0])
+        limbTwo = AeonLimbNode(with: creatureStruct.limbs[1])
+        limbThree = AeonLimbNode(with: creatureStruct.limbs[2])
+        limbFour = AeonLimbNode(with: creatureStruct.limbs[3])
+
+        let hues: [CGFloat] = [limbOne.hue, limbTwo.hue, limbThree.hue, limbFour.hue]
+        primaryHue = getAverageHue(hues)
+
+        brain = AeonCreatureBrain()
+        movementSpeed = CGFloat(creatureStruct.movementSpeed)
+        sizeModififer = CGFloat(creatureStruct.sizeModifier)
+        turnSpeed = CGFloat(creatureStruct.turnSpeed)
+
+        uuid = UUID()
+
+        super.init()
+        brain?.delegate = self
+
+//        setupLimbs()
+        addChild(limbOne)
+        addChild(limbTwo)
+        addChild(limbThree)
+        addChild(limbFour)
+        limbOne.position = CGPoint(
+            x: CGFloat(creatureStruct.limbs[0].positionX),
+            y: CGFloat(creatureStruct.limbs[0].positionY)
+        )
+        limbTwo.position = CGPoint(
+            x: CGFloat(creatureStruct.limbs[1].positionX),
+            y: CGFloat(creatureStruct.limbs[1].positionY)
+        )
+        limbThree.position = CGPoint(
+            x: CGFloat(creatureStruct.limbs[2].positionX),
+            y: CGFloat(creatureStruct.limbs[2].positionY)
+        )
+        limbFour.position = CGPoint(
+            x: CGFloat(creatureStruct.limbs[3].positionX),
+            y: CGFloat(creatureStruct.limbs[3].positionY)
+        )
+        setupBodyPhysics()
+
+        setScale(CGFloat(creatureStruct.sizeModifier))
+
+        brain?.startThinking()
+        brain?.currentState = .living
+    }
+
     init(withPrimaryHue primaryHue: CGFloat) {
         firstName = AeonNameGenerator.shared.returnFirstName()
         lastName = AeonNameGenerator.shared.returnLastName()
@@ -73,6 +129,8 @@ class AeonCreatureNode: SKNode, Updatable {
         limbThree = AeonLimbNode(withPrimaryHue: primaryHue)
         limbFour = AeonLimbNode(withPrimaryHue: primaryHue)
         brain = AeonCreatureBrain()
+
+        uuid = UUID()
 
         super.init()
 
@@ -96,9 +154,6 @@ class AeonCreatureNode: SKNode, Updatable {
         lastName = parents.randomElement()!.lastName
         fullName = "\(firstName) \(lastName)"
 
-        parentNames.append(parents[0].lastName)
-        parentNames.append(parents[1].lastName)
-
         limbOne = AeonLimbNode(withLimb: parents.randomElement()!.limbOne)
         limbTwo = AeonLimbNode(withLimb: parents.randomElement()!.limbTwo)
         limbThree = AeonLimbNode(withLimb: parents.randomElement()!.limbThree)
@@ -111,6 +166,8 @@ class AeonCreatureNode: SKNode, Updatable {
         movementSpeed = parents.randomElement()!.movementSpeed * randomCGFloat(min: 0.95, max: 1.05)
         sizeModififer = parents.randomElement()!.sizeModififer * randomCGFloat(min: 0.95, max: 1.05)
         turnSpeed = parents.randomElement()!.turnSpeed * randomCGFloat(min: 0.95, max: 1.05)
+
+        uuid = UUID()
 
         super.init()
         brain?.delegate = self
@@ -146,7 +203,7 @@ class AeonCreatureNode: SKNode, Updatable {
         physicsBody?.linearDamping = 0.5
         physicsBody?.angularDamping = 1
 
-        let underShadow = SKSpriteNode(texture: AeonFileGrabber.shared.getSKTexture(named: "aeonBodyShadow"))
+        let underShadow = SKSpriteNode(texture: shadowTexture)
         underShadow.size = CGSize(width: 40, height: 40)
         underShadow.setScale(1.2)
         underShadow.alpha = 0.2
@@ -158,18 +215,6 @@ class AeonCreatureNode: SKNode, Updatable {
         beginWiggling()
     }
 
-    func beginWiggling() {
-        for case let child as AeonLimbNode in children {
-            child.beginWiggling()
-        }
-    }
-
-    func endWiggling() {
-        for case let child as AeonLimbNode in children {
-            child.endWiggling()
-        }
-    }
-
     // MARK: - Sensory Data
 
     func getCurrentState() -> String {
@@ -177,7 +222,7 @@ class AeonCreatureNode: SKNode, Updatable {
     }
 
     func getNodes() -> [SKNode] {
-        return scene!.children
+        return scene?.children ?? []
     }
 
     func distance(point: CGPoint) -> CGFloat {
@@ -235,7 +280,21 @@ class AeonCreatureNode: SKNode, Updatable {
         }
     }
 
-    fileprivate func scaleAnimation() {
+    // MARK: - Animations
+
+    func beginWiggling() {
+        for case let child as AeonLimbNode in children {
+            child.beginWiggling()
+        }
+    }
+
+    func endWiggling() {
+        for case let child as AeonLimbNode in children {
+            child.endWiggling()
+        }
+    }
+
+    fileprivate func bounceAnimation() {
         let currentSize = (xScale + yScale) / 2
         let scaleDown = SKAction.scale(to: currentSize * 0.9, duration: 0.2)
         let scaleBounce = SKAction.scale(to: currentSize * 1.05, duration: 0.3)
@@ -243,6 +302,28 @@ class AeonCreatureNode: SKNode, Updatable {
         let scaleBounceBack = SKAction.scale(to: currentSize, duration: 0.2)
         let scaleSequence = SKAction.sequence([scaleDown, scaleBounce, scaleBounceIn, scaleBounceBack])
         run(scaleSequence)
+    }
+
+    fileprivate func createBubbleTrail() {
+        // Create bubble trail
+        if let emitter = AeonFileGrabber.shared.getSKEmitterNode(named: "AeonCreatureBubbleTrail") {
+            emitter.particleTexture = triangleTexture
+            emitter.name = "AeonCreatureBubbleTrail.sks"
+            emitter.isUserInteractionEnabled = false
+            emitter.zPosition = 1
+            emitter.targetNode = scene
+            let scaleSequence = SKKeyframeSequence(
+                keyframeValues: [0.1, 0.25, 0.50, 0.75, 1],
+                times: [0, 0.50, 0.70, 0.90, 1]
+            )
+            let alphaSequence = SKKeyframeSequence(
+                keyframeValues: [0.5, 0.6, 0.5, 0.3, 0.15, 0],
+                times: [0, 0.25, 0.5, 0.75, 0.9, 1]
+            )
+            emitter.particleAlphaSequence = alphaSequence
+            emitter.particleScaleSequence = scaleSequence
+            addChild(emitter)
+        }
     }
 
     // MARK: - Lifecycle
@@ -269,24 +350,7 @@ class AeonCreatureNode: SKNode, Updatable {
 
         brain?.printThought("Lo! Consciousness", emoji: "👼")
 
-        if let emitter = AeonFileGrabber.shared.getSKEmitterNode(named: "AeonCreatureBubbleTrail") {
-            emitter.particleTexture = AeonFileGrabber.shared.getSKTexture(named: "aeonTriangle")
-            emitter.name = "AeonCreatureBubbleTrail.sks"
-            emitter.isUserInteractionEnabled = false
-            emitter.zPosition = 1
-            emitter.targetNode = scene
-            let scaleSequence = SKKeyframeSequence(
-                keyframeValues: [0.1, 0.25, 0.50, 0.75, 1],
-                times: [0, 0.50, 0.70, 0.90, 1]
-            )
-            let alphaSequence = SKKeyframeSequence(
-                keyframeValues: [0.5, 0.6, 0.5, 0.3, 0.15, 0],
-                times: [0, 0.25, 0.5, 0.75, 0.9, 1]
-            )
-            emitter.particleAlphaSequence = alphaSequence
-            emitter.particleScaleSequence = scaleSequence
-            addChild(emitter)
-        }
+        createBubbleTrail()
     }
 
     func die() {
@@ -324,7 +388,7 @@ class AeonCreatureNode: SKNode, Updatable {
         printThought("That was nice!", emoji: "🥰")
         brain?.mated()
 
-        scaleAnimation()
+        bounceAnimation()
     }
 
     func fed(restorationAmount: CGFloat) {
@@ -333,7 +397,7 @@ class AeonCreatureNode: SKNode, Updatable {
         AeonSoundManager.shared.play(.creatureEat, onNode: self)
         brain?.fed(restorationAmount: restorationAmount)
 
-        scaleAnimation()
+        bounceAnimation()
     }
 
     func lifeTimeFormattedAsString() -> String {
@@ -368,9 +432,7 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
         var mateArray: [AeonCreatureNode] = []
         let nodes = getNodes()
         for case let child as AeonCreatureNode in nodes where
-            child != self
-            && parentNames.contains(child.lastName) == false
-            && child.parentNames.contains(lastName) == false {
+            child != self {
             mateArray.append(child)
         }
         return mateArray

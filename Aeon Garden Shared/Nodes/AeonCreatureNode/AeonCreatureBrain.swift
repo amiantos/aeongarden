@@ -120,7 +120,6 @@ class AeonCreatureBrain: Updatable {
             let rating0 = $0.rating
             let rating1 = $1.rating
             return (rating0 + distance0) < (rating1 + distance1)
-
         })
 
         if creatureDifferenceArray.count > 0 {

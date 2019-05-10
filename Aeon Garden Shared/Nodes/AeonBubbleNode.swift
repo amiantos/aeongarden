@@ -36,11 +36,13 @@ class AeonBubbleNode: SKNode, Updatable, Targetable {
         name = "aeonBall"
         zPosition = 1
 
-        let ballColor = SKShapeNode(circleOfRadius: 16)
-        ballColor.fillColor = SKColor(hue: 0.5472, saturation: 1, brightness: 0.68, alpha: 1) /* #007cad */
-        ballColor.strokeColor = .clear
-        ballColor.zPosition = 1
-        addChild(ballColor)
+        let ballBody = SKSpriteNode(texture: circleTexture)
+        ballBody.size = CGSize(width: 16, height: 16)
+        ballBody.zPosition = 1
+        ballBody.name = "AeonBallSprite"
+        ballBody.color = SKColor(hue: 0.5472, saturation: 1, brightness: 0.68, alpha: 1) /* #007cad */
+        ballBody.colorBlendFactor = 1
+        addChild(ballBody)
 
         alpha = 0
         let fadeMax = randomCGFloat(min: 0.2, max: 0.5)
