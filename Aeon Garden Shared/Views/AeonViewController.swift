@@ -46,6 +46,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         )
 
         skView = view as? SKView
+        skView?.preferredFramesPerSecond = 60
         skView?.ignoresSiblingOrder = true
         skView?.showsDrawCount = true
         skView?.showsNodeCount = true
