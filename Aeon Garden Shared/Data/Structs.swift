@@ -9,6 +9,22 @@
 import Foundation
 import SpriteKit
 
+struct TankSettings {
+    let foodMaxAmount: Int
+    let foodHealthRestorationBaseValue: Float
+    let foodSpawnRate: Int
+
+    let creatureInitialAmount: Int
+    let creatureMinimumAmount: Int
+    let creatureSpawnRate: Int
+    let creatureBirthSuccessRate: Float
+
+    let backgroundColor: SKColor
+    let backgroundParticleBirthrate: Int
+    let backgroundParticleLifetime: Int
+}
+
+
 struct Tank {
     let uuid: UUID
     let tankTime: Float

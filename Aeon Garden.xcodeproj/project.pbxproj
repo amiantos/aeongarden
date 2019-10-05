@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		44147C67225D6B6800A16736 /* TankSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44147C66225D6B6700A16736 /* TankSettings.swift */; };
-		44147C68225D6B6800A16736 /* TankSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44147C66225D6B6700A16736 /* TankSettings.swift */; };
-		44147C69225D6B6800A16736 /* TankSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44147C66225D6B6700A16736 /* TankSettings.swift */; };
 		4431A05F22AB1CC900865489 /* AeonTextures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4431A05E22AB1CC900865489 /* AeonTextures.swift */; };
 		4431A06022AB1CC900865489 /* AeonTextures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4431A05E22AB1CC900865489 /* AeonTextures.swift */; };
 		4431A06122AB1CC900865489 /* AeonTextures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4431A05E22AB1CC900865489 /* AeonTextures.swift */; };
@@ -49,7 +46,6 @@
 		B409E59C227E3A3300546184 /* AeonNodeProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED37224806850026604C /* AeonNodeProtocols.swift */; };
 		B409E59D227E3A3300546184 /* AeonBubbleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED39224817D80026604C /* AeonBubbleNode.swift */; };
 		B409E59E227E3A3700546184 /* AeonTankScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDABA1F80943500DEA908 /* AeonTankScene.swift */; };
-		B409E59F227E3A3700546184 /* TankSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44147C66225D6B6700A16736 /* TankSettings.swift */; };
 		B409E5A0227E3A3A00546184 /* AeonOceanSquareBubbles.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */; };
 		B409E5A1227E3A3A00546184 /* AeonCreatureBubbleTrail.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonCreatureBubbleTrail.sks */; };
 		B409E5A3227E3A3E00546184 /* aeonBirthSound-C4.wav in Resources */ = {isa = PBXBuildFile; fileRef = B429D7282272C1460069D551 /* aeonBirthSound-C4.wav */; };
@@ -172,7 +168,6 @@
 		05B57AE72325131A628E17E6 /* Pods-Aeon Garden macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden macOS.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden macOS/Pods-Aeon Garden macOS.release.xcconfig"; sourceTree = "<group>"; };
 		1921664E2469C290D4148C61 /* Pods-Aeon Garden Original iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden Original iOS.debug.xcconfig"; path = "Target Support Files/Pods-Aeon Garden Original iOS/Pods-Aeon Garden Original iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		36FD16856D813C5EFD6431ED /* Pods-Aeon Garden iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden iOS.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden iOS/Pods-Aeon Garden iOS.release.xcconfig"; sourceTree = "<group>"; };
-		44147C66225D6B6700A16736 /* TankSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TankSettings.swift; sourceTree = "<group>"; };
 		4419E9F02241A557007FE456 /* AeonCreatureBubbleTrail.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonCreatureBubbleTrail.sks; sourceTree = "<group>"; };
 		4431A05E22AB1CC900865489 /* AeonTextures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTextures.swift; sourceTree = "<group>"; };
 		447C8BAC2347BDA900DC7971 /* AeonGarden.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AeonGarden.xcdatamodel; sourceTree = "<group>"; };
@@ -481,7 +476,6 @@
 			isa = PBXGroup;
 			children = (
 				B48DDABA1F80943500DEA908 /* AeonTankScene.swift */,
-				44147C66225D6B6700A16736 /* TankSettings.swift */,
 			);
 			name = Scenes;
 			path = "Aeon Garden Shared/Scenes";
@@ -811,7 +805,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B409E59C227E3A3300546184 /* AeonNodeProtocols.swift in Sources */,
-				B409E59F227E3A3700546184 /* TankSettings.swift in Sources */,
 				B409E59E227E3A3700546184 /* AeonTankScene.swift in Sources */,
 				B409E59B227E3A3300546184 /* AeonFoodNode.swift in Sources */,
 				B46CA6B8227F8F0800FAAAA6 /* AeonAssetGrabber.swift in Sources */,
@@ -841,7 +834,6 @@
 				B413ABB9224D7C8100E8BDD1 /* AeonLimbNode.swift in Sources */,
 				B413ABCD224D7C8A00E8BDD1 /* AeonNameGenerator.swift in Sources */,
 				4431A05F22AB1CC900865489 /* AeonTextures.swift in Sources */,
-				44147C67225D6B6800A16736 /* TankSettings.swift in Sources */,
 				447C8BB02347BDE700DC7971 /* CoreDataStore.swift in Sources */,
 				44D73684227A68FF006A25B6 /* AeonButton.swift in Sources */,
 				B413ABB8224D7C8100E8BDD1 /* AeonCreatureNode.swift in Sources */,
@@ -876,7 +868,6 @@
 				4431A06022AB1CC900865489 /* AeonTextures.swift in Sources */,
 				B4B2D1F5226BD9D20050F14C /* AeonDataView.swift in Sources */,
 				447C8BB12347BDE700DC7971 /* CoreDataStore.swift in Sources */,
-				44147C68225D6B6800A16736 /* TankSettings.swift in Sources */,
 				B413ABBF224D7C8200E8BDD1 /* AeonCreatureNode.swift in Sources */,
 				B413ABD8224D7C8B00E8BDD1 /* SKTextureGradient.swift in Sources */,
 				B413ABB6224D7C7200E8BDD1 /* AeonTankScene.swift in Sources */,
@@ -905,7 +896,6 @@
 				B413ABF4224DC6A000E8BDD1 /* AeonColors.swift in Sources */,
 				B413ABC7224D7C8300E8BDD1 /* AeonLimbNode.swift in Sources */,
 				B413ABD9224D7C8C00E8BDD1 /* AeonNameGenerator.swift in Sources */,
-				44147C69225D6B6800A16736 /* TankSettings.swift in Sources */,
 				B413ABC6224D7C8300E8BDD1 /* AeonCreatureNode.swift in Sources */,
 				4431A06122AB1CC900865489 /* AeonTextures.swift in Sources */,
 				B413ABDE224D7C8C00E8BDD1 /* SKTextureGradient.swift in Sources */,

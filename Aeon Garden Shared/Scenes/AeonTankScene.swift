@@ -399,13 +399,13 @@ extension AeonTankScene {
     fileprivate func setupTankSettings() {
         guard let settings = tankSettings else { return }
         foodMaxAmount = settings.foodMaxAmount
-        foodHealthRestorationBaseValue = settings.foodHealthRestorationBaseValue
+        foodHealthRestorationBaseValue = CGFloat(settings.foodHealthRestorationBaseValue)
         foodSpawnRate = settings.foodSpawnRate
 
         creatureInitialAmount = settings.creatureInitialAmount
         creatureMinimumAmount = settings.creatureMinimumAmount
         creatureSpawnRate = settings.creatureSpawnRate
-        creatureBirthSuccessRate = settings.creatureBirthSuccessRate
+        creatureBirthSuccessRate = CGFloat(settings.creatureBirthSuccessRate)
 
         backgroundColor = settings.backgroundColor
         backgroundParticleBirthrate = settings.backgroundParticleBirthrate
