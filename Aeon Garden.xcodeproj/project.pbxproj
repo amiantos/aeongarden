@@ -11,6 +11,30 @@
 		4431A06022AB1CC900865489 /* AeonTextures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4431A05E22AB1CC900865489 /* AeonTextures.swift */; };
 		4431A06122AB1CC900865489 /* AeonTextures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4431A05E22AB1CC900865489 /* AeonTextures.swift */; };
 		4431A06222AB1CC900865489 /* AeonTextures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4431A05E22AB1CC900865489 /* AeonTextures.swift */; };
+		444A97AD2349564400243BAB /* ManagedTank+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A12349564400243BAB /* ManagedTank+CoreDataClass.swift */; };
+		444A97AE2349564400243BAB /* ManagedTank+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A12349564400243BAB /* ManagedTank+CoreDataClass.swift */; };
+		444A97AF2349564400243BAB /* ManagedTank+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A22349564400243BAB /* ManagedTank+CoreDataProperties.swift */; };
+		444A97B02349564400243BAB /* ManagedTank+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A22349564400243BAB /* ManagedTank+CoreDataProperties.swift */; };
+		444A97B12349564400243BAB /* ManagedBubble+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A32349564400243BAB /* ManagedBubble+CoreDataClass.swift */; };
+		444A97B22349564400243BAB /* ManagedBubble+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A32349564400243BAB /* ManagedBubble+CoreDataClass.swift */; };
+		444A97B32349564400243BAB /* ManagedBubble+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A42349564400243BAB /* ManagedBubble+CoreDataProperties.swift */; };
+		444A97B42349564400243BAB /* ManagedBubble+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A42349564400243BAB /* ManagedBubble+CoreDataProperties.swift */; };
+		444A97B52349564400243BAB /* ManagedObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A52349564400243BAB /* ManagedObject+CoreDataClass.swift */; };
+		444A97B62349564400243BAB /* ManagedObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A52349564400243BAB /* ManagedObject+CoreDataClass.swift */; };
+		444A97B72349564400243BAB /* ManagedObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A62349564400243BAB /* ManagedObject+CoreDataProperties.swift */; };
+		444A97B82349564400243BAB /* ManagedObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A62349564400243BAB /* ManagedObject+CoreDataProperties.swift */; };
+		444A97B92349564400243BAB /* ManagedCreature+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A72349564400243BAB /* ManagedCreature+CoreDataClass.swift */; };
+		444A97BA2349564400243BAB /* ManagedCreature+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A72349564400243BAB /* ManagedCreature+CoreDataClass.swift */; };
+		444A97BB2349564400243BAB /* ManagedCreature+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A82349564400243BAB /* ManagedCreature+CoreDataProperties.swift */; };
+		444A97BC2349564400243BAB /* ManagedCreature+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A82349564400243BAB /* ManagedCreature+CoreDataProperties.swift */; };
+		444A97BD2349564400243BAB /* ManagedTankSettings+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A92349564400243BAB /* ManagedTankSettings+CoreDataClass.swift */; };
+		444A97BE2349564400243BAB /* ManagedTankSettings+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97A92349564400243BAB /* ManagedTankSettings+CoreDataClass.swift */; };
+		444A97BF2349564400243BAB /* ManagedTankSettings+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97AA2349564400243BAB /* ManagedTankSettings+CoreDataProperties.swift */; };
+		444A97C02349564400243BAB /* ManagedTankSettings+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97AA2349564400243BAB /* ManagedTankSettings+CoreDataProperties.swift */; };
+		444A97C12349564400243BAB /* ManagedFood+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97AB2349564400243BAB /* ManagedFood+CoreDataClass.swift */; };
+		444A97C22349564400243BAB /* ManagedFood+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97AB2349564400243BAB /* ManagedFood+CoreDataClass.swift */; };
+		444A97C32349564400243BAB /* ManagedFood+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97AC2349564400243BAB /* ManagedFood+CoreDataProperties.swift */; };
+		444A97C42349564400243BAB /* ManagedFood+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A97AC2349564400243BAB /* ManagedFood+CoreDataProperties.swift */; };
 		447C8BAD2347BDA900DC7971 /* AeonGarden.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447C8BAB2347BDA900DC7971 /* AeonGarden.xcdatamodeld */; };
 		447C8BAE2347BDA900DC7971 /* AeonGarden.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447C8BAB2347BDA900DC7971 /* AeonGarden.xcdatamodeld */; };
 		447C8BB02347BDE700DC7971 /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C8BAF2347BDE700DC7971 /* CoreDataStore.swift */; };
@@ -170,6 +194,18 @@
 		36FD16856D813C5EFD6431ED /* Pods-Aeon Garden iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Aeon Garden iOS.release.xcconfig"; path = "Target Support Files/Pods-Aeon Garden iOS/Pods-Aeon Garden iOS.release.xcconfig"; sourceTree = "<group>"; };
 		4419E9F02241A557007FE456 /* AeonCreatureBubbleTrail.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AeonCreatureBubbleTrail.sks; sourceTree = "<group>"; };
 		4431A05E22AB1CC900865489 /* AeonTextures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTextures.swift; sourceTree = "<group>"; };
+		444A97A12349564400243BAB /* ManagedTank+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedTank+CoreDataClass.swift"; sourceTree = "<group>"; };
+		444A97A22349564400243BAB /* ManagedTank+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedTank+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		444A97A32349564400243BAB /* ManagedBubble+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedBubble+CoreDataClass.swift"; sourceTree = "<group>"; };
+		444A97A42349564400243BAB /* ManagedBubble+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedBubble+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		444A97A52349564400243BAB /* ManagedObject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedObject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		444A97A62349564400243BAB /* ManagedObject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		444A97A72349564400243BAB /* ManagedCreature+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedCreature+CoreDataClass.swift"; sourceTree = "<group>"; };
+		444A97A82349564400243BAB /* ManagedCreature+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedCreature+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		444A97A92349564400243BAB /* ManagedTankSettings+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedTankSettings+CoreDataClass.swift"; sourceTree = "<group>"; };
+		444A97AA2349564400243BAB /* ManagedTankSettings+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedTankSettings+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		444A97AB2349564400243BAB /* ManagedFood+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedFood+CoreDataClass.swift"; sourceTree = "<group>"; };
+		444A97AC2349564400243BAB /* ManagedFood+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedFood+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		447C8BAC2347BDA900DC7971 /* AeonGarden.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AeonGarden.xcdatamodel; sourceTree = "<group>"; };
 		447C8BAF2347BDE700DC7971 /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
 		447C8BB22347C47700DC7971 /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
@@ -285,9 +321,29 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		444A97C52349564900243BAB /* Managed Models */ = {
+			isa = PBXGroup;
+			children = (
+				444A97A12349564400243BAB /* ManagedTank+CoreDataClass.swift */,
+				444A97A22349564400243BAB /* ManagedTank+CoreDataProperties.swift */,
+				444A97A32349564400243BAB /* ManagedBubble+CoreDataClass.swift */,
+				444A97A42349564400243BAB /* ManagedBubble+CoreDataProperties.swift */,
+				444A97A52349564400243BAB /* ManagedObject+CoreDataClass.swift */,
+				444A97A62349564400243BAB /* ManagedObject+CoreDataProperties.swift */,
+				444A97A72349564400243BAB /* ManagedCreature+CoreDataClass.swift */,
+				444A97A82349564400243BAB /* ManagedCreature+CoreDataProperties.swift */,
+				444A97A92349564400243BAB /* ManagedTankSettings+CoreDataClass.swift */,
+				444A97AA2349564400243BAB /* ManagedTankSettings+CoreDataProperties.swift */,
+				444A97AB2349564400243BAB /* ManagedFood+CoreDataClass.swift */,
+				444A97AC2349564400243BAB /* ManagedFood+CoreDataProperties.swift */,
+			);
+			path = "Managed Models";
+			sourceTree = "<group>";
+		};
 		447C8BAA2347BD8700DC7971 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				444A97C52349564900243BAB /* Managed Models */,
 				447C8BAB2347BDA900DC7971 /* AeonGarden.xcdatamodeld */,
 				447C8BAF2347BDE700DC7971 /* CoreDataStore.swift */,
 				447C8BB22347C47700DC7971 /* Structs.swift */,
@@ -831,16 +887,24 @@
 			files = (
 				447C8BAD2347BDA900DC7971 /* AeonGarden.xcdatamodeld in Sources */,
 				B413ABD1224D7C8A00E8BDD1 /* AeonColors.swift in Sources */,
+				444A97BB2349564400243BAB /* ManagedCreature+CoreDataProperties.swift in Sources */,
 				B413ABB9224D7C8100E8BDD1 /* AeonLimbNode.swift in Sources */,
 				B413ABCD224D7C8A00E8BDD1 /* AeonNameGenerator.swift in Sources */,
 				4431A05F22AB1CC900865489 /* AeonTextures.swift in Sources */,
+				444A97B32349564400243BAB /* ManagedBubble+CoreDataProperties.swift in Sources */,
 				447C8BB02347BDE700DC7971 /* CoreDataStore.swift in Sources */,
 				44D73684227A68FF006A25B6 /* AeonButton.swift in Sources */,
+				444A97B52349564400243BAB /* ManagedObject+CoreDataClass.swift in Sources */,
+				444A97C32349564400243BAB /* ManagedFood+CoreDataProperties.swift in Sources */,
 				B413ABB8224D7C8100E8BDD1 /* AeonCreatureNode.swift in Sources */,
+				444A97C12349564400243BAB /* ManagedFood+CoreDataClass.swift in Sources */,
 				449FF757226FD92900704D7C /* AeonFonts.swift in Sources */,
+				444A97AD2349564400243BAB /* ManagedTank+CoreDataClass.swift in Sources */,
+				444A97BF2349564400243BAB /* ManagedTankSettings+CoreDataProperties.swift in Sources */,
 				44D73685227A6903006A25B6 /* AeonDataView.swift in Sources */,
 				B46CA6B5227F8F0800FAAAA6 /* AeonAssetGrabber.swift in Sources */,
 				B413ABDF224D7CC000E8BDD1 /* AeonViewController.swift in Sources */,
+				444A97AF2349564400243BAB /* ManagedTank+CoreDataProperties.swift in Sources */,
 				B42E6090227E19B8001EC013 /* AeonUISettings.swift in Sources */,
 				B413ABD2224D7C8A00E8BDD1 /* SKTextureGradient.swift in Sources */,
 				B413ABB5224D7C7100E8BDD1 /* AeonTankScene.swift in Sources */,
@@ -848,8 +912,12 @@
 				447C8BB32347C47700DC7971 /* Structs.swift in Sources */,
 				B413ABBC224D7C8100E8BDD1 /* AeonFoodNode.swift in Sources */,
 				B413ABBD224D7C8100E8BDD1 /* AeonNodeProtocols.swift in Sources */,
+				444A97B72349564400243BAB /* ManagedObject+CoreDataProperties.swift in Sources */,
 				B413ABBB224D7C8100E8BDD1 /* AeonCreatureBrainStates.swift in Sources */,
 				B413ABFC224FFD7D00E8BDD1 /* AeonSoundManager.swift in Sources */,
+				444A97B92349564400243BAB /* ManagedCreature+CoreDataClass.swift in Sources */,
+				444A97BD2349564400243BAB /* ManagedTankSettings+CoreDataClass.swift in Sources */,
+				444A97B12349564400243BAB /* ManagedBubble+CoreDataClass.swift in Sources */,
 				B413ABBE224D7C8100E8BDD1 /* AeonBubbleNode.swift in Sources */,
 				B413ABD0224D7C8A00E8BDD1 /* AeonUtils.swift in Sources */,
 				B413AB78224D73C400E8BDD1 /* AppDelegate.swift in Sources */,
@@ -863,16 +931,24 @@
 			files = (
 				447C8BAE2347BDA900DC7971 /* AeonGarden.xcdatamodeld in Sources */,
 				B413ABD7224D7C8B00E8BDD1 /* AeonColors.swift in Sources */,
+				444A97BC2349564400243BAB /* ManagedCreature+CoreDataProperties.swift in Sources */,
 				B413ABC0224D7C8200E8BDD1 /* AeonLimbNode.swift in Sources */,
 				B413ABD3224D7C8B00E8BDD1 /* AeonNameGenerator.swift in Sources */,
 				4431A06022AB1CC900865489 /* AeonTextures.swift in Sources */,
+				444A97B42349564400243BAB /* ManagedBubble+CoreDataProperties.swift in Sources */,
 				B4B2D1F5226BD9D20050F14C /* AeonDataView.swift in Sources */,
 				447C8BB12347BDE700DC7971 /* CoreDataStore.swift in Sources */,
+				444A97B62349564400243BAB /* ManagedObject+CoreDataClass.swift in Sources */,
+				444A97C42349564400243BAB /* ManagedFood+CoreDataProperties.swift in Sources */,
 				B413ABBF224D7C8200E8BDD1 /* AeonCreatureNode.swift in Sources */,
+				444A97C22349564400243BAB /* ManagedFood+CoreDataClass.swift in Sources */,
 				B413ABD8224D7C8B00E8BDD1 /* SKTextureGradient.swift in Sources */,
+				444A97AE2349564400243BAB /* ManagedTank+CoreDataClass.swift in Sources */,
+				444A97C02349564400243BAB /* ManagedTankSettings+CoreDataProperties.swift in Sources */,
 				B413ABB6224D7C7200E8BDD1 /* AeonTankScene.swift in Sources */,
 				B46CA6B6227F8F0800FAAAA6 /* AeonAssetGrabber.swift in Sources */,
 				B413ABC1224D7C8200E8BDD1 /* AeonCreatureBrain.swift in Sources */,
+				444A97B02349564400243BAB /* ManagedTank+CoreDataProperties.swift in Sources */,
 				B42E6091227E19B8001EC013 /* AeonUISettings.swift in Sources */,
 				B413ABC3224D7C8200E8BDD1 /* AeonFoodNode.swift in Sources */,
 				B413ABFD225002A300E8BDD1 /* AeonSoundManager.swift in Sources */,
@@ -880,8 +956,12 @@
 				447C8BB42347C47700DC7971 /* Structs.swift in Sources */,
 				B413ABC4224D7C8200E8BDD1 /* AeonNodeProtocols.swift in Sources */,
 				B413ABC2224D7C8200E8BDD1 /* AeonCreatureBrainStates.swift in Sources */,
+				444A97B82349564400243BAB /* ManagedObject+CoreDataProperties.swift in Sources */,
 				B413ABC5224D7C8200E8BDD1 /* AeonBubbleNode.swift in Sources */,
 				B413ABD6224D7C8B00E8BDD1 /* AeonUtils.swift in Sources */,
+				444A97BA2349564400243BAB /* ManagedCreature+CoreDataClass.swift in Sources */,
+				444A97BE2349564400243BAB /* ManagedTankSettings+CoreDataClass.swift in Sources */,
+				444A97B22349564400243BAB /* ManagedBubble+CoreDataClass.swift in Sources */,
 				B4B2D1F3226BD9A40050F14C /* AeonButton.swift in Sources */,
 				B413AB89224D73C400E8BDD1 /* AppDelegate.swift in Sources */,
 				44D73686227A6F6B006A25B6 /* AeonViewController.swift in Sources */,
