@@ -458,10 +458,12 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
 
     /// Rate mate based on similarity of hue
     func rateMate(_ mate: AeonCreatureNode) -> CGFloat {
-        return min(
+        let similarHue = min(
             abs(mate.primaryHue - primaryHue),
             360 - abs(mate.primaryHue - primaryHue)
         )
+        let distance = self.getDistance(toNode: mate)
+        return similarHue + (distance / 2)
     }
 
     func printThought(_ message: String, emoji: String?) {
