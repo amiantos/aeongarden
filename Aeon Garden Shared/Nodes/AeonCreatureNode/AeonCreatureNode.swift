@@ -83,12 +83,11 @@ class AeonCreatureNode: SKNode, Updatable {
         sizeModififer = CGFloat(creatureStruct.sizeModifier)
         turnSpeed = CGFloat(creatureStruct.turnSpeed)
 
-        uuid = UUID()
+        uuid = creatureStruct.uuid
 
         super.init()
         brain?.delegate = self
 
-//        setupLimbs()
         addChild(limbOne)
         addChild(limbTwo)
         addChild(limbThree)
