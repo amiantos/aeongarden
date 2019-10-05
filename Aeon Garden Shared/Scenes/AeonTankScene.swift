@@ -313,6 +313,7 @@ extension AeonTankScene {
         )
         aeonFood.zRotation = randomCGFloat(min: 0, max: 10)
         addChild(aeonFood)
+        aeonFood.born()
     }
 
     fileprivate func addBubbleToScene() {

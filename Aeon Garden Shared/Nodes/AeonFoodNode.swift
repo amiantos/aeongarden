@@ -44,26 +44,6 @@ class AeonFoodNode: SKNode, Updatable, Targetable {
         foodBody.zPosition = 1
         foodBody.name = "AeonFoodSprite"
         addChild(foodBody)
-
-        alpha = 0
-        let fadeInAction = SKAction.fadeIn(withDuration: 5)
-        setScale(0.2)
-        let scaleMax = randomCGFloat(min: 0.4, max: 0.7)
-        let scaleInAction = SKAction.scale(to: scaleMax, duration: 5)
-        let rotateAction = SKAction.rotate(byAngle: 5, duration: TimeInterval(randomCGFloat(min: 3, max: 10)))
-        run(SKAction.repeatForever(rotateAction))
-        run(SKAction.group([fadeInAction, scaleInAction]), completion: {
-            let floatOutAction = SKAction.scale(to: scaleMax / 1.5, duration: 3)
-            let floatOutFadeAction = SKAction.fadeAlpha(to: 0.7, duration: 3)
-            let floatOutActionGroup = SKAction.group([floatOutAction, floatOutFadeAction])
-            floatOutActionGroup.timingMode = .easeInEaseOut
-            let floatInAction = SKAction.scale(to: scaleMax, duration: 3)
-            let floatInFadeAction = SKAction.fadeAlpha(to: 1, duration: 3)
-            let floatInActionGroup = SKAction.group([floatInAction, floatInFadeAction])
-            floatInActionGroup.timingMode = .easeInEaseOut
-            let floatActionGroup = SKAction.sequence([floatOutActionGroup, floatInActionGroup])
-            self.run(SKAction.repeatForever(floatActionGroup))
-        })
     }
 
     func eaten() {
@@ -86,6 +66,28 @@ class AeonFoodNode: SKNode, Updatable, Targetable {
             if let scene = self.parent as? AeonTankScene {
                 scene.removeChild(self)
             }
+        })
+    }
+
+    func born() {
+        alpha = 0
+        let fadeInAction = SKAction.fadeIn(withDuration: 5)
+        setScale(0.2)
+        let scaleMax = randomCGFloat(min: 0.4, max: 0.7)
+        let scaleInAction = SKAction.scale(to: scaleMax, duration: 5)
+        let rotateAction = SKAction.rotate(byAngle: 5, duration: TimeInterval(randomCGFloat(min: 3, max: 10)))
+        run(SKAction.repeatForever(rotateAction))
+        run(SKAction.group([fadeInAction, scaleInAction]), completion: {
+            let floatOutAction = SKAction.scale(to: scaleMax / 1.5, duration: 3)
+            let floatOutFadeAction = SKAction.fadeAlpha(to: 0.7, duration: 3)
+            let floatOutActionGroup = SKAction.group([floatOutAction, floatOutFadeAction])
+            floatOutActionGroup.timingMode = .easeInEaseOut
+            let floatInAction = SKAction.scale(to: scaleMax, duration: 3)
+            let floatInFadeAction = SKAction.fadeAlpha(to: 1, duration: 3)
+            let floatInActionGroup = SKAction.group([floatInAction, floatInFadeAction])
+            floatInActionGroup.timingMode = .easeInEaseOut
+            let floatActionGroup = SKAction.sequence([floatOutActionGroup, floatInActionGroup])
+            self.run(SKAction.repeatForever(floatActionGroup))
         })
     }
 
