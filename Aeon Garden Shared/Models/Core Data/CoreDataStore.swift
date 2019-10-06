@@ -51,15 +51,15 @@ class CoreDataStore {
 extension CoreDataStore: DataStoreProtocol {
 
     // MARK: - Creature Favorites
-    func saveCreatureToFavorites(_ creature: Creature) {
+    func saveCreature(_ creature: Creature) {
         fatalError()
     }
 
-    func deleteCreatureFromFavorites(_ creature: Creature) {
+    func deleteCreature(_ creature: Creature) {
         fatalError()
     }
 
-    func getCreaturesFromFavorites(completion: @escaping ([Creature]) -> Void) {
+    func getCreatures(completion: @escaping ([Creature]) -> Void) {
         fatalError()
     }
 

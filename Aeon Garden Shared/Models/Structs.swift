@@ -13,9 +13,9 @@ protocol DataStoreProtocol {
     func saveTank(_ tank: Tank)
     func getTanks(completion: @escaping ([Tank]) -> Void)
 
-    func saveCreatureToFavorites(_ creature: Creature)
-    func deleteCreatureFromFavorites(_ creature: Creature)
-    func getCreaturesFromFavorites(completion: @escaping ([Creature]) -> Void)
+    func saveCreature(_ creature: Creature)
+    func deleteCreature(_ creature: Creature)
+    func getCreatures(completion: @escaping ([Creature]) -> Void)
 }
 
 struct TankSettings {
