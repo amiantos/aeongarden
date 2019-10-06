@@ -19,9 +19,26 @@ class AeonViewModel {
 
     weak var view: AeonViewController?
     weak var scene: AeonTankScene?
+    var autosaveTimer: Timer?
 
     init(for view: AeonViewController) {
         self.view = view
+
+        autosaveTimer = Timer.scheduledTimer(
+            timeInterval: 10,
+            target: self,
+            selector: #selector(autosave),
+            userInfo: nil,
+            repeats: true
+        )
+    }
+
+    @objc private func autosave() {
+        guard let scene = scene else { return }
+        Log.info("Running auto-save...")
+        DispatchQueue.main.async {
+            self.saveTank(scene)
+        }
     }
 
     private func createScene(size: CGSize, device: DeviceType) -> AeonTankScene {
