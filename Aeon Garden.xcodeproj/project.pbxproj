@@ -330,9 +330,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		444A97C52349564900243BAB /* Managed Models */ = {
+		444A97C52349564900243BAB /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				444A983D234A82DC00243BAB /* Models */,
+				447C8BAF2347BDE700DC7971 /* CoreDataStore.swift */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		444A983D234A82DC00243BAB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				447C8BAB2347BDA900DC7971 /* AeonGarden.xcdatamodeld */,
 				444A9837234A6D4700243BAB /* ManagedLimb+CoreDataClass.swift */,
 				444A9838234A6D4700243BAB /* ManagedLimb+CoreDataProperties.swift */,
 				444A9810234A638A00243BAB /* ManagedCreature+CoreDataClass.swift */,
@@ -348,18 +358,16 @@
 				444A981A234A638A00243BAB /* ManagedBubble+CoreDataClass.swift */,
 				444A981B234A638A00243BAB /* ManagedBubble+CoreDataProperties.swift */,
 			);
-			path = "Managed Models";
+			path = Models;
 			sourceTree = "<group>";
 		};
-		447C8BAA2347BD8700DC7971 /* Data */ = {
+		447C8BAA2347BD8700DC7971 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				444A97C52349564900243BAB /* Managed Models */,
-				447C8BAB2347BDA900DC7971 /* AeonGarden.xcdatamodeld */,
-				447C8BAF2347BDE700DC7971 /* CoreDataStore.swift */,
+				444A97C52349564900243BAB /* Core Data */,
 				447C8BB22347C47700DC7971 /* Structs.swift */,
 			);
-			path = Data;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		44868F5F2230B6BA009F0460 /* AeonCreatureNode */ = {
@@ -419,7 +427,7 @@
 				B4DEED3522470E400026604C /* Nodes */,
 				44D36650223B1D63006AB1C7 /* Utilities */,
 				44D73688227A7036006A25B6 /* Views */,
-				447C8BAA2347BD8700DC7971 /* Data */,
+				447C8BAA2347BD8700DC7971 /* Models */,
 			);
 			path = "Aeon Garden Shared";
 			sourceTree = SOURCE_ROOT;
