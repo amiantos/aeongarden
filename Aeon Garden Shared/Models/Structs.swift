@@ -9,6 +9,15 @@
 import Foundation
 import SpriteKit
 
+protocol DataStoreProtocol {
+    func saveTank(_ tank: Tank)
+    func getTanks(completion: @escaping ([Tank]) -> Void)
+
+    func saveCreatureToFavorites(_ creature: Creature)
+    func deleteCreatureFromFavorites(_ creature: Creature)
+    func getCreaturesFromFavorites(completion: @escaping ([Creature]) -> Void)
+}
+
 struct TankSettings {
     let foodMaxAmount: Int
     let foodHealthRestorationBaseValue: Float
@@ -69,6 +78,7 @@ struct Tank {
         scene.tankTime = TimeInterval(tankTime)
         scene.deathCount = deathCount
         scene.birthCount = birthCount
+        scene.uuid = uuid
 
         for creature in creatures {
             creature.put(in: scene)
@@ -84,14 +94,7 @@ struct Tank {
     }
 
     func save() {
-        // Save to data store
         CoreDataStore.standard.saveTank(self)
-    }
-
-    static func load(uuid: UUID?) -> Tank {
-        // If there is a UUID, we look for that tank and load it into the struct.
-        // If no UUID is provided, we load the most recently saved tank
-        fatalError()
     }
 
     static func getAll(completion: @escaping ([Tank]) -> Void) {

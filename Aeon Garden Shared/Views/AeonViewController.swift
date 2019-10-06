@@ -66,7 +66,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
                 self.skView?.showsFPS = false
                 self.skView?.presentScene(self.scene)
 
-                UIView.animate(withDuration: 1, animations: {
+                UIView.animate(withDuration: 2, animations: {
                     self.fadeView?.alpha = 0
                 }, completion: { (complete) in
                     if complete {

@@ -31,7 +31,7 @@ protocol AeonTankUIDelegate: AnyObject {
 }
 
 class AeonTankScene: SKScene {
-    let uuid: UUID = UUID()
+    public var uuid: UUID = UUID()
 
     public var tankSettings: TankSettings? {
         didSet {

@@ -9,16 +9,6 @@
 import CoreData
 import Foundation
 
-protocol DataStoreProtocol {
-    func saveTank(_ tank: Tank)
-    func loadTank(_ uuid: UUID, completion: @escaping (Tank) -> Void)
-    func getTanks(completion: @escaping ([Tank]) -> Void)
-
-    func saveCreatureToFavorites(_ creature: Creature)
-    func deleteCreatureFromFavorites(_ creature: Creature)
-    func getCreaturesFromFavorites(completion: @escaping ([Creature]) -> Void)
-}
-
 class CoreDataStore {
     static let standard: CoreDataStore = CoreDataStore()
 
@@ -59,27 +49,8 @@ class CoreDataStore {
 }
 
 extension CoreDataStore: DataStoreProtocol {
-    func loadTank(_ uuid: UUID, completion: @escaping (Tank) -> Void) {
-        fatalError()
-    }
 
-    func getTanks(completion: @escaping ([Tank]) -> Void) {
-        mainManagedObjectContext.perform {
-            do {
-                let fetchRequest: NSFetchRequest<ManagedTank> = ManagedTank.fetchRequest()
-//                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true, selector: #selector(NSString.caseInsensitiveCompare))]
-                let managedTanks = try self.mainManagedObjectContext.fetch(fetchRequest) as [ManagedTank]
-                var tanks: [Tank] = []
-                for managedTank in managedTanks {
-                    tanks.append(managedTank.toStruct())
-                }
-                completion(tanks)
-            } catch {
-                completion([])
-            }
-        }
-    }
-
+    // MARK: - Creature Favorites
     func saveCreatureToFavorites(_ creature: Creature) {
         fatalError()
     }
@@ -92,10 +63,42 @@ extension CoreDataStore: DataStoreProtocol {
         fatalError()
     }
 
+    // MARK: - Tanks
+
+    func getTanks(completion: @escaping ([Tank]) -> Void) {
+        mainManagedObjectContext.perform {
+            do {
+                let fetchRequest: NSFetchRequest<ManagedTank> = ManagedTank.fetchRequest()
+                let managedTanks = try self.mainManagedObjectContext.fetch(fetchRequest) as [ManagedTank]
+                var tanks: [Tank] = []
+                for managedTank in managedTanks {
+                    tanks.append(managedTank.toStruct())
+                }
+                completion(tanks)
+            } catch {
+                completion([])
+            }
+        }
+    }
+
     func saveTank(_ tank: Tank) {
         mainManagedObjectContext.perform {
             do {
-                let managedTank = ManagedTank(context: self.mainManagedObjectContext)
+                // Check for tank in storage by UUID
+                var storedTank: ManagedTank?
+                let fetchRequest: NSFetchRequest<ManagedTank> = ManagedTank.fetchRequest()
+                fetchRequest.predicate = NSPredicate(format: "uuid == %@", tank.uuid.uuidString)
+                if let tank = try? self.mainManagedObjectContext.fetch(fetchRequest).first {
+                    storedTank = tank
+                } else {
+                    storedTank = ManagedTank(context: self.mainManagedObjectContext)
+                }
+
+                guard let managedTank = storedTank else {
+                    Log.error("Could not load or create new managed tank object!")
+                    return
+                }
+
                 managedTank.timestamp = Date()
                 managedTank.birthCount = Int16(tank.birthCount)
                 managedTank.deathCount = Int16(tank.deathCount)
