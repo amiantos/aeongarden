@@ -1,6 +1,5 @@
 def shared_pods
   pod 'SwiftLint'
-  pod 'SwiftFormat/CLI'
 end
 
 target 'Aeon Garden iOS' do

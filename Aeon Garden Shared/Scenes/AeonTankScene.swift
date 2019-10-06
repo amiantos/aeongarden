@@ -31,7 +31,9 @@ protocol AeonTankUIDelegate: AnyObject {
 }
 
 class AeonTankScene: SKScene {
-    public var tankSettings: AeonTankSettings? {
+    public var uuid: UUID = UUID()
+
+    public var tankSettings: TankSettings? {
         didSet {
             setupTankSettings()
         }
@@ -58,7 +60,7 @@ class AeonTankScene: SKScene {
     private var lastCreatureTime: TimeInterval = 0
     private var lastBubbleTime: TimeInterval = 0
 
-    private var creatureNodes: [AeonCreatureNode] = [] {
+    public var creatureNodes: [AeonCreatureNode] = [] {
         didSet {
             tankDelegate?.updatePopulation(creatureNodes.count)
             tankDelegate?.updateBirths(birthCount)
@@ -66,13 +68,13 @@ class AeonTankScene: SKScene {
         }
     }
 
-    private var foodNodes: [AeonFoodNode] = [] {
+    public var foodNodes: [AeonFoodNode] = [] {
         didSet {
             tankDelegate?.updateFood(foodNodes.count)
         }
     }
 
-    private var bubbleNodes: [AeonBubbleNode] = []
+    public var bubbleNodes: [AeonBubbleNode] = []
 
     private var cameraNode: SKCameraNode = SKCameraNode()
 
@@ -84,46 +86,8 @@ class AeonTankScene: SKScene {
 
     var selectedCreature: AeonCreatureNode? {
         didSet {
-            if let creature = selectedCreature {
-                tankDelegate?.creatureSelected(creature)
-            } else {
-                tankDelegate?.creatureDeselected()
-                camera?.removeAllActions()
-                let zoomInAction = SKAction.scale(to: 1, duration: 1)
-                let cameraAction = SKAction.move(
-                    to: CGPoint(x: size.width / 2, y: size.height / 2),
-                    duration: 1
-                )
-                camera?.run(SKAction.group([zoomInAction, cameraAction]))
-            }
+            zoomOutCameraIfNeeded()
         }
-    }
-
-    func resetCamera() {
-        selectedCreature?.hideSelectionRing()
-        selectedCreature = nil
-        camera?.removeAllActions()
-        let zoomInAction = SKAction.scale(to: 1, duration: 1)
-        let cameraAction = SKAction.move(
-            to: CGPoint(x: size.width / 2, y: size.height / 2),
-            duration: 1
-        )
-        camera?.run(SKAction.group([zoomInAction, cameraAction]))
-    }
-
-    func selectCreature(_ creature: AeonCreatureNode) {
-        if creature != selectedCreature {
-            selectedCreature?.hideSelectionRing()
-        }
-        selectedCreature = creature
-        creature.displaySelectionRing(withColor: .aeonBrightYellow)
-//        camera?.run(SKAction.scale(to: UISettings.styles.cameraZoomScale, duration: 1))
-        camera?.run(SKAction.scale(to: 0.4, duration: 1))
-    }
-
-    func deselectCreature() {
-        selectedCreature?.hideSelectionRing()
-        selectedCreature = nil
     }
 
     // MARK: - Scene
@@ -136,8 +100,6 @@ class AeonTankScene: SKScene {
 
     override func didMove(to _: SKView) {
         physicsWorld.contactDelegate = self
-        createInitialCreatures()
-        createInitialBubbles()
     }
 
     override func addChild(_ node: SKNode) {
@@ -162,6 +124,8 @@ class AeonTankScene: SKScene {
         node.removeFromParent()
     }
 
+    // MARK: - Main Loop
+
     override func update(_ currentTime: TimeInterval) {
         followSelectedCreatureWithCamera()
 
@@ -171,6 +135,7 @@ class AeonTankScene: SKScene {
             lastBubbleTime = currentTime
         }
 
+        Log.debug("Food Spawner: Last Spawn \(currentTime - lastFoodTime) - Current Food: \(foodNodes.count) - Max Food: \(foodMaxAmount)")
         if (currentTime - lastFoodTime) >= 2,
             foodNodes.count < foodMaxAmount {
             addFoodPelletToScene()
@@ -204,7 +169,49 @@ class AeonTankScene: SKScene {
         bubbleNodes.forEach { $0.update(currentTime) }
     }
 
-    // MARK: - Per Frame Processes
+    // MARK: - Camera Controls
+
+    fileprivate func zoomOutCameraIfNeeded() {
+        if let creature = selectedCreature {
+            tankDelegate?.creatureSelected(creature)
+        } else {
+            tankDelegate?.creatureDeselected()
+            camera?.removeAllActions()
+            let zoomInAction = SKAction.scale(to: 1, duration: 1)
+            let cameraAction = SKAction.move(
+                to: CGPoint(x: size.width / 2, y: size.height / 2),
+                duration: 1
+            )
+            camera?.run(SKAction.group([zoomInAction, cameraAction]))
+        }
+    }
+
+    func resetCamera() {
+        selectedCreature?.hideSelectionRing()
+        selectedCreature = nil
+        camera?.removeAllActions()
+        let zoomInAction = SKAction.scale(to: 1, duration: 1)
+        let cameraAction = SKAction.move(
+            to: CGPoint(x: size.width / 2, y: size.height / 2),
+            duration: 1
+        )
+        camera?.run(SKAction.group([zoomInAction, cameraAction]))
+    }
+
+    func selectCreature(_ creature: AeonCreatureNode) {
+        if creature != selectedCreature {
+            selectedCreature?.hideSelectionRing()
+        }
+        selectedCreature = creature
+        creature.displaySelectionRing(withColor: .aeonBrightYellow)
+//        camera?.run(SKAction.scale(to: UISettings.styles.cameraZoomScale, duration: 1))
+        camera?.run(SKAction.scale(to: 0.4, duration: 1))
+    }
+
+    func deselectCreature() {
+        selectedCreature?.hideSelectionRing()
+        selectedCreature = nil
+    }
 
     fileprivate func followSelectedCreatureWithCamera() {
         if let followCreature = self.selectedCreature {
@@ -264,7 +271,7 @@ class AeonTankScene: SKScene {
 // MARK: - Node Creation
 
 extension AeonTankScene {
-    fileprivate func createInitialCreatures() {
+    public func createInitialCreatures() {
         var totalCreatures: Int = 0
         var initialCreatureHue: CGFloat = 0
         let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(creatureInitialAmount))
@@ -277,7 +284,7 @@ extension AeonTankScene {
         }
     }
 
-    fileprivate func createInitialBubbles() {
+    public func createInitialBubbles() {
         var ballCount: Int = 0
         let ballMinimum: Int = 10
         while ballCount < ballMinimum {
@@ -306,6 +313,7 @@ extension AeonTankScene {
         )
         aeonFood.zRotation = randomCGFloat(min: 0, max: 10)
         addChild(aeonFood)
+        aeonFood.born()
     }
 
     fileprivate func addBubbleToScene() {
@@ -390,17 +398,19 @@ extension AeonTankScene: SKPhysicsContactDelegate {
 
 extension AeonTankScene {
     fileprivate func setupTankSettings() {
-        guard let settings = tankSettings else { return }
+        guard let settings = tankSettings else {
+            Log.error("Tank settings not found.")
+            return
+        }
         foodMaxAmount = settings.foodMaxAmount
-        foodHealthRestorationBaseValue = settings.foodHealthRestorationBaseValue
+        foodHealthRestorationBaseValue = CGFloat(settings.foodHealthRestorationBaseValue)
         foodSpawnRate = settings.foodSpawnRate
 
         creatureInitialAmount = settings.creatureInitialAmount
         creatureMinimumAmount = settings.creatureMinimumAmount
         creatureSpawnRate = settings.creatureSpawnRate
-        creatureBirthSuccessRate = settings.creatureBirthSuccessRate
+        creatureBirthSuccessRate = CGFloat(settings.creatureBirthSuccessRate)
 
-        backgroundColor = settings.backgroundColor
         backgroundParticleBirthrate = settings.backgroundParticleBirthrate
         backgroundParticleLifetime = settings.backgroundParticleLifetime
     }
@@ -426,7 +436,7 @@ extension AeonTankScene {
 
     fileprivate func setupBackgroundAnimation() {
         guard let emitter = AeonFileGrabber.shared.getSKEmitterNode(named: "AeonOceanSquareBubbles") else { return }
-        emitter.particleTexture = AeonFileGrabber.shared.getSKTexture(named: "aeonSquare")
+        emitter.particleTexture = squareTexture
         emitter.position = CGPoint(x: size.width / 2, y: size.height / 2)
         emitter.zPosition = -1
         emitter.particlePositionRange = CGVector(dx: size.width, dy: size.height)

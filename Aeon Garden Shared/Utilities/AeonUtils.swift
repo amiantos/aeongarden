@@ -11,6 +11,12 @@
 
 import GameKit
 
+public enum BodyPart: String {
+    case triangle = "aeonTriangle"
+    case circle = "aeonCircle"
+    case square = "aeonSquare"
+}
+
 enum State {
     case closed
     case open

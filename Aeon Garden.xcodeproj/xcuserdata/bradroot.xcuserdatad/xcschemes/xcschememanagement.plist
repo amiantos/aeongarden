@@ -7,22 +7,24 @@
 		<key>Aeon Garden SS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>17</integer>
+			<integer>1</integer>
 		</dict>
 		<key>Aeon Garden iOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>18</integer>
+			<integer>8</integer>
 		</dict>
 		<key>Aeon Garden macOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>9</integer>
 		</dict>
 		<key>Aeon Garden tvOS.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>0</integer>
 		</dict>
 		<key>Aeon Garden.xcscheme</key>
 		<dict>

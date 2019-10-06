@@ -13,72 +13,69 @@ import SpriteKit
 import UIKit
 
 class AeonViewController: UIViewController, AeonTankUIDelegate {
+    var viewModel: AeonViewModel?
+
     var scene: AeonTankScene?
     var skView: SKView?
-    var tankSettings: AeonTankSettings?
+    var tankSettings: TankSettings?
+    var fadeView: UIView?
+
+    var deviceType: DeviceType = {
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            return .iphone
+        case .pad:
+            return .ipad
+        case .tv:
+            return .tv
+        default:
+            return .ipad
+        }
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            tankSettings = AeonTankSettings(
-                foodMaxAmount: 20,
-                foodHealthRestorationBaseValue: 120,
-                foodSpawnRate: 2,
-                creatureInitialAmount: 20,
-                creatureMinimumAmount: 5,
-                creatureSpawnRate: 5,
-                creatureBirthSuccessRate: 0.17,
-                backgroundColor: .aeonDarkBlue,
-                backgroundParticleBirthrate: 40,
-                backgroundParticleLifetime: 30
-            )
-        } else if UIDevice.current.userInterfaceIdiom == .phone {
-            tankSettings = AeonTankSettings(
-                foodMaxAmount: 10,
-                foodHealthRestorationBaseValue: 120,
-                foodSpawnRate: 2,
-                creatureInitialAmount: 10,
-                creatureMinimumAmount: 5,
-                creatureSpawnRate: 5,
-                creatureBirthSuccessRate: 0.17,
-                backgroundColor: .aeonDarkBlue,
-                backgroundParticleBirthrate: 30,
-                backgroundParticleLifetime: 20
-            )
-        } else if UIDevice.current.userInterfaceIdiom == .tv {
-            tankSettings = AeonTankSettings(
-                foodMaxAmount: 30,
-                foodHealthRestorationBaseValue: 120,
-                foodSpawnRate: 2,
-                creatureInitialAmount: 30,
-                creatureMinimumAmount: 5,
-                creatureSpawnRate: 5,
-                creatureBirthSuccessRate: 0.17,
-                backgroundColor: .aeonDarkBlue,
-                backgroundParticleBirthrate: 60,
-                backgroundParticleLifetime: 50
-            )
-        }
+        viewModel = AeonViewModel(for: self)
 
         UIApplication.shared.isIdleTimerDisabled = true
         view = SKView(frame: UIScreen.main.bounds)
-        scene = AeonTankScene(size: view.bounds.size)
-        scene?.tankDelegate = self
-        scene!.scaleMode = .aspectFill
-        scene?.tankSettings = tankSettings
-
-        skView = view as? SKView
-        skView?.ignoresSiblingOrder = true
-        skView!.presentScene(scene)
+        view.backgroundColor = .aeonDarkBlue
 
         view.translatesAutoresizingMaskIntoConstraints = false
         setupMainMenuView()
         setupDetailsView()
+
+        fadeView = UIView(frame: UIScreen.main.bounds)
+        fadeView?.backgroundColor = .aeonDarkBlue
+        view.insertSubview(fadeView!, at: 0)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        DispatchQueue.main.async {
+            self.viewModel?.loadTank(size: self.view.bounds.size, device: self.deviceType, completion: { (newScene) in
+                self.scene = newScene
+
+                self.skView = self.view as? SKView
+                self.skView?.preferredFramesPerSecond = 60
+                self.skView?.ignoresSiblingOrder = true
+                self.skView?.showsDrawCount = false
+                self.skView?.showsNodeCount = false
+                self.skView?.showsFPS = false
+                self.skView?.presentScene(self.scene)
+
+                UIView.animate(withDuration: 2, animations: {
+                    self.fadeView?.alpha = 0
+                }, completion: { (complete) in
+                    if complete {
+                        self.fadeView?.removeFromSuperview()
+                    }
+                })
+            })
+        }
+
         initialAnimation()
 
         #if os(tvOS)
@@ -88,14 +85,15 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         #endif
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        guard let scene = self.scene else { return }
+        viewModel?.saveTank(scene)
+    }
+
     #if os(iOS)
         override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
             return .landscapeLeft
-        }
-
-        override func didReceiveMemoryWarning() {
-            super.didReceiveMemoryWarning()
-            // Release any cached data, images, etc that aren't in use.
         }
 
         override var prefersStatusBarHidden: Bool {
@@ -107,6 +105,43 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         }
 
     #endif
+
+    // MARK: Button Actions
+
+    @objc func newTank(sender _: UIButton!) {
+        scene = viewModel?.createNewTank(size: view.bounds.size, device: deviceType)
+        skView?.presentScene(scene)
+    }
+
+    @objc func saveTank(sender _: UIButton!) {
+        guard let scene = scene else { return }
+        viewModel?.saveTank(scene)
+    }
+
+    @objc func loadTank(sender _: UIButton!) {
+        viewModel?.loadTank(size: view.bounds.size, device: deviceType, completion: { (scene) in
+            self.scene = scene
+            self.skView!.presentScene(scene)
+        })
+    }
+
+    @objc func toggleFavoriteForSelectedCreature(sender _: UIButton!) {
+        if let creature = scene?.selectedCreature {
+            creature.isFavorite.toggle()
+            print(creature.isFavorite)
+            updateFavoriteButtonLabel()
+        }
+    }
+
+    func updateFavoriteButtonLabel() {
+        if let creature = scene?.selectedCreature {
+            if creature.isFavorite {
+                detailsFavoriteButton.setTitle("Remove Favorite".uppercased(), for: .normal)
+            } else {
+                detailsFavoriteButton.setTitle("Mark Favorite".uppercased(), for: .normal)
+            }
+        }
+    }
 
     // MARK: tvOS Controls
 
@@ -188,6 +223,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             disableDetailUpdates = true
             detailsTitle = creature.name
             detailsTitleChanged()
+            updateFavoriteButtonLabel()
         }
         if !disableDetailUpdates {
             detailsHealthLabel.data = String(Int(creature.getCurrentHealth())).localizedUppercase
@@ -464,6 +500,10 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             button.layoutSubviews()
         }
 
+        mainNewTankButton.addTarget(self, action: #selector(newTank), for: .touchUpInside)
+        mainSaveTankButton.addTarget(self, action: #selector(saveTank), for: .touchUpInside)
+        mainLoadTankButton.addTarget(self, action: #selector(loadTank), for: .touchUpInside)
+
         mainNewTankButton.trailingAnchor.constraint(equalTo: mainContainerView.trailingAnchor, constant: 20).isActive = true
         mainLoadTankButton.trailingAnchor.constraint(equalTo: mainNewTankButton.leadingAnchor, constant: -UISettings.styles.buttonSpacing).isActive = true
         mainSaveTankButton.trailingAnchor.constraint(equalTo: mainLoadTankButton.leadingAnchor, constant: -UISettings.styles.buttonSpacing).isActive = true
@@ -563,11 +603,10 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
 
         // MARK: Details Buttons
 
-        detailsSaveButton.setTitle("SAVE", for: .normal)
-        detailsFavoriteButton.setTitle("FAVORITE", for: .normal)
+        detailsFavoriteButton.setTitle("MARK FAVORITE", for: .normal)
         detailsRenameButton.setTitle("RENAME", for: .normal)
 
-        let detailsButtons = [detailsSaveButton, detailsFavoriteButton, detailsRenameButton]
+        let detailsButtons = [detailsFavoriteButton, detailsRenameButton]
         for button in detailsButtons {
             button.translatesAutoresizingMaskIntoConstraints = false
             detailsContainerView.addSubview(button)
@@ -575,8 +614,9 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             button.layoutSubviews()
         }
 
-        detailsSaveButton.trailingAnchor.constraint(equalTo: detailsContainerView.trailingAnchor, constant: 0).isActive = true
-        detailsRenameButton.trailingAnchor.constraint(equalTo: detailsSaveButton.leadingAnchor, constant: -UISettings.styles.buttonSpacing).isActive = true
+        detailsFavoriteButton.addTarget(self, action: #selector(toggleFavoriteForSelectedCreature), for: .touchUpInside)
+
+        detailsRenameButton.trailingAnchor.constraint(equalTo: detailsContainerView.trailingAnchor, constant: 0).isActive = true
         detailsFavoriteButton.trailingAnchor.constraint(equalTo: detailsRenameButton.leadingAnchor, constant: -UISettings.styles.buttonSpacing).isActive = true
     }
 }

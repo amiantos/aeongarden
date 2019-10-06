@@ -12,20 +12,65 @@
 import SpriteKit
 
 class AeonLimbNode: SKSpriteNode {
-    public var shape: BodyPart
-    public var hue: CGFloat
-    public var blend: CGFloat
-    public var brightness: CGFloat
-    public var saturation: CGFloat
+    let shape: BodyPart
+    let hue: CGFloat
+    let blend: CGFloat
+    let brightness: CGFloat
+    let saturation: CGFloat
+    let limbWidth: Int
 
-    public enum BodyPart: String {
-        case triangle = "aeonTriangle"
-        case circle = "aeonCircle"
-        case square = "aeonSquare"
-    }
+    let wiggleFactor: CGFloat
+    let wiggleMoveFactor: CGFloat
+    let wiggleMoveBackFactor: CGFloat
+    let wiggleActionDuration: TimeInterval
+    let wiggleActionBackDuration: TimeInterval
+    let wiggleActionMovementDuration: TimeInterval
+    let wiggleActionMovementBackDuration: TimeInterval
+
+    let limbzRotation: CGFloat
 
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    init(with limbStruct: Limb) {
+        shape = limbStruct.shape
+        hue = CGFloat(limbStruct.hue)
+        brightness = CGFloat(limbStruct.brightness)
+        saturation = CGFloat(limbStruct.saturation)
+        blend = CGFloat(limbStruct.blend)
+
+        limbWidth = limbStruct.limbWidth
+        limbzRotation = CGFloat(limbStruct.limbzRotation)
+
+        wiggleFactor = CGFloat(limbStruct.wiggleFactor)
+        wiggleMoveFactor = CGFloat(limbStruct.wiggleMoveFactor)
+        wiggleMoveBackFactor = CGFloat(limbStruct.wiggleMoveBackFactor)
+        wiggleActionDuration = TimeInterval(limbStruct.wiggleActionDuration)
+        wiggleActionBackDuration = TimeInterval(limbStruct.wiggleActionBackDuration)
+        wiggleActionMovementDuration = TimeInterval(limbStruct.wiggleActionMovementDuration)
+        wiggleActionMovementBackDuration = TimeInterval(limbStruct.wiggleActionMovementDuration)
+
+        var texture = triangleTexture
+        switch limbStruct.shape {
+        case .circle:
+            texture = circleTexture
+        case .square:
+            texture = squareTexture
+        default:
+            break
+        }
+
+        let color = SKColor(
+            hue: CGFloat(limbStruct.hue / 360),
+            saturation: CGFloat(limbStruct.saturation),
+            brightness: CGFloat(limbStruct.brightness),
+            alpha: 1.0
+        )
+        super.init(texture: texture, color: color, size: CGSize(width: limbStruct.limbWidth, height: 20))
+        colorBlendFactor = blend
+        zRotation = limbzRotation
+        zPosition = 2
     }
 
     init(withLimb limb: AeonLimbNode) {
@@ -35,10 +80,21 @@ class AeonLimbNode: SKSpriteNode {
         saturation = limb.saturation
         blend = limb.blend
 
+        limbWidth = limb.limbWidth
+        limbzRotation = limb.limbzRotation
+
+        wiggleFactor = randomCGFloat(min: 0, max: 0.2)
+        wiggleMoveFactor = randomUniform()
+        wiggleMoveBackFactor = randomUniform()
+        wiggleActionDuration = TimeInterval(randomUniform())
+        wiggleActionBackDuration = TimeInterval(randomUniform())
+        wiggleActionMovementDuration = TimeInterval(randomUniform())
+        wiggleActionMovementBackDuration = TimeInterval(randomUniform())
+
         super.init(texture: limb.texture, color: limb.color, size: limb.size)
-        colorBlendFactor = limb.blend
-        zRotation = limb.zRotation
-        zPosition = limb.zPosition
+        colorBlendFactor = blend
+        zRotation = limbzRotation
+        zPosition = 2
     }
 
     init(withPrimaryHue primaryHue: CGFloat) {
@@ -58,44 +114,58 @@ class AeonLimbNode: SKSpriteNode {
         saturation = randomCGFloat(min: 0.84, max: 0.96)
         blend = CGFloat(randomCGFloat(min: 0.8, max: 1))
 
-        // let texture = SKTexture(imageNamed: shape.rawValue)
-        let texture = AeonFileGrabber.shared.getSKTexture(named: shape.rawValue)
+        limbWidth = randomInteger(min: 10, max: 20)
+        limbzRotation = CGFloat(randomInteger(min: 0, max: 10))
+
+        wiggleFactor = randomCGFloat(min: 0, max: 0.2)
+        wiggleMoveFactor = randomUniform()
+        wiggleMoveBackFactor = randomUniform()
+        wiggleActionDuration = TimeInterval(randomUniform())
+        wiggleActionBackDuration = TimeInterval(randomUniform())
+        wiggleActionMovementDuration = TimeInterval(randomUniform())
+        wiggleActionMovementBackDuration = TimeInterval(randomUniform())
+
+        var texture = triangleTexture
+        switch shape {
+        case .circle:
+            texture = circleTexture
+        case .square:
+            texture = squareTexture
+        default:
+            break
+        }
+
         let color = SKColor(
             hue: hue / 360,
             saturation: saturation,
             brightness: brightness,
             alpha: 1.0
         )
-        let limbWidth: Int = randomInteger(min: 10, max: 20)
         super.init(texture: texture, color: color, size: CGSize(width: limbWidth, height: 20))
         colorBlendFactor = blend
-        zRotation = CGFloat(randomInteger(min: 0, max: 10))
+        zRotation = limbzRotation
         zPosition = 2
     }
 
     public func beginWiggling() {
-        let wiggleFactor = randomCGFloat(min: 0, max: 0.2)
         let wiggleAction = SKAction.rotate(
             byAngle: wiggleFactor,
-            duration: TimeInterval(randomUniform())
+            duration: wiggleActionDuration
         )
         let wiggleActionBack = SKAction.rotate(
             byAngle: -wiggleFactor,
-            duration: TimeInterval(randomUniform())
+            duration: wiggleActionBackDuration
         )
-
-        let wiggleMoveFactor = randomUniform()
-        let wiggleMoveFactor2 = randomUniform()
 
         let wiggleMovement = SKAction.moveBy(
             x: wiggleMoveFactor,
-            y: wiggleMoveFactor2,
-            duration: TimeInterval(randomUniform())
+            y: wiggleMoveBackFactor,
+            duration: wiggleActionMovementDuration
         )
         let wiggleMovementBack = SKAction.moveBy(
             x: -wiggleMoveFactor,
-            y: -wiggleMoveFactor2,
-            duration: TimeInterval(randomUniform())
+            y: -wiggleMoveBackFactor,
+            duration: wiggleActionMovementBackDuration
         )
 
         let wiggleAround = SKAction.group([wiggleAction, wiggleMovement])
