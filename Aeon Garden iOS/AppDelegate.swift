@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _: UIApplication,
         didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        Log.logLevel = .debug
+        Log.logLevel = .info
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()

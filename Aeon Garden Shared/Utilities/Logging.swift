@@ -79,8 +79,8 @@ open class Log {
             let components: [String] = fileName.components(separatedBy: "/")
             let objectName = components.last ?? "Unknown Object"
             let levelString = Log.useEmoji ? level.emoji : "|" + level.name.uppercased() + "|"
-            let logString = "\(levelString)\(date) \(objectName) \(functionName) line \(line):\n\(object())"
-            print(logString + "\n")
+            let logString = "\(levelString) [\(date)] \(objectName) line \(line): \(object())"
+            print(logString)
             handler?(level, logString)
         }
     }

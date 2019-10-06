@@ -45,13 +45,17 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             device: deviceType
         )
 
-        skView = view as? SKView
-        skView?.preferredFramesPerSecond = 60
-        skView?.ignoresSiblingOrder = true
-        skView?.showsDrawCount = true
-        skView?.showsNodeCount = true
-        skView?.showsFPS = true
-        skView?.presentScene(scene)
+        viewModel?.loadTank(size: view.bounds.size, device: deviceType, completion: { (newScene) in
+            self.scene = newScene
+
+            self.skView = self.view as? SKView
+            self.skView?.preferredFramesPerSecond = 60
+            self.skView?.ignoresSiblingOrder = true
+            self.skView?.showsDrawCount = true
+            self.skView?.showsNodeCount = true
+            self.skView?.showsFPS = true
+            self.skView?.presentScene(self.scene)
+        })
 
         view.translatesAutoresizingMaskIntoConstraints = false
         setupMainMenuView()
@@ -68,6 +72,12 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             setNeedsFocusUpdate()
             updateFocusIfNeeded()
         #endif
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        guard let scene = self.scene else { return }
+        viewModel?.saveTank(scene)
     }
 
     #if os(iOS)

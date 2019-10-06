@@ -466,7 +466,7 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
     }
 
     func printThought(_ message: String, emoji: String?) {
-        NSLog("\(emoji ?? "💭") \(fullName) (\(Int(currentHealth))): \(message)")
+        Log.info("\(emoji ?? "💭") \(fullName) (\(Int(currentHealth))): \(message)")
     }
 }
 
