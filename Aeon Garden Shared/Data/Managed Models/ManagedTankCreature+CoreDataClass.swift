@@ -1,5 +1,5 @@
 //
-//  ManagedCreature+CoreDataClass.swift
+//  ManagedTankCreature+CoreDataClass.swift
 //  Aeon Garden
 //
 //  Created by Brad Root on 10/6/19.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(ManagedCreature)
-public class ManagedCreature: NSManagedObject {
+@objc(ManagedTankCreature)
+public class ManagedTankCreature: ManagedCreature {
 
 }

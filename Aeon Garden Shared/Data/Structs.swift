@@ -19,7 +19,6 @@ struct TankSettings {
     let creatureSpawnRate: Int
     let creatureBirthSuccessRate: Float
 
-    let backgroundColor: SKColor
     let backgroundParticleBirthrate: Int
     let backgroundParticleLifetime: Int
 }
@@ -82,6 +81,15 @@ struct Tank {
         for bubble in bubbles {
             bubble.put(in: scene)
         }
+    }
+
+    func save() {
+
+    }
+
+    static func load(uuid: UUID?) -> Tank {
+        // If there is a UUID, we look for that tank and load it into the struct.
+        // If no UUID is provided, we load the most recently saved tank
     }
 }
 

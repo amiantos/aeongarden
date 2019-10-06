@@ -69,7 +69,6 @@ class AeonViewModel {
                 creatureMinimumAmount: 5,
                 creatureSpawnRate: 5,
                 creatureBirthSuccessRate: 0.17,
-                backgroundColor: .aeonDarkBlue,
                 backgroundParticleBirthrate: 30,
                 backgroundParticleLifetime: 20
             )
@@ -82,7 +81,6 @@ class AeonViewModel {
                 creatureMinimumAmount: 5,
                 creatureSpawnRate: 5,
                 creatureBirthSuccessRate: 0.17,
-                backgroundColor: .aeonDarkBlue,
                 backgroundParticleBirthrate: 60,
                 backgroundParticleLifetime: 50
             )
@@ -95,7 +93,6 @@ class AeonViewModel {
                 creatureMinimumAmount: 5,
                 creatureSpawnRate: 5,
                 creatureBirthSuccessRate: 0.17,
-                backgroundColor: .aeonDarkBlue,
                 backgroundParticleBirthrate: 40,
                 backgroundParticleLifetime: 30
             )

@@ -408,7 +408,6 @@ extension AeonTankScene {
         creatureSpawnRate = settings.creatureSpawnRate
         creatureBirthSuccessRate = CGFloat(settings.creatureBirthSuccessRate)
 
-        backgroundColor = settings.backgroundColor
         backgroundParticleBirthrate = settings.backgroundParticleBirthrate
         backgroundParticleLifetime = settings.backgroundParticleLifetime
     }

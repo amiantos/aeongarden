@@ -1,34 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="ManagedBubble" representedClassName="ManagedBubble" parentEntity="ManagedObject" syncable="YES"/>
-    <entity name="ManagedCreature" representedClassName="ManagedCreature" parentEntity="ManagedObject" syncable="YES">
-        <attribute name="currentHealth" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+    <entity name="ManagedBubble" representedClassName="ManagedBubble" syncable="YES">
+        <attribute name="positionX" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="positionY" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="tank" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedTank" inverseName="bubbles" inverseEntity="ManagedTank"/>
+    </entity>
+    <entity name="ManagedCreature" representedClassName="ManagedCreature" syncable="YES">
         <attribute name="firstName" attributeType="String"/>
-        <attribute name="isFavorite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="lastName" attributeType="String"/>
-        <attribute name="lifeTime" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="movementSpeed" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="primaryHue" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="saveDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="sizeModifier" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="turnSpeed" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="uuid" attributeType="UUID" usesScalarValueType="NO"/>
-        <relationship name="tank" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedTank" inverseName="creatures" inverseEntity="ManagedTank"/>
     </entity>
-    <entity name="ManagedFood" representedClassName="ManagedFood" parentEntity="ManagedObject" syncable="YES"/>
-    <entity name="ManagedObject" representedClassName="ManagedObject" syncable="YES">
+    <entity name="ManagedFood" representedClassName="ManagedFood" syncable="YES">
         <attribute name="positionX" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="positionY" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="tank" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedTank" inverseName="food" inverseEntity="ManagedTank"/>
     </entity>
     <entity name="ManagedTank" representedClassName="ManagedTank" syncable="YES">
         <attribute name="birthCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="deathCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="tankTime" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <relationship name="creatures" toMany="YES" deletionRule="Cascade" destinationEntity="ManagedCreature" inverseName="tank" inverseEntity="ManagedCreature"/>
+        <relationship name="bubbles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ManagedBubble" inverseName="tank" inverseEntity="ManagedBubble"/>
+        <relationship name="creatures" toMany="YES" deletionRule="Cascade" destinationEntity="ManagedTankCreature" inverseName="tank" inverseEntity="ManagedTankCreature"/>
+        <relationship name="food" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ManagedFood" inverseName="tank" inverseEntity="ManagedFood"/>
         <relationship name="tankSettings" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedTankSettings" inverseName="tank" inverseEntity="ManagedTankSettings"/>
     </entity>
+    <entity name="ManagedTankCreature" representedClassName="ManagedTankCreature" parentEntity="ManagedCreature" syncable="YES">
+        <attribute name="currentHealth" attributeType="Float" defaultValueString="0.0"/>
+        <attribute name="isFavorite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="lifeTime" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="positionX" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="positionY" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="tank" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedTank" inverseName="creatures" inverseEntity="ManagedTank"/>
+    </entity>
     <entity name="ManagedTankSettings" representedClassName="ManagedTankSettings" syncable="YES">
+        <attribute name="backgroundParticleBirthrate" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="backgroundParticleLifetime" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="creatureBirthSuccessRate" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="creatureInitialAmount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="creatureMinimumAmount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -39,11 +51,11 @@
         <relationship name="tank" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedTank" inverseName="tankSettings" inverseEntity="ManagedTank"/>
     </entity>
     <elements>
-        <element name="ManagedCreature" positionX="-63" positionY="-18" width="128" height="223"/>
-        <element name="ManagedTank" positionX="-54" positionY="81" width="128" height="133"/>
-        <element name="ManagedTankSettings" positionX="-36" positionY="117" width="128" height="163"/>
-        <element name="ManagedObject" positionX="-18" positionY="144" width="128" height="73"/>
-        <element name="ManagedFood" positionX="0" positionY="153" width="128" height="43"/>
-        <element name="ManagedBubble" positionX="18" positionY="162" width="128" height="43"/>
+        <element name="ManagedBubble" positionX="368.70703125" positionY="111.85546875" width="128" height="88"/>
+        <element name="ManagedCreature" positionX="-26.3359375" positionY="-118.1875" width="128" height="148"/>
+        <element name="ManagedFood" positionX="391.83203125" positionY="6.43359375" width="128" height="88"/>
+        <element name="ManagedTank" positionX="-200.9921875" positionY="48.17578125" width="128" height="178"/>
+        <element name="ManagedTankSettings" positionX="156.62890625" positionY="194.0703125" width="128" height="193"/>
+        <element name="ManagedTankCreature" positionX="149.62890625" positionY="-8.6640625" width="128" height="133"/>
     </elements>
 </model>
