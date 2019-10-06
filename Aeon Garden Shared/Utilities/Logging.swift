@@ -52,7 +52,7 @@ open class Log {
     public static var logLevel: Level = .off
 
     /// If true, prints emojis to signify log type, defaults to off
-    public static var useEmoji: Bool = false
+    public static var useEmoji: Bool = true
 
     /// If this is non-nil, we will call it with the same string that we
     /// are going to print to the console. You can use this to pass log

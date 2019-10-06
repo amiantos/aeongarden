@@ -171,6 +171,19 @@ extension CoreDataStore: DataStoreProtocol {
                 }
                 managedTank.food = NSSet(array: managedFoods)
 
+                let managedTankSettings = ManagedTankSettings(context: self.mainManagedObjectContext)
+                managedTankSettings.foodMaxAmount = Int16(tank.tankSettings.foodMaxAmount)
+                managedTankSettings.foodHealthRestorationBaseValue = tank.tankSettings.foodHealthRestorationBaseValue
+                managedTankSettings.foodSpawnRate = Int16(tank.tankSettings.foodSpawnRate)
+                managedTankSettings.creatureInitialAmount = Int16(tank.tankSettings.creatureInitialAmount)
+                managedTankSettings.creatureMinimumAmount = Int16(tank.tankSettings.creatureMinimumAmount)
+                managedTankSettings.creatureSpawnRate = Int16(tank.tankSettings.creatureSpawnRate)
+                managedTankSettings.creatureBirthSuccessRate = tank.tankSettings.creatureBirthSuccessRate
+                managedTankSettings.backgroundParticleBirthrate = Int16(tank.tankSettings.backgroundParticleBirthrate)
+                managedTankSettings.backgroundParticleLifetime = Int16(tank.tankSettings.backgroundParticleLifetime)
+
+                managedTank.tankSettings = managedTankSettings
+
                 try self.mainManagedObjectContext.save()
 
             } catch {

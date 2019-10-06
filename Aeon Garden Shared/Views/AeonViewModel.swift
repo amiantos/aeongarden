@@ -42,7 +42,7 @@ class AeonViewModel {
 
     func loadTank(size: CGSize, device: DeviceType, completion: @escaping (AeonTankScene) -> Void) {
         Tank.getAll { (tanks) in
-            if let tank = tanks.first {
+            if let tank = tanks.last {
                 let newScene = self.createScene(size: size, device: device)
                 tank.restore(to: newScene)
                 self.scene = newScene

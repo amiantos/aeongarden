@@ -135,6 +135,7 @@ class AeonTankScene: SKScene {
             lastBubbleTime = currentTime
         }
 
+        Log.debug("Food Spawner: Last Spawn \(currentTime - lastFoodTime) - Current Food: \(foodNodes.count) - Max Food: \(foodMaxAmount)")
         if (currentTime - lastFoodTime) >= 2,
             foodNodes.count < foodMaxAmount {
             addFoodPelletToScene()
@@ -398,7 +399,10 @@ extension AeonTankScene: SKPhysicsContactDelegate {
 
 extension AeonTankScene {
     fileprivate func setupTankSettings() {
-        guard let settings = tankSettings else { return }
+        guard let settings = tankSettings else {
+            Log.error("Tank settings not found.")
+            return
+        }
         foodMaxAmount = settings.foodMaxAmount
         foodHealthRestorationBaseValue = CGFloat(settings.foodHealthRestorationBaseValue)
         foodSpawnRate = settings.foodSpawnRate

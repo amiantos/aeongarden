@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _: UIApplication,
         didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        Log.logLevel = .debug
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = AeonViewController()
