@@ -18,6 +18,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     var scene: AeonTankScene?
     var skView: SKView?
     var tankSettings: TankSettings?
+    var fadeView: UIView?
 
     var deviceType: DeviceType = {
         switch UIDevice.current.userInterfaceIdiom {
@@ -39,31 +40,41 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
 
         UIApplication.shared.isIdleTimerDisabled = true
         view = SKView(frame: UIScreen.main.bounds)
-
-        scene = viewModel?.createNewTank(
-            size: view.bounds.size,
-            device: deviceType
-        )
-
-        viewModel?.loadTank(size: view.bounds.size, device: deviceType, completion: { (newScene) in
-            self.scene = newScene
-
-            self.skView = self.view as? SKView
-            self.skView?.preferredFramesPerSecond = 60
-            self.skView?.ignoresSiblingOrder = true
-            self.skView?.showsDrawCount = true
-            self.skView?.showsNodeCount = true
-            self.skView?.showsFPS = true
-            self.skView?.presentScene(self.scene)
-        })
+        view.backgroundColor = .aeonDarkBlue
 
         view.translatesAutoresizingMaskIntoConstraints = false
         setupMainMenuView()
         setupDetailsView()
+
+        fadeView = UIView(frame: UIScreen.main.bounds)
+        fadeView?.backgroundColor = .aeonDarkBlue
+        view.insertSubview(fadeView!, at: 0)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        DispatchQueue.main.async {
+            self.viewModel?.loadTank(size: self.view.bounds.size, device: self.deviceType, completion: { (newScene) in
+                self.scene = newScene
+
+                self.skView = self.view as? SKView
+                self.skView?.preferredFramesPerSecond = 60
+                self.skView?.ignoresSiblingOrder = true
+                self.skView?.showsDrawCount = true
+                self.skView?.showsNodeCount = true
+                self.skView?.showsFPS = true
+                self.skView?.presentScene(self.scene)
+
+                UIView.animate(withDuration: 1, animations: {
+                    self.fadeView?.alpha = 0
+                }, completion: { (complete) in
+                    if complete {
+                        self.fadeView?.removeFromSuperview()
+                    }
+                })
+            })
+        }
 
         initialAnimation()
 
