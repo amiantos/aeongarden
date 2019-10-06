@@ -98,8 +98,10 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     @objc func loadTank(sender _: UIButton!) {
-        scene = viewModel?.loadTank(size: view.bounds.size, device: deviceType)
-        skView!.presentScene(scene)
+        viewModel?.loadTank(size: view.bounds.size, device: deviceType, completion: { (scene) in
+            self.scene = scene
+            self.skView!.presentScene(scene)
+        })
     }
 
     @objc func toggleFavoriteForSelectedCreature(sender _: UIButton!) {

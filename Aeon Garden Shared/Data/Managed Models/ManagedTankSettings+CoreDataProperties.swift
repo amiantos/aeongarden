@@ -18,14 +18,30 @@ extension ManagedTankSettings {
     }
 
     @NSManaged public var creatureBirthSuccessRate: Float
-    @NSManaged public var creatureInitialAmount: Int
-    @NSManaged public var creatureMinimumAmount: Int
-    @NSManaged public var creatureSpawnRate: Int
+    @NSManaged public var creatureInitialAmount: Int16
+    @NSManaged public var creatureMinimumAmount: Int16
+    @NSManaged public var creatureSpawnRate: Int16
     @NSManaged public var foodHealthRestorationBaseValue: Float
-    @NSManaged public var foodMaxAmount: Int
-    @NSManaged public var foodSpawnRate: Int
-    @NSManaged public var backgroundParticleBirthrate: Int
-    @NSManaged public var backgroundParticleLifetime: Int
+    @NSManaged public var foodMaxAmount: Int16
+    @NSManaged public var foodSpawnRate: Int16
+    @NSManaged public var backgroundParticleBirthrate: Int16
+    @NSManaged public var backgroundParticleLifetime: Int16
     @NSManaged public var tank: ManagedTank
 
+}
+
+extension ManagedTankSettings {
+    func toStruct() -> TankSettings {
+        return TankSettings(
+            foodMaxAmount: Int(self.foodMaxAmount),
+            foodHealthRestorationBaseValue: self.foodHealthRestorationBaseValue,
+            foodSpawnRate: Int(self.foodSpawnRate),
+            creatureInitialAmount: Int(self.creatureInitialAmount),
+            creatureMinimumAmount: Int(self.creatureMinimumAmount),
+            creatureSpawnRate: Int(self.creatureSpawnRate),
+            creatureBirthSuccessRate: self.creatureBirthSuccessRate,
+            backgroundParticleBirthrate: Int(self.backgroundParticleBirthrate),
+            backgroundParticleLifetime: Int(self.backgroundParticleLifetime)
+        )
+    }
 }

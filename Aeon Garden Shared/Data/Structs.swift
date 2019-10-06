@@ -84,12 +84,20 @@ struct Tank {
     }
 
     func save() {
-
+        // Save to data store
+        CoreDataStore.standard.saveTank(self)
     }
 
     static func load(uuid: UUID?) -> Tank {
         // If there is a UUID, we look for that tank and load it into the struct.
         // If no UUID is provided, we load the most recently saved tank
+        fatalError()
+    }
+
+    static func getAll(completion: @escaping ([Tank]) -> Void) {
+        CoreDataStore.standard.getTanks { (tanks) in
+            completion(tanks)
+        }
     }
 }
 
@@ -135,6 +143,11 @@ struct Creature {
             positionX: Float(node.position.x),
             positionY: Float(node.position.y)
         )
+    }
+
+    func toNode() -> AeonCreatureNode {
+        let creatureNode = AeonCreatureNode(with: self)
+        return creatureNode
     }
 
     func put(in scene: AeonTankScene) {

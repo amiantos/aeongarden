@@ -22,3 +22,9 @@ extension ManagedFood {
     @NSManaged public var tank: ManagedTank
 
 }
+
+extension ManagedFood {
+    func toStruct() -> Food {
+        return Food(positionX: self.positionX, positionY: self.positionY)
+    }
+}

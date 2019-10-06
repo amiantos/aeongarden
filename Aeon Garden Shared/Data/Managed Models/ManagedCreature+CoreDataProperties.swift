@@ -23,6 +23,24 @@ extension ManagedCreature {
     @NSManaged public var primaryHue: Float
     @NSManaged public var sizeModifier: Float
     @NSManaged public var turnSpeed: Float
-    @NSManaged public var uuid: UUID?
+    @NSManaged public var uuid: UUID
+    @NSManaged public var limbs: NSSet
+
+}
+
+// MARK: Generated accessors for limbs
+extension ManagedCreature {
+
+    @objc(addLimbsObject:)
+    @NSManaged public func addToLimbs(_ value: ManagedLimb)
+
+    @objc(removeLimbsObject:)
+    @NSManaged public func removeFromLimbs(_ value: ManagedLimb)
+
+    @objc(addLimbs:)
+    @NSManaged public func addToLimbs(_ values: NSSet)
+
+    @objc(removeLimbs:)
+    @NSManaged public func removeFromLimbs(_ values: NSSet)
 
 }

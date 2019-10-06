@@ -22,3 +22,9 @@ extension ManagedBubble {
     @NSManaged public var tank: ManagedTank
 
 }
+
+extension ManagedBubble {
+    func toStruct() -> Bubble {
+        return Bubble(positionX: self.positionX, positionY: self.positionY)
+    }
+}

@@ -20,8 +20,6 @@ class AeonViewModel {
     weak var view: AeonViewController?
     weak var scene: AeonTankScene?
 
-    var temporarySavedTank: Tank?
-
     init(for view: AeonViewController) {
         self.view = view
     }
@@ -42,19 +40,22 @@ class AeonViewModel {
         return newScene
     }
 
-    func loadTank(size: CGSize, device: DeviceType) -> AeonTankScene {
-        guard let tankStruct = temporarySavedTank else {
-            return createNewTank(size: size, device: device)
+    func loadTank(size: CGSize, device: DeviceType, completion: @escaping (AeonTankScene) -> Void) {
+        Tank.getAll { (tanks) in
+            if let tank = tanks.first {
+                let newScene = self.createScene(size: size, device: device)
+                tank.restore(to: newScene)
+                self.scene = newScene
+                completion(newScene)
+            } else {
+                completion(self.createNewTank(size: size, device: device))
+            }
         }
-        let newScene = createScene(size: size, device: device)
-        tankStruct.restore(to: newScene)
-        scene = newScene
-        return newScene
     }
 
     func saveTank(_ scene: AeonTankScene) {
         let tankStruct = Tank.from(scene)
-        temporarySavedTank = tankStruct
+        tankStruct.save()
     }
 
     func getTankSettings(for device: DeviceType) -> TankSettings {

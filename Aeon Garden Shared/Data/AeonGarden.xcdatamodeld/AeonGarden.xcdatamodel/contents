@@ -13,11 +13,31 @@
         <attribute name="sizeModifier" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="turnSpeed" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="uuid" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="limbs" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ManagedLimb" inverseName="creature" inverseEntity="ManagedLimb"/>
     </entity>
     <entity name="ManagedFood" representedClassName="ManagedFood" syncable="YES">
         <attribute name="positionX" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="positionY" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="tank" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedTank" inverseName="food" inverseEntity="ManagedTank"/>
+    </entity>
+    <entity name="ManagedLimb" representedClassName="ManagedLimb" syncable="YES">
+        <attribute name="blend" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="brightness" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="hue" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="limbWidth" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="limbzRotation" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="positionX" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="positionY" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="saturation" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="shape" attributeType="String"/>
+        <attribute name="wiggleActionBackDuration" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="wiggleActionDuration" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="wiggleActionMovementBackDuration" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="wiggleActionMovementDuration" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="wiggleFactor" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="wiggleMoveBackFactor" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="wiggleMoveFactor" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="creature" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedCreature" inverseName="limbs" inverseEntity="ManagedCreature"/>
     </entity>
     <entity name="ManagedTank" representedClassName="ManagedTank" syncable="YES">
         <attribute name="birthCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -52,10 +72,11 @@
     </entity>
     <elements>
         <element name="ManagedBubble" positionX="368.70703125" positionY="111.85546875" width="128" height="88"/>
-        <element name="ManagedCreature" positionX="-26.3359375" positionY="-118.1875" width="128" height="148"/>
+        <element name="ManagedCreature" positionX="-26.3359375" positionY="-118.1875" width="128" height="163"/>
         <element name="ManagedFood" positionX="391.83203125" positionY="6.43359375" width="128" height="88"/>
         <element name="ManagedTank" positionX="-200.9921875" positionY="48.17578125" width="128" height="178"/>
         <element name="ManagedTankSettings" positionX="156.62890625" positionY="194.0703125" width="128" height="193"/>
         <element name="ManagedTankCreature" positionX="149.62890625" positionY="-8.6640625" width="128" height="133"/>
+        <element name="ManagedLimb" positionX="9" positionY="36" width="128" height="298"/>
     </elements>
 </model>

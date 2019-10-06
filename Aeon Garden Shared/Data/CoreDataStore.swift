@@ -9,6 +9,16 @@
 import CoreData
 import Foundation
 
+protocol DataStoreProtocol {
+    func saveTank(_ tank: Tank)
+    func loadTank(_ uuid: UUID, completion: @escaping (Tank) -> Void)
+    func getTanks(completion: @escaping ([Tank]) -> Void)
+
+    func saveCreatureToFavorites(_ creature: Creature)
+    func deleteCreatureFromFavorites(_ creature: Creature)
+    func getCreaturesFromFavorites(completion: @escaping ([Creature]) -> Void)
+}
+
 class CoreDataStore {
     static let standard: CoreDataStore = CoreDataStore()
 
@@ -43,6 +53,128 @@ class CoreDataStore {
                 // may be useful during development.
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
+}
+
+extension CoreDataStore: DataStoreProtocol {
+    func loadTank(_ uuid: UUID, completion: @escaping (Tank) -> Void) {
+        fatalError()
+    }
+
+    func getTanks(completion: @escaping ([Tank]) -> Void) {
+        mainManagedObjectContext.perform {
+            do {
+                let fetchRequest: NSFetchRequest<ManagedTank> = ManagedTank.fetchRequest()
+//                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true, selector: #selector(NSString.caseInsensitiveCompare))]
+                let managedTanks = try self.mainManagedObjectContext.fetch(fetchRequest) as [ManagedTank]
+                var tanks: [Tank] = []
+                for managedTank in managedTanks {
+                    tanks.append(managedTank.toStruct())
+                }
+                completion(tanks)
+            } catch {
+                completion([])
+            }
+        }
+    }
+
+    func saveCreatureToFavorites(_ creature: Creature) {
+        fatalError()
+    }
+
+    func deleteCreatureFromFavorites(_ creature: Creature) {
+        fatalError()
+    }
+
+    func getCreaturesFromFavorites(completion: @escaping ([Creature]) -> Void) {
+        fatalError()
+    }
+
+    func saveTank(_ tank: Tank) {
+        mainManagedObjectContext.perform {
+            do {
+                let managedTank = ManagedTank(context: self.mainManagedObjectContext)
+                managedTank.timestamp = Date()
+                managedTank.birthCount = Int16(tank.birthCount)
+                managedTank.deathCount = Int16(tank.deathCount)
+                managedTank.tankTime = tank.tankTime
+                managedTank.uuid = tank.uuid
+
+                var managedCreatures: [ManagedTankCreature] = []
+                for creature in tank.creatures {
+                    let managedTankCreature = ManagedTankCreature(context: self.mainManagedObjectContext)
+                    managedTankCreature.uuid = creature.uuid
+                    managedTankCreature.firstName = creature.firstName
+                    managedTankCreature.lastName = creature.lastName
+
+                    managedTankCreature.currentHealth = creature.currentHealth
+                    managedTankCreature.lifeTime = creature.lifeTime
+
+                    managedTankCreature.isFavorite = creature.isFavorite
+
+                    managedTankCreature.movementSpeed = creature.movementSpeed
+                    managedTankCreature.turnSpeed = creature.turnSpeed
+                    managedTankCreature.sizeModifier = creature.sizeModifier
+                    managedTankCreature.primaryHue = creature.primaryHue
+
+                    managedTankCreature.positionX = creature.positionX
+                    managedTankCreature.positionY = creature.positionY
+
+                    var managedLimbs: [ManagedLimb] = []
+                    for limb in creature.limbs {
+                        let managedLimb = ManagedLimb(context: self.mainManagedObjectContext)
+                        managedLimb.shape = limb.shape.rawValue
+                        managedLimb.hue = limb.hue
+                        managedLimb.blend = limb.blend
+                        managedLimb.brightness = limb.brightness
+                        managedLimb.saturation = limb.saturation
+                        managedLimb.limbWidth = Int16(limb.limbWidth)
+
+                        managedLimb.wiggleFactor = limb.wiggleFactor
+                        managedLimb.wiggleMoveFactor = limb.wiggleMoveFactor
+                        managedLimb.wiggleMoveBackFactor = limb.wiggleMoveBackFactor
+                        managedLimb.wiggleActionDuration = limb.wiggleActionDuration
+                        managedLimb.wiggleActionBackDuration = limb.wiggleActionBackDuration
+                        managedLimb.wiggleActionMovementDuration = limb.wiggleActionMovementDuration
+                        managedLimb.wiggleActionMovementBackDuration = limb.wiggleActionMovementBackDuration
+
+                        managedLimb.limbzRotation = limb.limbzRotation
+
+                        managedLimb.positionX = limb.positionX
+                        managedLimb.positionY = limb.positionY
+
+                        managedLimbs.append(managedLimb)
+                    }
+                    managedTankCreature.limbs = NSSet(array: managedLimbs)
+
+                    managedCreatures.append(managedTankCreature)
+                }
+                managedTank.creatures = NSSet(array: managedCreatures)
+
+                var managedBubbles: [ManagedBubble] = []
+                for bubble in tank.bubbles {
+                    let managedBubble = ManagedBubble(context: self.mainManagedObjectContext)
+                    managedBubble.positionY = bubble.positionY
+                    managedBubble.positionX = bubble.positionX
+                    managedBubbles.append(managedBubble)
+                }
+                managedTank.bubbles = NSSet(array: managedBubbles)
+
+                var managedFoods: [ManagedFood] = []
+                for food in tank.food {
+                    let managedFood = ManagedFood(context: self.mainManagedObjectContext)
+                    managedFood.positionY = food.positionY
+                    managedFood.positionX = food.positionX
+                    managedFoods.append(managedFood)
+                }
+                managedTank.food = NSSet(array: managedFoods)
+
+                try self.mainManagedObjectContext.save()
+
+            } catch {
+                Log.error("Tank failed to save to storage.")
             }
         }
     }
