@@ -61,9 +61,9 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
                 self.skView = self.view as? SKView
                 self.skView?.preferredFramesPerSecond = 60
                 self.skView?.ignoresSiblingOrder = true
-                self.skView?.showsDrawCount = true
-                self.skView?.showsNodeCount = true
-                self.skView?.showsFPS = true
+                self.skView?.showsDrawCount = false
+                self.skView?.showsNodeCount = false
+                self.skView?.showsFPS = false
                 self.skView?.presentScene(self.scene)
 
                 UIView.animate(withDuration: 1, animations: {
