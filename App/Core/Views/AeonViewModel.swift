@@ -102,7 +102,7 @@ class AeonViewModel {
                 creatureInitialAmount: 10,
                 creatureMinimumAmount: 5,
                 creatureSpawnRate: 5,
-                creatureBirthSuccessRate: 0.17,
+                creatureBirthSuccessRate: 0.10,
                 backgroundParticleBirthrate: 30,
                 backgroundParticleLifetime: 20
             )
@@ -114,7 +114,7 @@ class AeonViewModel {
                 creatureInitialAmount: 30,
                 creatureMinimumAmount: 5,
                 creatureSpawnRate: 5,
-                creatureBirthSuccessRate: 0.17,
+                creatureBirthSuccessRate: 0.10,
                 backgroundParticleBirthrate: 60,
                 backgroundParticleLifetime: 50
             )
@@ -126,7 +126,7 @@ class AeonViewModel {
                 creatureInitialAmount: 20,
                 creatureMinimumAmount: 5,
                 creatureSpawnRate: 5,
-                creatureBirthSuccessRate: 0.17,
+                creatureBirthSuccessRate: 0.10,
                 backgroundParticleBirthrate: 40,
                 backgroundParticleLifetime: 30
             )
