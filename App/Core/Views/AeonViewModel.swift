@@ -51,11 +51,8 @@ class AeonViewModel {
     func createNewTank(size: CGSize, device: DeviceType) -> AeonTankScene {
         let newScene = createScene(size: size, device: device)
         CoreDataStore.standard.getCreatures { (creatures) in
-            if creatures.isEmpty {
-                newScene.createInitialCreatures()
-            } else {
-                newScene.loadCreaturesIntoScene(creatures)
-            }
+            newScene.loadCreaturesIntoScene(creatures)
+            newScene.createInitialCreatures()
             newScene.createInitialBubbles()
         }
         scene = newScene
@@ -112,7 +109,7 @@ class AeonViewModel {
                 foodHealthRestorationBaseValue: 120,
                 foodSpawnRate: 2,
                 creatureInitialAmount: 30,
-                creatureMinimumAmount: 5,
+                creatureMinimumAmount: 15,
                 creatureSpawnRate: 5,
                 creatureBirthSuccessRate: 0.10,
                 backgroundParticleBirthrate: 60,
@@ -124,7 +121,7 @@ class AeonViewModel {
                 foodHealthRestorationBaseValue: 120,
                 foodSpawnRate: 2,
                 creatureInitialAmount: 20,
-                creatureMinimumAmount: 5,
+                creatureMinimumAmount: 10,
                 creatureSpawnRate: 5,
                 creatureBirthSuccessRate: 0.10,
                 backgroundParticleBirthrate: 40,

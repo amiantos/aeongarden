@@ -272,20 +272,18 @@ class AeonTankScene: SKScene {
 
 extension AeonTankScene {
     public func loadCreaturesIntoScene(_ creatures: [Creature]) {
-        for creature in creatures {
+        for creature in creatures where creatureNodes.count < creatureInitialAmount {
             addNewCreatureToScene(with: creature)
         }
     }
 
     public func createInitialCreatures() {
-        var totalCreatures: Int = 0
         var initialCreatureHue: CGFloat = 0
         let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(creatureInitialAmount))
 
-        while totalCreatures < creatureInitialAmount {
+        while creatureNodes.count < creatureInitialAmount {
             addNewCreatureToScene(withPrimaryHue: initialCreatureHue)
             addFoodPelletToScene()
-            totalCreatures += 1
             initialCreatureHue += colorHueIncrement
         }
     }
@@ -314,6 +312,7 @@ extension AeonTankScene {
 
     fileprivate func addNewCreatureToScene(with creature: Creature) {
         let aeonCreature = AeonCreatureNode(with: creature)
+        aeonCreature.isFavorite = true
         aeonCreature.position = CGPoint(
             x: randomCGFloat(min: size.width * 0.05, max: size.width * 0.95),
             y: randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)
