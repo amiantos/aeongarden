@@ -330,6 +330,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		44387DD8234D6E390073767A /* Platform Support */ = {
+			isa = PBXGroup;
+			children = (
+				B409E542227E31D000546184 /* macOS Screensaver */,
+				B413AB95224D73C400E8BDD1 /* macOS */,
+				B413AB87224D73C400E8BDD1 /* tvOS */,
+				B413AB76224D73C400E8BDD1 /* iOS */,
+			);
+			path = "Platform Support";
+			sourceTree = "<group>";
+		};
 		444A97C52349564900243BAB /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -407,14 +418,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		B409E542227E31D000546184 /* Aeon Garden Screensaver */ = {
+		B409E542227E31D000546184 /* macOS Screensaver */ = {
 			isa = PBXGroup;
 			children = (
 				B409E547227E31D000546184 /* Info.plist */,
 				B409E54C227E326B00546184 /* AeonScreenSaverView.swift */,
 				B409E54E227E32FD00546184 /* GameView.swift */,
 			);
-			path = "Aeon Garden Screensaver";
+			path = "macOS Screensaver";
 			sourceTree = "<group>";
 		};
 		B413AB6C224D73C200E8BDD1 /* Aeon Garden Shared */ = {
@@ -432,26 +443,27 @@
 			path = "Aeon Garden Shared";
 			sourceTree = SOURCE_ROOT;
 		};
-		B413AB76224D73C400E8BDD1 /* Aeon Garden iOS */ = {
+		B413AB76224D73C400E8BDD1 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
 				B413AB77224D73C400E8BDD1 /* AppDelegate.swift */,
 				B413AB81224D73C400E8BDD1 /* Info.plist */,
 				44EC7E2B2282591A00F2BA3E /* Launch Screen.storyboard */,
 			);
-			path = "Aeon Garden iOS";
+			path = iOS;
 			sourceTree = "<group>";
 		};
-		B413AB87224D73C400E8BDD1 /* Aeon Garden tvOS */ = {
+		B413AB87224D73C400E8BDD1 /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
 				B413AB88224D73C400E8BDD1 /* AppDelegate.swift */,
 				B413AB8F224D73C400E8BDD1 /* Info.plist */,
 			);
-			path = "Aeon Garden tvOS";
+			name = tvOS;
+			path = Platforms/tvOS;
 			sourceTree = SOURCE_ROOT;
 		};
-		B413AB95224D73C400E8BDD1 /* Aeon Garden macOS */ = {
+		B413AB95224D73C400E8BDD1 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
 				B413AB96224D73C400E8BDD1 /* AppDelegate.swift */,
@@ -459,7 +471,7 @@
 				B413AB9A224D73C400E8BDD1 /* Main.storyboard */,
 				B413AB9D224D73C400E8BDD1 /* Info.plist */,
 			);
-			path = "Aeon Garden macOS";
+			path = macOS;
 			sourceTree = "<group>";
 		};
 		B413ABFA224FFD3B00E8BDD1 /* Sound */ = {
@@ -505,10 +517,7 @@
 			isa = PBXGroup;
 			children = (
 				B413AB6C224D73C200E8BDD1 /* Aeon Garden Shared */,
-				B413AB76224D73C400E8BDD1 /* Aeon Garden iOS */,
-				B413AB87224D73C400E8BDD1 /* Aeon Garden tvOS */,
-				B413AB95224D73C400E8BDD1 /* Aeon Garden macOS */,
-				B409E542227E31D000546184 /* Aeon Garden Screensaver */,
+				44387DD8234D6E390073767A /* Platform Support */,
 				B48DDAB21F80943500DEA908 /* Products */,
 				C3FE8F8E96A673E848F74E7E /* Pods */,
 				04FCECD635035E84A37BC818 /* Frameworks */,
