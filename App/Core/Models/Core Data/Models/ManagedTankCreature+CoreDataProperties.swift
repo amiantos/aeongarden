@@ -7,12 +7,10 @@
 //
 //
 
-import Foundation
 import CoreData
-
+import Foundation
 
 extension ManagedTankCreature {
-
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ManagedTankCreature> {
         return NSFetchRequest<ManagedTankCreature>(entityName: "ManagedTankCreature")
     }
@@ -23,7 +21,6 @@ extension ManagedTankCreature {
     @NSManaged public var positionX: Float
     @NSManaged public var positionY: Float
     @NSManaged public var tank: ManagedTank
-
 }
 
 extension ManagedTankCreature {

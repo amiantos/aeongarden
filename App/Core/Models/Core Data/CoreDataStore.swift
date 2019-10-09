@@ -49,17 +49,40 @@ class CoreDataStore {
 }
 
 extension CoreDataStore: DataStoreProtocol {
-
     // MARK: - Creature Favorites
-    func saveCreature(_ creature: Creature) {
-        fatalError()
+
+    func saveCreature(_: Creature) {
+        mainManagedObjectContext.perform {
+            do {
+                // Check for tank in storage by UUID and delete it
+                let managedTank = ManagedTank(context: self.mainManagedObjectContext)
+
+                managedTank.timestamp = Date()
+            } catch {
+                Log.error("Tank failed to save to storage.")
+            }
+        }
     }
 
     func deleteCreature(_ creature: Creature) {
-        fatalError()
+        mainManagedObjectContext.perform {
+            do {
+                let fetchRequest: NSFetchRequest<ManagedCreature> = ManagedCreature.fetchRequest()
+                fetchRequest.predicate = NSPredicate(format: "uuid == %@", creature.uuid.uuidString)
+                if let tank = try? self.mainManagedObjectContext.fetch(fetchRequest).first {
+                    self.mainManagedObjectContext.delete(tank)
+                }
+
+                let managedTank = ManagedTank(context: self.mainManagedObjectContext)
+
+                managedTank.timestamp = Date()
+            } catch {
+                Log.error("Failed to find creature for deletion.")
+            }
+        }
     }
 
-    func getCreatures(completion: @escaping ([Creature]) -> Void) {
+    func getCreatures(completion _: @escaping ([Creature]) -> Void) {
         fatalError()
     }
 
@@ -197,7 +220,6 @@ extension CoreDataStore: DataStoreProtocol {
 // MARK: - Utilities
 
 extension CoreDataStore {
-
     func databaseCounts() {
         // Outputs counts of stored objects to log
         mainManagedObjectContext.perform {

@@ -7,12 +7,10 @@
 //
 //
 
-import Foundation
 import CoreData
-
+import Foundation
 
 extension ManagedTank {
-
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ManagedTank> {
         return NSFetchRequest<ManagedTank>(entityName: "ManagedTank")
     }
@@ -26,13 +24,12 @@ extension ManagedTank {
     @NSManaged public var tankSettings: ManagedTankSettings
     @NSManaged public var bubbles: NSSet?
     @NSManaged public var food: NSSet?
-
 }
 
 extension ManagedTank {
     func toStruct() -> Tank {
         var creatures: [Creature] = []
-        if let managedCreatures = self.creatures.allObjects as?  [ManagedTankCreature] {
+        if let managedCreatures = self.creatures.allObjects as? [ManagedTankCreature] {
             for managedCreature in managedCreatures {
                 creatures.append(managedCreature.toStruct())
             }
@@ -50,11 +47,11 @@ extension ManagedTank {
             }
         }
         return Tank(
-            uuid: self.uuid,
-            tankTime: self.tankTime,
-            deathCount: Int(self.deathCount),
-            birthCount: Int(self.birthCount),
-            tankSettings: self.tankSettings.toStruct(),
+            uuid: uuid,
+            tankTime: tankTime,
+            deathCount: Int(deathCount),
+            birthCount: Int(birthCount),
+            tankSettings: tankSettings.toStruct(),
             creatures: creatures,
             food: foods,
             bubbles: bubbles
@@ -63,8 +60,8 @@ extension ManagedTank {
 }
 
 // MARK: Generated accessors for creatures
-extension ManagedTank {
 
+extension ManagedTank {
     @objc(addCreaturesObject:)
     @NSManaged public func addToCreatures(_ value: ManagedTankCreature)
 
@@ -76,12 +73,11 @@ extension ManagedTank {
 
     @objc(removeCreatures:)
     @NSManaged public func removeFromCreatures(_ values: NSSet)
-
 }
 
 // MARK: Generated accessors for bubbles
-extension ManagedTank {
 
+extension ManagedTank {
     @objc(addBubblesObject:)
     @NSManaged public func addToBubbles(_ value: ManagedBubble)
 
@@ -93,12 +89,11 @@ extension ManagedTank {
 
     @objc(removeBubbles:)
     @NSManaged public func removeFromBubbles(_ values: NSSet)
-
 }
 
 // MARK: Generated accessors for food
-extension ManagedTank {
 
+extension ManagedTank {
     @objc(addFoodObject:)
     @NSManaged public func addToFood(_ value: ManagedFood)
 
@@ -110,5 +105,4 @@ extension ManagedTank {
 
     @objc(removeFood:)
     @NSManaged public func removeFromFood(_ values: NSSet)
-
 }

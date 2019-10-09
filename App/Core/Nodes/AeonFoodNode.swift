@@ -84,7 +84,7 @@ class AeonFoodNode: SKNode, Updatable, Targetable {
         let floatInActionGroup = SKAction.group([floatInAction, floatInFadeAction])
         floatInActionGroup.timingMode = .easeInEaseOut
         let floatActionGroup = SKAction.sequence([floatOutActionGroup, floatInActionGroup])
-        self.run(SKAction.repeatForever(floatActionGroup))
+        run(SKAction.repeatForever(floatActionGroup))
     }
 
     func born() {

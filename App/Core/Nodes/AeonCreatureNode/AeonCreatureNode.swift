@@ -463,7 +463,7 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
             abs(mate.primaryHue - primaryHue),
             360 - abs(mate.primaryHue - primaryHue)
         )
-        let distance = self.getDistance(toNode: mate)
+        let distance = getDistance(toNode: mate)
         return similarHue + (distance / 2)
     }
 

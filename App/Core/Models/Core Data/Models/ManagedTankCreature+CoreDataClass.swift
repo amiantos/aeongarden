@@ -7,10 +7,8 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(ManagedTankCreature)
-public class ManagedTankCreature: ManagedCreature {
-
-}
+public class ManagedTankCreature: ManagedCreature {}

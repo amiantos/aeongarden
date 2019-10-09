@@ -7,10 +7,8 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(ManagedFood)
-public class ManagedFood: NSManagedObject {
-
-}
+public class ManagedFood: NSManagedObject {}

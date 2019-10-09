@@ -7,10 +7,8 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(ManagedTank)
-public class ManagedTank: NSManagedObject {
-
-}
+public class ManagedTank: NSManagedObject {}

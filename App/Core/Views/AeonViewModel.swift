@@ -16,7 +16,6 @@ enum DeviceType {
 }
 
 class AeonViewModel {
-
     weak var view: AeonViewController?
     weak var scene: AeonTankScene?
     var autosaveTimer: Timer?
@@ -58,7 +57,7 @@ class AeonViewModel {
     }
 
     func loadTank(size: CGSize, device: DeviceType, completion: @escaping (AeonTankScene) -> Void) {
-        Tank.getAll { (tanks) in
+        Tank.getAll { tanks in
             Log.info("Number of tanks in storage: \(tanks.count)")
             if let tank = tanks.last {
                 let newScene = self.createScene(size: size, device: device)
@@ -118,7 +117,6 @@ class AeonViewModel {
         }
         return tankSettings!
     }
-
 }
 
 extension AeonViewModel: AeonTankUIDelegate {

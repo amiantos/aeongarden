@@ -55,7 +55,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         super.viewDidAppear(animated)
 
         DispatchQueue.main.async {
-            self.viewModel?.loadTank(size: self.view.bounds.size, device: self.deviceType, completion: { (newScene) in
+            self.viewModel?.loadTank(size: self.view.bounds.size, device: self.deviceType, completion: { newScene in
                 self.scene = newScene
 
                 self.skView = self.view as? SKView
@@ -68,7 +68,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
 
                 UIView.animate(withDuration: 2, animations: {
                     self.fadeView?.alpha = 0
-                }, completion: { (complete) in
+                }, completion: { complete in
                     if complete {
                         self.fadeView?.removeFromSuperview()
                     }
@@ -119,7 +119,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     @objc func loadTank(sender _: UIButton!) {
-        viewModel?.loadTank(size: view.bounds.size, device: deviceType, completion: { (scene) in
+        viewModel?.loadTank(size: view.bounds.size, device: deviceType, completion: { scene in
             self.scene = scene
             self.skView!.presentScene(scene)
         })
