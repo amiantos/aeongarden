@@ -302,6 +302,7 @@ extension AeonTankScene {
         aeonCreature.zRotation = randomCGFloat(min: 0, max: 10)
         aeonCreature.zPosition = 12
         addChild(aeonCreature)
+        aeonCreature.scaleAnimation()
         aeonCreature.born()
     }
 
@@ -346,6 +347,7 @@ extension AeonTankScene: SKPhysicsContactDelegate {
                     let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
                     newCreature.position = creatureA.position
                     addChild(newCreature)
+                    newCreature.scaleAnimation()
                     newCreature.born()
                     AeonSoundManager.shared.play(.creatureBorn, onNode: newCreature)
 //                    selectCreature(newCreature)

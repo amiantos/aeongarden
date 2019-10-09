@@ -160,6 +160,7 @@ struct Creature {
             x: CGFloat(positionX),
             y: CGFloat(positionY)
         )
+        creatureNode.born()
     }
 }
 

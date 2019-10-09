@@ -342,11 +342,13 @@ class AeonCreatureNode: SKNode, Updatable {
         }
     }
 
-    func born() {
+    func scaleAnimation() {
         setScale(0.1)
         let birthAction = SKAction.scale(to: sizeModififer, duration: 30)
         run(birthAction)
+    }
 
+    func born() {
         brain?.printThought("Lo! Consciousness", emoji: "👼")
 
         createBubbleTrail()
