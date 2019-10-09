@@ -23,9 +23,9 @@ If you'd like to contribute, please contact me @[amiantos](http://www.twitter.co
 
 These screenshots are from the tvOS version.
 
-![Aeon Garden Zoomed-Out View](/Design/Screenshots/tvos-zoomed-out.png?raw=true)
+![Aeon Garden Zoomed-Out View](/Graphics/Screenshots/tvos-zoomed-out.png?raw=true)
 
-![Aeon Garden Zoomed View](/Design/Screenshots/tvos-zoomed-in.png?raw=true)
+![Aeon Garden Zoomed View](/Graphics/Screenshots/tvos-zoomed-in.png?raw=true)
 
 ## Why
 
@@ -34,8 +34,6 @@ Like [Numu Tracker](https://www.github.com/numutracker/numutracker_ios), Aeon Ga
 # To Install
 
 1. `git clone https://github.com/amiantos/aeongarden.git`
-2. Open `Aeon Garden.xcworkspace`
+2. Open `App/Aeon Garden.xcworkspace`
 3. Pick a target
 3. Build!
-
-**Note:** Right now only the **iOS** target is under active development. The other build targets may not work at the moment.
