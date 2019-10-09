@@ -34,7 +34,7 @@ class AeonScreenSaverView: ScreenSaverView {
 
     override func startAnimation() {
         if spriteView == nil {
-            let tankSettings = AeonTankSettings(
+            let tankSettings = TankSettings(
                 foodMaxAmount: 50,
                 foodHealthRestorationBaseValue: 120,
                 foodSpawnRate: 1,
@@ -42,7 +42,6 @@ class AeonScreenSaverView: ScreenSaverView {
                 creatureMinimumAmount: 5,
                 creatureSpawnRate: 5,
                 creatureBirthSuccessRate: 1,
-                backgroundColor: .aeonDarkBlue,
                 backgroundParticleBirthrate: 80,
                 backgroundParticleLifetime: 60
             )

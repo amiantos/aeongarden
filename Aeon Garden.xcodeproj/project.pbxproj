@@ -41,6 +41,9 @@
 		444A983A234A6D4700243BAB /* ManagedLimb+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A9837234A6D4700243BAB /* ManagedLimb+CoreDataClass.swift */; };
 		444A983B234A6D4700243BAB /* ManagedLimb+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A9838234A6D4700243BAB /* ManagedLimb+CoreDataProperties.swift */; };
 		444A983C234A6D4700243BAB /* ManagedLimb+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A9838234A6D4700243BAB /* ManagedLimb+CoreDataProperties.swift */; };
+		4456E3BD234D76A800A9E401 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A9834234A68AB00243BAB /* Logging.swift */; };
+		4456E3BE234D776600A9E401 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A9834234A68AB00243BAB /* Logging.swift */; };
+		4456E3C0234D779900A9E401 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C8BB22347C47700DC7971 /* Structs.swift */; };
 		447C8BAD2347BDA900DC7971 /* AeonGarden.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447C8BAB2347BDA900DC7971 /* AeonGarden.xcdatamodeld */; };
 		447C8BAE2347BDA900DC7971 /* AeonGarden.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447C8BAB2347BDA900DC7971 /* AeonGarden.xcdatamodeld */; };
 		447C8BB02347BDE700DC7971 /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C8BAF2347BDE700DC7971 /* CoreDataStore.swift */; };
@@ -48,7 +51,6 @@
 		447C8BB32347C47700DC7971 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C8BB22347C47700DC7971 /* Structs.swift */; };
 		447C8BB42347C47700DC7971 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C8BB22347C47700DC7971 /* Structs.swift */; };
 		447C8BB52347C47C00DC7971 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C8BB22347C47700DC7971 /* Structs.swift */; };
-		447C8BB62347C47D00DC7971 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C8BB22347C47700DC7971 /* Structs.swift */; };
 		447C8BB82347F72400DC7971 /* AeonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C8BB72347F72400DC7971 /* AeonViewModel.swift */; };
 		447C8BB92347F72400DC7971 /* AeonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C8BB72347F72400DC7971 /* AeonViewModel.swift */; };
 		449FF757226FD92900704D7C /* AeonFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449FF756226FD92900704D7C /* AeonFonts.swift */; };
@@ -459,9 +461,8 @@
 				B413AB88224D73C400E8BDD1 /* AppDelegate.swift */,
 				B413AB8F224D73C400E8BDD1 /* Info.plist */,
 			);
-			name = tvOS;
-			path = Platforms/tvOS;
-			sourceTree = SOURCE_ROOT;
+			path = tvOS;
+			sourceTree = "<group>";
 		};
 		B413AB95224D73C400E8BDD1 /* macOS */ = {
 			isa = PBXGroup;
@@ -891,6 +892,7 @@
 			files = (
 				B409E59C227E3A3300546184 /* AeonNodeProtocols.swift in Sources */,
 				B409E59E227E3A3700546184 /* AeonTankScene.swift in Sources */,
+				4456E3BE234D776600A9E401 /* Logging.swift in Sources */,
 				B409E59B227E3A3300546184 /* AeonFoodNode.swift in Sources */,
 				B46CA6B8227F8F0800FAAAA6 /* AeonAssetGrabber.swift in Sources */,
 				4431A06222AB1CC900865489 /* AeonTextures.swift in Sources */,
@@ -899,7 +901,7 @@
 				B409E597227E3A3300546184 /* AeonCreatureNode.swift in Sources */,
 				B409E594227E3A2000546184 /* AeonColors.swift in Sources */,
 				B409E5AE227E3A3E00546184 /* AeonSoundManager.swift in Sources */,
-				447C8BB62347C47D00DC7971 /* Structs.swift in Sources */,
+				4456E3C0234D779900A9E401 /* Structs.swift in Sources */,
 				B409E598227E3A3300546184 /* AeonLimbNode.swift in Sources */,
 				B409E599227E3A3300546184 /* AeonCreatureBrain.swift in Sources */,
 				B409E54F227E32FD00546184 /* GameView.swift in Sources */,
@@ -1010,6 +1012,7 @@
 			files = (
 				B413ABF4224DC6A000E8BDD1 /* AeonColors.swift in Sources */,
 				B413ABC7224D7C8300E8BDD1 /* AeonLimbNode.swift in Sources */,
+				4456E3BD234D76A800A9E401 /* Logging.swift in Sources */,
 				B413ABD9224D7C8C00E8BDD1 /* AeonNameGenerator.swift in Sources */,
 				B413ABC6224D7C8300E8BDD1 /* AeonCreatureNode.swift in Sources */,
 				4431A06122AB1CC900865489 /* AeonTextures.swift in Sources */,
@@ -1052,7 +1055,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
-				INFOPLIST_FILE = "$(SRCROOT)/Aeon Garden Screensaver/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Platform Support/macOS Screensaver/Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
@@ -1076,7 +1079,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
-				INFOPLIST_FILE = "$(SRCROOT)/Aeon Garden Screensaver/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Platform Support/macOS Screensaver/Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
@@ -1099,7 +1102,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
-				INFOPLIST_FILE = "Aeon Garden iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Platform Support/iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -1122,7 +1125,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
-				INFOPLIST_FILE = "Aeon Garden iOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Platform Support/iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_FAST_MATH = YES;
@@ -1144,7 +1147,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
-				INFOPLIST_FILE = "Aeon Garden tvOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Platform Support/tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1166,7 +1169,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
-				INFOPLIST_FILE = "Aeon Garden tvOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Platform Support/tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.amiantos.Aeon-Garden";
@@ -1189,7 +1192,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
-				INFOPLIST_FILE = "Aeon Garden macOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Platform Support/macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -1211,7 +1214,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2Y9M69QJKZ;
-				INFOPLIST_FILE = "Aeon Garden macOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Platform Support/macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_FAST_MATH = YES;

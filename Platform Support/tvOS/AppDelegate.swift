@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        // Override point for customization after application launch.
+        Log.logLevel = .info
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = AeonViewController()

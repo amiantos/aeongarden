@@ -94,13 +94,19 @@ struct Tank {
     }
 
     func save() {
-        CoreDataStore.standard.saveTank(self)
+        #if os(iOS) || os(tvOS)
+            CoreDataStore.standard.saveTank(self)
+        #endif
     }
 
     static func getAll(completion: @escaping ([Tank]) -> Void) {
-        CoreDataStore.standard.getTanks { (tanks) in
-            completion(tanks)
-        }
+        #if os(iOS) || os(tvOS)
+            CoreDataStore.standard.getTanks { (tanks) in
+                completion(tanks)
+            }
+        #else
+            completion([])
+        #endif
     }
 }
 
