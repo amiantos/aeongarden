@@ -183,8 +183,42 @@ extension CoreDataStore: DataStoreProtocol {
 
                 try self.mainManagedObjectContext.save()
 
+                if Log.logLevel == .debug {
+                    self.databaseCounts()
+                }
+
             } catch {
                 Log.error("Tank failed to save to storage.")
+            }
+        }
+    }
+}
+
+// MARK: - Utilities
+
+extension CoreDataStore {
+
+    func databaseCounts() {
+        // Outputs counts of stored objects to log
+        mainManagedObjectContext.perform {
+            do {
+                let fetchRequestTanks: NSFetchRequest<ManagedTank> = ManagedTank.fetchRequest()
+                let managedTanks = try self.mainManagedObjectContext.fetch(fetchRequestTanks) as [ManagedTank]
+                Log.debug("Managed Tanks: \(managedTanks.count)")
+
+                let fetchRequestCreatures: NSFetchRequest<ManagedCreature> = ManagedCreature.fetchRequest()
+                let managedCreatures = try self.mainManagedObjectContext.fetch(fetchRequestCreatures) as [ManagedCreature]
+                Log.debug("Managed Creatures: \(managedCreatures.count)")
+
+                let fetchRequestBubbles: NSFetchRequest<ManagedBubble> = ManagedBubble.fetchRequest()
+                let managedBubbles = try self.mainManagedObjectContext.fetch(fetchRequestBubbles) as [ManagedBubble]
+                Log.debug("Managed Bubbles: \(managedBubbles.count)")
+
+                let fetchRequestFoods: NSFetchRequest<ManagedFood> = ManagedFood.fetchRequest()
+                let managedFoods = try self.mainManagedObjectContext.fetch(fetchRequestFoods) as [ManagedFood]
+                Log.debug("Managed Food: \(managedFoods.count)")
+            } catch {
+                Log.error("Failed to get object counts.")
             }
         }
     }
