@@ -84,20 +84,14 @@ extension CoreDataStore: DataStoreProtocol {
     func saveTank(_ tank: Tank) {
         mainManagedObjectContext.perform {
             do {
-                // Check for tank in storage by UUID
-                var storedTank: ManagedTank?
+                // Check for tank in storage by UUID and delete it
                 let fetchRequest: NSFetchRequest<ManagedTank> = ManagedTank.fetchRequest()
                 fetchRequest.predicate = NSPredicate(format: "uuid == %@", tank.uuid.uuidString)
                 if let tank = try? self.mainManagedObjectContext.fetch(fetchRequest).first {
-                    storedTank = tank
-                } else {
-                    storedTank = ManagedTank(context: self.mainManagedObjectContext)
+                    self.mainManagedObjectContext.delete(tank)
                 }
 
-                guard let managedTank = storedTank else {
-                    Log.error("Could not load or create new managed tank object!")
-                    return
-                }
+                let managedTank = ManagedTank(context: self.mainManagedObjectContext)
 
                 managedTank.timestamp = Date()
                 managedTank.birthCount = Int16(tank.birthCount)
