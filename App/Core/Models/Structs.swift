@@ -167,6 +167,18 @@ struct Creature {
         )
         creatureNode.born()
     }
+
+    func save() {
+        #if os(iOS) || os(tvOS)
+            CoreDataStore.standard.saveCreature(self)
+        #endif
+    }
+
+    func delete() {
+        #if os(iOS) || os(tvOS)
+        CoreDataStore.standard.deleteCreature(self)
+        #endif
+    }
 }
 
 struct Limb {

@@ -128,7 +128,11 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     @objc func toggleFavoriteForSelectedCreature(sender _: UIButton!) {
         if let creature = scene?.selectedCreature {
             creature.isFavorite.toggle()
-            print(creature.isFavorite)
+            if creature.isFavorite {
+                viewModel?.saveCreature(creature)
+            } else {
+                viewModel?.deleteCreature(creature)
+            }
             updateFavoriteButtonLabel()
         }
     }

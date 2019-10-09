@@ -75,6 +75,16 @@ class AeonViewModel {
         tankStruct.save()
     }
 
+    func saveCreature(_ creature: AeonCreatureNode) {
+        let creatureStruct = Creature.from(creature)
+        creatureStruct.save()
+    }
+
+    func deleteCreature(_ creature: AeonCreatureNode) {
+        let creatureStruct = Creature.from(creature)
+        creatureStruct.delete()
+    }
+
     func getTankSettings(for device: DeviceType) -> TankSettings {
         var tankSettings: TankSettings?
         switch device {

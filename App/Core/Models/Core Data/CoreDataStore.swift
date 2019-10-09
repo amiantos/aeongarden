@@ -100,6 +100,8 @@ extension CoreDataStore: DataStoreProtocol {
 
                 try self.mainManagedObjectContext.save()
 
+                Log.info("Saved creature \(creature.uuid)")
+
                 if Log.logLevel == .debug {
                     self.databaseCounts()
                 }
@@ -113,10 +115,13 @@ extension CoreDataStore: DataStoreProtocol {
     func deleteCreature(_ creature: Creature) {
         mainManagedObjectContext.perform {
             let fetchRequest: NSFetchRequest<ManagedCreature> = ManagedCreature.fetchRequest()
+            fetchRequest.includesSubentities = false
             fetchRequest.predicate = NSPredicate(format: "uuid == %@", creature.uuid.uuidString)
-            if let creature = try? self.mainManagedObjectContext.fetch(fetchRequest).first {
-                self.mainManagedObjectContext.delete(creature)
+            if let managedCreature = try? self.mainManagedObjectContext.fetch(fetchRequest).first {
+                self.mainManagedObjectContext.delete(managedCreature)
+                // TODO: - Replace this with proper error handling. Remove saveContext() method entirely?
                 self.saveContext()
+                Log.info("Deleted creature \(creature.uuid)")
             } else {
                 Log.error("Creature not found in storage.")
             }
@@ -127,6 +132,7 @@ extension CoreDataStore: DataStoreProtocol {
         mainManagedObjectContext.perform {
             do {
                 let fetchRequest: NSFetchRequest<ManagedCreature> = ManagedCreature.fetchRequest()
+                fetchRequest.includesSubentities = false
                 let managedCreatures = try self.mainManagedObjectContext.fetch(fetchRequest) as [ManagedCreature]
                 var creatures: [Creature] = []
                 for managedCreature in managedCreatures {
