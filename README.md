@@ -14,7 +14,7 @@ If you'd like to contribute, please contact me @[amiantos](http://www.twitter.co
 - [ ] Mark creatures as 'favorites' to persist them between tanks
 - [ ] Cross-platform support
   - [x] iOS
-  - [ ] tvOS
+  - [x] tvOS
   - [ ] macOS
 
 ## Video & Screenshots
