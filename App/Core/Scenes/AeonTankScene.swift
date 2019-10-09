@@ -271,6 +271,12 @@ class AeonTankScene: SKScene {
 // MARK: - Node Creation
 
 extension AeonTankScene {
+    public func loadCreaturesIntoScene(_ creatures: [Creature]) {
+        for creature in creatures {
+            addNewCreatureToScene(with: creature)
+        }
+    }
+
     public func createInitialCreatures() {
         var totalCreatures: Int = 0
         var initialCreatureHue: CGFloat = 0
@@ -295,6 +301,19 @@ extension AeonTankScene {
 
     fileprivate func addNewCreatureToScene(withPrimaryHue primaryHue: CGFloat) {
         let aeonCreature = AeonCreatureNode(withPrimaryHue: primaryHue)
+        aeonCreature.position = CGPoint(
+            x: randomCGFloat(min: size.width * 0.05, max: size.width * 0.95),
+            y: randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)
+        )
+        aeonCreature.zRotation = randomCGFloat(min: 0, max: 10)
+        aeonCreature.zPosition = 12
+        addChild(aeonCreature)
+        aeonCreature.scaleAnimation()
+        aeonCreature.born()
+    }
+
+    fileprivate func addNewCreatureToScene(with creature: Creature) {
+        let aeonCreature = AeonCreatureNode(with: creature)
         aeonCreature.position = CGPoint(
             x: randomCGFloat(min: size.width * 0.05, max: size.width * 0.95),
             y: randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)

@@ -50,8 +50,14 @@ class AeonViewModel {
 
     func createNewTank(size: CGSize, device: DeviceType) -> AeonTankScene {
         let newScene = createScene(size: size, device: device)
-        newScene.createInitialCreatures()
-        newScene.createInitialBubbles()
+        CoreDataStore.standard.getCreatures { (creatures) in
+            if creatures.isEmpty {
+                newScene.createInitialCreatures()
+            } else {
+                newScene.loadCreaturesIntoScene(creatures)
+            }
+            newScene.createInitialBubbles()
+        }
         scene = newScene
         return newScene
     }
