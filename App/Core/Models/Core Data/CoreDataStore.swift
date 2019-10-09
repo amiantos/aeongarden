@@ -51,39 +51,92 @@ class CoreDataStore {
 extension CoreDataStore: DataStoreProtocol {
     // MARK: - Creature Favorites
 
-    func saveCreature(_: Creature) {
+    func saveCreature(_ creature: Creature) {
         mainManagedObjectContext.perform {
             do {
                 // Check for tank in storage by UUID and delete it
-                let managedTank = ManagedTank(context: self.mainManagedObjectContext)
+                let fetchRequest: NSFetchRequest<ManagedCreature> = ManagedCreature.fetchRequest()
+                fetchRequest.predicate = NSPredicate(format: "uuid == %@", creature.uuid.uuidString)
+                if let creature = try? self.mainManagedObjectContext.fetch(fetchRequest).first {
+                    self.mainManagedObjectContext.delete(creature)
+                }
 
-                managedTank.timestamp = Date()
+                let managedCreature = ManagedCreature(context: self.mainManagedObjectContext)
+
+                managedCreature.uuid = creature.uuid
+                managedCreature.firstName = creature.firstName
+                managedCreature.lastName = creature.lastName
+                managedCreature.movementSpeed = creature.movementSpeed
+                managedCreature.turnSpeed = creature.turnSpeed
+                managedCreature.sizeModifier = creature.sizeModifier
+                managedCreature.primaryHue = creature.primaryHue
+
+                var managedLimbs: [ManagedLimb] = []
+                for limb in creature.limbs {
+                    let managedLimb = ManagedLimb(context: self.mainManagedObjectContext)
+                    managedLimb.shape = limb.shape.rawValue
+                    managedLimb.hue = limb.hue
+                    managedLimb.blend = limb.blend
+                    managedLimb.brightness = limb.brightness
+                    managedLimb.saturation = limb.saturation
+                    managedLimb.limbWidth = Int16(limb.limbWidth)
+
+                    managedLimb.wiggleFactor = limb.wiggleFactor
+                    managedLimb.wiggleMoveFactor = limb.wiggleMoveFactor
+                    managedLimb.wiggleMoveBackFactor = limb.wiggleMoveBackFactor
+                    managedLimb.wiggleActionDuration = limb.wiggleActionDuration
+                    managedLimb.wiggleActionBackDuration = limb.wiggleActionBackDuration
+                    managedLimb.wiggleActionMovementDuration = limb.wiggleActionMovementDuration
+                    managedLimb.wiggleActionMovementBackDuration = limb.wiggleActionMovementBackDuration
+
+                    managedLimb.limbzRotation = limb.limbzRotation
+
+                    managedLimb.positionX = limb.positionX
+                    managedLimb.positionY = limb.positionY
+
+                    managedLimbs.append(managedLimb)
+                }
+                managedCreature.limbs = NSSet(array: managedLimbs)
+
+                try self.mainManagedObjectContext.save()
+
+                if Log.logLevel == .debug {
+                    self.databaseCounts()
+                }
+
             } catch {
-                Log.error("Tank failed to save to storage.")
+                Log.error("Creature failed to save to storage.")
             }
         }
     }
 
     func deleteCreature(_ creature: Creature) {
         mainManagedObjectContext.perform {
-            do {
-                let fetchRequest: NSFetchRequest<ManagedCreature> = ManagedCreature.fetchRequest()
-                fetchRequest.predicate = NSPredicate(format: "uuid == %@", creature.uuid.uuidString)
-                if let tank = try? self.mainManagedObjectContext.fetch(fetchRequest).first {
-                    self.mainManagedObjectContext.delete(tank)
-                }
-
-                let managedTank = ManagedTank(context: self.mainManagedObjectContext)
-
-                managedTank.timestamp = Date()
-            } catch {
-                Log.error("Failed to find creature for deletion.")
+            let fetchRequest: NSFetchRequest<ManagedCreature> = ManagedCreature.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "uuid == %@", creature.uuid.uuidString)
+            if let creature = try? self.mainManagedObjectContext.fetch(fetchRequest).first {
+                self.mainManagedObjectContext.delete(creature)
+                self.saveContext()
+            } else {
+                Log.error("Creature not found in storage.")
             }
         }
     }
 
-    func getCreatures(completion _: @escaping ([Creature]) -> Void) {
-        fatalError()
+    func getCreatures(completion: @escaping ([Creature]) -> Void) {
+        mainManagedObjectContext.perform {
+            do {
+                let fetchRequest: NSFetchRequest<ManagedCreature> = ManagedCreature.fetchRequest()
+                let managedCreatures = try self.mainManagedObjectContext.fetch(fetchRequest) as [ManagedCreature]
+                var creatures: [Creature] = []
+                for managedCreature in managedCreatures {
+                    creatures.append(managedCreature.toStruct())
+                }
+                completion(creatures)
+            } catch {
+                completion([])
+            }
+        }
     }
 
     // MARK: - Tanks
@@ -229,8 +282,14 @@ extension CoreDataStore {
                 Log.debug("Managed Tanks: \(managedTanks.count)")
 
                 let fetchRequestCreatures: NSFetchRequest<ManagedCreature> = ManagedCreature.fetchRequest()
+                fetchRequestCreatures.includesSubentities = false
                 let managedCreatures = try self.mainManagedObjectContext.fetch(fetchRequestCreatures) as [ManagedCreature]
-                Log.debug("Managed Creatures: \(managedCreatures.count)")
+                Log.debug("Managed Creatures (Favorites): \(managedCreatures.count)")
+
+                let fetchRequestTankCreatures: NSFetchRequest<ManagedTankCreature> = ManagedTankCreature.fetchRequest()
+                fetchRequestTankCreatures.includesSubentities = false
+                let managedTankCreatures = try self.mainManagedObjectContext.fetch(fetchRequestTankCreatures) as [ManagedTankCreature]
+                Log.debug("Managed Tank Creatures: \(managedTankCreatures.count)")
 
                 let fetchRequestBubbles: NSFetchRequest<ManagedBubble> = ManagedBubble.fetchRequest()
                 let managedBubbles = try self.mainManagedObjectContext.fetch(fetchRequestBubbles) as [ManagedBubble]

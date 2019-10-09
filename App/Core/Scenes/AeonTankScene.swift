@@ -135,7 +135,7 @@ class AeonTankScene: SKScene {
             lastBubbleTime = currentTime
         }
 
-        Log.debug("Food Spawner: Last Spawn \(currentTime - lastFoodTime) - Current Food: \(foodNodes.count) - Max Food: \(foodMaxAmount)")
+        // Log.debug("Food Spawner: Last Spawn \(currentTime - lastFoodTime) - Current Food: \(foodNodes.count) - Max Food: \(foodMaxAmount)")
         if (currentTime - lastFoodTime) >= 2,
             foodNodes.count < foodMaxAmount {
             addFoodPelletToScene()
