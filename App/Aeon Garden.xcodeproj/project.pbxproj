@@ -250,9 +250,9 @@
 		B413AB98224D73C400E8BDD1 /* AeonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonViewController.swift; sourceTree = "<group>"; };
 		B413AB9B224D73C400E8BDD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B413AB9D224D73C400E8BDD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Aeon Garden Shared/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
+		B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B413ABF6224FFD3800E8BDD1 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
-		B413ABFB224FFD7D00E8BDD1 /* AeonSoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AeonSoundManager.swift; path = "Aeon Garden Shared/Sound/AeonSoundManager.swift"; sourceTree = SOURCE_ROOT; };
+		B413ABFB224FFD7D00E8BDD1 /* AeonSoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonSoundManager.swift; sourceTree = "<group>"; };
 		B413ABFF22599F6C00E8BDD1 /* pop_drip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop_drip.wav; sourceTree = "<group>"; };
 		B413AC032259A3AF00E8BDD1 /* click_04.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click_04.wav; sourceTree = "<group>"; };
 		B413AC072259A3E600E8BDD1 /* pad_confirm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pad_confirm.wav; sourceTree = "<group>"; };
@@ -406,7 +406,7 @@
 				444A9834234A68AB00243BAB /* Logging.swift */,
 			);
 			name = Utilities;
-			path = "Aeon Garden Shared/Utilities";
+			path = Core/Utilities;
 			sourceTree = SOURCE_ROOT;
 		};
 		44D73688227A7036006A25B6 /* Views */ = {
@@ -430,7 +430,7 @@
 			path = "macOS Screensaver";
 			sourceTree = "<group>";
 		};
-		B413AB6C224D73C200E8BDD1 /* Aeon Garden Shared */ = {
+		B413AB6C224D73C200E8BDD1 /* Core */ = {
 			isa = PBXGroup;
 			children = (
 				B413ABEC224D7E1B00E8BDD1 /* Assets.xcassets */,
@@ -442,7 +442,7 @@
 				44D73688227A7036006A25B6 /* Views */,
 				447C8BAA2347BD8700DC7971 /* Models */,
 			);
-			path = "Aeon Garden Shared";
+			path = Core;
 			sourceTree = SOURCE_ROOT;
 		};
 		B413AB76224D73C400E8BDD1 /* iOS */ = {
@@ -511,13 +511,13 @@
 				4419E9F02241A557007FE456 /* AeonCreatureBubbleTrail.sks */,
 			);
 			name = Particles;
-			path = "Aeon Garden Shared/Particles";
+			path = Core/Particles;
 			sourceTree = SOURCE_ROOT;
 		};
 		B48DDAA81F80943500DEA908 = {
 			isa = PBXGroup;
 			children = (
-				B413AB6C224D73C200E8BDD1 /* Aeon Garden Shared */,
+				B413AB6C224D73C200E8BDD1 /* Core */,
 				44387DD8234D6E390073767A /* Platform Support */,
 				B48DDAB21F80943500DEA908 /* Products */,
 				C3FE8F8E96A673E848F74E7E /* Pods */,
@@ -555,7 +555,7 @@
 				4431A05E22AB1CC900865489 /* AeonTextures.swift */,
 			);
 			name = Nodes;
-			path = "Aeon Garden Shared/Nodes";
+			path = Core/Nodes;
 			sourceTree = SOURCE_ROOT;
 		};
 		B4DEED362248065B0026604C /* Scenes */ = {
@@ -564,7 +564,7 @@
 				B48DDABA1F80943500DEA908 /* AeonTankScene.swift */,
 			);
 			name = Scenes;
-			path = "Aeon Garden Shared/Scenes";
+			path = Core/Scenes;
 			sourceTree = SOURCE_ROOT;
 		};
 		C3FE8F8E96A673E848F74E7E /* Pods */ = {
