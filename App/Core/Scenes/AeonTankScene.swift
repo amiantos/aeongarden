@@ -274,7 +274,7 @@ extension AeonTankScene {
     public func loadCreaturesIntoScene(_ creatures: [Creature]) {
         for creature in creatures {
             if creatureNodes.count < creatureInitialAmount {
-                addNewCreatureToScene(with: creature)
+                addNewFavoriteCreatureToScene(with: creature)
                 addFoodPelletToScene()
             } else {
                 break
@@ -316,7 +316,7 @@ extension AeonTankScene {
         aeonCreature.born()
     }
 
-    fileprivate func addNewCreatureToScene(with creature: Creature) {
+    fileprivate func addNewFavoriteCreatureToScene(with creature: Creature) {
         let aeonCreature = AeonCreatureNode(with: creature)
         aeonCreature.isFavorite = true
         aeonCreature.position = CGPoint(

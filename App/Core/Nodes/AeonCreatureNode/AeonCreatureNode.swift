@@ -87,6 +87,8 @@ class AeonCreatureNode: SKNode, Updatable {
 
         uuid = creatureStruct.uuid
 
+        currentHealth = CGFloat(creatureStruct.currentHealth)
+
         super.init()
         brain?.delegate = self
 

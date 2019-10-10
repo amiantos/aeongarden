@@ -28,7 +28,7 @@ public class ManagedCreature: NSManagedObject {
             primaryHue: self.primaryHue,
             isFavorite: true,
             lifeTime: 0,
-            currentHealth: 0,
+            currentHealth: Float(randomCGFloat(min: 100, max: 200)),
             positionX: 0,
             positionY: 0
         )
