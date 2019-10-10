@@ -83,6 +83,8 @@ class AeonCreatureNode: SKNode, Updatable {
         sizeModififer = CGFloat(creatureStruct.sizeModifier)
         turnSpeed = CGFloat(creatureStruct.turnSpeed)
 
+        isFavorite = creatureStruct.isFavorite
+
         uuid = creatureStruct.uuid
 
         super.init()
