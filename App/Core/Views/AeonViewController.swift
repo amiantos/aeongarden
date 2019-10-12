@@ -103,29 +103,28 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         override var prefersHomeIndicatorAutoHidden: Bool {
             return true
         }
-
     #endif
 
     // MARK: Button Actions
 
-    @objc func newTank(sender _: UIButton!) {
+    @objc func newTank() {
         scene = viewModel?.createNewTank(size: view.bounds.size, device: deviceType)
         skView?.presentScene(scene)
     }
 
-    @objc func saveTank(sender _: UIButton!) {
+    @objc func saveTank() {
         guard let scene = scene else { return }
         viewModel?.saveTank(scene)
     }
 
-    @objc func loadTank(sender _: UIButton!) {
+    @objc func loadTank() {
         viewModel?.loadTank(size: view.bounds.size, device: deviceType, completion: { scene in
             self.scene = scene
             self.skView!.presentScene(scene)
         })
     }
 
-    @objc func toggleFavoriteForSelectedCreature(sender _: UIButton!) {
+    @objc func toggleFavoriteForSelectedCreature() {
         if let creature = scene?.selectedCreature {
             creature.isFavorite.toggle()
             if creature.isFavorite {
@@ -504,9 +503,9 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             button.layoutSubviews()
         }
 
-        mainNewTankButton.addTarget(self, action: #selector(newTank), for: .touchUpInside)
-        mainSaveTankButton.addTarget(self, action: #selector(saveTank), for: .touchUpInside)
-        mainLoadTankButton.addTarget(self, action: #selector(loadTank), for: .touchUpInside)
+        mainNewTankButton.addTarget(self, action: #selector(newTank), for: .primaryActionTriggered)
+        mainSaveTankButton.addTarget(self, action: #selector(saveTank), for: .primaryActionTriggered)
+        mainLoadTankButton.addTarget(self, action: #selector(loadTank), for: .primaryActionTriggered)
 
         mainNewTankButton.trailingAnchor.constraint(equalTo: mainContainerView.trailingAnchor, constant: 20).isActive = true
         mainLoadTankButton.trailingAnchor.constraint(equalTo: mainNewTankButton.leadingAnchor, constant: -UISettings.styles.buttonSpacing).isActive = true
@@ -618,7 +617,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             button.layoutSubviews()
         }
 
-        detailsFavoriteButton.addTarget(self, action: #selector(toggleFavoriteForSelectedCreature), for: .touchUpInside)
+        detailsFavoriteButton.addTarget(self, action: #selector(toggleFavoriteForSelectedCreature), for: .primaryActionTriggered)
 
         detailsRenameButton.trailingAnchor.constraint(equalTo: detailsContainerView.trailingAnchor, constant: 0).isActive = true
         detailsFavoriteButton.trailingAnchor.constraint(equalTo: detailsRenameButton.leadingAnchor, constant: -UISettings.styles.buttonSpacing).isActive = true
