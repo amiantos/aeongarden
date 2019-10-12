@@ -105,7 +105,7 @@ class AeonViewModel {
             )
         case .tv:
             tankSettings = TankSettings(
-                foodMaxAmount: 30,
+                foodMaxAmount: 25,
                 foodHealthRestorationBaseValue: 120,
                 foodSpawnRate: 2,
                 creatureInitialAmount: 30,
@@ -117,7 +117,7 @@ class AeonViewModel {
             )
         default:
             tankSettings = TankSettings(
-                foodMaxAmount: 20,
+                foodMaxAmount: 15,
                 foodHealthRestorationBaseValue: 120,
                 foodSpawnRate: 2,
                 creatureInitialAmount: 20,
