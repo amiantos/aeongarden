@@ -176,7 +176,7 @@ struct Creature {
 
     func delete() {
         #if os(iOS) || os(tvOS)
-        CoreDataStore.standard.deleteCreature(self)
+            CoreDataStore.standard.deleteCreature(self)
         #endif
     }
 }
