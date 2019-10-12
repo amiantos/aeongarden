@@ -18,7 +18,7 @@ class AeonCreatureNode: SKNode, Updatable {
 
     // MARK: - Creature Details
 
-    public let firstName: String
+    public var firstName: String
     public var lastName: String
     public var fullName: String
 

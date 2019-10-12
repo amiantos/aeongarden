@@ -146,6 +146,36 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         }
     }
 
+    @objc func renameSelectedCreature() {
+        if let creature = scene?.selectedCreature {
+            let actionSheet = UIAlertController(title: "Rename Creature", message: "Rename \"\(creature.fullName)\" to...", preferredStyle: .alert)
+            actionSheet.addTextField { textField in
+                textField.autocapitalizationType = .words
+                textField.placeholder = "First Name"
+            }
+            actionSheet.addTextField { textField in
+                textField.autocapitalizationType = .words
+                textField.placeholder = "Last Name"
+            }
+
+            let okButton = UIAlertAction(title: "OK", style: .default) { _ in
+                guard let firstName = actionSheet.textFields?[0].text,
+                      let lastName = actionSheet.textFields?[1].text,
+                      !firstName.isEmpty,
+                      !lastName.isEmpty else { return }
+
+                self.viewModel?.renameCreature(creature, firstName: firstName, lastName: lastName)
+                Log.info("Renamed creature to \(firstName) \(lastName).")
+            }
+            actionSheet.addAction(okButton)
+
+            let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            actionSheet.addAction(cancelButton)
+            present(actionSheet, animated: true)
+            actionSheet.view.tintColor = UIColor(named: "text") ?? .darkGray
+        }
+    }
+
     // MARK: tvOS Controls
 
     #if os(tvOS)
@@ -222,9 +252,9 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode) {
-        if detailsTitle != creature.name {
+        if detailsTitle != creature.fullName {
             disableDetailUpdates = true
-            detailsTitle = creature.name
+            detailsTitle = creature.fullName
             detailsTitleChanged()
             updateFavoriteButtonLabel()
         }
@@ -618,6 +648,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         }
 
         detailsFavoriteButton.addTarget(self, action: #selector(toggleFavoriteForSelectedCreature), for: .primaryActionTriggered)
+        detailsRenameButton.addTarget(self, action: #selector(renameSelectedCreature), for: .primaryActionTriggered)
 
         detailsRenameButton.trailingAnchor.constraint(equalTo: detailsContainerView.trailingAnchor, constant: 0).isActive = true
         detailsFavoriteButton.trailingAnchor.constraint(equalTo: detailsRenameButton.leadingAnchor, constant: -UISettings.styles.buttonSpacing).isActive = true

@@ -88,6 +88,15 @@ class AeonViewModel {
         creatureStruct.delete()
     }
 
+    func renameCreature(_ creature: AeonCreatureNode, firstName: String, lastName: String) {
+        creature.firstName = firstName
+        creature.lastName = lastName
+        creature.fullName = "\(firstName) \(lastName)"
+        if creature.isFavorite {
+            saveCreature(creature)
+        }
+    }
+
     func getTankSettings(for device: DeviceType) -> TankSettings {
         var tankSettings: TankSettings?
         switch device {

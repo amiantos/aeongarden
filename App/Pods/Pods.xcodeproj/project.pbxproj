@@ -15,6 +15,7 @@
 			dependencies = (
 			);
 			name = "SwiftLint-tvOS";
+			productName = "SwiftLint-tvOS";
 		};
 		2B03D5FD26A26B7D62142EA4492AEB83 /* SwiftLint-iOS */ = {
 			isa = PBXAggregateTarget;
@@ -24,6 +25,7 @@
 			dependencies = (
 			);
 			name = "SwiftLint-iOS";
+			productName = "SwiftLint-iOS";
 		};
 		9F0E6E0C8BF75091EADD98FA13B1A847 /* SwiftLint-macOS */ = {
 			isa = PBXAggregateTarget;
@@ -33,6 +35,7 @@
 			dependencies = (
 			);
 			name = "SwiftLint-macOS";
+			productName = "SwiftLint-macOS";
 		};
 /* End PBXAggregateTarget section */
 
@@ -75,11 +78,11 @@
 /* Begin PBXFileReference section */
 		063980515B5040A2583EA67B46A30902 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		0E16EE9EC5ACE59D3631B34277DBE2DF /* Pods-Aeon Garden iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Aeon Garden iOS.release.xcconfig"; sourceTree = "<group>"; };
-		135F806A73E622BFB3F6F373E039E5A0 /* Pods_Aeon_Garden_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Aeon_Garden_tvOS.framework; path = "Pods-Aeon Garden tvOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		135F806A73E622BFB3F6F373E039E5A0 /* Pods_Aeon_Garden_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2389D7409F806AE1D82AC4D017B569EB /* Pods-Aeon Garden tvOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Aeon Garden tvOS.modulemap"; sourceTree = "<group>"; };
 		314D8A3ACB2722BB7D0D34FBC3182EF7 /* Pods-Aeon Garden macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Aeon Garden macOS-umbrella.h"; sourceTree = "<group>"; };
 		40BC3B3BC77F9D9B3605C784700BE65B /* Pods-Aeon Garden iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Aeon Garden iOS.debug.xcconfig"; sourceTree = "<group>"; };
-		4703A9F0AF43E9AE183F4CDA3FE9BE81 /* Pods_Aeon_Garden_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Aeon_Garden_iOS.framework; path = "Pods-Aeon Garden iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4703A9F0AF43E9AE183F4CDA3FE9BE81 /* Pods_Aeon_Garden_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52A8DAF44317F4D7372BC9CC94659720 /* Pods-Aeon Garden tvOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Aeon Garden tvOS-umbrella.h"; sourceTree = "<group>"; };
 		5587388C5D6E8CCFFDC10C644042D2EE /* Pods-Aeon Garden tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Aeon Garden tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		577E5DD494DB6E90B4E5FCC4BC6D951B /* Pods-Aeon Garden tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Aeon Garden tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -88,11 +91,11 @@
 		6D297DB89C9938618D42EB1BADD83997 /* Pods-Aeon Garden tvOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Aeon Garden tvOS-dummy.m"; sourceTree = "<group>"; };
 		757D2D46FDFA930EA4577E7E779E17FF /* Pods-Aeon Garden iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Aeon Garden iOS-dummy.m"; sourceTree = "<group>"; };
 		81E49F38D7FCD0CA4ED4DC737CA165E8 /* Pods-Aeon Garden macOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Aeon Garden macOS-acknowledgements.markdown"; sourceTree = "<group>"; };
-		874E478210A651C35439105B966A9ADE /* Pods_Aeon_Garden_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Aeon_Garden_macOS.framework; path = "Pods-Aeon Garden macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		874E478210A651C35439105B966A9ADE /* Pods_Aeon_Garden_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Aeon_Garden_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CACA78DADD5127BDB2475B298F25A91 /* SwiftLint-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "SwiftLint-macOS.xcconfig"; path = "../SwiftLint-macOS/SwiftLint-macOS.xcconfig"; sourceTree = "<group>"; };
 		93FA43211E64C07EFB577C2B2A4A0BC5 /* SwiftLint-tvOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "SwiftLint-tvOS.xcconfig"; path = "../SwiftLint-tvOS/SwiftLint-tvOS.xcconfig"; sourceTree = "<group>"; };
 		9C1C5A82EBF62E3C5751F2E32AA2F099 /* Pods-Aeon Garden macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Aeon Garden macOS.modulemap"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A164422AB0DD8E8454EED20EB30EAA14 /* Pods-Aeon Garden tvOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Aeon Garden tvOS-acknowledgements.markdown"; sourceTree = "<group>"; };
 		A21EFE33AE0E5DFE45855621ACA59421 /* Pods-Aeon Garden tvOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Aeon Garden tvOS-Info.plist"; sourceTree = "<group>"; };
 		A7E0D89F6166D0108119BB4FC6043CFB /* SwiftLint-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "SwiftLint-iOS.xcconfig"; sourceTree = "<group>"; };
@@ -158,7 +161,6 @@
 			children = (
 				C9498E2BEA00A00A13408A4081DD41F4 /* Support Files */,
 			);
-			name = SwiftLint;
 			path = SwiftLint;
 			sourceTree = "<group>";
 		};
@@ -372,7 +374,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1110;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 8.0";
@@ -380,6 +382,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			productRefGroup = 9E30A1886A036321D39003D00FA7064A /* Products */;
@@ -487,7 +490,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A7E0D89F6166D0108119BB4FC6043CFB /* SwiftLint-iOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -617,8 +619,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 				TVOS_DEPLOYMENT_TARGET = 11;
@@ -630,7 +631,6 @@
 			baseConfigurationReference = 40BC3B3BC77F9D9B3605C784700BE65B /* Pods-Aeon Garden iOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -665,7 +665,6 @@
 			baseConfigurationReference = 5B7F97F4BE64828D100AE6E04BFFA251 /* Pods-Aeon Garden macOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -700,7 +699,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8CACA78DADD5127BDB2475B298F25A91 /* SwiftLint-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "-";
@@ -715,7 +713,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A7E0D89F6166D0108119BB4FC6043CFB /* SwiftLint-iOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -730,7 +727,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8CACA78DADD5127BDB2475B298F25A91 /* SwiftLint-macOS.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "-";
@@ -746,7 +742,6 @@
 			baseConfigurationReference = FE38FAC80F5C1BA11F4194DCF3988FFA /* Pods-Aeon Garden macOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -862,7 +857,6 @@
 			baseConfigurationReference = 0E16EE9EC5ACE59D3631B34277DBE2DF /* Pods-Aeon Garden iOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
