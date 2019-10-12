@@ -7,10 +7,8 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(ManagedBubble)
-public class ManagedBubble: NSManagedObject {
-
-}
+public class ManagedBubble: NSManagedObject {}

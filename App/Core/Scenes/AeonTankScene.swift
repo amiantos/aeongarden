@@ -94,12 +94,12 @@ class AeonTankScene: SKScene {
 
     override func sceneDidLoad() {
         setupFrame()
-        setupCamera()
-        setupBackgroundAnimation()
     }
 
     override func didMove(to _: SKView) {
         physicsWorld.contactDelegate = self
+        setupCamera()
+        setupBackgroundAnimation()
     }
 
     override func addChild(_ node: SKNode) {
@@ -135,7 +135,7 @@ class AeonTankScene: SKScene {
             lastBubbleTime = currentTime
         }
 
-        Log.debug("Food Spawner: Last Spawn \(currentTime - lastFoodTime) - Current Food: \(foodNodes.count) - Max Food: \(foodMaxAmount)")
+        // Log.debug("Food Spawner: Last Spawn \(currentTime - lastFoodTime) - Current Food: \(foodNodes.count) - Max Food: \(foodMaxAmount)")
         if (currentTime - lastFoodTime) >= 2,
             foodNodes.count < foodMaxAmount {
             addFoodPelletToScene()
@@ -271,15 +271,25 @@ class AeonTankScene: SKScene {
 // MARK: - Node Creation
 
 extension AeonTankScene {
-    public func createInitialCreatures() {
-        var totalCreatures: Int = 0
-        var initialCreatureHue: CGFloat = 0
-        let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(creatureInitialAmount))
+    public func loadCreaturesIntoScene(_ creatures: [Creature]) {
+        for creature in creatures {
+            if creatureNodes.count < creatureInitialAmount {
+                addNewFavoriteCreatureToScene(with: creature)
+                addFoodPelletToScene()
+            } else {
+                break
+            }
+        }
+    }
 
-        while totalCreatures < creatureInitialAmount {
+    public func createInitialCreatures() {
+        var initialCreatureHue: CGFloat = 0
+        let creaturesToCreate = creatureInitialAmount - creatureNodes.count
+        let colorHueIncrement: CGFloat = CGFloat(360 / CGFloat(creaturesToCreate))
+
+        while creatureNodes.count < creatureInitialAmount {
             addNewCreatureToScene(withPrimaryHue: initialCreatureHue)
             addFoodPelletToScene()
-            totalCreatures += 1
             initialCreatureHue += colorHueIncrement
         }
     }
@@ -295,6 +305,20 @@ extension AeonTankScene {
 
     fileprivate func addNewCreatureToScene(withPrimaryHue primaryHue: CGFloat) {
         let aeonCreature = AeonCreatureNode(withPrimaryHue: primaryHue)
+        aeonCreature.position = CGPoint(
+            x: randomCGFloat(min: size.width * 0.05, max: size.width * 0.95),
+            y: randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)
+        )
+        aeonCreature.zRotation = randomCGFloat(min: 0, max: 10)
+        aeonCreature.zPosition = 12
+        addChild(aeonCreature)
+        aeonCreature.scaleAnimation()
+        aeonCreature.born()
+    }
+
+    fileprivate func addNewFavoriteCreatureToScene(with creature: Creature) {
+        let aeonCreature = AeonCreatureNode(with: creature)
+        aeonCreature.isFavorite = true
         aeonCreature.position = CGPoint(
             x: randomCGFloat(min: size.width * 0.05, max: size.width * 0.95),
             y: randomCGFloat(min: size.height * 0.05, max: size.height * 0.95)

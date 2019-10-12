@@ -18,7 +18,7 @@ class AeonCreatureNode: SKNode, Updatable {
 
     // MARK: - Creature Details
 
-    public let firstName: String
+    public var firstName: String
     public var lastName: String
     public var fullName: String
 
@@ -83,7 +83,11 @@ class AeonCreatureNode: SKNode, Updatable {
         sizeModififer = CGFloat(creatureStruct.sizeModifier)
         turnSpeed = CGFloat(creatureStruct.turnSpeed)
 
+        isFavorite = creatureStruct.isFavorite
+
         uuid = creatureStruct.uuid
+
+        currentHealth = CGFloat(creatureStruct.currentHealth)
 
         super.init()
         brain?.delegate = self
@@ -463,7 +467,7 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
             abs(mate.primaryHue - primaryHue),
             360 - abs(mate.primaryHue - primaryHue)
         )
-        let distance = self.getDistance(toNode: mate)
+        let distance = getDistance(toNode: mate)
         return similarHue + (distance / 2)
     }
 

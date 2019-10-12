@@ -73,7 +73,7 @@ open class Log {
     }()
 
     /// Generic log method
-    private static func log<T>(_ object: @autoclosure () -> T, level: Log.Level, _ fileName: String, _ functionName: String, _ line: Int) {
+    private static func log<T>(_ object: @autoclosure () -> T, level: Log.Level, _ fileName: String, _: String, _ line: Int) {
         if logLevel.rawValue <= level.rawValue {
             let date = Log.dateformatter.string(from: Date())
             let components: [String] = fileName.components(separatedBy: "/")

@@ -7,9 +7,8 @@
 //
 //
 
-import Foundation
 import CoreData
-
+import Foundation
 
 extension ManagedLimb {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ManagedLimb> {
@@ -38,22 +37,22 @@ extension ManagedLimb {
 extension ManagedLimb {
     func toStruct() -> Limb {
         return Limb(
-            shape: BodyPart(rawValue: self.shape) ?? .triangle,
-            hue: self.hue,
-            blend: self.blend,
-            brightness: self.brightness,
-            saturation: self.saturation,
-            limbWidth: Int(self.limbWidth),
-            wiggleFactor: self.wiggleFactor,
-            wiggleMoveFactor: self.wiggleMoveFactor,
-            wiggleMoveBackFactor: self.wiggleMoveBackFactor,
-            wiggleActionDuration: self.wiggleActionDuration,
-            wiggleActionBackDuration: self.wiggleActionBackDuration,
-            wiggleActionMovementDuration: self.wiggleActionMovementDuration,
-            wiggleActionMovementBackDuration: self.wiggleActionMovementBackDuration,
-            limbzRotation: self.limbzRotation,
-            positionX: self.positionX,
-            positionY: self.positionY
+            shape: BodyPart(rawValue: shape) ?? .triangle,
+            hue: hue,
+            blend: blend,
+            brightness: brightness,
+            saturation: saturation,
+            limbWidth: Int(limbWidth),
+            wiggleFactor: wiggleFactor,
+            wiggleMoveFactor: wiggleMoveFactor,
+            wiggleMoveBackFactor: wiggleMoveBackFactor,
+            wiggleActionDuration: wiggleActionDuration,
+            wiggleActionBackDuration: wiggleActionBackDuration,
+            wiggleActionMovementDuration: wiggleActionMovementDuration,
+            wiggleActionMovementBackDuration: wiggleActionMovementBackDuration,
+            limbzRotation: limbzRotation,
+            positionX: positionX,
+            positionY: positionY
         )
     }
 }

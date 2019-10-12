@@ -55,7 +55,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         super.viewDidAppear(animated)
 
         DispatchQueue.main.async {
-            self.viewModel?.loadTank(size: self.view.bounds.size, device: self.deviceType, completion: { (newScene) in
+            self.viewModel?.loadTank(size: self.view.bounds.size, device: self.deviceType, completion: { newScene in
                 self.scene = newScene
 
                 self.skView = self.view as? SKView
@@ -68,7 +68,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
 
                 UIView.animate(withDuration: 2, animations: {
                     self.fadeView?.alpha = 0
-                }, completion: { (complete) in
+                }, completion: { complete in
                     if complete {
                         self.fadeView?.removeFromSuperview()
                     }
@@ -103,32 +103,35 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         override var prefersHomeIndicatorAutoHidden: Bool {
             return true
         }
-
     #endif
 
     // MARK: Button Actions
 
-    @objc func newTank(sender _: UIButton!) {
+    @objc func newTank() {
         scene = viewModel?.createNewTank(size: view.bounds.size, device: deviceType)
         skView?.presentScene(scene)
     }
 
-    @objc func saveTank(sender _: UIButton!) {
+    @objc func saveTank() {
         guard let scene = scene else { return }
         viewModel?.saveTank(scene)
     }
 
-    @objc func loadTank(sender _: UIButton!) {
-        viewModel?.loadTank(size: view.bounds.size, device: deviceType, completion: { (scene) in
+    @objc func loadTank() {
+        viewModel?.loadTank(size: view.bounds.size, device: deviceType, completion: { scene in
             self.scene = scene
             self.skView!.presentScene(scene)
         })
     }
 
-    @objc func toggleFavoriteForSelectedCreature(sender _: UIButton!) {
+    @objc func toggleFavoriteForSelectedCreature() {
         if let creature = scene?.selectedCreature {
             creature.isFavorite.toggle()
-            print(creature.isFavorite)
+            if creature.isFavorite {
+                viewModel?.saveCreature(creature)
+            } else {
+                viewModel?.deleteCreature(creature)
+            }
             updateFavoriteButtonLabel()
         }
     }
@@ -140,6 +143,36 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             } else {
                 detailsFavoriteButton.setTitle("Mark Favorite".uppercased(), for: .normal)
             }
+        }
+    }
+
+    @objc func renameSelectedCreature() {
+        if let creature = scene?.selectedCreature {
+            let actionSheet = UIAlertController(title: "Rename Creature", message: "Rename \"\(creature.fullName)\" to...", preferredStyle: .alert)
+            actionSheet.addTextField { textField in
+                textField.autocapitalizationType = .words
+                textField.placeholder = "First Name"
+            }
+            actionSheet.addTextField { textField in
+                textField.autocapitalizationType = .words
+                textField.placeholder = "Last Name"
+            }
+
+            let okButton = UIAlertAction(title: "OK", style: .default) { _ in
+                guard let firstName = actionSheet.textFields?[0].text,
+                      let lastName = actionSheet.textFields?[1].text,
+                      !firstName.isEmpty,
+                      !lastName.isEmpty else { return }
+
+                self.viewModel?.renameCreature(creature, firstName: firstName, lastName: lastName)
+                Log.info("Renamed creature to \(firstName) \(lastName).")
+            }
+            actionSheet.addAction(okButton)
+
+            let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            actionSheet.addAction(cancelButton)
+            present(actionSheet, animated: true)
+            actionSheet.view.tintColor = UIColor(named: "text") ?? .darkGray
         }
     }
 
@@ -219,9 +252,9 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode) {
-        if detailsTitle != creature.name {
+        if detailsTitle != creature.fullName {
             disableDetailUpdates = true
-            detailsTitle = creature.name
+            detailsTitle = creature.fullName
             detailsTitleChanged()
             updateFavoriteButtonLabel()
         }
@@ -500,9 +533,9 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             button.layoutSubviews()
         }
 
-        mainNewTankButton.addTarget(self, action: #selector(newTank), for: .touchUpInside)
-        mainSaveTankButton.addTarget(self, action: #selector(saveTank), for: .touchUpInside)
-        mainLoadTankButton.addTarget(self, action: #selector(loadTank), for: .touchUpInside)
+        mainNewTankButton.addTarget(self, action: #selector(newTank), for: .primaryActionTriggered)
+        mainSaveTankButton.addTarget(self, action: #selector(saveTank), for: .primaryActionTriggered)
+        mainLoadTankButton.addTarget(self, action: #selector(loadTank), for: .primaryActionTriggered)
 
         mainNewTankButton.trailingAnchor.constraint(equalTo: mainContainerView.trailingAnchor, constant: 20).isActive = true
         mainLoadTankButton.trailingAnchor.constraint(equalTo: mainNewTankButton.leadingAnchor, constant: -UISettings.styles.buttonSpacing).isActive = true
@@ -614,7 +647,8 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             button.layoutSubviews()
         }
 
-        detailsFavoriteButton.addTarget(self, action: #selector(toggleFavoriteForSelectedCreature), for: .touchUpInside)
+        detailsFavoriteButton.addTarget(self, action: #selector(toggleFavoriteForSelectedCreature), for: .primaryActionTriggered)
+        detailsRenameButton.addTarget(self, action: #selector(renameSelectedCreature), for: .primaryActionTriggered)
 
         detailsRenameButton.trailingAnchor.constraint(equalTo: detailsContainerView.trailingAnchor, constant: 0).isActive = true
         detailsFavoriteButton.trailingAnchor.constraint(equalTo: detailsRenameButton.leadingAnchor, constant: -UISettings.styles.buttonSpacing).isActive = true

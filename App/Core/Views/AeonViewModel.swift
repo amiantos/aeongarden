@@ -16,7 +16,6 @@ enum DeviceType {
 }
 
 class AeonViewModel {
-
     weak var view: AeonViewController?
     weak var scene: AeonTankScene?
     var autosaveTimer: Timer?
@@ -51,14 +50,17 @@ class AeonViewModel {
 
     func createNewTank(size: CGSize, device: DeviceType) -> AeonTankScene {
         let newScene = createScene(size: size, device: device)
-        newScene.createInitialCreatures()
-        newScene.createInitialBubbles()
+        CoreDataStore.standard.getCreatures { creatures in
+            newScene.loadCreaturesIntoScene(creatures)
+            newScene.createInitialCreatures()
+            newScene.createInitialBubbles()
+        }
         scene = newScene
         return newScene
     }
 
     func loadTank(size: CGSize, device: DeviceType, completion: @escaping (AeonTankScene) -> Void) {
-        Tank.getAll { (tanks) in
+        Tank.getAll { tanks in
             Log.info("Number of tanks in storage: \(tanks.count)")
             if let tank = tanks.last {
                 let newScene = self.createScene(size: size, device: device)
@@ -76,6 +78,25 @@ class AeonViewModel {
         tankStruct.save()
     }
 
+    func saveCreature(_ creature: AeonCreatureNode) {
+        let creatureStruct = Creature.from(creature)
+        creatureStruct.save()
+    }
+
+    func deleteCreature(_ creature: AeonCreatureNode) {
+        let creatureStruct = Creature.from(creature)
+        creatureStruct.delete()
+    }
+
+    func renameCreature(_ creature: AeonCreatureNode, firstName: String, lastName: String) {
+        creature.firstName = firstName
+        creature.lastName = lastName
+        creature.fullName = "\(firstName) \(lastName)"
+        if creature.isFavorite {
+            saveCreature(creature)
+        }
+    }
+
     func getTankSettings(for device: DeviceType) -> TankSettings {
         var tankSettings: TankSettings?
         switch device {
@@ -87,38 +108,37 @@ class AeonViewModel {
                 creatureInitialAmount: 10,
                 creatureMinimumAmount: 5,
                 creatureSpawnRate: 5,
-                creatureBirthSuccessRate: 0.17,
+                creatureBirthSuccessRate: 0.10,
                 backgroundParticleBirthrate: 30,
                 backgroundParticleLifetime: 20
             )
         case .tv:
             tankSettings = TankSettings(
-                foodMaxAmount: 30,
+                foodMaxAmount: 25,
                 foodHealthRestorationBaseValue: 120,
                 foodSpawnRate: 2,
                 creatureInitialAmount: 30,
-                creatureMinimumAmount: 5,
+                creatureMinimumAmount: 15,
                 creatureSpawnRate: 5,
-                creatureBirthSuccessRate: 0.17,
+                creatureBirthSuccessRate: 0.10,
                 backgroundParticleBirthrate: 60,
                 backgroundParticleLifetime: 50
             )
         default:
             tankSettings = TankSettings(
-                foodMaxAmount: 20,
+                foodMaxAmount: 15,
                 foodHealthRestorationBaseValue: 120,
                 foodSpawnRate: 2,
                 creatureInitialAmount: 20,
-                creatureMinimumAmount: 5,
+                creatureMinimumAmount: 10,
                 creatureSpawnRate: 5,
-                creatureBirthSuccessRate: 0.17,
+                creatureBirthSuccessRate: 0.10,
                 backgroundParticleBirthrate: 40,
                 backgroundParticleLifetime: 30
             )
         }
         return tankSettings!
     }
-
 }
 
 extension AeonViewModel: AeonTankUIDelegate {

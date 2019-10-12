@@ -7,12 +7,10 @@
 //
 //
 
-import Foundation
 import CoreData
-
+import Foundation
 
 extension ManagedFood {
-
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ManagedFood> {
         return NSFetchRequest<ManagedFood>(entityName: "ManagedFood")
     }
@@ -20,11 +18,10 @@ extension ManagedFood {
     @NSManaged public var positionX: Float
     @NSManaged public var positionY: Float
     @NSManaged public var tank: ManagedTank
-
 }
 
 extension ManagedFood {
     func toStruct() -> Food {
-        return Food(positionX: self.positionX, positionY: self.positionY)
+        return Food(positionX: positionX, positionY: positionY)
     }
 }

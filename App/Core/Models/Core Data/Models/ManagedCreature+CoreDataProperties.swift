@@ -7,12 +7,10 @@
 //
 //
 
-import Foundation
 import CoreData
-
+import Foundation
 
 extension ManagedCreature {
-
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ManagedCreature> {
         return NSFetchRequest<ManagedCreature>(entityName: "ManagedCreature")
     }
@@ -25,12 +23,11 @@ extension ManagedCreature {
     @NSManaged public var turnSpeed: Float
     @NSManaged public var uuid: UUID
     @NSManaged public var limbs: NSSet
-
 }
 
 // MARK: Generated accessors for limbs
-extension ManagedCreature {
 
+extension ManagedCreature {
     @objc(addLimbsObject:)
     @NSManaged public func addToLimbs(_ value: ManagedLimb)
 
@@ -42,5 +39,4 @@ extension ManagedCreature {
 
     @objc(removeLimbs:)
     @NSManaged public func removeFromLimbs(_ values: NSSet)
-
 }

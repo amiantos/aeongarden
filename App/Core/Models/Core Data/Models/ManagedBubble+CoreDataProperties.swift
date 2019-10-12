@@ -7,12 +7,10 @@
 //
 //
 
-import Foundation
 import CoreData
-
+import Foundation
 
 extension ManagedBubble {
-
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ManagedBubble> {
         return NSFetchRequest<ManagedBubble>(entityName: "ManagedBubble")
     }
@@ -20,11 +18,10 @@ extension ManagedBubble {
     @NSManaged public var positionX: Float
     @NSManaged public var positionY: Float
     @NSManaged public var tank: ManagedTank
-
 }
 
 extension ManagedBubble {
     func toStruct() -> Bubble {
-        return Bubble(positionX: self.positionX, positionY: self.positionY)
+        return Bubble(positionX: positionX, positionY: positionY)
     }
 }

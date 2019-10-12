@@ -32,7 +32,6 @@ struct TankSettings {
     let backgroundParticleLifetime: Int
 }
 
-
 struct Tank {
     let uuid: UUID
     let tankTime: Float
@@ -101,7 +100,7 @@ struct Tank {
 
     static func getAll(completion: @escaping ([Tank]) -> Void) {
         #if os(iOS) || os(tvOS)
-            CoreDataStore.standard.getTanks { (tanks) in
+            CoreDataStore.standard.getTanks { tanks in
                 completion(tanks)
             }
         #else
@@ -167,6 +166,18 @@ struct Creature {
             y: CGFloat(positionY)
         )
         creatureNode.born()
+    }
+
+    func save() {
+        #if os(iOS) || os(tvOS)
+            CoreDataStore.standard.saveCreature(self)
+        #endif
+    }
+
+    func delete() {
+        #if os(iOS) || os(tvOS)
+            CoreDataStore.standard.deleteCreature(self)
+        #endif
     }
 }
 

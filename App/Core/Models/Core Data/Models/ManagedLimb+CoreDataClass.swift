@@ -7,10 +7,8 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(ManagedLimb)
-public class ManagedLimb: NSManagedObject {
-
-}
+public class ManagedLimb: NSManagedObject {}

@@ -7,12 +7,10 @@
 //
 //
 
-import Foundation
 import CoreData
-
+import Foundation
 
 extension ManagedTankSettings {
-
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ManagedTankSettings> {
         return NSFetchRequest<ManagedTankSettings>(entityName: "ManagedTankSettings")
     }
@@ -27,21 +25,20 @@ extension ManagedTankSettings {
     @NSManaged public var backgroundParticleBirthrate: Int16
     @NSManaged public var backgroundParticleLifetime: Int16
     @NSManaged public var tank: ManagedTank
-
 }
 
 extension ManagedTankSettings {
     func toStruct() -> TankSettings {
         return TankSettings(
-            foodMaxAmount: Int(self.foodMaxAmount),
-            foodHealthRestorationBaseValue: self.foodHealthRestorationBaseValue,
-            foodSpawnRate: Int(self.foodSpawnRate),
-            creatureInitialAmount: Int(self.creatureInitialAmount),
-            creatureMinimumAmount: Int(self.creatureMinimumAmount),
-            creatureSpawnRate: Int(self.creatureSpawnRate),
-            creatureBirthSuccessRate: self.creatureBirthSuccessRate,
-            backgroundParticleBirthrate: Int(self.backgroundParticleBirthrate),
-            backgroundParticleLifetime: Int(self.backgroundParticleLifetime)
+            foodMaxAmount: Int(foodMaxAmount),
+            foodHealthRestorationBaseValue: foodHealthRestorationBaseValue,
+            foodSpawnRate: Int(foodSpawnRate),
+            creatureInitialAmount: Int(creatureInitialAmount),
+            creatureMinimumAmount: Int(creatureMinimumAmount),
+            creatureSpawnRate: Int(creatureSpawnRate),
+            creatureBirthSuccessRate: creatureBirthSuccessRate,
+            backgroundParticleBirthrate: Int(backgroundParticleBirthrate),
+            backgroundParticleLifetime: Int(backgroundParticleLifetime)
         )
     }
 }
