@@ -94,12 +94,12 @@ class AeonTankScene: SKScene {
 
     override func sceneDidLoad() {
         setupFrame()
-        setupCamera()
-        setupBackgroundAnimation()
     }
 
     override func didMove(to _: SKView) {
         physicsWorld.contactDelegate = self
+        setupCamera()
+        setupBackgroundAnimation()
     }
 
     override func addChild(_ node: SKNode) {
