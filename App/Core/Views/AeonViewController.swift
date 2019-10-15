@@ -246,6 +246,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     func creatureSelected(_ creature: AeonCreatureNode) {
+        Log.debug("Creature Selected")
         DispatchQueue.main.async {
             self.updateSelectedCreatureDetails(creature)
             self.showDetailsIfNeeded()

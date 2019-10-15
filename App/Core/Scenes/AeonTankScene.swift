@@ -84,13 +84,7 @@ class AeonTankScene: SKScene {
         }
     }
 
-    var selectedCreature: AeonCreatureNode? {
-        didSet {
-            if !autoCameraIsEnabled {
-                zoomOutCameraIfNeeded()
-            }
-        }
-    }
+    var selectedCreature: AeonCreatureNode?
 
     var autoCameraIsEnabled: Bool = false
 
@@ -131,7 +125,7 @@ class AeonTankScene: SKScene {
     // MARK: - Main Loop
 
     override func update(_ currentTime: TimeInterval) {
-        followSelectedCreatureWithCamera()
+        moveCameraPerFrame()
 
         if lastCreatureTime == 0 {
             lastFoodTime = currentTime
@@ -175,67 +169,117 @@ class AeonTankScene: SKScene {
 
     // MARK: - Camera Controls
 
-    func startAutoCamera() {
-        autoCameraIsEnabled = true
-        selectedCreature?.hideSelectionRing()
-        selectedCreature = nil
-        camera?.removeAllActions()
-
+    func zoomCameraIn() {
+        Log.debug("Zooming camera in...")
+//        camera?.run(SKAction.scale(to: UISettings.styles.cameraZoomScale, duration: 1))
         camera?.run(SKAction.scale(to: 0.4, duration: 1))
     }
 
-    func stopAutoCamera() {
-        autoCameraIsEnabled = false
-        zoomOutCameraIfNeeded()
-    }
-
-    fileprivate func zoomOutCameraIfNeeded() {
-        if let creature = selectedCreature {
-            tankDelegate?.creatureSelected(creature)
-        } else {
-            tankDelegate?.creatureDeselected()
-            camera?.removeAllActions()
-            let zoomInAction = SKAction.scale(to: 1, duration: 1)
-            let cameraAction = SKAction.move(
-                to: CGPoint(x: size.width / 2, y: size.height / 2),
-                duration: 1
-            )
-            camera?.run(SKAction.group([zoomInAction, cameraAction]))
-        }
-    }
-
-    func resetCamera() {
-        selectedCreature?.hideSelectionRing()
-        selectedCreature = nil
+    func zoomCameraOut() {
+        Log.debug("Zooming camera out...")
         camera?.removeAllActions()
-        let zoomInAction = SKAction.scale(to: 1, duration: 1)
-        let cameraAction = SKAction.move(
+        let scaleAction = SKAction.scale(to: 1, duration: 1)
+        let moveAction = SKAction.move(
             to: CGPoint(x: size.width / 2, y: size.height / 2),
             duration: 1
         )
-        camera?.run(SKAction.group([zoomInAction, cameraAction]))
+        camera?.run(SKAction.group([scaleAction, moveAction]))
+    }
+
+    func startAutoCamera() {
+        selectedCreature?.hideSelectionRing()
+        selectedCreature = nil
+
+        camera?.removeAllActions()
+        autoCameraIsEnabled = true
+    }
+
+    func stopAutoCamera() {
+        camera?.removeAllActions()
+        autoCameraIsEnabled = false
+        if let zoomTimer = zoomTimer {
+            zoomTimer.invalidate()
+        }
+        zoomTimer = nil
+        if let moveTimer = moveTimer {
+            moveTimer.invalidate()
+        }
+        moveTimer = nil
+    }
+
+    func resetCamera() {
+        deselectCreature()
+        zoomCameraOut()
     }
 
     func selectCreature(_ creature: AeonCreatureNode) {
+        Log.debug("Creature selected.")
+        autoCameraIsEnabled = false
         if creature != selectedCreature {
             selectedCreature?.hideSelectionRing()
         }
         selectedCreature = creature
         creature.displaySelectionRing(withColor: .aeonBrightYellow)
-//        camera?.run(SKAction.scale(to: UISettings.styles.cameraZoomScale, duration: 1))
-        camera?.run(SKAction.scale(to: 0.4, duration: 1))
+        zoomCameraIn()
+        tankDelegate?.creatureSelected(creature)
     }
 
     func deselectCreature() {
         selectedCreature?.hideSelectionRing()
         selectedCreature = nil
+        tankDelegate?.creatureDeselected()
     }
 
-    fileprivate func followSelectedCreatureWithCamera() {
+    func moveCameraPerFrame() {
         if let followCreature = self.selectedCreature {
             let cameraAction = SKAction.move(to: followCreature.position, duration: 0.25)
             camera?.run(cameraAction)
+        } else if autoCameraIsEnabled {
+            // MARK: Auto Camera Logic
+
+            // Shift zoom
+            if zoomTimer == nil {
+                changeCameraZoomLevel()
+            }
+
+            // Shift position
+            if moveTimer == nil {
+                changeCameraPosition()
+            }
+
         }
+    }
+
+    var zoomTimer: Timer?
+    @objc func changeCameraZoomLevel() {
+        Log.debug("Camera auto-zoom triggered.")
+
+        if let zoomTimer = zoomTimer {
+            zoomTimer.invalidate()
+        }
+
+        zoomTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(changeCameraZoomLevel), userInfo: nil, repeats: false)
+
+        let randomZoomLevel = randomCGFloat(min: 0.4, max: 0.8)
+        let action = SKAction.scale(to: randomZoomLevel, duration: 20)
+        action.timingMode = .easeInEaseOut
+        camera?.run(action)
+    }
+
+    var moveTimer: Timer?
+    @objc func changeCameraPosition() {
+        Log.debug("Camera auto-move triggered.")
+
+        if let moveTimer = moveTimer {
+            moveTimer.invalidate()
+        }
+
+        moveTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(changeCameraPosition), userInfo: nil, repeats: false)
+
+        let randomPosition = creatureNodes.randomElement()!.position
+        let action = SKAction.move(to: randomPosition, duration: 45)
+        action.timingMode = .easeInEaseOut
+        camera?.run(action)
     }
 
     // MARK: - Touch Events
@@ -384,7 +428,7 @@ extension AeonTankScene: SKPhysicsContactDelegate {
                 creatureB.mated()
                 AeonSoundManager.shared.play(.creatureMate, onNode: creatureA)
                 // Random chance to breed
-                if randomCGFloat(min: 0, max: 1) <= creatureBirthSuccessRate {
+                if randomCGFloat(min: 0, max: 0.1) <= creatureBirthSuccessRate {
                     birthCount += 1
                     let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
                     newCreature.position = creatureA.position
