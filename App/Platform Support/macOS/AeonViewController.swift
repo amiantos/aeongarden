@@ -29,6 +29,10 @@ class AeonViewController: NSViewController {
         skView?.showsDrawCount = true
         skView?.showsFPS = true
         skView?.showsNodeCount = true
+
+        scene.startAutoCamera()
+        scene.createInitialCreatures()
+        scene.createInitialBubbles()
     }
 }
 

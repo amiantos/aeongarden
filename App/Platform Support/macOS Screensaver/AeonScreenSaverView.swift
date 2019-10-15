@@ -35,15 +35,15 @@ class AeonScreenSaverView: ScreenSaverView {
     override func startAnimation() {
         if spriteView == nil {
             let tankSettings = TankSettings(
-                foodMaxAmount: 50,
+                foodMaxAmount: 30,
                 foodHealthRestorationBaseValue: 120,
-                foodSpawnRate: 1,
-                creatureInitialAmount: 50,
-                creatureMinimumAmount: 5,
+                foodSpawnRate: 2,
+                creatureInitialAmount: 30,
+                creatureMinimumAmount: 20,
                 creatureSpawnRate: 5,
                 creatureBirthSuccessRate: 1,
-                backgroundParticleBirthrate: 80,
-                backgroundParticleLifetime: 60
+                backgroundParticleBirthrate: 120,
+                backgroundParticleLifetime: 120
             )
             let spriteView = GameView(frame: frame)
             spriteView.ignoresSiblingOrder = false
@@ -54,6 +54,9 @@ class AeonScreenSaverView: ScreenSaverView {
             self.spriteView = spriteView
             addSubview(spriteView)
             spriteView.presentScene(scene)
+            scene.startAutoCamera()
+            scene.createInitialCreatures()
+            scene.createInitialBubbles()
         }
         super.startAnimation()
     }

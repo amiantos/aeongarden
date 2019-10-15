@@ -276,7 +276,7 @@ class AeonTankScene: SKScene {
 
         moveTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(changeCameraPosition), userInfo: nil, repeats: false)
 
-        let randomPosition = creatureNodes.randomElement()!.position
+        let randomPosition = creatureNodes.randomElement()?.position ?? CGPoint(x: size.width / 2, y: size.height / 2)
         let action = SKAction.move(to: randomPosition, duration: 45)
         action.timingMode = .easeInEaseOut
         camera?.run(action)
