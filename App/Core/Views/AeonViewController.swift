@@ -110,11 +110,13 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     @objc func newTank() {
         scene = viewModel?.createNewTank(size: view.bounds.size, device: deviceType)
         skView?.presentScene(scene)
+        viewModel?.activityOccurred()
     }
 
     @objc func saveTank() {
         guard let scene = scene else { return }
         viewModel?.saveTank(scene)
+        viewModel?.activityOccurred()
     }
 
     @objc func loadTank() {
@@ -122,6 +124,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             self.scene = scene
             self.skView!.presentScene(scene)
         })
+        viewModel?.activityOccurred()
     }
 
     @objc func toggleFavoriteForSelectedCreature() {
@@ -133,6 +136,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
                 viewModel?.deleteCreature(creature)
             }
             updateFavoriteButtonLabel()
+            viewModel?.activityOccurred()
         }
     }
 
@@ -166,6 +170,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
 
                 self.viewModel?.renameCreature(creature, firstName: firstName, lastName: lastName)
                 Log.info("Renamed creature to \(firstName) \(lastName).")
+                self.viewModel?.activityOccurred()
             }
             actionSheet.addAction(okButton)
 
@@ -209,10 +214,12 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
                 }
                 scene!.selectCreature(selected)
             }
+            viewModel?.activityOccurred()
         }
 
         @objc func deselectCreature() {
             scene!.deselectCreature()
+            viewModel?.activityOccurred()
         }
     #endif
 
@@ -242,12 +249,14 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         DispatchQueue.main.async {
             self.updateSelectedCreatureDetails(creature)
             self.showDetailsIfNeeded()
+            self.viewModel?.activityOccurred()
         }
     }
 
     func creatureDeselected() {
         DispatchQueue.main.async {
             self.hideDetailsIfNeeded()
+            self.viewModel?.activityOccurred()
         }
     }
 
@@ -275,6 +284,8 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     private func animateTransitionIfNeeded(to state: UIState, duration: TimeInterval) {
         guard runningAnimators.isEmpty else { return }
 
+        Log.debug("Animating UI to state \(state)")
+
         let transitionAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
             switch state {
             case .main:
@@ -289,6 +300,12 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
                 self.mainTitleLabel.alpha = 0
                 self.mainTitleLabelTopAnchorConstraint.constant = self.mainTitleLabelHiddenOffset
                 if self.runningNameAnimators.isEmpty { self.detailsTitleLabel.alpha = 1 }
+            case .none:
+                self.detailsBottomAnchorConstraint.constant = self.detailsHiddenOffset
+                self.detailsTitleLabel.alpha = 0
+                self.mainTopAnchorConstraint.constant = self.mainTopConstantHidden
+                self.mainTitleLabel.alpha = 0
+                self.mainTitleLabelTopAnchorConstraint.constant = self.mainTitleLabelHiddenOffset
             }
             self.view.layoutIfNeeded()
         }
@@ -318,6 +335,12 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
                 self.mainTitleLabel.alpha = 0
                 self.mainTitleLabelTopAnchorConstraint.constant = self.mainTitleLabelHiddenOffset
                 if self.runningNameAnimators.isEmpty { self.detailsTitleLabel.alpha = 1 }
+            case .none:
+                self.detailsBottomAnchorConstraint.constant = self.detailsHiddenOffset
+                self.detailsTitleLabel.alpha = 0
+                self.mainTopAnchorConstraint.constant = self.mainTopConstantHidden
+                self.mainTitleLabel.alpha = 0
+                self.mainTitleLabelTopAnchorConstraint.constant = self.mainTitleLabelHiddenOffset
             }
 
             self.runningAnimators.removeAll()
@@ -391,6 +414,12 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         removeNameAnimationsIfNeeded()
         removeAnimationsIfNeeded()
         animateTransitionIfNeeded(to: .main, duration: 1)
+    }
+
+    func hideAllMenusIfNeeded() {
+        removeNameAnimationsIfNeeded()
+        removeAnimationsIfNeeded()
+        animateTransitionIfNeeded(to: .none, duration: 1)
     }
 
     private func removeAnimationsIfNeeded() {

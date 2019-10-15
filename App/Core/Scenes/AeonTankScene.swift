@@ -86,9 +86,13 @@ class AeonTankScene: SKScene {
 
     var selectedCreature: AeonCreatureNode? {
         didSet {
-            zoomOutCameraIfNeeded()
+            if !autoCameraIsEnabled {
+                zoomOutCameraIfNeeded()
+            }
         }
     }
+
+    var autoCameraIsEnabled: Bool = false
 
     // MARK: - Scene
 
@@ -170,6 +174,20 @@ class AeonTankScene: SKScene {
     }
 
     // MARK: - Camera Controls
+
+    func startAutoCamera() {
+        autoCameraIsEnabled = true
+        selectedCreature?.hideSelectionRing()
+        selectedCreature = nil
+        camera?.removeAllActions()
+
+        camera?.run(SKAction.scale(to: 0.4, duration: 1))
+    }
+
+    func stopAutoCamera() {
+        autoCameraIsEnabled = false
+        zoomOutCameraIfNeeded()
+    }
 
     fileprivate func zoomOutCameraIfNeeded() {
         if let creature = selectedCreature {

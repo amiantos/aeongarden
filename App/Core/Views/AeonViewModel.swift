@@ -20,6 +20,10 @@ class AeonViewModel {
     weak var scene: AeonTankScene?
     var autosaveTimer: Timer?
 
+    var lastUserActivityTimeout: TimeInterval = 10  // default should be 120?
+    var idleTimer: Timer?
+    var autoCameraRunning: Bool = false
+
     init(for view: AeonViewController) {
         self.view = view
 
@@ -30,6 +34,8 @@ class AeonViewModel {
             userInfo: nil,
             repeats: true
         )
+
+        activityOccurred()
     }
 
     @objc private func autosave() {
@@ -38,6 +44,33 @@ class AeonViewModel {
         DispatchQueue.main.async {
             self.saveTank(scene)
         }
+    }
+
+    func activityOccurred() {
+        Log.debug("User activity occurred.")
+
+        if let idleTimer = idleTimer {
+            idleTimer.invalidate()
+        }
+
+        idleTimer = Timer.scheduledTimer(timeInterval: lastUserActivityTimeout, target: self, selector: #selector(startAutoCamera), userInfo: nil, repeats: false)
+
+        if autoCameraRunning {
+            stopAutoCamera()
+        }
+    }
+
+    @objc private func startAutoCamera() {
+        Log.debug("Auto camera started...")
+        scene?.startAutoCamera()
+        view?.hideAllMenusIfNeeded()
+        autoCameraRunning = true
+    }
+
+    private func stopAutoCamera() {
+        Log.debug("Auto camera stopped.")
+        scene?.stopAutoCamera()
+        autoCameraRunning = false
     }
 
     private func createScene(size: CGSize, device: DeviceType) -> AeonTankScene {
