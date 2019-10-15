@@ -428,7 +428,7 @@ extension AeonTankScene: SKPhysicsContactDelegate {
                 creatureB.mated()
                 AeonSoundManager.shared.play(.creatureMate, onNode: creatureA)
                 // Random chance to breed
-                if randomCGFloat(min: 0, max: 0.1) <= creatureBirthSuccessRate {
+                if randomCGFloat(min: 0, max: 1) <= creatureBirthSuccessRate {
                     birthCount += 1
                     let newCreature = AeonCreatureNode(withParents: [creatureA, creatureB])
                     newCreature.position = creatureA.position
