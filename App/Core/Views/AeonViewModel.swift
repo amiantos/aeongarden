@@ -20,7 +20,7 @@ class AeonViewModel {
     weak var scene: AeonTankScene?
     var autosaveTimer: Timer?
 
-    var lastUserActivityTimeout: TimeInterval = 10  // default should be 120?
+    var lastUserActivityTimeout: TimeInterval = 10 // default should be 120?
     var idleTimer: Timer?
     var autoCameraRunning: Bool = false
 

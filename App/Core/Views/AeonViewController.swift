@@ -164,9 +164,9 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
 
             let okButton = UIAlertAction(title: "OK", style: .default) { _ in
                 guard let firstName = actionSheet.textFields?[0].text,
-                      let lastName = actionSheet.textFields?[1].text,
-                      !firstName.isEmpty,
-                      !lastName.isEmpty else { return }
+                    let lastName = actionSheet.textFields?[1].text,
+                    !firstName.isEmpty,
+                    !lastName.isEmpty else { return }
 
                 self.viewModel?.renameCreature(creature, firstName: firstName, lastName: lastName)
                 Log.info("Renamed creature to \(firstName) \(lastName).")
