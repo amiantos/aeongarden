@@ -180,6 +180,7 @@ class AeonTankScene: SKScene {
 
     func resetCamera() {
         deselectCreature()
+        interfaceDelegate?.creatureDeselected()
     }
 
     func selectCreature(_ creature: AeonCreatureNode) {
