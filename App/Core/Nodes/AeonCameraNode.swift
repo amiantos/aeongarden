@@ -18,7 +18,10 @@ class AeonCameraNode: SKCameraNode, Updatable {
     weak var interfaceDelegate: AeonTankInterfaceDelegate?
 
     enum zoomState {
-        case zoomIn
+        case fullZoom
+        case threeQuartersZoom
+        case halfZoom
+        case quarterZoom
         case zoomOut
     }
 
@@ -31,15 +34,23 @@ class AeonCameraNode: SKCameraNode, Updatable {
             Log.info("Selected Node")
             if let currentCreature = selectedNode as? AeonCreatureNode, currentCreature != node {
                 currentCreature.hideSelectionRing()
+
+                if let cameraBody = node as? AeonCameraBodyNode {
+                    // If previously selected node was a creature,
+                    // and the new node is the camera body,
+                    // move the camera body there for a soft transition
+                    cameraBody.position = currentCreature.position
+                }
             }
 
             selectedNode = node
             if let newCreature = selectedNode as? AeonCreatureNode {
                 newCreature.displaySelectionRing(withColor: .aeonBrightYellow)
                 interfaceDelegate?.creatureSelected(newCreature)
+                zoom(.fullZoom)
+            } else {
+                zoom(.threeQuartersZoom)
             }
-
-            zoom(.zoomIn)
         }
     }
 
@@ -59,9 +70,18 @@ class AeonCameraNode: SKCameraNode, Updatable {
 
     func zoom(_ state: zoomState) {
         switch state {
-        case .zoomIn:
+        case .fullZoom:
             run(SKAction.scale(to: 0.4, duration: 1))
-            currentZoomState = .zoomIn
+            currentZoomState = .fullZoom
+        case .threeQuartersZoom:
+            run(SKAction.scale(to: 0.55, duration: 1))
+            currentZoomState = .halfZoom
+        case .halfZoom:
+            run(SKAction.scale(to: 0.7, duration: 1))
+            currentZoomState = .halfZoom
+        case .quarterZoom:
+            run(SKAction.scale(to: 0.85, duration: 1))
+            currentZoomState = .halfZoom
         case .zoomOut:
             guard let scene = scene else { fatalError("Camera is not in a scene.") }
             removeAllActions()
@@ -85,30 +105,13 @@ class AeonCameraNode: SKCameraNode, Updatable {
 
     func startAutoCamera() {
         Log.debug("Auto camera started...")
-//            deselectNode(animated: false)
         guard let body = body else { fatalError("No body for auto-camera to attach to.") }
         selectedNode(body)
         body.pickRandomTarget()
-        //        selectedCreature?.hideSelectionRing()
-        //        selectedCreature = nil
-        //
-        //        camera?.removeAllActions()
-        //        autoCameraIsEnabled = true
     }
 
     func stopAutoCamera() {
         Log.debug("Auto camera stopped.")
-
-        //        camera?.removeAllActions()
-        //        autoCameraIsEnabled = false
-        //        if let zoomTimer = zoomTimer {
-        //            zoomTimer.invalidate()
-        //        }
-        //        zoomTimer = nil
-        //        if let moveTimer = moveTimer {
-        //            moveTimer.invalidate()
-        //        }
-        //        moveTimer = nil
     }
 
     //    var zoomTimer: Timer?
