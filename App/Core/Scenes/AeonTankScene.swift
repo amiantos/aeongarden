@@ -77,7 +77,6 @@ class AeonTankScene: SKScene {
     public var bubbleNodes: [AeonBubbleNode] = []
 
     private var cameraNode: AeonCameraNode = AeonCameraNode()
-    private var cameraBodyNode: AeonCameraBodyNode = AeonCameraBodyNode()
 
     weak var interfaceDelegate: AeonTankInterfaceDelegate? {
         didSet {
@@ -126,7 +125,6 @@ class AeonTankScene: SKScene {
 
     override func update(_ currentTime: TimeInterval) {
         cameraNode.update(currentTime)
-        cameraBodyNode.update(currentTime)
 
         if lastCreatureTime == 0 {
             lastFoodTime = currentTime

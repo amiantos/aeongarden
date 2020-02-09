@@ -101,6 +101,7 @@ class AeonCameraNode: SKCameraNode, Updatable {
             let cameraAction = SKAction.move(to: selectedNode.position, duration: cameraMoveDuration)
             run(cameraAction)
         }
+        body.update(currentTime)
         lastUpdateTime = currentTime
     }
 
