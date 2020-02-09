@@ -13,7 +13,7 @@ class AeonCameraBodyNode: SKNode, Updatable {
     var currentTarget: CGPoint?
     var targetingTimer: Timer?
     var targetTimeLimit: TimeInterval = 10
-    public var movementSpeed: CGFloat = 12
+    public var movementSpeed: CGFloat = 8
     public var turnSpeed: CGFloat = 750
 
     required init?(coder _: NSCoder) {
