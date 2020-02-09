@@ -122,7 +122,7 @@ class AeonCameraNode: SKCameraNode, Updatable {
 
         zoomTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(changeCameraZoomLevel), userInfo: nil, repeats: false)
 
-        let randomZoomLevels: [zoomState] = [.halfZoom, .quarterZoom, .threeQuartersZoom, .fullZoom]
+        let randomZoomLevels: [zoomState] = [.halfZoom, .threeQuartersZoom, .fullZoom]
         zoom(randomZoomLevels.randomElement()!, speed: 20)
     }
 }
