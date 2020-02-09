@@ -11,7 +11,7 @@ If you'd like to contribute, please contact me @[amiantos](http://www.twitter.co
 - [x] Watch abstract creatures swim around and live their tiny lives in a virtual tank
 - [ ] Running tanks generate pleasing ambient sounds
 - [ ] Customize tank settings (food level, food spawn rate, and more)
-- [ ] Mark creatures as 'favorites' to persist them between tanks
+- [x] Mark creatures as 'favorites' to persist them between tanks
 - [ ] Cross-platform support
   - [x] iOS
   - [x] tvOS
