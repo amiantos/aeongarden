@@ -431,8 +431,8 @@ extension AeonTankScene {
         cameraNode.body = cameraBodyNode
         addChild(cameraBodyNode)
 
-//        listener = cameraNode
-//        audioEngine.mainMixerNode.outputVolume = 0.2
+        listener = cameraNode
+        audioEngine.mainMixerNode.outputVolume = 0.2
     }
 
     fileprivate func setupBackgroundAnimation() {

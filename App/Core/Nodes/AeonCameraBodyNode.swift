@@ -53,6 +53,9 @@ class AeonCameraBodyNode: SKNode, Updatable {
         if let randomNode = scene.creatureNodes.randomElement() {
             Log.debug("Picked new target for camera body: \(randomNode.position)")
             currentTarget = randomNode.position
+
+            targetingTimer?.invalidate()
+
             targetingTimer = Timer.scheduledTimer(
                 timeInterval: targetTimeLimit,
                 target: self,

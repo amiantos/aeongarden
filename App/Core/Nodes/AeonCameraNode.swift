@@ -14,6 +14,7 @@ class AeonCameraNode: SKCameraNode, Updatable {
     var autoCameraIsEnabled: Bool = false
     let cameraMoveDuration: TimeInterval = 0.25
     var lastUpdateTime: TimeInterval = 0
+    var zoomTimer: Timer?
     var currentZoomState: zoomState = .zoomOut
     weak var interfaceDelegate: AeonTankInterfaceDelegate?
 
@@ -49,7 +50,7 @@ class AeonCameraNode: SKCameraNode, Updatable {
                 interfaceDelegate?.creatureSelected(newCreature)
                 zoom(.fullZoom)
             } else {
-                zoom(.threeQuartersZoom)
+                changeCameraZoomLevel()
             }
         }
     }
@@ -68,24 +69,24 @@ class AeonCameraNode: SKCameraNode, Updatable {
         }
     }
 
-    func zoom(_ state: zoomState) {
+    func zoom(_ state: zoomState, speed: TimeInterval = 1) {
         switch state {
         case .fullZoom:
-            run(SKAction.scale(to: 0.4, duration: 1))
+            run(SKAction.scale(to: 0.4, duration: speed))
             currentZoomState = .fullZoom
         case .threeQuartersZoom:
-            run(SKAction.scale(to: 0.55, duration: 1))
+            run(SKAction.scale(to: 0.55, duration: speed))
             currentZoomState = .halfZoom
         case .halfZoom:
-            run(SKAction.scale(to: 0.7, duration: 1))
+            run(SKAction.scale(to: 0.7, duration: speed))
             currentZoomState = .halfZoom
         case .quarterZoom:
-            run(SKAction.scale(to: 0.85, duration: 1))
+            run(SKAction.scale(to: 0.85, duration: speed))
             currentZoomState = .halfZoom
         case .zoomOut:
             guard let scene = scene else { fatalError("Camera is not in a scene.") }
             removeAllActions()
-            let scaleAction = SKAction.scale(to: 1, duration: 1)
+            let scaleAction = SKAction.scale(to: 1, duration: speed)
             let moveAction = SKAction.move(
                 to: CGPoint(x: scene.size.width / 2, y: scene.size.height / 2),
                 duration: 1
@@ -114,35 +115,14 @@ class AeonCameraNode: SKCameraNode, Updatable {
         Log.debug("Auto camera stopped.")
     }
 
-    //    var zoomTimer: Timer?
-    //    @objc func changeCameraZoomLevel() {
-    //        Log.debug("Camera auto-zoom triggered.")
-    //
-    //        if let zoomTimer = zoomTimer {
-    //            zoomTimer.invalidate()
-    //        }
-    //
-    //        zoomTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(changeCameraZoomLevel), userInfo: nil, repeats: false)
-    //
-    //        let randomZoomLevel = randomCGFloat(min: 0.4, max: 0.8)
-    //        let action = SKAction.scale(to: randomZoomLevel, duration: 20)
-    //        action.timingMode = .easeInEaseOut
-    //        camera?.run(action)
-    //    }
-    //
-    //    var moveTimer: Timer?
-    //    @objc func changeCameraPosition() {
-    //        Log.debug("Camera auto-move triggered.")
-    //
-    //        if let moveTimer = moveTimer {
-    //            moveTimer.invalidate()
-    //        }
-    //
-    //        moveTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(changeCameraPosition), userInfo: nil, repeats: false)
-    //
-    //        let randomPosition = creatureNodes.randomElement()?.position ?? CGPoint(x: size.width / 2, y: size.height / 2)
-    //        let action = SKAction.move(to: randomPosition, duration: 45)
-    //        action.timingMode = .easeInEaseOut
-    //        camera?.run(action)
-    //    }
+    @objc func changeCameraZoomLevel() {
+        Log.debug("Camera auto-zoom updated.")
+
+        zoomTimer?.invalidate()
+
+        zoomTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(changeCameraZoomLevel), userInfo: nil, repeats: false)
+
+        let randomZoomLevels: [zoomState] = [.halfZoom, .quarterZoom, .threeQuartersZoom, .fullZoom]
+        zoom(randomZoomLevels.randomElement()!, speed: 20)
+    }
 }
