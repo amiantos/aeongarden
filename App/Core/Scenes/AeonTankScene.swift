@@ -77,14 +77,13 @@ class AeonTankScene: SKScene {
     public var bubbleNodes: [AeonBubbleNode] = []
 
     private var cameraNode: AeonCameraNode = AeonCameraNode()
+    private var cameraBodyNode: AeonCameraBodyNode = AeonCameraBodyNode()
 
     weak var interfaceDelegate: AeonTankInterfaceDelegate? {
         didSet {
             interfaceDelegate?.updatePopulation(creatureNodes.count)
         }
     }
-
-    var autoCameraIsEnabled: Bool = false
 
     // MARK: - Scene
 
@@ -127,6 +126,7 @@ class AeonTankScene: SKScene {
 
     override func update(_ currentTime: TimeInterval) {
         cameraNode.update(currentTime)
+        cameraBodyNode.update(currentTime)
 
         if lastCreatureTime == 0 {
             lastFoodTime = currentTime
@@ -171,24 +171,11 @@ class AeonTankScene: SKScene {
     // MARK: - Camera Controls
 
     func startAutoCamera() {
-//        selectedCreature?.hideSelectionRing()
-//        selectedCreature = nil
-//
-//        camera?.removeAllActions()
-//        autoCameraIsEnabled = true
+        cameraNode.startAutoCamera()
     }
 
     func stopAutoCamera() {
-//        camera?.removeAllActions()
-//        autoCameraIsEnabled = false
-//        if let zoomTimer = zoomTimer {
-//            zoomTimer.invalidate()
-//        }
-//        zoomTimer = nil
-//        if let moveTimer = moveTimer {
-//            moveTimer.invalidate()
-//        }
-//        moveTimer = nil
+        cameraNode.stopAutoCamera()
     }
 
     func resetCamera() {
@@ -196,46 +183,14 @@ class AeonTankScene: SKScene {
     }
 
     func selectCreature(_ creature: AeonCreatureNode) {
-//        Log.debug("Creature selected.")
-//        autoCameraIsEnabled = false
+        Log.debug("Creature selected.")
         cameraNode.selectedNode(creature)
     }
 
     func deselectCreature() {
+        Log.debug("Creature deselected.")
         cameraNode.deselectNode()
     }
-
-//    var zoomTimer: Timer?
-//    @objc func changeCameraZoomLevel() {
-//        Log.debug("Camera auto-zoom triggered.")
-//
-//        if let zoomTimer = zoomTimer {
-//            zoomTimer.invalidate()
-//        }
-//
-//        zoomTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(changeCameraZoomLevel), userInfo: nil, repeats: false)
-//
-//        let randomZoomLevel = randomCGFloat(min: 0.4, max: 0.8)
-//        let action = SKAction.scale(to: randomZoomLevel, duration: 20)
-//        action.timingMode = .easeInEaseOut
-//        camera?.run(action)
-//    }
-//
-//    var moveTimer: Timer?
-//    @objc func changeCameraPosition() {
-//        Log.debug("Camera auto-move triggered.")
-//
-//        if let moveTimer = moveTimer {
-//            moveTimer.invalidate()
-//        }
-//
-//        moveTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(changeCameraPosition), userInfo: nil, repeats: false)
-//
-//        let randomPosition = creatureNodes.randomElement()?.position ?? CGPoint(x: size.width / 2, y: size.height / 2)
-//        let action = SKAction.move(to: randomPosition, duration: 45)
-//        action.timingMode = .easeInEaseOut
-//        camera?.run(action)
-//    }
 
     // MARK: - Touch Events
 
@@ -470,6 +425,10 @@ extension AeonTankScene {
         cameraNode.interfaceDelegate = interfaceDelegate
         addChild(cameraNode)
         camera = cameraNode
+
+        cameraBodyNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        cameraNode.body = cameraBodyNode
+        addChild(cameraBodyNode)
 
 //        listener = cameraNode
 //        audioEngine.mainMixerNode.outputVolume = 0.2

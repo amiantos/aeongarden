@@ -47,7 +47,7 @@ class AeonViewModel {
     }
 
     func activityOccurred() {
-        Log.debug("User activity occurred.")
+        Log.info("User activity occurred.")
 
         if let idleTimer = idleTimer {
             idleTimer.invalidate()
@@ -55,22 +55,20 @@ class AeonViewModel {
 
         idleTimer = Timer.scheduledTimer(timeInterval: lastUserActivityTimeout, target: self, selector: #selector(startAutoCamera), userInfo: nil, repeats: false)
 
-//        if autoCameraRunning {
-//            stopAutoCamera()
-//        }
+        if autoCameraRunning {
+            stopAutoCamera()
+        }
     }
 
     @objc private func startAutoCamera() {
-//        Log.debug("Auto camera started...")
-//        scene?.startAutoCamera()
-//        view?.hideAllMenusIfNeeded()
-//        autoCameraRunning = true
+        scene?.startAutoCamera()
+        view?.hideAllMenusIfNeeded()
+        autoCameraRunning = true
     }
 
     private func stopAutoCamera() {
-//        Log.debug("Auto camera stopped.")
-//        scene?.stopAutoCamera()
-//        autoCameraRunning = false
+        scene?.stopAutoCamera()
+        autoCameraRunning = false
     }
 
     private func createScene(size: CGSize, device: DeviceType) -> AeonTankScene {
