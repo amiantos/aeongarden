@@ -427,10 +427,6 @@ extension AeonTankScene {
         addChild(cameraNode)
         camera = cameraNode
 
-        cameraBodyNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
-        cameraNode.body = cameraBodyNode
-        addChild(cameraBodyNode)
-
         listener = cameraNode
         audioEngine.mainMixerNode.outputVolume = 0.2
     }

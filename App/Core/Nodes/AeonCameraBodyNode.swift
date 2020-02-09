@@ -48,21 +48,21 @@ class AeonCameraBodyNode: SKNode, Updatable {
     }
 
     @objc func pickRandomTarget() {
-        guard let scene = scene as? AeonTankScene else { fatalError("Camera body not in a tank scene.") }
+        if let scene = scene as? AeonTankScene {
+            if let randomNode = scene.creatureNodes.randomElement() {
+                Log.debug("Picked new target for camera body: \(randomNode.position)")
+                currentTarget = randomNode.position
 
-        if let randomNode = scene.creatureNodes.randomElement() {
-            Log.debug("Picked new target for camera body: \(randomNode.position)")
-            currentTarget = randomNode.position
+                targetingTimer?.invalidate()
 
-            targetingTimer?.invalidate()
-
-            targetingTimer = Timer.scheduledTimer(
-                timeInterval: targetTimeLimit,
-                target: self,
-                selector: #selector(pickRandomTarget),
-                userInfo: nil,
-                repeats: false
-            )
+                targetingTimer = Timer.scheduledTimer(
+                    timeInterval: targetTimeLimit,
+                    target: self,
+                    selector: #selector(pickRandomTarget),
+                    userInfo: nil,
+                    repeats: false
+                )
+            }
         }
     }
 

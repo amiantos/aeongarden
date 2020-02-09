@@ -9,7 +9,7 @@
 import SpriteKit
 
 class AeonCameraNode: SKCameraNode, Updatable {
-    var body: AeonCameraBodyNode?
+    var body: AeonCameraBodyNode = AeonCameraBodyNode()
     var selectedNode: SKNode?
     var autoCameraIsEnabled: Bool = false
     let cameraMoveDuration: TimeInterval = 0.25
@@ -106,7 +106,13 @@ class AeonCameraNode: SKCameraNode, Updatable {
 
     func startAutoCamera() {
         Log.debug("📷 Auto camera started...")
-        guard let body = body else { fatalError("No body for auto-camera to attach to.") }
+
+        if let scene = scene, body.scene == nil {
+            Log.debug("📷 Creating camera body in scene.")
+            body.position = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2)
+            scene.addChild(body)
+        }
+
         selectedNode(body)
         body.pickRandomTarget()
     }
