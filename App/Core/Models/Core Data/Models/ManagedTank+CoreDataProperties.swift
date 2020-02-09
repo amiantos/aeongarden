@@ -35,7 +35,7 @@ extension ManagedTank {
             }
         }
         var foods: [Food] = []
-        if let managedFoods = self.food?.allObjects as? [ManagedFood] {
+        if let managedFoods = food?.allObjects as? [ManagedFood] {
             for managedFood in managedFoods {
                 foods.append(managedFood.toStruct())
             }

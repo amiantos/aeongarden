@@ -40,7 +40,6 @@ class AeonCameraBodyNode: SKNode, Updatable {
 //        body.zPosition = 1
 //        body.name = "AeonCameraBodySprite"
 //        addChild(body)
-
     }
 
     func update(_ currentTime: TimeInterval) {
@@ -105,6 +104,4 @@ class AeonCameraBodyNode: SKNode, Updatable {
             physicsBody?.applyTorque(angleDifference / angleDivisor)
         }
     }
-
-
 }

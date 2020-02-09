@@ -39,7 +39,7 @@ class AeonCameraNode: SKCameraNode, Updatable {
                 interfaceDelegate?.creatureSelected(newCreature)
             }
 
-            self.zoom(.zoomIn)
+            zoom(.zoomIn)
         }
     }
 
@@ -53,65 +53,63 @@ class AeonCameraNode: SKCameraNode, Updatable {
         }
         selectedNode = nil
         if animated {
-            self.zoom(.zoomOut)
+            zoom(.zoomOut)
         }
     }
 
     func zoom(_ state: zoomState) {
         switch state {
         case .zoomIn:
-            self.run(SKAction.scale(to: 0.4, duration: 1))
+            run(SKAction.scale(to: 0.4, duration: 1))
             currentZoomState = .zoomIn
         case .zoomOut:
             guard let scene = scene else { fatalError("Camera is not in a scene.") }
-            self.removeAllActions()
+            removeAllActions()
             let scaleAction = SKAction.scale(to: 1, duration: 1)
             let moveAction = SKAction.move(
                 to: CGPoint(x: scene.size.width / 2, y: scene.size.height / 2),
                 duration: 1
             )
-            self.run(SKAction.group([scaleAction, moveAction]))
+            run(SKAction.group([scaleAction, moveAction]))
             currentZoomState = .zoomOut
         }
     }
 
-
     func update(_ currentTime: TimeInterval) {
         if let selectedNode = self.selectedNode {
             let cameraAction = SKAction.move(to: selectedNode.position, duration: cameraMoveDuration)
-            self.run(cameraAction)
+            run(cameraAction)
         }
         lastUpdateTime = currentTime
     }
 
-        func startAutoCamera() {
-            Log.debug("Auto camera started...")
+    func startAutoCamera() {
+        Log.debug("Auto camera started...")
 //            deselectNode(animated: false)
-            guard let body = body else { fatalError("No body for auto-camera to attach to.") }
-            selectedNode(body)
-            body.pickRandomTarget()
-    //        selectedCreature?.hideSelectionRing()
-    //        selectedCreature = nil
-    //
-    //        camera?.removeAllActions()
-    //        autoCameraIsEnabled = true
-        }
+        guard let body = body else { fatalError("No body for auto-camera to attach to.") }
+        selectedNode(body)
+        body.pickRandomTarget()
+        //        selectedCreature?.hideSelectionRing()
+        //        selectedCreature = nil
+        //
+        //        camera?.removeAllActions()
+        //        autoCameraIsEnabled = true
+    }
 
-        func stopAutoCamera() {
-            Log.debug("Auto camera stopped.")
+    func stopAutoCamera() {
+        Log.debug("Auto camera stopped.")
 
-    //        camera?.removeAllActions()
-    //        autoCameraIsEnabled = false
-    //        if let zoomTimer = zoomTimer {
-    //            zoomTimer.invalidate()
-    //        }
-    //        zoomTimer = nil
-    //        if let moveTimer = moveTimer {
-    //            moveTimer.invalidate()
-    //        }
-    //        moveTimer = nil
-        }
-
+        //        camera?.removeAllActions()
+        //        autoCameraIsEnabled = false
+        //        if let zoomTimer = zoomTimer {
+        //            zoomTimer.invalidate()
+        //        }
+        //        zoomTimer = nil
+        //        if let moveTimer = moveTimer {
+        //            moveTimer.invalidate()
+        //        }
+        //        moveTimer = nil
+    }
 
     //    var zoomTimer: Timer?
     //    @objc func changeCameraZoomLevel() {
@@ -144,7 +142,4 @@ class AeonCameraNode: SKCameraNode, Updatable {
     //        action.timingMode = .easeInEaseOut
     //        camera?.run(action)
     //    }
-
-
-
 }
