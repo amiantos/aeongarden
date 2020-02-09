@@ -19,7 +19,7 @@ enum CollisionTypes: UInt32 {
     case ball = 8
 }
 
-protocol AeonTankUIDelegate: AnyObject {
+protocol AeonTankInterfaceDelegate: AnyObject {
     func updatePopulation(_ population: Int)
     func updateFood(_ food: Int)
     func updateBirths(_ births: Int)
@@ -62,29 +62,27 @@ class AeonTankScene: SKScene {
 
     public var creatureNodes: [AeonCreatureNode] = [] {
         didSet {
-            tankDelegate?.updatePopulation(creatureNodes.count)
-            tankDelegate?.updateBirths(birthCount)
-            tankDelegate?.updateDeaths(deathCount)
+            interfaceDelegate?.updatePopulation(creatureNodes.count)
+            interfaceDelegate?.updateBirths(birthCount)
+            interfaceDelegate?.updateDeaths(deathCount)
         }
     }
 
     public var foodNodes: [AeonFoodNode] = [] {
         didSet {
-            tankDelegate?.updateFood(foodNodes.count)
+            interfaceDelegate?.updateFood(foodNodes.count)
         }
     }
 
     public var bubbleNodes: [AeonBubbleNode] = []
 
-    private var cameraNode: SKCameraNode = SKCameraNode()
+    private var cameraNode: AeonCameraNode = AeonCameraNode()
 
-    weak var tankDelegate: AeonTankUIDelegate? {
+    weak var interfaceDelegate: AeonTankInterfaceDelegate? {
         didSet {
-            tankDelegate?.updatePopulation(creatureNodes.count)
+            interfaceDelegate?.updatePopulation(creatureNodes.count)
         }
     }
-
-    var selectedCreature: AeonCreatureNode?
 
     var autoCameraIsEnabled: Bool = false
 
@@ -114,6 +112,9 @@ class AeonTankScene: SKScene {
     func removeChild(_ node: SKNode) {
         if let creature = node as? AeonCreatureNode {
             creatureNodes.remove(object: creature)
+            if let selectedCreature = cameraNode.selectedNode as? AeonCreatureNode, selectedCreature == creature {
+                cameraNode.deselectNode()
+            }
         } else if let food = node as? AeonFoodNode {
             foodNodes.remove(object: food)
         } else if let bubble = node as? AeonBubbleNode {
@@ -125,7 +126,7 @@ class AeonTankScene: SKScene {
     // MARK: - Main Loop
 
     override func update(_ currentTime: TimeInterval) {
-        moveCameraPerFrame()
+        cameraNode.update(currentTime)
 
         if lastCreatureTime == 0 {
             lastFoodTime = currentTime
@@ -148,9 +149,9 @@ class AeonTankScene: SKScene {
             tankTime += correctedDelta
 
             // UI Updates (Kludge)
-            tankDelegate?.updateClock(toTimestamp(timeInterval: tankTime))
-            if let creature = selectedCreature {
-                tankDelegate?.updateSelectedCreatureDetails(creature)
+            interfaceDelegate?.updateClock(toTimestamp(timeInterval: tankTime))
+            if let creature = cameraNode.selectedNode as? AeonCreatureNode {
+                interfaceDelegate?.updateSelectedCreatureDetails(creature)
             }
 
             lastBubbleTime = currentTime
@@ -169,118 +170,72 @@ class AeonTankScene: SKScene {
 
     // MARK: - Camera Controls
 
-    func zoomCameraIn() {
-        Log.debug("Zooming camera in...")
-//        camera?.run(SKAction.scale(to: UISettings.styles.cameraZoomScale, duration: 1))
-        camera?.run(SKAction.scale(to: 0.4, duration: 1))
-    }
-
-    func zoomCameraOut() {
-        Log.debug("Zooming camera out...")
-        camera?.removeAllActions()
-        let scaleAction = SKAction.scale(to: 1, duration: 1)
-        let moveAction = SKAction.move(
-            to: CGPoint(x: size.width / 2, y: size.height / 2),
-            duration: 1
-        )
-        camera?.run(SKAction.group([scaleAction, moveAction]))
-    }
-
     func startAutoCamera() {
-        selectedCreature?.hideSelectionRing()
-        selectedCreature = nil
-
-        camera?.removeAllActions()
-        autoCameraIsEnabled = true
+//        selectedCreature?.hideSelectionRing()
+//        selectedCreature = nil
+//
+//        camera?.removeAllActions()
+//        autoCameraIsEnabled = true
     }
 
     func stopAutoCamera() {
-        camera?.removeAllActions()
-        autoCameraIsEnabled = false
-        if let zoomTimer = zoomTimer {
-            zoomTimer.invalidate()
-        }
-        zoomTimer = nil
-        if let moveTimer = moveTimer {
-            moveTimer.invalidate()
-        }
-        moveTimer = nil
+//        camera?.removeAllActions()
+//        autoCameraIsEnabled = false
+//        if let zoomTimer = zoomTimer {
+//            zoomTimer.invalidate()
+//        }
+//        zoomTimer = nil
+//        if let moveTimer = moveTimer {
+//            moveTimer.invalidate()
+//        }
+//        moveTimer = nil
     }
 
     func resetCamera() {
         deselectCreature()
-        zoomCameraOut()
     }
 
     func selectCreature(_ creature: AeonCreatureNode) {
-        Log.debug("Creature selected.")
-        autoCameraIsEnabled = false
-        if creature != selectedCreature {
-            selectedCreature?.hideSelectionRing()
-        }
-        selectedCreature = creature
-        creature.displaySelectionRing(withColor: .aeonBrightYellow)
-        zoomCameraIn()
-        tankDelegate?.creatureSelected(creature)
+//        Log.debug("Creature selected.")
+//        autoCameraIsEnabled = false
+        cameraNode.selectedNode(creature)
     }
 
     func deselectCreature() {
-        selectedCreature?.hideSelectionRing()
-        selectedCreature = nil
-        tankDelegate?.creatureDeselected()
+        cameraNode.deselectNode()
     }
 
-    func moveCameraPerFrame() {
-        if let followCreature = self.selectedCreature {
-            let cameraAction = SKAction.move(to: followCreature.position, duration: 0.25)
-            camera?.run(cameraAction)
-        } else if autoCameraIsEnabled {
-            // MARK: Auto Camera Logic
-
-            // Shift zoom
-            if zoomTimer == nil {
-                changeCameraZoomLevel()
-            }
-
-            // Shift position
-            if moveTimer == nil {
-                changeCameraPosition()
-            }
-
-        }
-    }
-
-    var zoomTimer: Timer?
-    @objc func changeCameraZoomLevel() {
-        Log.debug("Camera auto-zoom triggered.")
-
-        if let zoomTimer = zoomTimer {
-            zoomTimer.invalidate()
-        }
-
-        zoomTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(changeCameraZoomLevel), userInfo: nil, repeats: false)
-
-        let randomZoomLevel = randomCGFloat(min: 0.4, max: 0.8)
-        let action = SKAction.scale(to: randomZoomLevel, duration: 20)
-        action.timingMode = .easeInEaseOut
-        camera?.run(action)
-    }
-
-    var moveTimer: Timer?
-    @objc func changeCameraPosition() {
-        Log.debug("Camera auto-move triggered.")
-
-        if let moveTimer = moveTimer {
-            moveTimer.invalidate()
-        }
-
-        moveTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(changeCameraPosition), userInfo: nil, repeats: false)
-
-        let randomPosition = creatureNodes.randomElement()?.position ?? CGPoint(x: size.width / 2, y: size.height / 2)
-        let action = SKAction.move(to: randomPosition, duration: 45)
-        action.timingMode = .easeInEaseOut
-        camera?.run(action)
-    }
+//    var zoomTimer: Timer?
+//    @objc func changeCameraZoomLevel() {
+//        Log.debug("Camera auto-zoom triggered.")
+//
+//        if let zoomTimer = zoomTimer {
+//            zoomTimer.invalidate()
+//        }
+//
+//        zoomTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(changeCameraZoomLevel), userInfo: nil, repeats: false)
+//
+//        let randomZoomLevel = randomCGFloat(min: 0.4, max: 0.8)
+//        let action = SKAction.scale(to: randomZoomLevel, duration: 20)
+//        action.timingMode = .easeInEaseOut
+//        camera?.run(action)
+//    }
+//
+//    var moveTimer: Timer?
+//    @objc func changeCameraPosition() {
+//        Log.debug("Camera auto-move triggered.")
+//
+//        if let moveTimer = moveTimer {
+//            moveTimer.invalidate()
+//        }
+//
+//        moveTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(changeCameraPosition), userInfo: nil, repeats: false)
+//
+//        let randomPosition = creatureNodes.randomElement()?.position ?? CGPoint(x: size.width / 2, y: size.height / 2)
+//        let action = SKAction.move(to: randomPosition, duration: 45)
+//        action.timingMode = .easeInEaseOut
+//        camera?.run(action)
+//    }
 
     // MARK: - Touch Events
 
@@ -298,12 +253,10 @@ class AeonTankScene: SKScene {
             if !creatureLocationArray.isEmpty {
                 let creature = creatureLocationArray[0].node
                 let distance = creatureLocationArray[0].distance
-                if distance >= 50, selectedCreature != nil {
+                if distance >= 50, cameraNode.selectedNode != nil {
                     resetCamera()
                 } else if distance >= 50 {
                     return
-                } else if creature == selectedCreature {
-                    resetCamera()
                 } else {
                     selectCreature(creature)
                 }
@@ -436,7 +389,6 @@ extension AeonTankScene: SKPhysicsContactDelegate {
                     newCreature.scaleAnimation()
                     newCreature.born()
                     AeonSoundManager.shared.play(.creatureBorn, onNode: newCreature)
-//                    selectCreature(newCreature)
                 }
             } else {
                 // If one creature is pursuing the other, get wrecked
@@ -515,6 +467,7 @@ extension AeonTankScene {
 
     fileprivate func setupCamera() {
         cameraNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        cameraNode.interfaceDelegate = interfaceDelegate
         addChild(cameraNode)
         camera = cameraNode
 

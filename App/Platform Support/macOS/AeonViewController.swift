@@ -18,7 +18,7 @@ class AeonViewController: NSViewController {
         super.viewDidLoad()
 
         let scene = AeonTankScene(size: view.bounds.size)
-        scene.tankDelegate = self
+        scene.interfaceDelegate = self
 
         // Present the scene
         let skView = view as? SKView
@@ -36,7 +36,7 @@ class AeonViewController: NSViewController {
     }
 }
 
-extension AeonViewController: AeonTankUIDelegate {
+extension AeonViewController: AeonTankInterfaceDelegate {
     func updateClock(_: String) {
         return
     }

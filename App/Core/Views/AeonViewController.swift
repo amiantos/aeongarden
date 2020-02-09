@@ -12,7 +12,9 @@
 import SpriteKit
 import UIKit
 
-class AeonViewController: UIViewController, AeonTankUIDelegate {
+class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
+    var selectedCreature: AeonCreatureNode?
+
     var viewModel: AeonViewModel?
 
     var scene: AeonTankScene?
@@ -128,7 +130,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     @objc func toggleFavoriteForSelectedCreature() {
-        if let creature = scene?.selectedCreature {
+        if let creature = selectedCreature {
             creature.isFavorite.toggle()
             if creature.isFavorite {
                 viewModel?.saveCreature(creature)
@@ -141,7 +143,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     func updateFavoriteButtonLabel() {
-        if let creature = scene?.selectedCreature {
+        if let creature = selectedCreature {
             if creature.isFavorite {
                 detailsFavoriteButton.setTitle("Remove Favorite".uppercased(), for: .normal)
             } else {
@@ -151,7 +153,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     @objc func renameSelectedCreature() {
-        if let creature = scene?.selectedCreature {
+        if let creature = selectedCreature {
             let actionSheet = UIAlertController(title: "Rename Creature", message: "Rename \"\(creature.fullName)\" to...", preferredStyle: .alert)
             actionSheet.addTextField { textField in
                 textField.autocapitalizationType = .words
@@ -247,6 +249,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
 
     func creatureSelected(_ creature: AeonCreatureNode) {
         Log.debug("Creature Selected")
+        selectedCreature = creature
         DispatchQueue.main.async {
             self.updateSelectedCreatureDetails(creature)
             self.showDetailsIfNeeded()
@@ -255,6 +258,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     func creatureDeselected() {
+        selectedCreature = nil
         DispatchQueue.main.async {
             self.hideDetailsIfNeeded()
             self.viewModel?.activityOccurred()
@@ -383,7 +387,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         fadeOutAnimation.addCompletion { position in
             if position == .end {
                 self.disableDetailUpdates = false
-                if let creature = self.scene?.selectedCreature {
+                if let creature = self.selectedCreature {
                     // sloppy kludge to get around 1 second UI updates on creature data
                     self.updateSelectedCreatureDetails(creature)
                 }

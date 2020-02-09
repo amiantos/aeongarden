@@ -55,28 +55,28 @@ class AeonViewModel {
 
         idleTimer = Timer.scheduledTimer(timeInterval: lastUserActivityTimeout, target: self, selector: #selector(startAutoCamera), userInfo: nil, repeats: false)
 
-        if autoCameraRunning {
-            stopAutoCamera()
-        }
+//        if autoCameraRunning {
+//            stopAutoCamera()
+//        }
     }
 
     @objc private func startAutoCamera() {
-        Log.debug("Auto camera started...")
-        scene?.startAutoCamera()
-        view?.hideAllMenusIfNeeded()
-        autoCameraRunning = true
+//        Log.debug("Auto camera started...")
+//        scene?.startAutoCamera()
+//        view?.hideAllMenusIfNeeded()
+//        autoCameraRunning = true
     }
 
     private func stopAutoCamera() {
-        Log.debug("Auto camera stopped.")
-        scene?.stopAutoCamera()
-        autoCameraRunning = false
+//        Log.debug("Auto camera stopped.")
+//        scene?.stopAutoCamera()
+//        autoCameraRunning = false
     }
 
     private func createScene(size: CGSize, device: DeviceType) -> AeonTankScene {
         let newScene = AeonTankScene(size: size)
         newScene.tankSettings = getTankSettings(for: device)
-        newScene.tankDelegate = self
+        newScene.interfaceDelegate = self
         newScene.scaleMode = .aspectFill
         return newScene
     }
@@ -174,7 +174,7 @@ class AeonViewModel {
     }
 }
 
-extension AeonViewModel: AeonTankUIDelegate {
+extension AeonViewModel: AeonTankInterfaceDelegate {
     func updatePopulation(_ population: Int) {
         view?.updatePopulation(population)
     }
