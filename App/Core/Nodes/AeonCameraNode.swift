@@ -32,7 +32,7 @@ class AeonCameraNode: SKCameraNode, Updatable {
         if selectedNode == node {
             deselectNode()
         } else {
-            Log.info("Selected Node")
+            Log.info("📷 Selected Node")
             if let currentCreature = selectedNode as? AeonCreatureNode, currentCreature != node {
                 currentCreature.hideSelectionRing()
 
@@ -105,18 +105,18 @@ class AeonCameraNode: SKCameraNode, Updatable {
     }
 
     func startAutoCamera() {
-        Log.debug("Auto camera started...")
+        Log.debug("📷 Auto camera started...")
         guard let body = body else { fatalError("No body for auto-camera to attach to.") }
         selectedNode(body)
         body.pickRandomTarget()
     }
 
     func stopAutoCamera() {
-        Log.debug("Auto camera stopped.")
+        Log.debug("📷 Auto camera stopped.")
     }
 
     @objc func changeCameraZoomLevel() {
-        Log.debug("Camera auto-zoom updated.")
+        Log.debug("📷 Camera auto-zoom updated.")
 
         zoomTimer?.invalidate()
 
