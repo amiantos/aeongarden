@@ -211,9 +211,6 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
             }
             if !mateArray.isEmpty {
                 var selected = mateArray.randomElement()!
-                while selected == scene!.selectedCreature, mateArray.count > 1 {
-                    selected = mateArray.randomElement()!
-                }
                 scene!.selectCreature(selected)
             }
             viewModel?.activityOccurred()
