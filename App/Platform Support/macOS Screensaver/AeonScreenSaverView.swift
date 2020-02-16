@@ -16,10 +16,17 @@ import SpriteKit
 class AeonScreenSaverView: ScreenSaverView {
     var spriteView: GameView?
     var currentTank: AeonTankScene?
+    var previewMode: Bool = false
 
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
         animationTimeInterval = 1.0
+
+        // Try to manually detect whether we're running in a preview
+        // Because isPreview seems busted...
+
+        let frameSize = frame.height * frame.width
+        if frameSize < 90000 { previewMode = true }
     }
 
     required init?(coder: NSCoder) {
@@ -64,7 +71,7 @@ class AeonScreenSaverView: ScreenSaverView {
             spriteView.presentScene(scene)
             scene.startAutoCamera()
 
-            if let tank = AeonDatabase.standard.loadTank() {
+            if !previewMode, let tank = AeonDatabase.standard.loadTank() {
                 tank.restore(to: scene)
             } else {
                 scene.createInitialCreatures()
@@ -75,6 +82,8 @@ class AeonScreenSaverView: ScreenSaverView {
         }
         super.startAnimation()
 
-        Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(saveCurrentTank), userInfo: nil, repeats: true)
+        if !previewMode {
+            Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(saveCurrentTank), userInfo: nil, repeats: true)
+        }
     }
 }
