@@ -18,7 +18,7 @@ protocol DataStoreProtocol {
     func getCreatures(completion: @escaping ([Creature]) -> Void)
 }
 
-struct TankSettings {
+struct TankSettings: Codable {
     let foodMaxAmount: Int
     let foodHealthRestorationBaseValue: Float
     let foodSpawnRate: Int
@@ -32,7 +32,7 @@ struct TankSettings {
     let backgroundParticleLifetime: Int
 }
 
-struct Tank {
+struct Tank: Codable {
     let uuid: UUID
     let tankTime: Float
     let deathCount: Int
@@ -109,7 +109,7 @@ struct Tank {
     }
 }
 
-struct Creature {
+struct Creature: Codable {
     let uuid: UUID
 
     let firstName: String
@@ -181,7 +181,7 @@ struct Creature {
     }
 }
 
-struct Limb {
+struct Limb: Codable {
     let shape: BodyPart
     let hue: Float
     let blend: Float
@@ -224,7 +224,7 @@ struct Limb {
     }
 }
 
-struct Food {
+struct Food: Codable {
     let positionX: Float
     let positionY: Float
 
@@ -245,7 +245,7 @@ struct Food {
     }
 }
 
-struct Bubble {
+struct Bubble: Codable {
     let positionX: Float
     let positionY: Float
 

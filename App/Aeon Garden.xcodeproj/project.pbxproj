@@ -53,6 +53,7 @@
 		447C8BB52347C47C00DC7971 /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C8BB22347C47700DC7971 /* Structs.swift */; };
 		447C8BB82347F72400DC7971 /* AeonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C8BB72347F72400DC7971 /* AeonViewModel.swift */; };
 		447C8BB92347F72400DC7971 /* AeonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C8BB72347F72400DC7971 /* AeonViewModel.swift */; };
+		448E62B023F9F1A400C63EA1 /* AeonDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448E62AF23F9F1A400C63EA1 /* AeonDatabase.swift */; };
 		4497925623F0904400FC2949 /* AeonCameraNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4497925523F0904400FC2949 /* AeonCameraNode.swift */; };
 		4497925723F0904400FC2949 /* AeonCameraNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4497925523F0904400FC2949 /* AeonCameraNode.swift */; };
 		4497925823F0904400FC2949 /* AeonCameraNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4497925523F0904400FC2949 /* AeonCameraNode.swift */; };
@@ -233,6 +234,7 @@
 		44868F652231C7F5009F0460 /* AeonLimbNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonLimbNode.swift; sourceTree = "<group>"; };
 		44868F672231E855009F0460 /* AeonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonUtils.swift; sourceTree = "<group>"; };
 		44868F6A223346E3009F0460 /* AeonCreatureBrainStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonCreatureBrainStates.swift; sourceTree = "<group>"; };
+		448E62AF23F9F1A400C63EA1 /* AeonDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonDatabase.swift; sourceTree = "<group>"; };
 		4497925523F0904400FC2949 /* AeonCameraNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonCameraNode.swift; sourceTree = "<group>"; };
 		4497925A23F0AF9D00FC2949 /* AeonCameraBodyNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonCameraBodyNode.swift; sourceTree = "<group>"; };
 		449FF756226FD92900704D7C /* AeonFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonFonts.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 				B409E547227E31D000546184 /* Info.plist */,
 				B409E54C227E326B00546184 /* AeonScreenSaverView.swift */,
 				B409E54E227E32FD00546184 /* GameView.swift */,
+				448E62AF23F9F1A400C63EA1 /* AeonDatabase.swift */,
 			);
 			path = "macOS Screensaver";
 			sourceTree = "<group>";
@@ -923,6 +926,7 @@
 				B409E593227E3A2000546184 /* AeonUtils.swift in Sources */,
 				B409E596227E3A2000546184 /* SKTextureGradient.swift in Sources */,
 				B409E54D227E326B00546184 /* AeonScreenSaverView.swift in Sources */,
+				448E62B023F9F1A400C63EA1 /* AeonDatabase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

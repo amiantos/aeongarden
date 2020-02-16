@@ -11,7 +11,7 @@
 
 import GameKit
 
-public enum BodyPart: String {
+public enum BodyPart: String, Codable {
     case triangle = "aeonTriangle"
     case circle = "aeonCircle"
     case square = "aeonSquare"
