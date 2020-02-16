@@ -40,6 +40,7 @@ enum UIStyle {
 enum UIState {
     case main
     case details
+    case none
 }
 
 extension UIState {
@@ -47,6 +48,7 @@ extension UIState {
         switch self {
         case .main: return .details
         case .details: return .main
+        case .none: return .main
         }
     }
 }

@@ -20,6 +20,14 @@ class AeonViewModel {
     weak var scene: AeonTankScene?
     var autosaveTimer: Timer?
 
+    var lastUserActivityTimeout: TimeInterval = 10 // default should be 120?
+    var idleTimer: Timer?
+    var autoCameraRunning: Bool = false {
+        didSet {
+            Log.debug("Auto Camera Running Toggled to \(autoCameraRunning)")
+        }
+    }
+
     init(for view: AeonViewController) {
         self.view = view
 
@@ -30,6 +38,8 @@ class AeonViewModel {
             userInfo: nil,
             repeats: true
         )
+
+        activityOccurred()
     }
 
     @objc private func autosave() {
@@ -40,10 +50,37 @@ class AeonViewModel {
         }
     }
 
+    func activityOccurred() {
+        Log.info("User activity occurred.")
+
+        if let idleTimer = idleTimer {
+            idleTimer.invalidate()
+        }
+
+        idleTimer = Timer.scheduledTimer(timeInterval: lastUserActivityTimeout, target: self, selector: #selector(startAutoCamera), userInfo: nil, repeats: false)
+
+        if autoCameraRunning {
+            stopAutoCamera()
+        }
+    }
+
+    @objc private func startAutoCamera() {
+        if let currentState = view?.currentState, currentState != .details {
+            scene?.startAutoCamera()
+            view?.hideAllMenusIfNeeded()
+            autoCameraRunning = true
+        }
+    }
+
+    private func stopAutoCamera() {
+        scene?.stopAutoCamera()
+        autoCameraRunning = false
+    }
+
     private func createScene(size: CGSize, device: DeviceType) -> AeonTankScene {
         let newScene = AeonTankScene(size: size)
         newScene.tankSettings = getTankSettings(for: device)
-        newScene.tankDelegate = self
+        newScene.interfaceDelegate = self
         newScene.scaleMode = .aspectFill
         return newScene
     }
@@ -141,7 +178,7 @@ class AeonViewModel {
     }
 }
 
-extension AeonViewModel: AeonTankUIDelegate {
+extension AeonViewModel: AeonTankInterfaceDelegate {
     func updatePopulation(_ population: Int) {
         view?.updatePopulation(population)
     }

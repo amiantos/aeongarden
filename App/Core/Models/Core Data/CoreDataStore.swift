@@ -102,9 +102,9 @@ extension CoreDataStore: DataStoreProtocol {
 
                 Log.info("Saved creature \(creature.uuid)")
 
-                if Log.logLevel == .debug {
-                    self.databaseCounts()
-                }
+//                if Log.logLevel == .debug {
+//                    self.databaseCounts()
+//                }
 
             } catch {
                 Log.error("Creature failed to save to storage.")
@@ -265,9 +265,9 @@ extension CoreDataStore: DataStoreProtocol {
 
                 try self.mainManagedObjectContext.save()
 
-                if Log.logLevel == .debug {
-                    self.databaseCounts()
-                }
+//                if Log.logLevel == .debug {
+//                    self.databaseCounts()
+//                }
 
             } catch {
                 Log.error("Tank failed to save to storage.")

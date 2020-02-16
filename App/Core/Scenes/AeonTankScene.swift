@@ -19,7 +19,7 @@ enum CollisionTypes: UInt32 {
     case ball = 8
 }
 
-protocol AeonTankUIDelegate: AnyObject {
+protocol AeonTankInterfaceDelegate: AnyObject {
     func updatePopulation(_ population: Int)
     func updateFood(_ food: Int)
     func updateBirths(_ births: Int)
@@ -62,31 +62,25 @@ class AeonTankScene: SKScene {
 
     public var creatureNodes: [AeonCreatureNode] = [] {
         didSet {
-            tankDelegate?.updatePopulation(creatureNodes.count)
-            tankDelegate?.updateBirths(birthCount)
-            tankDelegate?.updateDeaths(deathCount)
+            interfaceDelegate?.updatePopulation(creatureNodes.count)
+            interfaceDelegate?.updateBirths(birthCount)
+            interfaceDelegate?.updateDeaths(deathCount)
         }
     }
 
     public var foodNodes: [AeonFoodNode] = [] {
         didSet {
-            tankDelegate?.updateFood(foodNodes.count)
+            interfaceDelegate?.updateFood(foodNodes.count)
         }
     }
 
     public var bubbleNodes: [AeonBubbleNode] = []
 
-    private var cameraNode: SKCameraNode = SKCameraNode()
+    private var cameraNode: AeonCameraNode = AeonCameraNode()
 
-    weak var tankDelegate: AeonTankUIDelegate? {
+    weak var interfaceDelegate: AeonTankInterfaceDelegate? {
         didSet {
-            tankDelegate?.updatePopulation(creatureNodes.count)
-        }
-    }
-
-    var selectedCreature: AeonCreatureNode? {
-        didSet {
-            zoomOutCameraIfNeeded()
+            interfaceDelegate?.updatePopulation(creatureNodes.count)
         }
     }
 
@@ -116,6 +110,9 @@ class AeonTankScene: SKScene {
     func removeChild(_ node: SKNode) {
         if let creature = node as? AeonCreatureNode {
             creatureNodes.remove(object: creature)
+            if let selectedCreature = cameraNode.selectedNode as? AeonCreatureNode, selectedCreature == creature {
+                cameraNode.deselectNode()
+            }
         } else if let food = node as? AeonFoodNode {
             foodNodes.remove(object: food)
         } else if let bubble = node as? AeonBubbleNode {
@@ -127,7 +124,7 @@ class AeonTankScene: SKScene {
     // MARK: - Main Loop
 
     override func update(_ currentTime: TimeInterval) {
-        followSelectedCreatureWithCamera()
+        cameraNode.update(currentTime)
 
         if lastCreatureTime == 0 {
             lastFoodTime = currentTime
@@ -150,9 +147,9 @@ class AeonTankScene: SKScene {
             tankTime += correctedDelta
 
             // UI Updates (Kludge)
-            tankDelegate?.updateClock(toTimestamp(timeInterval: tankTime))
-            if let creature = selectedCreature {
-                tankDelegate?.updateSelectedCreatureDetails(creature)
+            interfaceDelegate?.updateClock(toTimestamp(timeInterval: tankTime))
+            if let creature = cameraNode.selectedNode as? AeonCreatureNode {
+                interfaceDelegate?.updateSelectedCreatureDetails(creature)
             }
 
             lastBubbleTime = currentTime
@@ -171,53 +168,27 @@ class AeonTankScene: SKScene {
 
     // MARK: - Camera Controls
 
-    fileprivate func zoomOutCameraIfNeeded() {
-        if let creature = selectedCreature {
-            tankDelegate?.creatureSelected(creature)
-        } else {
-            tankDelegate?.creatureDeselected()
-            camera?.removeAllActions()
-            let zoomInAction = SKAction.scale(to: 1, duration: 1)
-            let cameraAction = SKAction.move(
-                to: CGPoint(x: size.width / 2, y: size.height / 2),
-                duration: 1
-            )
-            camera?.run(SKAction.group([zoomInAction, cameraAction]))
-        }
+    func startAutoCamera() {
+        cameraNode.startAutoCamera()
+    }
+
+    func stopAutoCamera() {
+        cameraNode.stopAutoCamera()
     }
 
     func resetCamera() {
-        selectedCreature?.hideSelectionRing()
-        selectedCreature = nil
-        camera?.removeAllActions()
-        let zoomInAction = SKAction.scale(to: 1, duration: 1)
-        let cameraAction = SKAction.move(
-            to: CGPoint(x: size.width / 2, y: size.height / 2),
-            duration: 1
-        )
-        camera?.run(SKAction.group([zoomInAction, cameraAction]))
+        Log.debug("Reset Camera")
+        deselectCreature()
     }
 
     func selectCreature(_ creature: AeonCreatureNode) {
-        if creature != selectedCreature {
-            selectedCreature?.hideSelectionRing()
-        }
-        selectedCreature = creature
-        creature.displaySelectionRing(withColor: .aeonBrightYellow)
-//        camera?.run(SKAction.scale(to: UISettings.styles.cameraZoomScale, duration: 1))
-        camera?.run(SKAction.scale(to: 0.4, duration: 1))
+        Log.debug("Creature selected.")
+        cameraNode.selectedNode(creature)
     }
 
     func deselectCreature() {
-        selectedCreature?.hideSelectionRing()
-        selectedCreature = nil
-    }
-
-    fileprivate func followSelectedCreatureWithCamera() {
-        if let followCreature = self.selectedCreature {
-            let cameraAction = SKAction.move(to: followCreature.position, duration: 0.25)
-            camera?.run(cameraAction)
-        }
+        Log.debug("Creature deselected.")
+        cameraNode.deselectNode()
     }
 
     // MARK: - Touch Events
@@ -236,12 +207,10 @@ class AeonTankScene: SKScene {
             if !creatureLocationArray.isEmpty {
                 let creature = creatureLocationArray[0].node
                 let distance = creatureLocationArray[0].distance
-                if distance >= 50, selectedCreature != nil {
+                if distance >= 50, cameraNode.selectedNode != nil {
                     resetCamera()
                 } else if distance >= 50 {
                     return
-                } else if creature == selectedCreature {
-                    resetCamera()
                 } else {
                     selectCreature(creature)
                 }
@@ -374,7 +343,6 @@ extension AeonTankScene: SKPhysicsContactDelegate {
                     newCreature.scaleAnimation()
                     newCreature.born()
                     AeonSoundManager.shared.play(.creatureBorn, onNode: newCreature)
-//                    selectCreature(newCreature)
                 }
             } else {
                 // If one creature is pursuing the other, get wrecked
@@ -453,10 +421,11 @@ extension AeonTankScene {
 
     fileprivate func setupCamera() {
         cameraNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        cameraNode.interfaceDelegate = interfaceDelegate
         addChild(cameraNode)
         camera = cameraNode
 
-//        listener = cameraNode
+        listener = cameraNode
 //        audioEngine.mainMixerNode.outputVolume = 0.2
     }
 

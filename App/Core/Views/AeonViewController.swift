@@ -12,7 +12,9 @@
 import SpriteKit
 import UIKit
 
-class AeonViewController: UIViewController, AeonTankUIDelegate {
+class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
+    var selectedCreature: AeonCreatureNode?
+
     var viewModel: AeonViewModel?
 
     var scene: AeonTankScene?
@@ -110,11 +112,13 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     @objc func newTank() {
         scene = viewModel?.createNewTank(size: view.bounds.size, device: deviceType)
         skView?.presentScene(scene)
+        viewModel?.activityOccurred()
     }
 
     @objc func saveTank() {
         guard let scene = scene else { return }
         viewModel?.saveTank(scene)
+        viewModel?.activityOccurred()
     }
 
     @objc func loadTank() {
@@ -122,10 +126,11 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
             self.scene = scene
             self.skView!.presentScene(scene)
         })
+        viewModel?.activityOccurred()
     }
 
     @objc func toggleFavoriteForSelectedCreature() {
-        if let creature = scene?.selectedCreature {
+        if let creature = selectedCreature {
             creature.isFavorite.toggle()
             if creature.isFavorite {
                 viewModel?.saveCreature(creature)
@@ -133,11 +138,12 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
                 viewModel?.deleteCreature(creature)
             }
             updateFavoriteButtonLabel()
+            viewModel?.activityOccurred()
         }
     }
 
     func updateFavoriteButtonLabel() {
-        if let creature = scene?.selectedCreature {
+        if let creature = selectedCreature {
             if creature.isFavorite {
                 detailsFavoriteButton.setTitle("Remove Favorite".uppercased(), for: .normal)
             } else {
@@ -147,7 +153,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     @objc func renameSelectedCreature() {
-        if let creature = scene?.selectedCreature {
+        if let creature = selectedCreature {
             let actionSheet = UIAlertController(title: "Rename Creature", message: "Rename \"\(creature.fullName)\" to...", preferredStyle: .alert)
             actionSheet.addTextField { textField in
                 textField.autocapitalizationType = .words
@@ -160,12 +166,13 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
 
             let okButton = UIAlertAction(title: "OK", style: .default) { _ in
                 guard let firstName = actionSheet.textFields?[0].text,
-                      let lastName = actionSheet.textFields?[1].text,
-                      !firstName.isEmpty,
-                      !lastName.isEmpty else { return }
+                    let lastName = actionSheet.textFields?[1].text,
+                    !firstName.isEmpty,
+                    !lastName.isEmpty else { return }
 
                 self.viewModel?.renameCreature(creature, firstName: firstName, lastName: lastName)
                 Log.info("Renamed creature to \(firstName) \(lastName).")
+                self.viewModel?.activityOccurred()
             }
             actionSheet.addAction(okButton)
 
@@ -203,16 +210,18 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
                 mateArray.append(child)
             }
             if !mateArray.isEmpty {
-                var selected = mateArray.randomElement()!
-                while selected == scene!.selectedCreature, mateArray.count > 1 {
-                    selected = mateArray.randomElement()!
-                }
+                let selected = mateArray.randomElement()!
                 scene!.selectCreature(selected)
             }
+            viewModel?.activityOccurred()
         }
 
         @objc func deselectCreature() {
-            scene!.deselectCreature()
+            scene!.resetCamera()
+            if viewModel?.autoCameraRunning ?? false {
+                showMainMenuIfNeeded()
+            }
+            viewModel?.activityOccurred()
         }
     #endif
 
@@ -239,15 +248,28 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     }
 
     func creatureSelected(_ creature: AeonCreatureNode) {
+        Log.debug("Creature Selected")
+        selectedCreature = creature
         DispatchQueue.main.async {
             self.updateSelectedCreatureDetails(creature)
             self.showDetailsIfNeeded()
+            #if os(iOS)
+                // Since iOS touch events occur in the scene,
+                // we need to tell the view model activity occurred here.
+                self.viewModel?.activityOccurred()
+            #endif
         }
     }
 
     func creatureDeselected() {
+        selectedCreature = nil
         DispatchQueue.main.async {
             self.hideDetailsIfNeeded()
+            #if os(iOS)
+                // Since iOS touch events occur in the scene,
+                // we need to tell the view model activity occurred here.
+                self.viewModel?.activityOccurred()
+            #endif
         }
     }
 
@@ -275,6 +297,8 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
     private func animateTransitionIfNeeded(to state: UIState, duration: TimeInterval) {
         guard runningAnimators.isEmpty else { return }
 
+        Log.debug("Animating UI to state \(state)")
+
         let transitionAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
             switch state {
             case .main:
@@ -289,6 +313,12 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
                 self.mainTitleLabel.alpha = 0
                 self.mainTitleLabelTopAnchorConstraint.constant = self.mainTitleLabelHiddenOffset
                 if self.runningNameAnimators.isEmpty { self.detailsTitleLabel.alpha = 1 }
+            case .none:
+                self.detailsBottomAnchorConstraint.constant = self.detailsHiddenOffset
+                self.detailsTitleLabel.alpha = 0
+                self.mainTopAnchorConstraint.constant = self.mainTopConstantHidden
+                self.mainTitleLabel.alpha = 0
+                self.mainTitleLabelTopAnchorConstraint.constant = self.mainTitleLabelHiddenOffset
             }
             self.view.layoutIfNeeded()
         }
@@ -318,6 +348,12 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
                 self.mainTitleLabel.alpha = 0
                 self.mainTitleLabelTopAnchorConstraint.constant = self.mainTitleLabelHiddenOffset
                 if self.runningNameAnimators.isEmpty { self.detailsTitleLabel.alpha = 1 }
+            case .none:
+                self.detailsBottomAnchorConstraint.constant = self.detailsHiddenOffset
+                self.detailsTitleLabel.alpha = 0
+                self.mainTopAnchorConstraint.constant = self.mainTopConstantHidden
+                self.mainTitleLabel.alpha = 0
+                self.mainTitleLabelTopAnchorConstraint.constant = self.mainTitleLabelHiddenOffset
             }
 
             self.runningAnimators.removeAll()
@@ -359,7 +395,7 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         fadeOutAnimation.addCompletion { position in
             if position == .end {
                 self.disableDetailUpdates = false
-                if let creature = self.scene?.selectedCreature {
+                if let creature = self.selectedCreature {
                     // sloppy kludge to get around 1 second UI updates on creature data
                     self.updateSelectedCreatureDetails(creature)
                 }
@@ -387,10 +423,21 @@ class AeonViewController: UIViewController, AeonTankUIDelegate {
         animateTransitionIfNeeded(to: .details, duration: 1)
     }
 
+    func showMainMenuIfNeeded() {
+        removeAnimationsIfNeeded()
+        animateTransitionIfNeeded(to: .main, duration: 1)
+    }
+
     func hideDetailsIfNeeded() {
         removeNameAnimationsIfNeeded()
         removeAnimationsIfNeeded()
         animateTransitionIfNeeded(to: .main, duration: 1)
+    }
+
+    func hideAllMenusIfNeeded() {
+        removeNameAnimationsIfNeeded()
+        removeAnimationsIfNeeded()
+        animateTransitionIfNeeded(to: .none, duration: 1)
     }
 
     private func removeAnimationsIfNeeded() {
