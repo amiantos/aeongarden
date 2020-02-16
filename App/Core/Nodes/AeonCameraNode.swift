@@ -70,6 +70,7 @@ class AeonCameraNode: SKCameraNode, Updatable {
     }
 
     func zoom(_ state: zoomState, speed: TimeInterval = 1) {
+        removeAllActions()
         switch state {
         case .fullZoom:
             run(SKAction.scale(to: 0.4, duration: speed))
@@ -110,9 +111,10 @@ class AeonCameraNode: SKCameraNode, Updatable {
 
         if let scene = scene, body.scene == nil {
             Log.debug("📷 Creating camera body in scene.")
-            body.position = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2)
             scene.addChild(body)
         }
+
+        body.position = position
 
         selectedNode(body)
         body.pickRandomTarget()

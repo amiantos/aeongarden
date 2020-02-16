@@ -22,7 +22,11 @@ class AeonViewModel {
 
     var lastUserActivityTimeout: TimeInterval = 10 // default should be 120?
     var idleTimer: Timer?
-    var autoCameraRunning: Bool = false
+    var autoCameraRunning: Bool = false {
+        didSet {
+            Log.debug("Auto Camera Running Toggled to \(self.autoCameraRunning)")
+        }
+    }
 
     init(for view: AeonViewController) {
         self.view = view
@@ -61,9 +65,11 @@ class AeonViewModel {
     }
 
     @objc private func startAutoCamera() {
-        scene?.startAutoCamera()
-        view?.hideAllMenusIfNeeded()
-        autoCameraRunning = true
+        if let currentState = view?.currentState, currentState != .details {
+            scene?.startAutoCamera()
+            view?.hideAllMenusIfNeeded()
+            autoCameraRunning = true
+        }
     }
 
     private func stopAutoCamera() {

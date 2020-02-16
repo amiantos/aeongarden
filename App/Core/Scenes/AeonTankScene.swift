@@ -177,8 +177,8 @@ class AeonTankScene: SKScene {
     }
 
     func resetCamera() {
+        Log.debug("Reset Camera")
         deselectCreature()
-        interfaceDelegate?.creatureDeselected()
     }
 
     func selectCreature(_ creature: AeonCreatureNode) {
