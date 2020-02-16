@@ -210,14 +210,17 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
                 mateArray.append(child)
             }
             if !mateArray.isEmpty {
-                var selected = mateArray.randomElement()!
+                let selected = mateArray.randomElement()!
                 scene!.selectCreature(selected)
             }
             viewModel?.activityOccurred()
         }
 
         @objc func deselectCreature() {
-            scene!.deselectCreature()
+            scene!.resetCamera()
+            if viewModel?.autoCameraRunning ?? false {
+                showMainMenuIfNeeded()
+            }
             viewModel?.activityOccurred()
         }
     #endif
@@ -250,7 +253,11 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
         DispatchQueue.main.async {
             self.updateSelectedCreatureDetails(creature)
             self.showDetailsIfNeeded()
-            self.viewModel?.activityOccurred()
+            #if os(iOS)
+                // Since iOS touch events occur in the scene,
+                // we need to tell the view model activity occurred here.
+                self.viewModel?.activityOccurred()
+            #endif
         }
     }
 
@@ -258,7 +265,11 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
         selectedCreature = nil
         DispatchQueue.main.async {
             self.hideDetailsIfNeeded()
-            self.viewModel?.activityOccurred()
+            #if os(iOS)
+                // Since iOS touch events occur in the scene,
+                // we need to tell the view model activity occurred here.
+                self.viewModel?.activityOccurred()
+            #endif
         }
     }
 
@@ -410,6 +421,12 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
     func showDetailsIfNeeded() {
         removeAnimationsIfNeeded()
         animateTransitionIfNeeded(to: .details, duration: 1)
+    }
+
+    func showMainMenuIfNeeded() {
+        removeAnimationsIfNeeded()
+        animateTransitionIfNeeded(to: .main, duration: 1)
+
     }
 
     func hideDetailsIfNeeded() {
