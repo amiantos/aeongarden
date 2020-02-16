@@ -15,6 +15,7 @@ import SpriteKit
 
 class AeonScreenSaverView: ScreenSaverView {
     var spriteView: GameView?
+    var currentTank: AeonTankScene?
 
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
@@ -29,6 +30,13 @@ class AeonScreenSaverView: ScreenSaverView {
     override var frame: NSRect {
         didSet {
             self.spriteView?.frame = frame
+        }
+    }
+
+    @objc func saveCurrentTank() {
+        if let scene = currentTank {
+            let tank = Tank.from(scene)
+            AeonDatabase.standard.saveTank(tank)
         }
     }
 
@@ -55,9 +63,18 @@ class AeonScreenSaverView: ScreenSaverView {
             addSubview(spriteView)
             spriteView.presentScene(scene)
             scene.startAutoCamera()
-            scene.createInitialCreatures()
-            scene.createInitialBubbles()
+
+            if let tank = AeonDatabase.standard.loadTank() {
+                tank.restore(to: scene)
+            } else {
+                scene.createInitialCreatures()
+                scene.createInitialBubbles()
+            }
+
+            currentTank = scene
         }
         super.startAnimation()
+
+        Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(saveCurrentTank), userInfo: nil, repeats: true)
     }
 }
