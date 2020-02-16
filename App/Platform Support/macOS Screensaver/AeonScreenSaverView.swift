@@ -69,7 +69,6 @@ class AeonScreenSaverView: ScreenSaverView {
             self.spriteView = spriteView
             addSubview(spriteView)
             spriteView.presentScene(scene)
-            scene.startAutoCamera()
 
             if !previewMode, let tank = AeonDatabase.standard.loadTank() {
                 tank.restore(to: scene)
@@ -77,6 +76,8 @@ class AeonScreenSaverView: ScreenSaverView {
                 scene.createInitialCreatures()
                 scene.createInitialBubbles()
             }
+
+            scene.startAutoCamera()
 
             currentTank = scene
         }
