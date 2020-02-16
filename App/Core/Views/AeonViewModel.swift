@@ -24,7 +24,7 @@ class AeonViewModel {
     var idleTimer: Timer?
     var autoCameraRunning: Bool = false {
         didSet {
-            Log.debug("Auto Camera Running Toggled to \(self.autoCameraRunning)")
+            Log.debug("Auto Camera Running Toggled to \(autoCameraRunning)")
         }
     }
 

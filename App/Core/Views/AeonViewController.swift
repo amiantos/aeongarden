@@ -426,7 +426,6 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
     func showMainMenuIfNeeded() {
         removeAnimationsIfNeeded()
         animateTransitionIfNeeded(to: .main, duration: 1)
-
     }
 
     func hideDetailsIfNeeded() {
