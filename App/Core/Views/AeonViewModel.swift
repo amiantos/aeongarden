@@ -18,15 +18,18 @@ enum DeviceType {
 class AeonViewModel {
     weak var view: AeonViewController?
     weak var scene: AeonTankScene?
-    var autosaveTimer: Timer?
+    weak var camera: AeonCameraNode?
+    weak var selectedCreature: AeonCreatureNode?
 
-    var lastUserActivityTimeout: TimeInterval = 10 // default should be 120?
-    var idleTimer: Timer?
     var autoCameraRunning: Bool = false {
         didSet {
             Log.debug("Auto Camera Running Toggled to \(autoCameraRunning)")
         }
     }
+
+    var autosaveTimer: Timer?
+    var lastUserActivityTimeout: TimeInterval = 10 // default should be 120?
+    var idleTimer: Timer?
 
     init(for view: AeonViewController) {
         self.view = view
@@ -66,15 +69,15 @@ class AeonViewModel {
 
     @objc private func startAutoCamera() {
         if let currentState = view?.currentState, currentState != .details {
-            scene?.startAutoCamera()
             view?.hideAllMenusIfNeeded()
+            camera?.enableAutoCamera()
             autoCameraRunning = true
         }
     }
 
     private func stopAutoCamera() {
-        scene?.stopAutoCamera()
         autoCameraRunning = false
+        camera?.disableAutoCamera()
     }
 
     private func createScene(size: CGSize, device: DeviceType) -> AeonTankScene {
@@ -179,6 +182,53 @@ class AeonViewModel {
 }
 
 extension AeonViewModel: AeonTankInterfaceDelegate {
+    func attachCamera(camera: AeonCameraNode) {
+        self.camera = camera
+    }
+
+    func enableAutoCamera() {
+        view?.enableAutoCamera()
+        camera?.enableAutoCamera()
+    }
+
+    func disableAutoCamera() {
+        view?.disableAutoCamera()
+        camera?.disableAutoCamera()
+    }
+
+    func creatureDeselected() {
+        if selectedCreature != nil {
+            Log.debug("Creature De-Selected")
+            view?.creatureDeselected()
+            camera?.creatureDeselected()
+            selectedCreature?.hideSelectionRing()
+            selectedCreature = nil
+        }
+    }
+
+    func creatureSelected(_ creature: AeonCreatureNode) {
+        if selectedCreature != creature {
+            Log.debug("Creature Selected")
+            if selectedCreature != creature {
+                selectedCreature?.hideSelectionRing()
+            }
+            selectedCreature = creature
+            creature.displaySelectionRing(withColor: .aeonBrightYellow)
+            view?.creatureSelected(creature)
+            camera?.creatureSelected(creature)
+        }
+    }
+
+    func resetCamera() {
+        Log.debug("Reset Camera")
+        view?.resetCamera()
+        camera?.resetCamera()
+        if selectedCreature != nil {
+            selectedCreature?.hideSelectionRing()
+            selectedCreature = nil
+        }
+    }
+
     func updatePopulation(_ population: Int) {
         view?.updatePopulation(population)
     }
@@ -201,13 +251,5 @@ extension AeonViewModel: AeonTankInterfaceDelegate {
 
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode) {
         view?.updateSelectedCreatureDetails(creature)
-    }
-
-    func creatureDeselected() {
-        view?.creatureDeselected()
-    }
-
-    func creatureSelected(_ creature: AeonCreatureNode) {
-        view?.creatureSelected(creature)
     }
 }

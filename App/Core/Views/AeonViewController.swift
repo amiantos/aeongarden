@@ -198,7 +198,7 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
             selectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.playPause.rawValue)]
             view.addGestureRecognizer(selectCreatureRecognizer)
 
-            let deselectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(deselectCreature))
+            let deselectCreatureRecognizer = UITapGestureRecognizer(target: self, action: #selector(deselectCreatureOrResetCamera))
             deselectCreatureRecognizer.allowedPressTypes = [NSNumber(value: UIPress.PressType.menu.rawValue)]
             view.addGestureRecognizer(deselectCreatureRecognizer)
         }
@@ -211,15 +211,16 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
             }
             if !mateArray.isEmpty {
                 let selected = mateArray.randomElement()!
-                scene!.selectCreature(selected)
+                viewModel?.creatureSelected(selected)
             }
             viewModel?.activityOccurred()
         }
 
-        @objc func deselectCreature() {
-            scene!.resetCamera()
-            if viewModel?.autoCameraRunning ?? false {
-                showMainMenuIfNeeded()
+        @objc func deselectCreatureOrResetCamera() {
+            if viewModel?.selectedCreature != nil {
+                viewModel?.creatureDeselected()
+            } else {
+                viewModel?.resetCamera()
             }
             viewModel?.activityOccurred()
         }
@@ -248,7 +249,6 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
     }
 
     func creatureSelected(_ creature: AeonCreatureNode) {
-        Log.debug("Creature Selected")
         selectedCreature = creature
         DispatchQueue.main.async {
             self.updateSelectedCreatureDetails(creature)
@@ -271,6 +271,22 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
                 self.viewModel?.activityOccurred()
             #endif
         }
+    }
+
+    func attachCamera(camera: AeonCameraNode) {
+        // not implemented
+    }
+
+    func resetCamera() {
+        showMainMenuIfNeeded()
+    }
+
+    func enableAutoCamera() {
+        // not implemented
+    }
+
+    func disableAutoCamera() {
+        // not implemented
     }
 
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode) {

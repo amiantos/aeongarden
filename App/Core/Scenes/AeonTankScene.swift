@@ -28,6 +28,10 @@ protocol AeonTankInterfaceDelegate: AnyObject {
     func updateSelectedCreatureDetails(_ creature: AeonCreatureNode)
     func creatureDeselected()
     func creatureSelected(_ creature: AeonCreatureNode)
+    func attachCamera(camera: AeonCameraNode)
+    func enableAutoCamera()
+    func disableAutoCamera()
+    func resetCamera()
 }
 
 class AeonTankScene: SKScene {
@@ -166,31 +170,6 @@ class AeonTankScene: SKScene {
         bubbleNodes.forEach { $0.update(currentTime) }
     }
 
-    // MARK: - Camera Controls
-
-    func startAutoCamera() {
-        cameraNode.startAutoCamera()
-    }
-
-    func stopAutoCamera() {
-        cameraNode.stopAutoCamera()
-    }
-
-    func resetCamera() {
-        Log.debug("Reset Camera")
-        deselectCreature()
-    }
-
-    func selectCreature(_ creature: AeonCreatureNode) {
-        Log.debug("Creature selected.")
-        cameraNode.selectedNode(creature)
-    }
-
-    func deselectCreature() {
-        Log.debug("Creature deselected.")
-        cameraNode.deselectNode()
-    }
-
     // MARK: - Touch Events
 
     #if os(iOS)
@@ -208,11 +187,11 @@ class AeonTankScene: SKScene {
                 let creature = creatureLocationArray[0].node
                 let distance = creatureLocationArray[0].distance
                 if distance >= 50, cameraNode.selectedNode != nil {
-                    resetCamera()
+                    interfaceDelegate?.resetCamera()
                 } else if distance >= 50 {
                     return
                 } else {
-                    selectCreature(creature)
+                    interfaceDelegate?.creatureSelected(creature)
                 }
             }
         }
@@ -425,8 +404,9 @@ extension AeonTankScene {
         addChild(cameraNode)
         camera = cameraNode
 
+        interfaceDelegate?.attachCamera(camera: cameraNode)
+
         listener = cameraNode
-//        audioEngine.mainMixerNode.outputVolume = 0.2
     }
 
     fileprivate func setupBackgroundAnimation() {

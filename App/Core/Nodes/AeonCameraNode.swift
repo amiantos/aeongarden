@@ -8,7 +8,15 @@
 
 import SpriteKit
 
-class AeonCameraNode: SKCameraNode, Updatable {
+protocol AeonCameraDelegate: AnyObject {
+    func resetCamera()
+    func enableAutoCamera()
+    func disableAutoCamera()
+    func creatureSelected(_ creature: AeonCreatureNode)
+    func creatureDeselected()
+}
+
+class AeonCameraNode: SKCameraNode, Updatable, AeonCameraDelegate {
     var body: AeonCameraBodyNode = AeonCameraBodyNode()
     var selectedNode: SKNode?
     var autoCameraIsEnabled: Bool = false
@@ -26,29 +34,50 @@ class AeonCameraNode: SKCameraNode, Updatable {
         case zoomOut
     }
 
-    // MARK: - Functions
+    // MARK: - Delegate Functions
+
+    func resetCamera() {
+        Log.debug("📷 Camera resetting.")
+        zoom(.zoomOut)
+    }
+
+    func enableAutoCamera() {
+        Log.debug("📷 Auto camera started.")
+
+        if let scene = scene, body.scene == nil {
+            Log.debug("📷 Creating camera body in scene.")
+            scene.addChild(body)
+        }
+
+        // Set body to current camera position for smooth transition
+        body.position = position
+
+        selectedNode(body)
+        body.pickRandomTarget()
+    }
+
+    func disableAutoCamera() {
+        Log.debug("📷 Auto camera stopped.")
+    }
+
+    func creatureSelected(_ creature: AeonCreatureNode) {
+        selectedNode(creature)
+    }
+
+    func creatureDeselected() {
+        deselectNode(animated: true)
+    }
+
+    // MARK: - Camera Controls
 
     func selectedNode(_ node: SKNode) {
         if selectedNode == node {
             deselectNode()
         } else {
             Log.info("📷 Selected Node")
-            if let currentCreature = selectedNode as? AeonCreatureNode, currentCreature != node {
-                currentCreature.hideSelectionRing()
-
-                if let cameraBody = node as? AeonCameraBodyNode {
-                    // If previously selected node was a creature,
-                    // and the new node is the camera body,
-                    // move the camera body there for a soft transition
-                    cameraBody.position = currentCreature.position
-                }
-            }
-
             selectedNode = node
-            if let newCreature = selectedNode as? AeonCreatureNode {
-                newCreature.displaySelectionRing(withColor: .aeonBrightYellow)
-                interfaceDelegate?.creatureSelected(newCreature)
-                zoom(.fullZoom)
+            if selectedNode is AeonCreatureNode {
+                zoom(.fullZoom, speed: 1)
             } else {
                 changeCameraZoomLevel()
             }
@@ -56,13 +85,6 @@ class AeonCameraNode: SKCameraNode, Updatable {
     }
 
     func deselectNode(animated: Bool = true) {
-        Log.info("Deselected Node")
-        if let currentCreature = selectedNode as? AeonCreatureNode {
-            currentCreature.hideSelectionRing()
-            if animated {
-                interfaceDelegate?.creatureDeselected()
-            }
-        }
         selectedNode = nil
         if animated {
             zoom(.zoomOut)
@@ -97,33 +119,6 @@ class AeonCameraNode: SKCameraNode, Updatable {
         }
     }
 
-    func update(_ currentTime: TimeInterval) {
-        if let selectedNode = self.selectedNode {
-            let cameraAction = SKAction.move(to: selectedNode.position, duration: cameraMoveDuration)
-            run(cameraAction)
-        }
-        body.update(currentTime)
-        lastUpdateTime = currentTime
-    }
-
-    func startAutoCamera() {
-        Log.debug("📷 Auto camera started...")
-
-        if let scene = scene, body.scene == nil {
-            Log.debug("📷 Creating camera body in scene.")
-            scene.addChild(body)
-        }
-
-        body.position = position
-
-        selectedNode(body)
-        body.pickRandomTarget()
-    }
-
-    func stopAutoCamera() {
-        Log.debug("📷 Auto camera stopped.")
-    }
-
     @objc func changeCameraZoomLevel() {
         Log.debug("📷 Camera auto-zoom updated.")
 
@@ -133,5 +128,16 @@ class AeonCameraNode: SKCameraNode, Updatable {
 
         let randomZoomLevels: [zoomState] = [.halfZoom, .threeQuartersZoom, .fullZoom]
         zoom(randomZoomLevels.randomElement()!, speed: 20)
+    }
+
+    // MARK: - Lifecycle
+
+    func update(_ currentTime: TimeInterval) {
+        if let selectedNode = self.selectedNode {
+            let cameraAction = SKAction.move(to: selectedNode.position, duration: cameraMoveDuration)
+            run(cameraAction)
+        }
+        body.update(currentTime)
+        lastUpdateTime = currentTime
     }
 }
