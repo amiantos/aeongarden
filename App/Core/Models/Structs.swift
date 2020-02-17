@@ -165,6 +165,7 @@ struct Creature: Codable {
             x: CGFloat(positionX),
             y: CGFloat(positionY)
         )
+        creatureNode.scaleAnimation()
         creatureNode.born()
     }
 
@@ -242,6 +243,7 @@ struct Food: Codable {
             x: CGFloat(positionX),
             y: CGFloat(positionY)
         )
+        foodNode.born()
     }
 }
 
