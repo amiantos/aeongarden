@@ -77,7 +77,7 @@ class AeonScreenSaverView: ScreenSaverView {
                 scene.createInitialBubbles()
             }
 
-            scene.startAutoCamera()
+            scene.enableAutoCamera()
 
             currentTank = scene
         }

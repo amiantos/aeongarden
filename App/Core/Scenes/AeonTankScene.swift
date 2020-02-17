@@ -125,6 +125,10 @@ class AeonTankScene: SKScene {
         node.removeFromParent()
     }
 
+    func enableAutoCamera() {
+        cameraNode.enableAutoCamera()
+    }
+
     // MARK: - Main Loop
 
     override func update(_ currentTime: TimeInterval) {
