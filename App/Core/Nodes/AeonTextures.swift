@@ -19,3 +19,5 @@ let circleTexture = AeonFileGrabber.shared.getSKTexture(named: "aeonCircle")
 let selectionTexture = AeonFileGrabber.shared.getSKTexture(named: "aeonSelectionRing")
 
 let shadowTexture = AeonFileGrabber.shared.getSKTexture(named: "aeonBodyShadow")
+
+let oceanShadowTexture = AeonFileGrabber.shared.getSKTexture(named: "aeonOceanShading")

@@ -438,5 +438,30 @@ extension AeonTankScene {
         emitter.advanceSimulationTime(5)
         emitter.name = "backgroundSparkle"
         addChild(emitter)
+
+        #if os(iOS)
+            // This background shadow only really looks good on iOS screens
+            guard let emitter2 = AeonFileGrabber.shared.getSKEmitterNode(named: "AeonBackgroundParticle") else { return }
+            emitter2.position = CGPoint(x: size.width / 2, y: size.height / 2)
+            emitter2.zPosition = -2
+            emitter2.particleTexture = shadowTexture
+            emitter2.particlePositionRange = CGVector(dx: size.width, dy: size.height)
+            emitter2.name = "backgroundShadow"
+            emitter2.particleLifetime = 20
+            emitter2.particleBirthRate = 0.2
+            emitter2.particleBlendMode = .alpha
+            emitter2.particleSize = CGSize(width: size.width / 8, height: size.width / 8)
+            emitter2.particleScale = 1
+            emitter2.particleScaleRange = 0
+            emitter2.particleAlphaSequence = SKKeyframeSequence(
+                keyframeValues: [0, 0.25, 0.30, 0.30, 0.25, 0.15, 0],
+                times: [0, 0.3, 0.5, 0.7, 0.8, 0.9, 1]
+            )
+            addChild(emitter2)
+            emitter2.advanceSimulationTime(20)
+        #endif
+
+
+
     }
 }
