@@ -25,6 +25,8 @@ class AeonCameraNode: SKCameraNode, Updatable, AeonCameraDelegate {
     var currentZoomState: zoomState = .zoomOut
     weak var interfaceDelegate: AeonTankInterfaceDelegate?
 
+    let nameLabel = SKLabelNode(text: "Bradley Root")
+
     enum zoomState {
         case fullZoom
         case threeQuartersZoom
@@ -44,7 +46,6 @@ class AeonCameraNode: SKCameraNode, Updatable, AeonCameraDelegate {
         body.name = "AeonCameraBodySprite"
         addChild(body)
 
-        let nameLabel = SKLabelNode(text: "Bradley Root")
         nameLabel.fontName = "HelveticaNeue-Bold"
         nameLabel.fontSize = 64
         nameLabel.zPosition = -3
@@ -100,7 +101,7 @@ class AeonCameraNode: SKCameraNode, Updatable, AeonCameraDelegate {
 
         if let warpAction = SKAction.animate(withWarps:[warpGeometryGrid,
                    warpGeometryGridNoWarp],
-                                             times: [1, 2]) {
+                                             times: [3, 6]) {
             warpAction.timingMode = .easeInEaseOut
             effectNode.run(SKAction.repeatForever(warpAction))
 
@@ -143,6 +144,7 @@ class AeonCameraNode: SKCameraNode, Updatable, AeonCameraDelegate {
     }
 
     func creatureSelected(_ creature: AeonCreatureNode) {
+        nameLabel.text = creature.fullName
         selectedNode(creature)
     }
 
