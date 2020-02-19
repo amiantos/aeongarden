@@ -33,6 +33,85 @@ class AeonCameraNode: SKCameraNode, Updatable, AeonCameraDelegate {
         case zoomOut
     }
 
+    override init() {
+        super.init()
+
+        let body = SKSpriteNode(texture: circleTexture)
+        body.color = .red
+        body.colorBlendFactor = 1
+        body.size = CGSize(width: 20, height: 20)
+        body.zPosition = -3
+        body.name = "AeonCameraBodySprite"
+        addChild(body)
+
+        let nameLabel = SKLabelNode(text: "Bradley Root")
+        nameLabel.fontName = "HelveticaNeue-Bold"
+        nameLabel.fontSize = 64
+        nameLabel.zPosition = -3
+        nameLabel.name = "label"
+        nameLabel.fontColor = SKColor(hue: 0.5972, saturation: 0.54, brightness: 0.65, alpha: 1.0) /* #4c71a5 */
+        nameLabel.alpha = 0.2
+
+        let effectNode = SKEffectNode()
+        effectNode.shouldEnableEffects = true
+        effectNode.addChild(nameLabel)
+
+        addChild(effectNode)
+        effectNode.position = CGPoint(x: nameLabel.position.x, y: nameLabel.position.y - 40)
+
+        let destinationPositions: [vector_float2] = [
+            // bottom row: left, center, right
+            vector_float2(-0.02, -0.02),
+            vector_float2(0.5, 0.0),
+            vector_float2(0.95, 0.02),
+
+            // middle row: left, center, right
+            vector_float2(0.0, 0.5),
+            vector_float2(0.5, 0.5),
+            vector_float2(1.0, 0.5),
+
+            // top row: left, center, right
+            vector_float2(0.0, 1.0),
+            vector_float2(0.5, 1.0),
+            vector_float2(1.0, 1.0)
+        ]
+
+        let destinationPositions2: [vector_float2] = [
+            // bottom row: left, center, right
+            vector_float2(0.02, 0.02),
+            vector_float2(0.51, 0.01),
+            vector_float2(1.01, 0.01),
+
+            // middle row: left, center, right
+            vector_float2(0.0, 0.5),
+            vector_float2(0.52, 0.42),
+            vector_float2(1.0, 0.5),
+
+            // top row: left, center, right
+            vector_float2(0.02, 1.02),
+            vector_float2(0.51, 1.01),
+            vector_float2(1.01, 1.01)
+        ]
+
+        var warpGeometryGridNoWarp = SKWarpGeometryGrid(columns: 2, rows: 2)
+        warpGeometryGridNoWarp = warpGeometryGridNoWarp.replacingByDestinationPositions(positions: destinationPositions2)
+        var warpGeometryGrid = SKWarpGeometryGrid(columns: 2, rows: 2)
+        warpGeometryGrid = warpGeometryGrid.replacingByDestinationPositions(positions: destinationPositions)
+
+        if let warpAction = SKAction.animate(withWarps:[warpGeometryGrid,
+                   warpGeometryGridNoWarp],
+                                             times: [1, 2]) {
+            warpAction.timingMode = .easeInEaseOut
+            effectNode.run(SKAction.repeatForever(warpAction))
+
+        }
+
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: - Delegate Functions
 
     func resetCamera() {

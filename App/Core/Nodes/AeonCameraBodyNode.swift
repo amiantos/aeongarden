@@ -34,12 +34,6 @@ class AeonCameraBodyNode: SKNode, Updatable {
         physicsBody?.linearDamping = 0.5
         physicsBody?.angularDamping = 1
         zPosition = 1
-
-//        let body = SKSpriteNode(texture: foodTexture)
-//        body.size = CGSize(width: 40, height: 40)
-//        body.zPosition = 1
-//        body.name = "AeonCameraBodySprite"
-//        addChild(body)
     }
 
     func update(_ currentTime: TimeInterval) {
