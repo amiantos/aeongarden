@@ -50,7 +50,7 @@ class AeonCameraBodyNode: SKNode, Updatable {
     @objc func pickRandomTarget() {
         if let scene = scene as? AeonTankScene {
             if let randomNode = scene.creatureNodes.randomElement() {
-                Log.debug("Picked new target for camera body: \(randomNode.position)")
+                Log.debug("🤳 Picked new target for camera body: \(randomNode.position)")
                 currentTarget = randomNode.position
 
                 targetingTimer?.invalidate()

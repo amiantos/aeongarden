@@ -21,11 +21,7 @@ class AeonViewModel {
     weak var camera: AeonCameraNode?
     weak var selectedCreature: AeonCreatureNode?
 
-    var autoCameraRunning: Bool = false {
-        didSet {
-            Log.debug("Auto Camera Running Toggled to \(autoCameraRunning)")
-        }
-    }
+    var autoCameraRunning: Bool = false
 
     var autosaveTimer: Timer?
     var lastUserActivityTimeout: TimeInterval = 10 // default should be 120?
@@ -47,37 +43,27 @@ class AeonViewModel {
 
     @objc private func autosave() {
         guard let scene = scene else { return }
-        Log.info("Running auto-save...")
+        Log.info("💽 Running auto-save...")
         DispatchQueue.main.async {
-            self.saveTank(scene)
+            self.saveTank(scene, userInitated: false)
         }
     }
 
     func activityOccurred() {
-        Log.info("User activity occurred.")
+        Log.info("⏰ User activity occurred.")
 
         if let idleTimer = idleTimer {
             idleTimer.invalidate()
         }
 
         idleTimer = Timer.scheduledTimer(timeInterval: lastUserActivityTimeout, target: self, selector: #selector(startAutoCamera), userInfo: nil, repeats: false)
-
-        if autoCameraRunning {
-            stopAutoCamera()
-        }
     }
 
     @objc private func startAutoCamera() {
         if let currentState = view?.currentState, currentState != .details {
             view?.hideAllMenusIfNeeded()
-            camera?.enableAutoCamera()
-            autoCameraRunning = true
+            self.enableAutoCamera()
         }
-    }
-
-    private func stopAutoCamera() {
-        autoCameraRunning = false
-        camera?.disableAutoCamera()
     }
 
     private func createScene(size: CGSize, device: DeviceType) -> AeonTankScene {
@@ -89,6 +75,7 @@ class AeonViewModel {
     }
 
     func createNewTank(size: CGSize, device: DeviceType) -> AeonTankScene {
+        activityOccurred()
         let newScene = createScene(size: size, device: device)
         CoreDataStore.standard.getCreatures { creatures in
             newScene.loadCreaturesIntoScene(creatures)
@@ -100,8 +87,9 @@ class AeonViewModel {
     }
 
     func loadTank(size: CGSize, device: DeviceType, completion: @escaping (AeonTankScene) -> Void) {
+        activityOccurred()
         Tank.getAll { tanks in
-            Log.info("Number of tanks in storage: \(tanks.count)")
+            Log.info("💽 Number of tanks in storage: \(tanks.count)")
             if let tank = tanks.last {
                 let newScene = self.createScene(size: size, device: device)
                 tank.restore(to: newScene)
@@ -113,22 +101,29 @@ class AeonViewModel {
         }
     }
 
-    func saveTank(_ scene: AeonTankScene) {
+    func saveTank(_ scene: AeonTankScene, userInitated: Bool) {
+
         let tankStruct = Tank.from(scene)
         tankStruct.save()
+        if userInitated {
+            activityOccurred()
+        }
     }
 
     func saveCreature(_ creature: AeonCreatureNode) {
+        activityOccurred()
         let creatureStruct = Creature.from(creature)
         creatureStruct.save()
     }
 
     func deleteCreature(_ creature: AeonCreatureNode) {
+        activityOccurred()
         let creatureStruct = Creature.from(creature)
         creatureStruct.delete()
     }
 
     func renameCreature(_ creature: AeonCreatureNode, firstName: String, lastName: String) {
+        activityOccurred()
         creature.firstName = firstName
         creature.lastName = lastName
         creature.fullName = "\(firstName) \(lastName)"
@@ -166,11 +161,11 @@ class AeonViewModel {
             )
         default:
             tankSettings = TankSettings(
-                foodMaxAmount: 15,
+                foodMaxAmount: 10,
                 foodHealthRestorationBaseValue: 120,
                 foodSpawnRate: 2,
-                creatureInitialAmount: 20,
-                creatureMinimumAmount: 10,
+                creatureInitialAmount: 15,
+                creatureMinimumAmount: 5,
                 creatureSpawnRate: 5,
                 creatureBirthSuccessRate: 0.10,
                 backgroundParticleBirthrate: 40,
@@ -189,26 +184,27 @@ extension AeonViewModel: AeonTankInterfaceDelegate {
     func enableAutoCamera() {
         view?.enableAutoCamera()
         camera?.enableAutoCamera()
+        autoCameraRunning = true
     }
 
     func disableAutoCamera() {
         view?.disableAutoCamera()
         camera?.disableAutoCamera()
+        autoCameraRunning = false
     }
 
     func creatureDeselected() {
-        if selectedCreature != nil {
-            Log.debug("Creature De-Selected")
-            view?.creatureDeselected()
-            camera?.creatureDeselected()
-            selectedCreature?.hideSelectionRing()
-            selectedCreature = nil
-        }
+        Log.debug("👾 Creature De-Selected")
+        view?.creatureDeselected()
+        camera?.creatureDeselected()
+        selectedCreature?.hideSelectionRing()
+        selectedCreature = nil
+        activityOccurred()
     }
 
     func creatureSelected(_ creature: AeonCreatureNode) {
         if selectedCreature != creature {
-            Log.debug("Creature Selected")
+            Log.debug("👾 Creature Selected")
             if selectedCreature != creature {
                 selectedCreature?.hideSelectionRing()
             }
@@ -216,17 +212,20 @@ extension AeonViewModel: AeonTankInterfaceDelegate {
             creature.displaySelectionRing(withColor: .aeonBrightYellow)
             view?.creatureSelected(creature)
             camera?.creatureSelected(creature)
+            activityOccurred()
         }
     }
 
     func resetCamera() {
-        Log.debug("Reset Camera")
+        Log.debug("📷 Reset Camera")
         view?.resetCamera()
         camera?.resetCamera()
+        autoCameraRunning = false
         if selectedCreature != nil {
             selectedCreature?.hideSelectionRing()
             selectedCreature = nil
         }
+        activityOccurred()
     }
 
     func updatePopulation(_ population: Int) {

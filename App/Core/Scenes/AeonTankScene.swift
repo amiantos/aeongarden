@@ -115,7 +115,7 @@ class AeonTankScene: SKScene {
         if let creature = node as? AeonCreatureNode {
             creatureNodes.remove(object: creature)
             if let selectedCreature = cameraNode.selectedNode as? AeonCreatureNode, selectedCreature == creature {
-                cameraNode.deselectNode()
+                interfaceDelegate?.creatureDeselected()
             }
         } else if let food = node as? AeonFoodNode {
             foodNodes.remove(object: food)
@@ -140,9 +140,9 @@ class AeonTankScene: SKScene {
             lastBubbleTime = currentTime
         }
 
-        // Log.debug("Food Spawner: Last Spawn \(currentTime - lastFoodTime) - Current Food: \(foodNodes.count) - Max Food: \(foodMaxAmount)")
         if (currentTime - lastFoodTime) >= 2,
             foodNodes.count < foodMaxAmount {
+            Log.debug("🍞 Food Spawner: Last Spawn \(Int(currentTime - lastFoodTime))s ago - Current: \(foodNodes.count) - Max: \(foodMaxAmount)")
             addFoodPelletToScene()
             lastFoodTime = currentTime
         }

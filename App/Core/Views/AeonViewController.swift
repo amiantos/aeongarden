@@ -90,7 +90,7 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         guard let scene = self.scene else { return }
-        viewModel?.saveTank(scene)
+        viewModel?.saveTank(scene, userInitated: false)
     }
 
     #if os(iOS)
@@ -112,13 +112,11 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
     @objc func newTank() {
         scene = viewModel?.createNewTank(size: view.bounds.size, device: deviceType)
         skView?.presentScene(scene)
-        viewModel?.activityOccurred()
     }
 
     @objc func saveTank() {
         guard let scene = scene else { return }
-        viewModel?.saveTank(scene)
-        viewModel?.activityOccurred()
+        viewModel?.saveTank(scene, userInitated: true)
     }
 
     @objc func loadTank() {
@@ -126,7 +124,6 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
             self.scene = scene
             self.skView!.presentScene(scene)
         })
-        viewModel?.activityOccurred()
     }
 
     @objc func toggleFavoriteForSelectedCreature() {
@@ -138,7 +135,6 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
                 viewModel?.deleteCreature(creature)
             }
             updateFavoriteButtonLabel()
-            viewModel?.activityOccurred()
         }
     }
 
@@ -172,7 +168,6 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
 
                 self.viewModel?.renameCreature(creature, firstName: firstName, lastName: lastName)
                 Log.info("Renamed creature to \(firstName) \(lastName).")
-                self.viewModel?.activityOccurred()
             }
             actionSheet.addAction(okButton)
 
@@ -213,7 +208,6 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
                 let selected = mateArray.randomElement()!
                 viewModel?.creatureSelected(selected)
             }
-            viewModel?.activityOccurred()
         }
 
         @objc func deselectCreatureOrResetCamera() {
@@ -222,7 +216,6 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
             } else {
                 viewModel?.resetCamera()
             }
-            viewModel?.activityOccurred()
         }
     #endif
 
@@ -253,11 +246,6 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
         DispatchQueue.main.async {
             self.updateSelectedCreatureDetails(creature)
             self.showDetailsIfNeeded()
-            #if os(iOS)
-                // Since iOS touch events occur in the scene,
-                // we need to tell the view model activity occurred here.
-                self.viewModel?.activityOccurred()
-            #endif
         }
     }
 
@@ -265,11 +253,6 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
         selectedCreature = nil
         DispatchQueue.main.async {
             self.hideDetailsIfNeeded()
-            #if os(iOS)
-                // Since iOS touch events occur in the scene,
-                // we need to tell the view model activity occurred here.
-                self.viewModel?.activityOccurred()
-            #endif
         }
     }
 
@@ -313,7 +296,7 @@ class AeonViewController: UIViewController, AeonTankInterfaceDelegate {
     private func animateTransitionIfNeeded(to state: UIState, duration: TimeInterval) {
         guard runningAnimators.isEmpty else { return }
 
-        Log.debug("Animating UI to state \(state)")
+        Log.debug("🖥 Animating UI to state \(state)")
 
         let transitionAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
             switch state {

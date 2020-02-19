@@ -19,7 +19,6 @@ protocol AeonCameraDelegate: AnyObject {
 class AeonCameraNode: SKCameraNode, Updatable, AeonCameraDelegate {
     var body: AeonCameraBodyNode = AeonCameraBodyNode()
     var selectedNode: SKNode?
-    var autoCameraIsEnabled: Bool = false
     let cameraMoveDuration: TimeInterval = 0.25
     var lastUpdateTime: TimeInterval = 0
     var zoomTimer: Timer?
@@ -38,6 +37,8 @@ class AeonCameraNode: SKCameraNode, Updatable, AeonCameraDelegate {
 
     func resetCamera() {
         Log.debug("📷 Camera resetting.")
+        disableAutoCamera()
+        selectedNode = nil
         zoom(.zoomOut)
     }
 
@@ -54,10 +55,12 @@ class AeonCameraNode: SKCameraNode, Updatable, AeonCameraDelegate {
 
         selectedNode(body)
         body.pickRandomTarget()
+        changeCameraZoomLevel()
     }
 
     func disableAutoCamera() {
         Log.debug("📷 Auto camera stopped.")
+        zoomTimer?.invalidate()
     }
 
     func creatureSelected(_ creature: AeonCreatureNode) {
@@ -78,8 +81,6 @@ class AeonCameraNode: SKCameraNode, Updatable, AeonCameraDelegate {
             selectedNode = node
             if selectedNode is AeonCreatureNode {
                 zoom(.fullZoom, speed: 1)
-            } else {
-                changeCameraZoomLevel()
             }
         }
     }
@@ -120,7 +121,7 @@ class AeonCameraNode: SKCameraNode, Updatable, AeonCameraDelegate {
     }
 
     @objc func changeCameraZoomLevel() {
-        Log.debug("📷 Camera auto-zoom updated.")
+        Log.debug("🤳 Camera auto-zoom updated.")
 
         zoomTimer?.invalidate()
 
