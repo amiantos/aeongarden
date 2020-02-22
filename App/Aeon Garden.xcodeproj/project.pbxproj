@@ -82,7 +82,6 @@
 		B409E592227E3A2000546184 /* FirstNames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F821F8C86020002B2BB /* FirstNames */; };
 		B409E593227E3A2000546184 /* AeonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F672231E855009F0460 /* AeonUtils.swift */; };
 		B409E594227E3A2000546184 /* AeonColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED31224708800026604C /* AeonColors.swift */; };
-		B409E596227E3A2000546184 /* SKTextureGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480388D223750DD005AF239 /* SKTextureGradient.swift */; };
 		B409E597227E3A3300546184 /* AeonCreatureNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDACD1F80B2B000DEA908 /* AeonCreatureNode.swift */; };
 		B409E598227E3A3300546184 /* AeonLimbNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F652231C7F5009F0460 /* AeonLimbNode.swift */; };
 		B409E599227E3A3300546184 /* AeonCreatureBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F632231C2C2009F0460 /* AeonCreatureBrain.swift */; };
@@ -140,18 +139,15 @@
 		B413ABCF224D7C8A00E8BDD1 /* FirstNames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F821F8C86020002B2BB /* FirstNames */; };
 		B413ABD0224D7C8A00E8BDD1 /* AeonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F672231E855009F0460 /* AeonUtils.swift */; };
 		B413ABD1224D7C8A00E8BDD1 /* AeonColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED31224708800026604C /* AeonColors.swift */; };
-		B413ABD2224D7C8A00E8BDD1 /* SKTextureGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480388D223750DD005AF239 /* SKTextureGradient.swift */; };
 		B413ABD3224D7C8B00E8BDD1 /* AeonNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */; };
 		B413ABD4224D7C8B00E8BDD1 /* Surnames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F801F8C81C10002B2BB /* Surnames */; };
 		B413ABD5224D7C8B00E8BDD1 /* FirstNames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F821F8C86020002B2BB /* FirstNames */; };
 		B413ABD6224D7C8B00E8BDD1 /* AeonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F672231E855009F0460 /* AeonUtils.swift */; };
 		B413ABD7224D7C8B00E8BDD1 /* AeonColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DEED31224708800026604C /* AeonColors.swift */; };
-		B413ABD8224D7C8B00E8BDD1 /* SKTextureGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480388D223750DD005AF239 /* SKTextureGradient.swift */; };
 		B413ABD9224D7C8C00E8BDD1 /* AeonNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4364F7D1F8C7A7A0002B2BB /* AeonNameGenerator.swift */; };
 		B413ABDA224D7C8C00E8BDD1 /* Surnames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F801F8C81C10002B2BB /* Surnames */; };
 		B413ABDB224D7C8C00E8BDD1 /* FirstNames in Resources */ = {isa = PBXBuildFile; fileRef = B4364F821F8C86020002B2BB /* FirstNames */; };
 		B413ABDC224D7C8C00E8BDD1 /* AeonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44868F672231E855009F0460 /* AeonUtils.swift */; };
-		B413ABDE224D7C8C00E8BDD1 /* SKTextureGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B480388D223750DD005AF239 /* SKTextureGradient.swift */; };
 		B413ABDF224D7CC000E8BDD1 /* AeonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DDABC1F80943500DEA908 /* AeonViewController.swift */; };
 		B413ABE3224D7D4F00E8BDD1 /* AeonOceanSquareBubbles.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48DDADD1F8328E400DEA908 /* AeonOceanSquareBubbles.sks */; };
 		B413ABE4224D7D4F00E8BDD1 /* AeonCreatureBubbleTrail.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4419E9F02241A557007FE456 /* AeonCreatureBubbleTrail.sks */; };
@@ -285,7 +281,6 @@
 		B4364F801F8C81C10002B2BB /* Surnames */ = {isa = PBXFileReference; lastKnownFileType = text; path = Surnames; sourceTree = "<group>"; };
 		B4364F821F8C86020002B2BB /* FirstNames */ = {isa = PBXFileReference; lastKnownFileType = text; path = FirstNames; sourceTree = "<group>"; };
 		B46CA6B4227F8F0800FAAAA6 /* AeonAssetGrabber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonAssetGrabber.swift; sourceTree = "<group>"; };
-		B480388D223750DD005AF239 /* SKTextureGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKTextureGradient.swift; sourceTree = "<group>"; };
 		B48DDABA1F80943500DEA908 /* AeonTankScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonTankScene.swift; sourceTree = "<group>"; };
 		B48DDABC1F80943500DEA908 /* AeonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonViewController.swift; sourceTree = "<group>"; };
 		B48DDACD1F80B2B000DEA908 /* AeonCreatureNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AeonCreatureNode.swift; sourceTree = "<group>"; };
@@ -418,7 +413,6 @@
 				44868F672231E855009F0460 /* AeonUtils.swift */,
 				B4DEED31224708800026604C /* AeonColors.swift */,
 				449FF756226FD92900704D7C /* AeonFonts.swift */,
-				B480388D223750DD005AF239 /* SKTextureGradient.swift */,
 				B46CA6B4227F8F0800FAAAA6 /* AeonAssetGrabber.swift */,
 				444A9834234A68AB00243BAB /* Logging.swift */,
 			);
@@ -934,7 +928,6 @@
 				B409E54F227E32FD00546184 /* GameView.swift in Sources */,
 				B409E590227E3A2000546184 /* AeonNameGenerator.swift in Sources */,
 				B409E593227E3A2000546184 /* AeonUtils.swift in Sources */,
-				B409E596227E3A2000546184 /* SKTextureGradient.swift in Sources */,
 				B409E54D227E326B00546184 /* AeonScreenSaverView.swift in Sources */,
 				448E62B023F9F1A400C63EA1 /* AeonDatabase.swift in Sources */,
 			);
@@ -962,7 +955,6 @@
 				444A982E234A638A00243BAB /* ManagedTankSettings+CoreDataProperties.swift in Sources */,
 				B413ABDF224D7CC000E8BDD1 /* AeonViewController.swift in Sources */,
 				B42E6090227E19B8001EC013 /* AeonUISettings.swift in Sources */,
-				B413ABD2224D7C8A00E8BDD1 /* SKTextureGradient.swift in Sources */,
 				444A9839234A6D4700243BAB /* ManagedLimb+CoreDataClass.swift in Sources */,
 				444A9822234A638A00243BAB /* ManagedTankCreature+CoreDataProperties.swift in Sources */,
 				B413ABB5224D7C7100E8BDD1 /* AeonTankScene.swift in Sources */,
@@ -1005,7 +997,6 @@
 				B413ABBF224D7C8200E8BDD1 /* AeonCreatureNode.swift in Sources */,
 				444A981D234A638A00243BAB /* ManagedCreature+CoreDataClass.swift in Sources */,
 				444A983C234A6D4700243BAB /* ManagedLimb+CoreDataProperties.swift in Sources */,
-				B413ABD8224D7C8B00E8BDD1 /* SKTextureGradient.swift in Sources */,
 				B413ABB6224D7C7200E8BDD1 /* AeonTankScene.swift in Sources */,
 				B46CA6B6227F8F0800FAAAA6 /* AeonAssetGrabber.swift in Sources */,
 				444A982F234A638A00243BAB /* ManagedTankSettings+CoreDataProperties.swift in Sources */,
@@ -1049,7 +1040,6 @@
 				B413ABC6224D7C8300E8BDD1 /* AeonCreatureNode.swift in Sources */,
 				4497925823F0904400FC2949 /* AeonCameraNode.swift in Sources */,
 				4431A06122AB1CC900865489 /* AeonTextures.swift in Sources */,
-				B413ABDE224D7C8C00E8BDD1 /* SKTextureGradient.swift in Sources */,
 				4497925D23F0AF9D00FC2949 /* AeonCameraBodyNode.swift in Sources */,
 				B413ABB7224D7C7300E8BDD1 /* AeonTankScene.swift in Sources */,
 				B413ABC8224D7C8300E8BDD1 /* AeonCreatureBrain.swift in Sources */,

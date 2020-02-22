@@ -418,7 +418,14 @@ extension AeonTankScene {
         emitter.particleTexture = squareTexture
         emitter.position = CGPoint(x: size.width / 2, y: size.height / 2)
         emitter.zPosition = -1
-        emitter.particlePositionRange = CGVector(dx: size.width, dy: size.height)
+        #if os(iOS)
+            emitter.particleBirthRate = 60
+        #elseif os(tvOS)
+            emitter.particleBirthRate = 120
+        #elseif os(macOS)
+            emitter.particleBirthRate = 160
+        #endif
+        emitter.particlePositionRange = CGVector(dx: size.width * 1.5, dy: size.height * 1.5)
         emitter.advanceSimulationTime(5)
         emitter.name = "backgroundSparkle"
         addChild(emitter)
