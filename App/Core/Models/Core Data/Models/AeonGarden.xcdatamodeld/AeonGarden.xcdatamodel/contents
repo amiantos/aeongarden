@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ManagedBubble" representedClassName="ManagedBubble" syncable="YES">
         <attribute name="positionX" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="positionY" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="tank" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedTank" inverseName="bubbles" inverseEntity="ManagedTank"/>
     </entity>
     <entity name="ManagedCreature" representedClassName="ManagedCreature" syncable="YES">
+        <attribute name="ancestors" attributeType="Transformable" customClassName="[UUID]"/>
         <attribute name="firstName" attributeType="String"/>
         <attribute name="lastName" attributeType="String"/>
         <attribute name="movementSpeed" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -72,11 +73,11 @@
     </entity>
     <elements>
         <element name="ManagedBubble" positionX="368.70703125" positionY="111.85546875" width="128" height="88"/>
-        <element name="ManagedCreature" positionX="-26.3359375" positionY="-118.1875" width="128" height="163"/>
+        <element name="ManagedCreature" positionX="-26.3359375" positionY="-118.1875" width="128" height="178"/>
         <element name="ManagedFood" positionX="391.83203125" positionY="6.43359375" width="128" height="88"/>
-        <element name="ManagedTank" positionX="-200.9921875" positionY="48.17578125" width="128" height="178"/>
-        <element name="ManagedTankSettings" positionX="156.62890625" positionY="194.0703125" width="128" height="193"/>
-        <element name="ManagedTankCreature" positionX="149.62890625" positionY="-8.6640625" width="128" height="133"/>
         <element name="ManagedLimb" positionX="9" positionY="36" width="128" height="298"/>
+        <element name="ManagedTank" positionX="-200.9921875" positionY="48.17578125" width="128" height="178"/>
+        <element name="ManagedTankCreature" positionX="149.62890625" positionY="-8.6640625" width="128" height="133"/>
+        <element name="ManagedTankSettings" positionX="156.62890625" positionY="194.0703125" width="128" height="193"/>
     </elements>
 </model>

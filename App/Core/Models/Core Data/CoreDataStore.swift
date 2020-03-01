@@ -187,6 +187,7 @@ extension CoreDataStore: DataStoreProtocol {
                     managedTankCreature.uuid = creature.uuid
                     managedTankCreature.firstName = creature.firstName
                     managedTankCreature.lastName = creature.lastName
+                    managedTankCreature.ancestors = creature.ancestors
 
                     managedTankCreature.currentHealth = creature.currentHealth
                     managedTankCreature.lifeTime = creature.lifeTime

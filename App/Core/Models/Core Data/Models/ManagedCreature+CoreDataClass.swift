@@ -21,6 +21,7 @@ public class ManagedCreature: NSManagedObject {
             uuid: self.uuid,
             firstName: self.firstName,
             lastName: self.lastName,
+            ancestors: self.ancestors,
             limbs: limbs,
             movementSpeed: self.movementSpeed,
             turnSpeed: self.turnSpeed,

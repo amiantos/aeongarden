@@ -12,7 +12,7 @@
 import SpriteKit
 
 class AeonCreatureNode: SKNode, Updatable {
-    let uuid: UUID
+    public let uuid: UUID
 
     var selectionRing: SKSpriteNode = SKSpriteNode(texture: selectionTexture)
 
@@ -21,6 +21,7 @@ class AeonCreatureNode: SKNode, Updatable {
     public var firstName: String
     public var lastName: String
     public var fullName: String
+    public var ancestors: [UUID]
 
     // MARK: - Inheritable Traits
 
@@ -69,6 +70,7 @@ class AeonCreatureNode: SKNode, Updatable {
         firstName = creatureStruct.firstName
         lastName = creatureStruct.lastName
         fullName = "\(firstName) \(lastName)"
+        ancestors = creatureStruct.ancestors
 
         limbOne = AeonLimbNode(with: creatureStruct.limbs[0])
         limbTwo = AeonLimbNode(with: creatureStruct.limbs[1])
@@ -124,6 +126,7 @@ class AeonCreatureNode: SKNode, Updatable {
         firstName = AeonNameGenerator.shared.returnFirstName()
         lastName = AeonNameGenerator.shared.returnLastName()
         fullName = "\(firstName) \(lastName)"
+        ancestors = []
         self.primaryHue = primaryHue
 
         // Create limbs
@@ -156,6 +159,11 @@ class AeonCreatureNode: SKNode, Updatable {
         firstName = AeonNameGenerator.shared.returnFirstName()
         lastName = parents.randomElement()!.lastName
         fullName = "\(firstName) \(lastName)"
+        ancestors = []
+        ancestors.append(contentsOf: parents[0].ancestors)
+        ancestors.append(contentsOf: parents[1].ancestors)
+        ancestors.append(parents[0].uuid)
+        ancestors.append(parents[1].uuid)
 
         limbOne = AeonLimbNode(withLimb: parents.randomElement()!.limbOne)
         limbTwo = AeonLimbNode(withLimb: parents.randomElement()!.limbTwo)
@@ -433,9 +441,10 @@ extension AeonCreatureNode: AeonCreatureBrainDelegate {
     func getEligibleMates() -> [AeonCreatureNode] {
         var mateArray: [AeonCreatureNode] = []
         let nodes = getNodes()
-        for case let child as AeonCreatureNode in nodes where
-            child != self {
-            mateArray.append(child)
+        for case let child as AeonCreatureNode in nodes {
+            if child != self, !ancestors.contains(child.uuid) {
+                mateArray.append(child)
+            }
         }
         return mateArray
     }

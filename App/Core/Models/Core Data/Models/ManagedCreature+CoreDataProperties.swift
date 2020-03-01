@@ -17,6 +17,7 @@ extension ManagedCreature {
 
     @NSManaged public var firstName: String
     @NSManaged public var lastName: String
+    @NSManaged public var ancestors: [UUID]
     @NSManaged public var movementSpeed: Float
     @NSManaged public var primaryHue: Float
     @NSManaged public var sizeModifier: Float

@@ -114,6 +114,7 @@ struct Creature: Codable {
 
     let firstName: String
     let lastName: String
+    let ancestors: [UUID]
 
     let limbs: [Limb]
 
@@ -140,6 +141,7 @@ struct Creature: Codable {
             uuid: node.uuid,
             firstName: node.firstName,
             lastName: node.lastName,
+            ancestors: node.ancestors,
             limbs: limbs,
             movementSpeed: Float(node.movementSpeed),
             turnSpeed: Float(node.turnSpeed),
